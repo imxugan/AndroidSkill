@@ -6,3 +6,4 @@
 .externalNativeBuild
 */build/
 /.idea/
+local.properties
