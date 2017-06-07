@@ -27,6 +27,9 @@
         <activity android:name="test.cn.example.com.androidskill.LifeActivity"
                   android:screenOrientation="portrait">
         </activity>
+        <activity android:name="test.cn.example.com.androidskill.DebugActivity"
+                  android:screenOrientation="portrait">
+        </activity>
 
     </application>
 

@@ -16,6 +16,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initView() {
+        TextView debug = (TextView) findViewById(R.id.debug);
+        debug.setOnClickListener(this);
         TextView charapter1 = (TextView) findViewById(R.id.charapter1);
         charapter1.setOnClickListener(this);
     }
@@ -23,6 +25,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.debug:
+                Intent intent_debug = new Intent(MainActivity.this, DebugActivity.class);
+                myStartActivity(intent_debug);
+                break;
             case R.id.charapter1:
                 Intent intent = new Intent(MainActivity.this, ChapterOneActivity.class);
                 myStartActivity(intent);
