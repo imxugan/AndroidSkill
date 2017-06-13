@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import test.cn.example.com.androidskill.callback.CallBackActivity;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     @Override
@@ -20,6 +22,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         debug.setOnClickListener(this);
         TextView threadPool = (TextView) findViewById(R.id.threadPool);
         threadPool.setOnClickListener(this);
+        TextView callBack = (TextView) findViewById(R.id.callBack);
+        callBack.setOnClickListener(this);
         TextView charapter1 = (TextView) findViewById(R.id.charapter1);
         charapter1.setOnClickListener(this);
     }
@@ -34,6 +38,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.threadPool:
                 Intent intent_threadPool = new Intent(MainActivity.this, ThreadPoolActivity.class);
                 myStartActivity(intent_threadPool);
+                break;
+            case R.id.callBack:
+                Intent intent_callBack = new Intent(MainActivity.this, CallBackActivity.class);
+                myStartActivity(intent_callBack);
                 break;
             case R.id.charapter1:
                 Intent intent = new Intent(MainActivity.this, ChapterOneActivity.class);
