@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initView() {
         TextView debug = (TextView) findViewById(R.id.debug);
         debug.setOnClickListener(this);
+        TextView threadPool = (TextView) findViewById(R.id.threadPool);
+        threadPool.setOnClickListener(this);
         TextView charapter1 = (TextView) findViewById(R.id.charapter1);
         charapter1.setOnClickListener(this);
     }
@@ -28,6 +30,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.debug:
                 Intent intent_debug = new Intent(MainActivity.this, DebugActivity.class);
                 myStartActivity(intent_debug);
+                break;
+            case R.id.threadPool:
+                Intent intent_threadPool = new Intent(MainActivity.this, ThreadPoolActivity.class);
+                myStartActivity(intent_threadPool);
                 break;
             case R.id.charapter1:
                 Intent intent = new Intent(MainActivity.this, ChapterOneActivity.class);
