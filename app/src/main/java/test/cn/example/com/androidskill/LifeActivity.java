@@ -1,6 +1,7 @@
 package test.cn.example.com.androidskill;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 
 import test.cn.example.com.util.LogUtil;
@@ -24,6 +25,12 @@ public class LifeActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        LogUtil.i("onRestoreInstanceState");
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         LogUtil.i("onResume");
@@ -33,6 +40,12 @@ public class LifeActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         LogUtil.i("onPause");
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        LogUtil.i("onSaveInstanceState");
     }
 
     @Override

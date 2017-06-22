@@ -8,16 +8,11 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
     tools:context="test.cn.example.com.androidskill.LannchModeActivity">
-    <Button
-        android:id="@+id/launch_mode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="启动模式"/>
-    <Button
-        android:id="@+id/launch_single_task"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="启动singleTask模式的activity"/>
+    <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:text="single task"/>
 </LinearLayout>
