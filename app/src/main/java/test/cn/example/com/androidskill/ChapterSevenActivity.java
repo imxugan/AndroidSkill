@@ -34,7 +34,7 @@ public class ChapterSevenActivity extends AppCompatActivity implements View.OnCl
                 startActivity(new Intent(ChapterSevenActivity.this,ViewAnimationActivity.class));
                 break;
             case R.id.frame_animation:
-                startActivity(new Intent(ChapterSevenActivity.this,ServiceWorkActivity.class));
+                startActivity(new Intent(ChapterSevenActivity.this,FrameAnimationActivity.class));
                 break;
             case R.id.property_animation:
                 startActivity(new Intent(ChapterSevenActivity.this,ServiceWorkActivity.class));
