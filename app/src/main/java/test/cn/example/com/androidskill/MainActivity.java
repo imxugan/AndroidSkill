@@ -8,8 +8,6 @@ import android.widget.TextView;
 
 import test.cn.example.com.androidskill.callback.CallBackActivity;
 
-import static test.cn.example.com.androidskill.R.id.charapter9;
-
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     @Override
@@ -53,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent = new Intent(MainActivity.this, ChapterOneActivity.class);
                 myStartActivity(intent);
             case R.id.charapter7:
-                Intent intent_7 = new Intent(MainActivity.this, ChapterNineActivity.class);
+                Intent intent_7 = new Intent(MainActivity.this, ChapterSevenActivity.class);
                 myStartActivity(intent_7);
                 break;
             case R.id.charapter9:
