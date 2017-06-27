@@ -22,5 +22,21 @@ public class ViewAnimationActivity extends AppCompatActivity {
         ImageView iv_view_animation = (ImageView) findViewById(R.id.iv_view_animation);
         Animation animation = AnimationUtils.loadAnimation(this,R.anim.animation_test);
         iv_view_animation.startAnimation(animation);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
     }
 }
