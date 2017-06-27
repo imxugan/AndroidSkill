@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layoutAnimation xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="1000"
+    android:delay="0.5"
+    android:animationOrder="normal"
+    android:animation="@anim/animation_test">
+    <!--android:delay="0.5" 表示子元素动画开始的时间延迟，比如子元素入场动画的时间周期
+    为300ms,那么0.5表示每个子元素都需要延迟150m才能播放入场动画，也就是说，如果第一个
+    子元素延迟150ms,开始播放入场动画，那么第二个子元素要延迟300ms开始播放入场动画，
+    依次类推。-->
+
+    <!--android:animationOrder="normal" 表示子元素的动画顺序，有三个选项，normal,reverse和-->
+    <!--random,其中normal表示顺序显示，即排在前面的子元素先开始放入场动画，reverse表示逆向-->
+    <!--开始，即排在后面的子元素先开始播放入场动画，random表示子元素随机播放入场动画。-->
+
+    <!--android:animation="@anim/animation_test" 表示为子元素指定入场动画-->
+</layoutAnimation>

@@ -10,23 +10,18 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context="test.cn.example.com.androidskill.LannchModeActivity">
-    <ImageView
-        android:id="@+id/iv_view_animation"
-    android:layout_width="200dp"
-    android:layout_height="120dp"
-    android:gravity="center"
-    android:src="@drawable/test_ic_img_user_default"/>
 
-    <ListView
-        android:id="@+id/lv"
+    <TextView
+        android:id="@+id/itemTitle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layoutAnimation="@anim/layout_animation_test"
-        android:cacheColorHint="#000000"
-        android:divider="#dddbdb"
-        android:dividerHeight="1.0dp"
-        android:background="@android:color/darker_gray"
-        android:listSelector="@android:color/transparent">
+        android:layout_height="wrap_content"
+        android:gravity="center"/>
 
-    </ListView>
+    <TextView
+        android:id="@+id/itemText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"/>
+
+
 </LinearLayout>

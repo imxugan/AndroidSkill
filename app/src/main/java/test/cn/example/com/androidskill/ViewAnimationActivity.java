@@ -4,18 +4,40 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * 补间动画演示
  */
 public class ViewAnimationActivity extends AppCompatActivity {
-
+    SimpleAdapter mAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_animation);
+        initData();
         initView();
+    }
+
+    private void initData() {
+        List<HashMap<String,String>> mDataList = new ArrayList<HashMap<String,String>>();
+        for(int i=0;i<3;i++){
+            HashMap<String,String> map = new HashMap<String,String>();
+            map.put("itemTitle","this is title"+i);
+            map.put("itemText","this is text"+i);
+            mDataList.add(map);
+        }
+
+        mAdapter = new SimpleAdapter(this,mDataList,R.layout.item_list_view_animation_activity,
+                new String[]{"itemTitle","itemText"},
+                new int[]{R.id.itemTitle,R.id.itemText});
     }
 
     private void initView() {
@@ -25,7 +47,7 @@ public class ViewAnimationActivity extends AppCompatActivity {
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                
+
             }
 
             @Override
@@ -38,5 +60,13 @@ public class ViewAnimationActivity extends AppCompatActivity {
 
             }
         });
+
+        ListView lv = (ListView) findViewById(R.id.lv);
+        Animation layoutAnimation = AnimationUtils.loadAnimation(this,R.anim.animation_item);
+        LayoutAnimationController controller = new LayoutAnimationController(layoutAnimation);
+        controller.setDelay(0.5f);
+        controller.setOrder(LayoutAnimationController.ORDER_NORMAL);
+        lv.setLayoutAnimation(controller);
+        lv.setAdapter(mAdapter);
     }
 }
