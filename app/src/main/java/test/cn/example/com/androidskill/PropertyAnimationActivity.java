@@ -2,7 +2,9 @@ package test.cn.example.com.androidskill;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
+import android.animation.IntEvaluator;
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.animation.Animation;
@@ -61,9 +63,26 @@ public class PropertyAnimationActivity extends AppCompatActivity {
         Animation scale_animation = AnimationUtils.loadAnimation(PropertyAnimationActivity.this,R.anim.animation_scale);
         scale.startAnimation(scale_animation);
 
+        //用一个类包装原始对象，间接提供get和set方法的方式来完成属性动画
         Button scale2 = (Button)findViewById(R.id.scale2);
         ViewWrapper wrapper = new ViewWrapper(scale2);
         ObjectAnimator.ofInt(wrapper,"width",500).setDuration(5000).start();
 
+        //采用ValueAnimaor，监听动画过程，实现属性的改变
+//        ValueAnimator 本身不作用任何对象，也就是说直接使用它没有任何的动画效果,
+//        但是它可以对一个值做动画。我们可以监听动画过程，在动画过程中修改我们的
+//          对象属性值，这样相当于对对象做了动画。
+        final Button scale3 = (Button)findViewById(R.id.scale3);
+        ValueAnimator valueAnimator = ValueAnimator.ofInt(1,100);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            private IntEvaluator mEvaluator = new IntEvaluator();
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float fraction = animation.getAnimatedFraction();
+                scale3.getLayoutParams().width = mEvaluator.evaluate(fraction,scale3.getWidth(),500);
+                scale3.requestLayout();
+            }
+        });
+        valueAnimator.setDuration(5000).start();
     }
 }

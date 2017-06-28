@@ -30,5 +30,11 @@
         android:layout_height="120dp"
         android:gravity="center"
         android:text="将button从当前宽度增加到500px宽度动画,使用属性动画的效果"/>
+    <Button
+        android:id="@+id/scale3"
+        android:layout_width="100px"
+        android:layout_height="120dp"
+        android:gravity="center"
+        android:text="将button从当前宽度增加到500px宽度动画,使用属性动画的效果"/>
 
 </LinearLayout>
