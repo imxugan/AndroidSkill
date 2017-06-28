@@ -10,6 +10,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
+import test.cn.example.com.androidskill.view.ViewWrapper;
+
 /**
  * 属性动画演示
  */
@@ -59,7 +61,9 @@ public class PropertyAnimationActivity extends AppCompatActivity {
         Animation scale_animation = AnimationUtils.loadAnimation(PropertyAnimationActivity.this,R.anim.animation_scale);
         scale.startAnimation(scale_animation);
 
-
+        Button scale2 = (Button)findViewById(R.id.scale2);
+        ViewWrapper wrapper = new ViewWrapper(scale2);
+        ObjectAnimator.ofInt(wrapper,"width",500).setDuration(5000).start();
 
     }
 }
