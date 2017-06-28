@@ -5,6 +5,9 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.TextView;
 
 /**
@@ -48,6 +51,15 @@ public class PropertyAnimationActivity extends AppCompatActivity {
 
             }
         });
+
+        //记得在animation_scale文件中给scal标签添加如下属性否则，效果不出现
+        // android:fromYScale="1.0"
+        //android:toYScale="1.0"
+        Button scale = (Button)findViewById(R.id.scale);
+        Animation scale_animation = AnimationUtils.loadAnimation(PropertyAnimationActivity.this,R.anim.animation_scale);
+        scale.startAnimation(scale_animation);
+
+
 
     }
 }
