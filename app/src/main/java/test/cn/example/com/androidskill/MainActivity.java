@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         callBack.setOnClickListener(this);
         TextView charapter1 = (TextView) findViewById(R.id.charapter1);
         charapter1.setOnClickListener(this);
+        TextView charapter2 = (TextView) findViewById(R.id.charapter2);
+        charapter2.setOnClickListener(this);
         TextView charapter7 = (TextView) findViewById(R.id.charapter7);
         charapter7.setOnClickListener(this);
         TextView charapter9 = (TextView) findViewById(R.id.charapter9);
@@ -50,6 +52,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.charapter1:
                 Intent intent = new Intent(MainActivity.this, ChapterOneActivity.class);
                 myStartActivity(intent);
+            case R.id.charapter2:
+                Intent intent_2 = new Intent(MainActivity.this,ChapterTwoActivity.class);
+                startActivity(intent_2);
+                break;
             case R.id.charapter7:
                 Intent intent_7 = new Intent(MainActivity.this, ChapterSevenActivity.class);
                 myStartActivity(intent_7);
