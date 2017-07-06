@@ -10,9 +10,15 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context="test.cn.example.com.androidskill.ChapterOneActivity">
+
     <Button
-    android:id="@+id/messenger"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="采用Messenger进行进程间通信"/>
+        android:id="@+id/messenger"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="采用Messenger进行进程间通信"/>
+    <Button
+        android:id="@+id/btn_aidl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="采用AIDL进行进程间通信"/>
 </LinearLayout>

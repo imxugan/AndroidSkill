@@ -14,7 +14,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.List;
+
 import test.cn.example.com.androidskill.constant.MyConstants;
+import test.cn.example.com.androidskill.service.BookManagerService;
 import test.cn.example.com.androidskill.service.MyService;
 import test.cn.example.com.util.LogUtil;
 
@@ -22,6 +25,8 @@ import test.cn.example.com.util.LogUtil;
  * android IPC机制
  */
 public class ChapterTwoActivity extends AppCompatActivity implements View.OnClickListener{
+    private boolean isMyServiceConnected;
+    private boolean isBookServiceConnected;
     private Messenger replyMessenger = new Messenger(myHandler);
 
     @Override
@@ -34,8 +39,8 @@ public class ChapterTwoActivity extends AppCompatActivity implements View.OnClic
     private void initView() {
         Button messenger = (Button)findViewById(R.id.messenger);
         messenger.setOnClickListener(this);
-//        Button launch_mode = (Button)findViewById(R.id.launch_mode);
-//        launch_mode.setOnClickListener(this);
+        Button btn_aidl = (Button)findViewById(R.id.btn_aidl);
+        btn_aidl.setOnClickListener(this);
     }
 
     @Override
@@ -45,9 +50,10 @@ public class ChapterTwoActivity extends AppCompatActivity implements View.OnClic
                 Intent service = new Intent(ChapterTwoActivity.this, MyService.class);
                 bindService(service, myServiceConnection, Context.BIND_AUTO_CREATE);
                 break;
-//            case R.id.launch_mode:
-//                startActivity(new Intent(ChapterTwoActivity.this,LannchModeActivity.class));
-//                break;
+            case R.id.btn_aidl:
+                Intent bookService = new Intent(ChapterTwoActivity.this, BookManagerService.class);
+                bindService(bookService,bookServiceConnection,Context.BIND_AUTO_CREATE);
+                break;
             default:
                 break;
         }
@@ -55,8 +61,11 @@ public class ChapterTwoActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     protected void onDestroy() {
-        if(null != myServiceConnection){
+        if(isMyServiceConnected && null != myServiceConnection){
             unbindService(myServiceConnection);
+        }
+        if(isBookServiceConnected && null != bookServiceConnection){
+            unbindService(bookServiceConnection);
         }
         super.onDestroy();
     }
@@ -79,6 +88,7 @@ public class ChapterTwoActivity extends AppCompatActivity implements View.OnClic
     private ServiceConnection myServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
+            isMyServiceConnected = true;
             Messenger messenger = new Messenger(service);
             Message msg = Message.obtain();
             msg.what = MyConstants.MSG_FROM_CLINET;
@@ -95,7 +105,26 @@ public class ChapterTwoActivity extends AppCompatActivity implements View.OnClic
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
+            isMyServiceConnected = false;
+        }
+    };
 
+    private ServiceConnection bookServiceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            isBookServiceConnected = true;
+            IBookManager iBookManager = IBookManager.Stub.asInterface(service);
+            try {
+                List<Book> bookList = iBookManager.getBookList();
+                LogUtil.i("从服务端获取的书是：   "+bookList.toString());
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            isBookServiceConnected = false;
         }
     };
 }
