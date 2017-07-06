@@ -27,6 +27,7 @@ import test.cn.example.com.util.LogUtil;
 public class ChapterTwoActivity extends AppCompatActivity implements View.OnClickListener{
     private boolean isMyServiceConnected;
     private boolean isBookServiceConnected;
+    private IBookManager mIBookManager;
     private Messenger replyMessenger = new Messenger(myHandler);
 
     @Override
@@ -77,6 +78,10 @@ public class ChapterTwoActivity extends AppCompatActivity implements View.OnClic
                 case MyConstants.MSG_FROM_SERVICE:
                     LogUtil.i(""+msg.getData().get(MyConstants.MSG_REPLY));
                     break;
+                case MyConstants.MSG_FROM_BOOK_SERVICE:
+                    Book book = (Book) msg.getData().get(MyConstants.MSG_FROM_BOOK);
+                    LogUtil.i("新到的书是    "+book.toString());
+                    break;
                 default:
                     super.handleMessage(msg);
                     break;
@@ -113,10 +118,14 @@ public class ChapterTwoActivity extends AppCompatActivity implements View.OnClic
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             isBookServiceConnected = true;
-            IBookManager iBookManager = IBookManager.Stub.asInterface(service);
+            mIBookManager = IBookManager.Stub.asInterface(service);
             try {
-                List<Book> bookList = iBookManager.getBookList();
+                List<Book> bookList = mIBookManager.getBookList();
                 LogUtil.i("从服务端获取的书是：   "+bookList.toString());
+                mIBookManager.registerLister(mNewBookArrivedListener);
+                mIBookManager.addBook(new Book(3,"android skill"));
+                LogUtil.i("---从服务端获取的书是：   "+mIBookManager.getBookList().toString());
+
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
@@ -124,7 +133,27 @@ public class ChapterTwoActivity extends AppCompatActivity implements View.OnClic
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
+            try {
+                mIBookManager.unregisterLister(mNewBookArrivedListener);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
             isBookServiceConnected = false;
+        }
+    };
+
+    private IOnNewBookArrived mNewBookArrivedListener = new IOnNewBookArrived.Stub() {
+        @Override
+        public void onNewBookArrived(Book book) throws RemoteException {
+            LogUtil.i("onNewBookArrived");
+            //onNewBookArrived这个方法在客户端的线程池中执行，所以需要
+            //通过handler发送消息到UI线程
+            Message msg = Message.obtain();
+            msg.what = MyConstants.MSG_FROM_BOOK_SERVICE;
+            Bundle b = new Bundle();
+            b.putParcelable(MyConstants.MSG_FROM_BOOK,book);
+            msg.setData(b);
+            myHandler.sendMessage(msg);
         }
     };
 }
