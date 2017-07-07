@@ -36,6 +36,7 @@ public class BookManagerService extends Service{
     @Override
     public void onCreate() {
         super.onCreate();
+        LogUtil.i("threadId ="+Thread.currentThread().getId());//主线程
         bookList.add(new Book(1,"first line code"));
         bookList.add(new Book(2,"java effective"));
     }
@@ -43,18 +44,21 @@ public class BookManagerService extends Service{
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
+        LogUtil.i("threadId ="+Thread.currentThread().getId());//主线程
         return mBinder;
     }
 
     private Binder mBinder = new IBookManager.Stub(){
         @Override
         public List<Book> getBookList() throws RemoteException {
+            LogUtil.i("threadId ="+Thread.currentThread().getId());//子线程
+//            SystemClock.sleep(6000);//模拟耗时操作
             return bookList;
         }
 
         @Override
         public void addBook(Book book) throws RemoteException {
-            bookList.add(book);
+            bookList.add(book);//子线程
             newBookArrived(book);
         }
 
@@ -63,10 +67,10 @@ public class BookManagerService extends Service{
 //            if(!listeners.contains(listener)){
 //                listeners.add(listener);
 //            }
-
+            //子线程
             listeners.register(listener);//mListeners换成RemoteCallbackList后
             int num = listeners.beginBroadcast();
-            LogUtil.i("registerListener后       mListeners.size()="+num);
+            LogUtil.i("threadId ="+Thread.currentThread().getId()+"---registerListener后       mListeners.size()="+num);
             listeners.finishBroadcast();
         }
 
@@ -81,9 +85,10 @@ public class BookManagerService extends Service{
 //            LogUtil.i("size="+listeners.size());
 
 
+            //子线程
             listeners.unregister(listener);//mListeners换成RemoteCallbackList后
             int num = listeners.beginBroadcast();
-            LogUtil.i("unregisterListener后       mListeners.size()="+num);
+            LogUtil.i("threadId ="+Thread.currentThread().getId()+"---unregisterListener后       mListeners.size()="+num);
             listeners.finishBroadcast();
         }
     };
@@ -109,6 +114,7 @@ public class BookManagerService extends Service{
             }
         }
         listeners.finishBroadcast();
+        LogUtil.i("threadId ="+Thread.currentThread().getId());//子线程中
     }
 
 }

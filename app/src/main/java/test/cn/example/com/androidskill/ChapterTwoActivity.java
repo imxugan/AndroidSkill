@@ -133,6 +133,7 @@ public class ChapterTwoActivity extends AppCompatActivity implements View.OnClic
             isBookServiceConnected = true;
             mIBookManager = IBookManager.Stub.asInterface(service);
             try {
+                service.linkToDeath(mDeathRecipient,0);
                 List<Book> bookList = mIBookManager.getBookList();
                 LogUtil.i("从服务端获取的书是：   "+bookList.toString());
                 mIBookManager.registerLister(mNewBookArrivedListener);
@@ -158,7 +159,7 @@ public class ChapterTwoActivity extends AppCompatActivity implements View.OnClic
     private IOnNewBookArrived mNewBookArrivedListener = new IOnNewBookArrived.Stub() {
         @Override
         public void onNewBookArrived(Book book) throws RemoteException {
-            LogUtil.i("onNewBookArrived");
+            LogUtil.i("onNewBookArrived---threadId ="+Thread.currentThread().getId());
             //onNewBookArrived这个方法在客户端的线程池中执行，所以需要
             //通过handler发送消息到UI线程
             Message msg = Message.obtain();
@@ -167,6 +168,20 @@ public class ChapterTwoActivity extends AppCompatActivity implements View.OnClic
             b.putParcelable(MyConstants.MSG_FROM_BOOK,book);
             msg.setData(b);
             myHandler.sendMessage(msg);
+        }
+    };
+
+    private IBinder.DeathRecipient mDeathRecipient = new IBinder.DeathRecipient(){
+
+        @Override
+        public void binderDied() {
+            LogUtil.i("binderDied");
+            if(mIBookManager == null){
+                return;
+            }
+            mIBookManager.asBinder().unlinkToDeath(mDeathRecipient,0);
+            mIBookManager = null;
+            //从新进行远程连接，代码略
         }
     };
 }
