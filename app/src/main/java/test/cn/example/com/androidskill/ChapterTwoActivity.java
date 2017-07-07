@@ -65,8 +65,21 @@ public class ChapterTwoActivity extends AppCompatActivity implements View.OnClic
         if(isMyServiceConnected && null != myServiceConnection){
             unbindService(myServiceConnection);
         }
-        if(isBookServiceConnected && null != bookServiceConnection){
-            unbindService(bookServiceConnection);
+        if(isBookServiceConnected ){
+            //先注销掉监听
+            if(null != mIBookManager){
+                try {
+                    mIBookManager.unregisterLister(mNewBookArrivedListener);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            //在解绑服务
+            if(null != bookServiceConnection){
+                unbindService(bookServiceConnection);
+            }
+
         }
         super.onDestroy();
     }

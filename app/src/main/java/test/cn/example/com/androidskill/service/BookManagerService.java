@@ -14,12 +14,21 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import test.cn.example.com.androidskill.Book;
 import test.cn.example.com.androidskill.IBookManager;
 import test.cn.example.com.androidskill.IOnNewBookArrived;
+import test.cn.example.com.util.LogUtil;
 
 /**
  * Created by xgxg on 2017/7/6.
  */
 
 public class BookManagerService extends Service{
+    //这里采用CopyWriteArrayList，是因为CopyWriteArrayList是支持
+    //并发读写的，由于AIDL的方法是字啊服务端进程的Binder线程池
+    //中执行的，因此当多个客户端同时连接时，会存在多个线程同问
+    //访问的情况，所以需要在AIDL方法中处理线程同步的问题，CopyWriteArrayList
+    //就就自动同步。注意：AIDL中支持ArrayList,但是CopyWriteArrayList并不继承
+    //ArrayList,那么CopyWriteArrayList为什么能正常工作呢?这是因为AIDL中所支持
+    //的是抽象的List,而List只是一个接口，因此，虽然服务端返回的是CopyWriteArrayList，
+    //但是binder会按照List的规范去访问数据并最终形成一个新的ArrayList返回给客户端。
     private CopyOnWriteArrayList<Book> bookList = new CopyOnWriteArrayList<>();
     private ArrayList<IOnNewBookArrived> listeners = new ArrayList<>();
 
@@ -59,7 +68,11 @@ public class BookManagerService extends Service{
         public void unregisterLister(IOnNewBookArrived listener) throws RemoteException {
             if(listeners.contains(listener)){
                 listeners.remove(listener);
+                LogUtil.i("unregisterLister succed");
+            }else {
+                LogUtil.i("unregisterLister failed");
             }
+            LogUtil.i("size="+listeners.size());
         }
     };
 
