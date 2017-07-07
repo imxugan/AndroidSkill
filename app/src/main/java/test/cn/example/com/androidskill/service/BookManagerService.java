@@ -4,10 +4,10 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -30,7 +30,8 @@ public class BookManagerService extends Service{
     //的是抽象的List,而List只是一个接口，因此，虽然服务端返回的是CopyWriteArrayList，
     //但是binder会按照List的规范去访问数据并最终形成一个新的ArrayList返回给客户端。
     private CopyOnWriteArrayList<Book> bookList = new CopyOnWriteArrayList<>();
-    private ArrayList<IOnNewBookArrived> listeners = new ArrayList<>();
+//    private CopyOnWriteArrayList<IOnNewBookArrived> listeners = new CopyOnWriteArrayList<>();
+    private RemoteCallbackList<IOnNewBookArrived> listeners = new RemoteCallbackList<>();
 
     @Override
     public void onCreate() {
@@ -59,31 +60,55 @@ public class BookManagerService extends Service{
 
         @Override
         public void registerLister(IOnNewBookArrived listener) throws RemoteException {
-            if(!listeners.contains(listener)){
-                listeners.add(listener);
-            }
+//            if(!listeners.contains(listener)){
+//                listeners.add(listener);
+//            }
+
+            listeners.register(listener);//mListeners换成RemoteCallbackList后
+            int num = listeners.beginBroadcast();
+            LogUtil.i("registerListener后       mListeners.size()="+num);
+            listeners.finishBroadcast();
         }
 
         @Override
         public void unregisterLister(IOnNewBookArrived listener) throws RemoteException {
-            if(listeners.contains(listener)){
-                listeners.remove(listener);
-                LogUtil.i("unregisterLister succed");
-            }else {
-                LogUtil.i("unregisterLister failed");
-            }
-            LogUtil.i("size="+listeners.size());
+//            if(listeners.contains(listener)){
+//                listeners.remove(listener);
+//                LogUtil.i("unregisterLister succed");
+//            }else {
+//                LogUtil.i("unregisterLister failed");
+//            }
+//            LogUtil.i("size="+listeners.size());
+
+
+            listeners.unregister(listener);//mListeners换成RemoteCallbackList后
+            int num = listeners.beginBroadcast();
+            LogUtil.i("unregisterListener后       mListeners.size()="+num);
+            listeners.finishBroadcast();
         }
     };
 
     private void newBookArrived(Book book) {
-        for (int i = 0; i < listeners.size(); i++) {
-            try {
-                listeners.get(i).onNewBookArrived(book);
-            } catch (RemoteException e) {
-                e.printStackTrace();
+//        for (int i = 0; i < listeners.size(); i++) {
+//            try {
+//                listeners.get(i).onNewBookArrived(book);
+//            } catch (RemoteException e) {
+//                e.printStackTrace();
+//            }
+//        }
+
+        int n = listeners.beginBroadcast();
+        for (int i = 0; i < n; i++) {
+            IOnNewBookArrived listener = listeners.getBroadcastItem(i);
+            if(listener != null){
+                try {
+                    listener.onNewBookArrived(book);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
             }
         }
+        listeners.finishBroadcast();
     }
 
 }
