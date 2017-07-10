@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         threadPool.setOnClickListener(this);
         TextView callBack = (TextView) findViewById(R.id.callBack);
         callBack.setOnClickListener(this);
+        TextView httpUrlConnection = (TextView) findViewById(R.id.httpUrlConnection);
+        httpUrlConnection.setOnClickListener(this);
         TextView charapter1 = (TextView) findViewById(R.id.charapter1);
         charapter1.setOnClickListener(this);
         TextView charapter2 = (TextView) findViewById(R.id.charapter2);
@@ -50,9 +52,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent_callBack = new Intent(MainActivity.this, CallBackActivity.class);
                 myStartActivity(intent_callBack);
                 break;
+            case R.id.httpUrlConnection:
+                Intent intent_http = new Intent(MainActivity.this, HttpTestActivity.class);
+                myStartActivity(intent_http);
+                break;
             case R.id.charapter1:
                 Intent intent = new Intent(MainActivity.this, ChapterOneActivity.class);
                 myStartActivity(intent);
+                break;
             case R.id.charapter2:
                 Intent intent_2 = new Intent(MainActivity.this,ChapterTwoActivity.class);
                 startActivity(intent_2);

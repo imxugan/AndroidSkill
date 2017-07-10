@@ -62,29 +62,53 @@ class CrashHandler implements UncaughtExceptionHandler {
 	 */
 	@Override
 	public void uncaughtException(Thread paramThread , Throwable paramThrowable) {
-//		Log.i(TAG, "uncaughtException");
-		 if (!handleException(paramThrowable) && mDefaultHandler != null) {  
-	            mDefaultHandler.uncaughtException(paramThread, paramThrowable);  
-        } else {  
-        	Writer mWriter = new StringWriter() ;
-    		PrintWriter mPrintWriter = new PrintWriter(mWriter) ;
-    		paramThrowable.printStackTrace(mPrintWriter) ;
-    		Throwable mThrowable = paramThrowable.getCause() ;
-    		cause = mThrowable.getCause().toString();
-//    		Log.e(TAG, "mThrowable.getCause()="+ cause);
-//    		Log.i(TAG, "mThrowable.getStackTrace()="+mThrowable.getStackTrace());
-    		while(mThrowable != null) {
-    			mThrowable.printStackTrace(mPrintWriter) ;
-    			mPrintWriter.append("\r\n") ;
-    			mThrowable = mThrowable.getCause() ;
-    		}
-    		mPrintWriter.flush();
-    		mPrintWriter.close() ;
-    		String mResult = mWriter.toString() ;
-    		Log.i(TAG, "mResult="+mResult);
-    		mDefaultHandler.uncaughtException(paramThread, paramThrowable);
-            android.os.Process.killProcess(android.os.Process.myPid());  
-        }  
+		Log.i(TAG, "uncaughtException");
+//		 if (!handleException(paramThrowable) && mDefaultHandler != null) {
+//	            mDefaultHandler.uncaughtException(paramThread, paramThrowable);
+//        } else {
+//        	Writer mWriter = new StringWriter() ;
+//    		PrintWriter mPrintWriter = new PrintWriter(mWriter) ;
+//    		paramThrowable.printStackTrace(mPrintWriter) ;
+//    		Throwable mThrowable = paramThrowable.getCause() ;
+//    		cause = mThrowable.getCause().toString();
+////    		Log.e(TAG, "mThrowable.getCause()="+ cause);
+////    		Log.i(TAG, "mThrowable.getStackTrace()="+mThrowable.getStackTrace());
+//    		while(mThrowable != null) {
+//    			mThrowable.printStackTrace(mPrintWriter) ;
+//    			mPrintWriter.append("\r\n") ;
+//    			mThrowable = mThrowable.getCause() ;
+//    		}
+//    		mPrintWriter.flush();
+//    		mPrintWriter.close() ;
+//    		String mResult = mWriter.toString() ;
+//    		Log.i(TAG, "mResult="+mResult);
+//    		mDefaultHandler.uncaughtException(paramThread, paramThrowable);
+//            android.os.Process.killProcess(android.os.Process.myPid());
+//        }
+
+		Writer mWriter = new StringWriter() ;
+		PrintWriter mPrintWriter = new PrintWriter(mWriter) ;
+		paramThrowable.printStackTrace(mPrintWriter) ;
+		Log.e(TAG, ""+ paramThrowable.toString());
+		Throwable mThrowable = paramThrowable.getCause() ;
+		cause = mThrowable.getCause().toString();
+    		Log.e(TAG, "mThrowable.getCause()="+ cause);
+    		Log.i(TAG, "mThrowable.getStackTrace()="+mThrowable.getStackTrace());
+		while(mThrowable != null) {
+			mThrowable.printStackTrace(mPrintWriter) ;
+			mPrintWriter.append("\r\n") ;
+			mThrowable = mThrowable.getCause() ;
+		}
+		mPrintWriter.flush();
+		mPrintWriter.close() ;
+		String mResult = mWriter.toString() ;
+		Log.i(TAG, "mResult="+mResult);
+		if (!handleException(paramThrowable) && mDefaultHandler != null) {
+			mDefaultHandler.uncaughtException(paramThread, paramThrowable);
+		} else {
+			android.os.Process.killProcess(android.os.Process.myPid());
+		}
+
 	}
 	
 	/** 
