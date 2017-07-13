@@ -77,6 +77,9 @@
         <activity android:name="test.cn.example.com.androidskill.HttpTestActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity android:name="test.cn.example.com.androidskill.AnnotationActivity"
+            android:screenOrientation="portrait">
+        </activity>
 
         <activity android:name="test.cn.example.com.androidskill.SingleTopActivity"
             android:launchMode="singleTop"
