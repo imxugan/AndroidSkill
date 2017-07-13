@@ -10,7 +10,7 @@ import android.widget.Button;
  * activity的启动模式
  */
 public class LannchModeActivity extends AppCompatActivity implements View.OnClickListener {
-    Button launch_single_task;
+    Button launch_single_task,launch_single_top;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +21,8 @@ public class LannchModeActivity extends AppCompatActivity implements View.OnClic
     private void initView() {
         launch_single_task = (Button) findViewById(R.id.launch_single_task);
         launch_single_task.setOnClickListener(this);
+        launch_single_top = (Button) findViewById(R.id.launch_single_top);
+        launch_single_top.setOnClickListener(this);
     }
 
     @Override
@@ -28,6 +30,9 @@ public class LannchModeActivity extends AppCompatActivity implements View.OnClic
         switch (v.getId()) {
             case R.id.launch_single_task:
                 startActivity(new Intent(LannchModeActivity.this,SingleTaskActivity.class));
+                break;
+            case R.id.launch_single_top:
+                startActivity(new Intent(LannchModeActivity.this,SingleTopActivity.class));
                 break;
 
             default:

@@ -78,6 +78,16 @@
             android:screenOrientation="portrait">
         </activity>
 
+        <activity android:name="test.cn.example.com.androidskill.SingleTopActivity"
+            android:launchMode="singleTop"
+                  android:screenOrientation="portrait">
+            <intent-filter >
+                <action android:name="action.com.android.skill"></action>
+                <category android:name="category.com.android.skill"></category>
+                <category android:name="android.intent.category.DEFAULT"></category>
+            </intent-filter>
+        </activity>
+
         <service android:name="test.cn.example.com.androidskill.service.MyService"
                  android:process=":remote">
         </service>
