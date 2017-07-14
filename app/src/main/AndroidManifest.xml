@@ -86,6 +86,9 @@
         <activity android:name="test.cn.example.com.androidskill.designpattern.ObserverPatternActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity android:name="test.cn.example.com.androidskill.designpattern.AdapterPatternActivity"
+            android:screenOrientation="portrait">
+        </activity>
 
         <activity android:name="test.cn.example.com.androidskill.SingleTopActivity"
             android:launchMode="singleTop"
