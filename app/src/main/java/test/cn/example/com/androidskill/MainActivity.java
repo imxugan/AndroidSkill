@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import test.cn.example.com.androidskill.callback.CallBackActivity;
 import test.cn.example.com.androidskill.designpattern.DesignPatternActivity;
+import test.cn.example.com.androidskill.login.view.LoginActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -28,6 +29,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         callBack.setOnClickListener(this);
         TextView design_pattern = (TextView) findViewById(R.id.design_pattern);
         design_pattern.setOnClickListener(this);
+        TextView mvp = (TextView) findViewById(R.id.mvp);
+        mvp.setOnClickListener(this);
         TextView annotation = (TextView) findViewById(R.id.annotation);
         annotation.setOnClickListener(this);
         TextView httpUrlConnection = (TextView) findViewById(R.id.httpUrlConnection);
@@ -60,6 +63,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.design_pattern:
                 Intent intent_design_pattern = new Intent(MainActivity.this, DesignPatternActivity.class);
                 myStartActivity(intent_design_pattern);
+                break;
+            case R.id.mvp:
+                Intent intent_mvp = new Intent(MainActivity.this, LoginActivity.class);
+                myStartActivity(intent_mvp);
                 break;
             case R.id.annotation:
                 Intent intent_annotation = new Intent(MainActivity.this, AnnotationActivity.class);

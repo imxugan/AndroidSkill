@@ -50,6 +50,14 @@
                 android:background="@color/colorAccent"
                 android:text="设计模式"/>
             <TextView
+                android:id="@+id/mvp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:background="@color/colorAccent"
+                android:text="MVP模式"/>
+            <TextView
                 android:id="@+id/annotation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

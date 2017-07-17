@@ -102,6 +102,9 @@
         <activity android:name="test.cn.example.com.androidskill.designpattern.FactoryPatternActivity"
                   android:screenOrientation="portrait">
         </activity>
+        <activity android:name="test.cn.example.com.androidskill.login.view.LoginActivity"
+                  android:screenOrientation="portrait">
+        </activity>
 
         <service android:name="test.cn.example.com.androidskill.service.MyService"
                  android:process=":remote">
