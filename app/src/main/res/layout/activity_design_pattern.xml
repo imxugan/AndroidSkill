@@ -29,6 +29,12 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="适配器模式"/>
+            <Button
+                android:id="@+id/factory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="工厂模式"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
