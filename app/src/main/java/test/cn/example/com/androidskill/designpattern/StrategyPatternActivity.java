@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import test.cn.example.com.androidskill.R;
-import test.cn.example.com.androidskill.inter.CalculateStrategyInter;
 import test.cn.example.com.androidskill.model.BikeCalculateStrategy;
 import test.cn.example.com.androidskill.model.BusCalculateStrategy;
 import test.cn.example.com.androidskill.model.SubWayCalculateStrategy;
@@ -22,12 +21,12 @@ public class StrategyPatternActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_strategy_pattern);
         TranficCalculate tranficCalculate = new TranficCalculate();
-        CalculateStrategyInter busCalculateStrategy =  tranficCalculate.setCalculateStrategy(new BusCalculateStrategy());
-        busCalculateStrategy.calculatePrice();
-        CalculateStrategyInter subWayCalculateStrategy =  tranficCalculate.setCalculateStrategy(new SubWayCalculateStrategy());
-        subWayCalculateStrategy.calculatePrice();
-        CalculateStrategyInter bikeCalculateStrategy =  tranficCalculate.setCalculateStrategy(new BikeCalculateStrategy());
-        bikeCalculateStrategy.calculatePrice();
+        tranficCalculate.setCalculateStrategy(new BusCalculateStrategy());
+        tranficCalculate.calcPrice();
+        tranficCalculate.setCalculateStrategy(new SubWayCalculateStrategy());
+        tranficCalculate.calcPrice();
+        tranficCalculate.setCalculateStrategy(new BikeCalculateStrategy());
+        tranficCalculate.calcPrice();
 
     }
 }

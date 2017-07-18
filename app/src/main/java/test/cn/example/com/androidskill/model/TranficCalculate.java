@@ -14,7 +14,7 @@ public class TranficCalculate {
         return this.mCalculateStrategy;
     }
 
-    public void calculatePrice(){
+    public void calcPrice(){
         mCalculateStrategy.calculatePrice();
     }
 }
