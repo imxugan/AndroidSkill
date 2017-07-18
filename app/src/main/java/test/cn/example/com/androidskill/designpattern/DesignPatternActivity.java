@@ -28,6 +28,8 @@ public class DesignPatternActivity extends AppCompatActivity implements View.OnC
         adapter.setOnClickListener(this);
         Button factory = (Button) findViewById(R.id.factory);
         factory.setOnClickListener(this);
+        Button strategy = (Button) findViewById(R.id.strategy);
+        strategy.setOnClickListener(this);
     }
 
     @Override
@@ -41,6 +43,9 @@ public class DesignPatternActivity extends AppCompatActivity implements View.OnC
                 break;
             case R.id.factory:
                 startActivity(new Intent(DesignPatternActivity.this,FactoryPatternActivity.class));
+                break;
+            case R.id.strategy:
+                startActivity(new Intent(DesignPatternActivity.this,StrategyPatternActivity.class));
                 break;
             default:
                 break;
