@@ -23,4 +23,11 @@
     android:layout_marginTop="10dp"
     android:gravity="center"
     android:text="动态代理模式，结果看打印的日志"/>
+    <Button
+        android:id="@+id/proxy_dynamic_factory"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:gravity="center"
+    android:text="采用工厂模式生成动态代理，结果看打印的日志"/>
 </LinearLayout>
