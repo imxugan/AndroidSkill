@@ -41,6 +41,12 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="策略模式"/>
+            <Button
+                android:id="@+id/proxy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="代理模式"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
