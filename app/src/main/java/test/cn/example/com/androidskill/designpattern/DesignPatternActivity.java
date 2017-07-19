@@ -32,6 +32,8 @@ public class DesignPatternActivity extends AppCompatActivity implements View.OnC
         strategy.setOnClickListener(this);
         Button proxy = (Button) findViewById(R.id.proxy);
         proxy.setOnClickListener(this);
+        Button facade = (Button) findViewById(R.id.facade);
+        facade.setOnClickListener(this);
     }
 
     @Override
@@ -51,6 +53,9 @@ public class DesignPatternActivity extends AppCompatActivity implements View.OnC
                 break;
             case R.id.proxy:
                 startActivity(new Intent(DesignPatternActivity.this,ProxyPatternActivity.class));
+                break;
+            case R.id.facade:
+                startActivity(new Intent(DesignPatternActivity.this,FacadePatternActivity.class));
                 break;
             default:
                 break;

@@ -47,6 +47,12 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="代理模式"/>
+            <Button
+                android:id="@+id/facade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="外观模式"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
