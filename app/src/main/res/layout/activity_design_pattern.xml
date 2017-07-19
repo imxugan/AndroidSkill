@@ -53,6 +53,12 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="外观模式"/>
+            <Button
+                android:id="@+id/builder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="builder模式"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
