@@ -7,10 +7,10 @@ package test.cn.example.com.androidskill.model;
 public class HPComputer {
     private String bd,os,display;
 
-    private HPComputer(String bd,String os,String display){
-        this.bd = bd;
-        this.os = os;
-        this.display = display;
+    private HPComputer(Builder builder){
+        this.bd = builder.baord;
+        this.os = builder.os;
+        this.display = builder.display;
     }
 
     public static class Builder{
@@ -31,7 +31,7 @@ public class HPComputer {
         }
 
         public HPComputer create(){
-            return new HPComputer(this.baord,this.os,this.display);
+            return new HPComputer(this);
         }
     }
 
