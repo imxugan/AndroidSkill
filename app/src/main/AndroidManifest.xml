@@ -120,6 +120,9 @@
         <activity android:name="test.cn.example.com.androidskill.designpattern.DecoratorPatternActivity"
                   android:screenOrientation="portrait">
         </activity>
+        <activity android:name="test.cn.example.com.androidskill.designpattern.CompositePatternActivity"
+                  android:screenOrientation="portrait">
+        </activity>
 
         <service android:name="test.cn.example.com.androidskill.service.MyService"
                  android:process=":remote">
