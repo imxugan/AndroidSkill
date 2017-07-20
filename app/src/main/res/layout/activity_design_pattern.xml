@@ -59,6 +59,12 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="builder模式"/>
+            <Button
+                android:id="@+id/decorator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="装饰模式"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
