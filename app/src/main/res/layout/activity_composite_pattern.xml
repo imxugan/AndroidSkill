@@ -19,27 +19,15 @@
         android:text="组合模式"/>
 
     <Button
-        android:id="@+id/all"
+        android:id="@+id/transparent_composite"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="组合模式"/>
+        android:text="透明组合模式"/>
     <Button
-        android:id="@+id/except_buildrInter"
+        android:id="@+id/safe_composite"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="省略抽象建造者的情况"/>
-    <Button
-        android:id="@+id/except_director"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="省略指导者的情况"/>
-    <Button
-        android:id="@+id/except_director2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="省略指导者,并且建造者采用静态内部类的情况"/>
+        android:text="安全组合模式"/>
 </LinearLayout>
