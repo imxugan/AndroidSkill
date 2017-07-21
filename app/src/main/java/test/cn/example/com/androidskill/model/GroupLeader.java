@@ -5,8 +5,13 @@ package test.cn.example.com.androidskill.model;
  */
 
 public class GroupLeader extends Leader {
-    public GroupLeader(String name,int money) {
-        super(name,money);
+    public GroupLeader(String name) {
+        super(name);
+    }
+
+    @Override
+    protected int getLimitedMoney() {
+        return 1000;
     }
 
     @Override

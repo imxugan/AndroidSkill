@@ -7,17 +7,16 @@ import test.cn.example.com.util.LogUtil;
  */
 
 public abstract class Leader {
-    public Leader(String name,int money){
+    public Leader(String name){
         this.name = name;
-        this.limitMoney = money;
     }
     //报销额度
-    private int limitMoney,money;
+    private int money;
     private String name;
     public Leader nextHandler;
     protected void handleRequest(){
-        if(money>limitMoney){
-            LogUtil.i("超过了"+name+"报销金额的上限("+limitMoney+")");
+        if(money>getLimitedMoney()){
+            LogUtil.i("超过了"+name+"报销金额的上限("+getLimitedMoney()+")");
             if(null != nextHandler){
                 nextHandler.handle(money);
             }
@@ -35,6 +34,11 @@ public abstract class Leader {
     public void setMoney(int money){
         this.money = money;
     }
+
+    protected int getLimitedMoney(){
+        return 0;
+    }
+
 
     public abstract void handle(int money);
 }

@@ -21,9 +21,9 @@ public class ChainPatternActivity extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chain_pattern);
-        Leader groupLeader = new GroupLeader("组长",1000);
-        Leader managerLeader = new ManagerLeader("经理",10000);
-        Boss boss = new Boss("boss",100000);
+        Leader groupLeader = new GroupLeader("组长a");
+        Leader managerLeader = new ManagerLeader("经理");
+        Boss boss = new Boss("boss");
         groupLeader.nextHandler = managerLeader;
         managerLeader.nextHandler = boss;
         groupLeader.handle(888000);
@@ -33,6 +33,7 @@ public class ChainPatternActivity extends AppCompatActivity{
         groupLeader.handle(8880);
         LogUtil.e("=========================================");
         groupLeader.handle(888);
+        boss.handle(999);
     }
 
 
