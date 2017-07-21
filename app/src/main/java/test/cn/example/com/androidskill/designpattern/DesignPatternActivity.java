@@ -40,6 +40,8 @@ public class DesignPatternActivity extends AppCompatActivity implements View.OnC
         decorator.setOnClickListener(this);
         Button composite = (Button) findViewById(R.id.composite);
         composite.setOnClickListener(this);
+        Button state = (Button) findViewById(R.id.state);
+        state.setOnClickListener(this);
     }
 
     @Override
@@ -71,6 +73,9 @@ public class DesignPatternActivity extends AppCompatActivity implements View.OnC
                 break;
             case R.id.composite:
                 startActivity(new Intent(DesignPatternActivity.this,CompositePatternActivity.class));
+                break;
+            case R.id.state:
+                startActivity(new Intent(DesignPatternActivity.this,StatePatternActivity.class));
                 break;
             default:
                 break;
