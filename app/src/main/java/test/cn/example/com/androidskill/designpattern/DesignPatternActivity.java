@@ -42,6 +42,8 @@ public class DesignPatternActivity extends AppCompatActivity implements View.OnC
         composite.setOnClickListener(this);
         Button state = (Button) findViewById(R.id.state);
         state.setOnClickListener(this);
+        Button chain = (Button) findViewById(R.id.chain);
+        chain.setOnClickListener(this);
     }
 
     @Override
@@ -76,6 +78,9 @@ public class DesignPatternActivity extends AppCompatActivity implements View.OnC
                 break;
             case R.id.state:
                 startActivity(new Intent(DesignPatternActivity.this,StatePatternActivity.class));
+                break;
+            case R.id.chain:
+                startActivity(new Intent(DesignPatternActivity.this,ChainPatternActivity.class));
                 break;
             default:
                 break;

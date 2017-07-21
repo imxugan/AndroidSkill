@@ -77,6 +77,12 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="状态模式"/>
+            <Button
+                android:id="@+id/chain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="责任链模式"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
