@@ -83,6 +83,12 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="责任链模式"/>
+            <Button
+                android:id="@+id/command"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="命令行模式"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
