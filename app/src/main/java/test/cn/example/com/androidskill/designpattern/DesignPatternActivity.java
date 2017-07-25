@@ -46,6 +46,8 @@ public class DesignPatternActivity extends AppCompatActivity implements View.OnC
         chain.setOnClickListener(this);
         Button command = (Button) findViewById(R.id.command);
         command.setOnClickListener(this);
+        Button mediator = (Button) findViewById(R.id.mediator);
+        mediator.setOnClickListener(this);
     }
 
     @Override
@@ -86,6 +88,9 @@ public class DesignPatternActivity extends AppCompatActivity implements View.OnC
                 break;
             case R.id.command:
                 startActivity(new Intent(DesignPatternActivity.this,CommandPatternActivity.class));
+                break;
+            case R.id.mediator:
+                startActivity(new Intent(DesignPatternActivity.this,MediatorPatternActivity.class));
                 break;
             default:
                 break;
