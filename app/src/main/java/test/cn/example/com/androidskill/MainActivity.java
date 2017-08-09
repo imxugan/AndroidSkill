@@ -12,7 +12,6 @@ import test.cn.example.com.androidskill.login.view.LoginActivity;
 import test.cn.example.com.androidskill.rxjavaTest.RxJavaTestActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         charapter7.setOnClickListener(this);
         TextView charapter9 = (TextView) findViewById(R.id.charapter9);
         charapter9.setOnClickListener(this);
+        TextView charapter10 = (TextView) findViewById(R.id.charapter10);
+        charapter10.setOnClickListener(this);
     }
 
     @Override
@@ -104,6 +105,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.charapter9:
                 Intent intent_9 = new Intent(MainActivity.this, ChapterNineActivity.class);
                 myStartActivity(intent_9);
+                break;
+            case R.id.charapter10:
+                Intent intent_10 = new Intent(MainActivity.this, HandlerActivity.class);
+                myStartActivity(intent_10);
                 break;
             default:
                 break;

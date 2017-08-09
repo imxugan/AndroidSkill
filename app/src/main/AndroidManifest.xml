@@ -144,6 +144,9 @@
         <activity android:name="test.cn.example.com.androidskill.ChapterFourActivity"
                   android:screenOrientation="portrait">
         </activity>
+        <activity android:name="test.cn.example.com.androidskill.HandlerActivity"
+                  android:screenOrientation="portrait">
+        </activity>
 
         <service android:name="test.cn.example.com.androidskill.service.MyService"
                  android:process=":remote">
