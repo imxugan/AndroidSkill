@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         charapter1.setOnClickListener(this);
         TextView charapter2 = (TextView) findViewById(R.id.charapter2);
         charapter2.setOnClickListener(this);
+        TextView charapter4 = (TextView) findViewById(R.id.charapter4);
+        charapter4.setOnClickListener(this);
         TextView charapter7 = (TextView) findViewById(R.id.charapter7);
         charapter7.setOnClickListener(this);
         TextView charapter9 = (TextView) findViewById(R.id.charapter9);
@@ -90,6 +92,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.charapter2:
                 Intent intent_2 = new Intent(MainActivity.this,ChapterTwoActivity.class);
                 startActivity(intent_2);
+                break;
+            case R.id.charapter4:
+                Intent intent_4 = new Intent(MainActivity.this,ChapterFourActivity.class);
+                startActivity(intent_4);
                 break;
             case R.id.charapter7:
                 Intent intent_7 = new Intent(MainActivity.this, ChapterSevenActivity.class);

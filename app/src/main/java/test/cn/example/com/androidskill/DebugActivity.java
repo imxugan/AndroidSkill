@@ -2,11 +2,14 @@ package test.cn.example.com.androidskill;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import test.cn.example.com.util.DensityUtil;
 import test.cn.example.com.util.LogUtil;
 
 /**
@@ -14,6 +17,8 @@ import test.cn.example.com.util.LogUtil;
  */
 public class DebugActivity extends AppCompatActivity {
     private String name = "default";
+    LinearLayout ll;
+    TextView tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +26,8 @@ public class DebugActivity extends AppCompatActivity {
         setContentView(R.layout.activity_debug);
         alertName();
         testArrayList();
+        ll = (LinearLayout) findViewById(R.id.ll);
+        tv = (TextView) findViewById(R.id.tv);
     }
 
     private void testArrayList() {
@@ -51,6 +58,36 @@ public class DebugActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        ll.post(new Runnable() {
+            @Override
+            public void run() {
+                int width = ll.getMeasuredWidth();
+                //将px转换成dp
+                width = DensityUtil.px2dip(DebugActivity.this,width);
+                LogUtil.i(""+width);
+                int height = ll.getMeasuredHeight();
+                //将px转换成dp
+                height = DensityUtil.px2dip(DebugActivity.this,height);
+                LogUtil.i(""+height);
+
+            }
+        });
+        tv.post(new Runnable() {
+            @Override
+            public void run() {
+                int width = tv.getMeasuredWidth();
+                //将px转换成dp
+                width = DensityUtil.px2dip(DebugActivity.this,width);
+                LogUtil.i("tv----width------"+width);
+                int height = tv.getMeasuredHeight();
+                //将px转换成dp
+                height = DensityUtil.px2dip(DebugActivity.this,height);
+                LogUtil.i("tv----height------"+height);
+
+            }
+        });
+
+
     }
 
     @Override
