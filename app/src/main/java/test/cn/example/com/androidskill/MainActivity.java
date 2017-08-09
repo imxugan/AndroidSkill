@@ -9,6 +9,7 @@ import android.widget.TextView;
 import test.cn.example.com.androidskill.callback.CallBackActivity;
 import test.cn.example.com.androidskill.designpattern.DesignPatternActivity;
 import test.cn.example.com.androidskill.login.view.LoginActivity;
+import test.cn.example.com.androidskill.rxjavaTest.RxJavaTestActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         threadPool.setOnClickListener(this);
         TextView callBack = (TextView) findViewById(R.id.callBack);
         callBack.setOnClickListener(this);
+        TextView rxJava = (TextView) findViewById(R.id.rxJava);
+        rxJava.setOnClickListener(this);
         TextView design_pattern = (TextView) findViewById(R.id.design_pattern);
         design_pattern.setOnClickListener(this);
         TextView mvp = (TextView) findViewById(R.id.mvp);
@@ -59,6 +62,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.callBack:
                 Intent intent_callBack = new Intent(MainActivity.this, CallBackActivity.class);
                 myStartActivity(intent_callBack);
+                break;
+            case R.id.rxJava:
+                Intent intent_rxJava = new Intent(MainActivity.this, RxJavaTestActivity.class);
+                myStartActivity(intent_rxJava);
                 break;
             case R.id.design_pattern:
                 Intent intent_design_pattern = new Intent(MainActivity.this, DesignPatternActivity.class);

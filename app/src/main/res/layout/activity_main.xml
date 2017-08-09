@@ -42,6 +42,14 @@
                 android:background="@color/colorAccent"
                 android:text="java回调"/>
             <TextView
+                android:id="@+id/rxJava"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:background="@color/colorAccent"
+                android:text="rxJava使用演示"/>
+            <TextView
                 android:id="@+id/design_pattern"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
