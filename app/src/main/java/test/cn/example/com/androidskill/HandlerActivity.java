@@ -17,16 +17,17 @@ import static java.lang.Thread.currentThread;
  * hanlder的工作原理以及相关的知识点
  */
 public class HandlerActivity extends AppCompatActivity implements View.OnClickListener{
+    HandlerThread handlerThread;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_handler);
-        initBackThread();//初始化一个子线程handlerThreaad
+
         initView();
     }
 
     private void initBackThread() {
-        HandlerThread handlerThread = new HandlerThread("test_hadndler_thread"){
+        handlerThread = new HandlerThread("test_hadndler_thread"){
             @Override
             protected void onLooperPrepared() {
                 super.onLooperPrepared();
@@ -52,6 +53,7 @@ public class HandlerActivity extends AppCompatActivity implements View.OnClickLi
         //平时我们在主线程中创建handler,然后在开一个子线程，在子线程
         //中使用主线程的handler发送消息，然后，消息最后是在主线程中被处理一样。
         //handlerThread只是将这种情况反转了。
+        //用完handlerThread后，记得释放资源
         Message msg = Message.obtain();
         msg.what = 1;
         msg.obj = "hello handlerThread";
@@ -75,8 +77,9 @@ public class HandlerActivity extends AppCompatActivity implements View.OnClickLi
 
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onDestroy() {
+        super.onDestroy();
+        handlerThread.quit();//释放资源
     }
 
     @Override
@@ -91,6 +94,6 @@ public class HandlerActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void handlerThreadTest() {
-
+        initBackThread();//初始化一个子线程handlerThreaad
     }
 }
