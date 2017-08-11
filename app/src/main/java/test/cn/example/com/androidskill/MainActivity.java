@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initView() {
         TextView debug = (TextView) findViewById(R.id.debug);
         debug.setOnClickListener(this);
+        TextView classLoader = (TextView) findViewById(R.id.classLoader);
+        classLoader.setOnClickListener(this);
         TextView threadPool = (TextView) findViewById(R.id.threadPool);
         threadPool.setOnClickListener(this);
         TextView callBack = (TextView) findViewById(R.id.callBack);
@@ -57,6 +59,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.debug:
                 Intent intent_debug = new Intent(MainActivity.this, DebugActivity.class);
                 myStartActivity(intent_debug);
+                break;
+            case R.id.classLoader:
+                Intent intent_classLoader = new Intent(MainActivity.this, ClassLoaderTestActivity.class);
+                myStartActivity(intent_classLoader);
                 break;
             case R.id.threadPool:
                 Intent intent_threadPool = new Intent(MainActivity.this, ThreadPoolActivity.class);
