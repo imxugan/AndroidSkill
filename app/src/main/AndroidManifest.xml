@@ -150,12 +150,21 @@
         <activity android:name="test.cn.example.com.androidskill.ClassLoaderTestActivity"
                   android:screenOrientation="portrait">
         </activity>
+        <activity android:name="test.cn.example.com.androidskill.designpattern.SingleInstancePatternActivity"
+                  android:screenOrientation="portrait">
+        </activity>
 
         <service android:name="test.cn.example.com.androidskill.service.MyService"
                  android:process=":remote">
         </service>
-        <service android:name="test.cn.example.com.androidskill.service.BookManagerService"
-                 android:process=":remote">
+        <!--<service android:name="test.cn.example.com.androidskill.service.BookManagerService"-->
+                 <!--android:process=":remote">-->
+        <!--</service>-->
+
+        <service android:name="test.cn.example.com.androidskill.service.BookManagerService">
+            <intent-filter>
+                <action android:name="com.android.skill.service.book_manager_service"></action>
+            </intent-filter>
         </service>
         <meta-data
             android:name="com.google.android.gms.version"
