@@ -1,6 +1,7 @@
 package test.cn.example.com.androidskill;
 
 import android.animation.Animator;
+import android.animation.AnimatorInflater;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
@@ -39,6 +40,16 @@ public class PropertyAnimationBaseActivity extends AppCompatActivity implements 
         scale.setOnClickListener(this);
         Button combination = (Button) findViewById(R.id.combination);
         combination.setOnClickListener(this);
+        Button alpha_xml = (Button) findViewById(R.id.alpha_xml);
+        alpha_xml.setOnClickListener(this);
+        Button rotat_xml = (Button) findViewById(R.id.rotat_xml);
+        rotat_xml.setOnClickListener(this);
+        Button trans_xml = (Button) findViewById(R.id.trans_xml);
+        trans_xml.setOnClickListener(this);
+        Button scale_xml = (Button) findViewById(R.id.scale_xml);
+        scale_xml.setOnClickListener(this);
+        Button combination_xml = (Button) findViewById(R.id.combination_xml);
+        combination_xml.setOnClickListener(this);
     }
 
     @Override
@@ -50,19 +61,69 @@ public class PropertyAnimationBaseActivity extends AppCompatActivity implements 
             case R.id.alpha:
                 testAlpha();
                 break;
+            case R.id.alpha_xml:
+                testAlpha_Xml();
+                break;
             case R.id.rotat:
                 testRotation();
+                break;
+            case R.id.rotat_xml:
+                testRotation_Xml();
                 break;
             case R.id.trans:
                 testTranslationX();
                 break;
+            case R.id.trans_xml:
+                testTranslationX_Xml();
+                break;
             case R.id.scale:
                 testScaleY();
+                break;
+            case R.id.scale_xml:
+                testScaleY_Xml();
                 break;
             case R.id.combination:
                 testCombination();
                 break;
+            case R.id.combination_xml:
+                testCombination_Xml();
+                break;
         }
+    }
+
+    private void testCombination_Xml() {
+        Animator animator = AnimatorInflater.loadAnimator(PropertyAnimationBaseActivity.this, R.animator.animator_combination);
+        animator.setTarget(iv);
+        animator.setDuration(1000);
+        animator.start();
+    }
+
+    private void testScaleY_Xml() {
+        //通过xml文件编写ScaleY动画，需要将valueType的值设置成floatType，如果设置成intType将没有动画效果
+        Animator animator = AnimatorInflater.loadAnimator(PropertyAnimationBaseActivity.this, R.animator.animator_scale_y);
+        animator.setTarget(iv);
+        animator.start();
+    }
+
+    private void testTranslationX_Xml() {
+        //通过xml文件编写TranslationX动画，需要将valueType的值设置成floatType，如果设置成intType将没有动画效果
+        Animator animator = AnimatorInflater.loadAnimator(PropertyAnimationBaseActivity.this, R.animator.animator_trans_x);
+        animator.setTarget(iv);
+        animator.start();
+
+    }
+
+    private void testRotation_Xml() {
+        //通过xml文件编写roatation动画，需要将valueType的值设置成floatType，如果设置成intType将没有动画效果
+        Animator animator = AnimatorInflater.loadAnimator(PropertyAnimationBaseActivity.this, R.animator.animator_rotation);
+        animator.setTarget(iv);
+        animator.start();
+    }
+
+    private void testAlpha_Xml() {
+        Animator animator = AnimatorInflater.loadAnimator(PropertyAnimationBaseActivity.this,R.animator.animator_fade_out);
+        animator.setTarget(iv);
+        animator.start();
     }
 
     /**

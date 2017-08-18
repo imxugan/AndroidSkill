@@ -20,20 +20,32 @@
     android:layout_height="wrap_content">
     <Button
         android:id="@+id/valueAnimator"
-        android:layout_width="wrap_content"
+        android:layout_weight="1"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="10sp"
         android:gravity="center"
-        android:text="valueAnimator使用"/>
+        android:text="valueAnimator"/>
     <Button
         android:id="@+id/combination"
-        android:layout_width="wrap_content"
+        android:layout_weight="1"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="10sp"
         android:gravity="center"
         android:text="组合动画"/>
+    <Button
+        android:id="@+id/combination_xml"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        android:gravity="center"
+        android:text="组合动画xml"/>
 </LinearLayout>
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"></LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -61,6 +73,42 @@
             android:text="trans"/>
         <Button
             android:id="@+id/scale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="10sp"
+            android:text="scale"/>
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="属性动画xml形式实现"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/alpha_xml"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="10sp"
+            android:text="alpha"/>
+        <Button
+            android:id="@+id/rotat_xml"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="10sp"
+            android:text="rotat"/>
+        <Button
+            android:id="@+id/trans_xml"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="10sp"
+            android:text="trans"/>
+        <Button
+            android:id="@+id/scale_xml"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
