@@ -19,6 +19,12 @@
         android:text="属性动画演示"/>
 
     <Button
+        android:id="@+id/base"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="属性动画的基础演示"/>
+    <Button
         android:id="@+id/scale"
         android:layout_width="100px"
         android:layout_height="120dp"

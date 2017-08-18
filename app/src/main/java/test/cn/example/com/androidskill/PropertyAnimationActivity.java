@@ -5,8 +5,10 @@ import android.animation.AnimatorSet;
 import android.animation.IntEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -17,7 +19,7 @@ import test.cn.example.com.androidskill.view.ViewWrapper;
 /**
  * 属性动画演示
  */
-public class PropertyAnimationActivity extends AppCompatActivity {
+public class PropertyAnimationActivity extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +28,8 @@ public class PropertyAnimationActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        Button base = (Button) findViewById(R.id.base);
+        base.setOnClickListener(this);
         TextView textView = (TextView) findViewById(R.id.text);
         ObjectAnimator moveIn = ObjectAnimator.ofFloat(textView,"translationX",-300f,0f);
         ObjectAnimator rotate = ObjectAnimator.ofFloat(textView,"rotation",0f,360f);
@@ -84,5 +88,14 @@ public class PropertyAnimationActivity extends AppCompatActivity {
             }
         });
         valueAnimator.setDuration(5000).start();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.base:
+                startActivity(new Intent(PropertyAnimationActivity.this,PropertyAnimationBaseActivity.class));
+                break;
+        }
     }
 }
