@@ -236,8 +236,10 @@ public class RxJavaOperatorCreate extends AppCompatActivity implements View.OnCl
     }
 
     private void rang(){
-        //range： 创建一个发射指定范围的整数序列的Observable<Integer>
-        //range(2,5)表示从2开始发射5个数据,2表示的是其实值，5表示的是个数
+        //range： 创建一个发射指定范围的整数序列的Observable
+        //第一个参数为起始值，
+        // 第二个为发送的个数，如果为0则不发送，负数则抛异常
+        //range(2,5)表示从2开始发射5个数据,2表示的是起始值，5表示的是个数
         Observable.range(2,5).subscribe(new Subscriber<Integer>() {
             @Override
             public void onCompleted() {

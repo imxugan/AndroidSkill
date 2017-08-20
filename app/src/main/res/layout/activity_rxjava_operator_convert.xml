@@ -66,6 +66,20 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="rxjava的转换类操作符buffer的使用"/>
+
+        <Button
+            android:id="@+id/cast"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="rxjava的转换类操作符cast的使用"/>
+
+        <Button
+            android:id="@+id/concatMap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="rxjava的转换类操作符concatMap的使用"/>
     </LinearLayout>
 </ScrollView>
 

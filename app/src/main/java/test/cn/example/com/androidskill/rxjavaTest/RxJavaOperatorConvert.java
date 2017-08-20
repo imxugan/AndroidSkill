@@ -6,10 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import rx.Observable;
 import rx.Observer;
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
@@ -24,6 +26,7 @@ import test.cn.example.com.util.LogUtil;
 import static test.cn.example.com.androidskill.R.id.flatMap;
 
 /**
+ * rxJava转换符的使用
  * Created by xgxg on 2017/8/4.
  */
 
@@ -71,13 +74,93 @@ public class RxJavaOperatorConvert extends AppCompatActivity implements View.OnC
         window.setOnClickListener(this);
         Button buffer = (Button) findViewById(R.id.buffer);
         buffer.setOnClickListener(this);
+        Button cast = (Button) findViewById(R.id.cast);
+        cast.setOnClickListener(this);
+        Button concatMap = (Button) findViewById(R.id.concatMap);
+        concatMap.setOnClickListener(this);
+    }
+
+    private void concatMap(){
+        //concatMap和flatMap最大的区别是concatMap发射的数据集是有序的，flatMap发射的数据集是无序的
+//        subscribeOn()和observeOn()的区别
+//
+//        subscribeOn()主要改变的是订阅的线程，即call()执行的线程;
+//        observeOn()主要改变的是发送的线程，即onNext()执行的线程。
+        Observable.just(1,2,3,4,5,6,7).concatMap(new Func1<Integer, Observable<Integer>>() {
+            @Override
+            public Observable<Integer> call(Integer integer) {
+                return Observable.just(integer).subscribeOn(Schedulers.io());
+            }
+        }).subscribe(new Subscriber<Integer>() {
+            @Override
+            public void onCompleted() {
+                LogUtil.i("onCompleted---threadId="+Thread.currentThread().getId());
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(Integer integer) {
+                LogUtil.i("onNext---threadId="+Thread.currentThread().getId()+"---integer="+integer);
+            }
+        });
+
+    }
+
+    private void cast(){
+        //cast操作符就是将不同数据类型转换成指定类型. 可以用于校验是否是同一种类型
+        Observable.just(1,2,3,4,5).cast(Integer.class).subscribe(new Subscriber<Integer>() {
+            @Override
+            public void onCompleted() {
+                LogUtil.i("onCompleted");//onCompleted
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                LogUtil.i(e.toString());//如果类型转换失败，就会包异常
+            }
+
+            @Override
+            public void onNext(Integer integer) {
+                LogUtil.i(integer+"");//1,2,3,4,5
+            }
+        });
+
     }
 
     private void buffer(){
+        //它定期从Observable收集数据到一个集合，然后把这些数据集合打包发射，而不是一次发射一个
+        //注意：如果原来的Observable发射了一个onError通知，Buffer会立即传递这个通知，
+        // 而不是首先发射缓存的数据，即使在这之前缓存中包含了原始Observable发射的数据
         Observable.just(1,2,3,4,5).buffer(2).subscribe(new Action1<List<Integer>>() {
             @Override
             public void call(List<Integer> integers) {
                 LogUtil.i(integers.toString());
+                //输出结果
+                //[1, 2]
+                // [3, 4]
+                // [5]
+            }
+        });
+
+        List<Integer> arr = new ArrayList<>();
+        for (int i=0;i<=10;i++){
+            arr.add(i);
+        }
+        //buffer(2,3)就要这么算：首先，将集合中的元素按照skip指定的间隔分成几个小的集合，
+        //在在这些小的集合中，取前两个元素，如果这些小集合中的元素不够两个，就只取第一个。
+        //buffer还有其他的一些重载
+        Observable.from(arr).buffer(2,3).subscribe(new Action1<List<Integer>>() {
+            @Override
+            public void call(List<Integer> integers) {
+                LogUtil.i(integers.toString());
+                //[0, 1]
+                //[3, 4]
+                //[6, 7]
+                //[9, 10]
             }
         });
     }
@@ -244,6 +327,10 @@ public class RxJavaOperatorConvert extends AppCompatActivity implements View.OnC
 
     private void flatMap() {
         //flatMap的使用
+        //map和flatMap
+        // 相同点：都是讲传入的参数转化之后返回另一个对象,
+        // 不同点：flatmap()返回的是Observable对象
+
 //        flatMap()的原理是这样的：
 //        将传入的事件对象装换成一个Observable对象；
 //        这是不会直接发送这个Observable, 而是将这个Observable激活让它自己开始发送事件；
@@ -252,26 +339,38 @@ public class RxJavaOperatorConvert extends AppCompatActivity implements View.OnC
 //        这三个步骤，把事件拆成了两级，通过一组新创建的Observable将初始的对象『铺平』之后
 //        通过统一路径分发了下去。而这个『铺平』就是flatMap()所谓的flat
         City c1 = new City(23.00);
-        City c2 = new City(33.00);
-        City c3 = new City(53.00);
-        City[] citys = {c1,c2,c3};
+        City c2 = new City(34.00);
+        City c3 = new City(45.00);
+        City c4 = new City(56.00);
+        City c5 = new City(78.00);
+        City c6 = new City(89.00);
+        City[] citys = {c1,c2,c3,c4,c5,c6};
         Observable.from(citys).flatMap(new Func1<City, Observable<House>>() {
             @Override
             public Observable<House> call(City city) {
-                return Observable.from(city.houses);
+                return Observable.from(city.houses).subscribeOn(Schedulers.io());
             }
-        }).subscribe(new Action1<House>() {
+        })
+                .subscribe(new Action1<House>() {
             @Override
             public void call(House house) {
-                LogUtil.i(""+house.price);
+                LogUtil.i(""+house.price+"---threadId="+Thread.currentThread().getId());//打印的结果是无序的
+                //需要多试几次，才可能看到打印的结果是无序的
+//                08-22 19:55:39.680 26138-26138/test.cn.example.com.androidskill I/MY_LOG: RxJavaOperatorConvert.java::357::call-->>23.0---threadId=1
+//                08-22 19:55:39.690 26138-26138/test.cn.example.com.androidskill I/MY_LOG: RxJavaOperatorConvert.java::357::call-->>34.0---threadId=1
+//                08-22 19:55:39.690 26138-26725/test.cn.example.com.androidskill I/MY_LOG: RxJavaOperatorConvert.java::357::call-->>45.0---threadId=1970
+//                08-22 19:55:39.700 26138-26726/test.cn.example.com.androidskill I/MY_LOG: RxJavaOperatorConvert.java::357::call-->>78.0---threadId=1971
+//                08-22 19:55:39.700 26138-26726/test.cn.example.com.androidskill I/MY_LOG: RxJavaOperatorConvert.java::357::call-->>56.0---threadId=1971
+//                08-22 19:55:39.710 26138-26726/test.cn.example.com.androidskill I/MY_LOG: RxJavaOperatorConvert.java::357::call-->>89.0---threadId=1971
             }
         });
     }
 
     private void map() {
+        //map():对Observable发射的每一项数据使用函数执行变换操作，然后在发射出去。
+        // 返回的对象可以随便指定，可以实现一对一的转换
         Observable<Integer> observable = Observable.just(1,2,3,5,9,7);
-        observable.map(new Func1<Integer,String>(){
-
+        observable.map(new Func1<Integer,String>(){//将Integer转换成String
             @Override
             public String call(Integer integer) {
                 return "this is "+integer;
@@ -310,6 +409,12 @@ public class RxJavaOperatorConvert extends AppCompatActivity implements View.OnC
                 break;
             case R.id.buffer:
                 buffer();
+                break;
+            case R.id.cast:
+                cast();
+                break;
+            case R.id.concatMap:
+                concatMap();
                 break;
             default:
                 break;

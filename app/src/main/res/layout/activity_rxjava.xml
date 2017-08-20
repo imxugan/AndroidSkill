@@ -28,12 +28,13 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="rxjava的创建操作符"/>
+
     <Button
         android:id="@+id/action"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center"
-    android:text="rxjava的action基础使用"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="rxjava的action基础使用"/>
 
     <Button
         android:id="@+id/base2"
