@@ -44,10 +44,12 @@ public class RxJavaTestActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void initView() {
-        Button action = (Button) findViewById(R.id.action);
-        action.setOnClickListener(this);
         Button base = (Button) findViewById(R.id.base);
         base.setOnClickListener(this);
+        Button create_operator = (Button) findViewById(R.id.create_operator);
+        create_operator.setOnClickListener(this);
+        Button action = (Button) findViewById(R.id.action);
+        action.setOnClickListener(this);
         Button base2 = (Button) findViewById(R.id.base2);
         base2.setOnClickListener(this);
         Button operator_convert = (Button) findViewById(R.id.operator_convert);
@@ -57,11 +59,14 @@ public class RxJavaTestActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.action:
-                rxJavaActionTest();
-                break;
             case R.id.base:
                 rxJavaSimpleTest();
+                break;
+            case R.id.create_operator:
+                rxJavaCreateOperatorTest();
+                break;
+            case R.id.action:
+                rxJavaActionTest();
                 break;
             case R.id.base2:
                 rxJavaSimpleTest2();
@@ -75,7 +80,9 @@ public class RxJavaTestActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-
+    private void rxJavaCreateOperatorTest(){
+        startActivity(new Intent(RxJavaTestActivity.this,RxJavaOperatorCreate.class));
+    }
 
 
 
@@ -207,5 +214,71 @@ public class RxJavaTestActivity extends AppCompatActivity implements View.OnClic
         observable.subscribe(observer);
         observable2.subscribe(observer);
         observable3.subscribe(observer);
+
+        //基础学习加强
+        //1.创建观察者对象
+        Subscriber<String> subscriber = new Subscriber<String>() {
+            @Override
+            public void onCompleted() {
+                LogUtil.i("onCompleted");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                LogUtil.i("onError");
+            }
+
+            @Override
+            public void onNext(String s) {
+                LogUtil.i("onNext---s="+s);
+            }
+        };
+
+        //2.创建被观察者对象
+        Observable<String> observable4 = Observable.create(new Observable.OnSubscribe<String>() {
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+                subscriber.onNext("test");
+            }
+        });
+
+        //让被观察者订阅观察者
+        observable4.subscribe(subscriber);
+
+        Observable<String> observable5 = Observable.just("a","s","d");
+        observable5.subscribe(new Subscriber<String>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(String s) {
+                LogUtil.i("observable5--------"+s);
+            }
+        });
+        String[] arr = {"x","y","z"};
+        Observable<String> observable16 = Observable.from(arr);
+        observable16.subscribe(new Subscriber<String>() {
+            @Override
+            public void onCompleted() {
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(String s) {
+                LogUtil.i("--------"+s);
+            }
+        });
+
     }
 }

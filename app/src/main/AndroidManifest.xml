@@ -155,6 +155,8 @@
         </activity>
         <activity android:name="test.cn.example.com.androidskill.PropertyAnimationBaseActivity"
                   android:screenOrientation="portrait">
+        </activity><activity android:name="test.cn.example.com.androidskill.rxjavaTest.RxJavaOperatorCreate"
+                  android:screenOrientation="portrait">
         </activity>
 
         <service android:name="test.cn.example.com.androidskill.service.MyService"
