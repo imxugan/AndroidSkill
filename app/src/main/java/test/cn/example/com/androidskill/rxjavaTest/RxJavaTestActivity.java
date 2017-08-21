@@ -82,6 +82,9 @@ public class RxJavaTestActivity extends AppCompatActivity implements View.OnClic
         base2.setOnClickListener(this);
         Button operator_convert = (Button) findViewById(R.id.operator_convert);
         operator_convert.setOnClickListener(this);
+        Button operator_filter = (Button) findViewById(R.id.operator_filter);
+        operator_filter.setOnClickListener(this);
+
     }
 
     @Override
@@ -102,7 +105,9 @@ public class RxJavaTestActivity extends AppCompatActivity implements View.OnClic
             case R.id.operator_convert:
                 startActivity(new Intent(RxJavaTestActivity.this,RxJavaOperatorConvert.class));
                 break;
-
+            case R.id.operator_filter:
+                startActivity(new Intent(RxJavaTestActivity.this,RxJavaOperatorFilter.class));
+                break;
             default:
                 break;
         }

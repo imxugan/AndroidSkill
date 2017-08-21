@@ -44,8 +44,15 @@
     android:text="rxjava的合并代码使用"/>
     <Button
         android:id="@+id/operator_convert"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center"
-    android:text="rxjava的转换操作符使用"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="rxjava的转换操作符使用"/>
+
+    <Button
+        android:id="@+id/operator_filter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="rxjava的过滤操作符使用"/>
 </LinearLayout>
