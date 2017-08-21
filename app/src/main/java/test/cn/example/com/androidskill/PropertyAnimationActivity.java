@@ -30,6 +30,8 @@ public class PropertyAnimationActivity extends AppCompatActivity implements View
     private void initView() {
         Button base = (Button) findViewById(R.id.base);
         base.setOnClickListener(this);
+        Button middle = (Button) findViewById(R.id.middle);
+        middle.setOnClickListener(this);
         TextView textView = (TextView) findViewById(R.id.text);
         ObjectAnimator moveIn = ObjectAnimator.ofFloat(textView,"translationX",-300f,0f);
         ObjectAnimator rotate = ObjectAnimator.ofFloat(textView,"rotation",0f,360f);
@@ -95,6 +97,9 @@ public class PropertyAnimationActivity extends AppCompatActivity implements View
         switch (v.getId()){
             case R.id.base:
                 startActivity(new Intent(PropertyAnimationActivity.this,PropertyAnimationBaseActivity.class));
+                break;
+            case R.id.middle:
+                startActivity(new Intent(PropertyAnimationActivity.this,PropertyAnimationMiddleActivity.class));
                 break;
         }
     }
