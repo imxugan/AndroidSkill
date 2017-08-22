@@ -6,26 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
-import rx.Observer;
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import rx.functions.Func0;
-import rx.functions.Func1;
-import rx.functions.Func2;
-import rx.observables.GroupedObservable;
-import rx.schedulers.Schedulers;
 import test.cn.example.com.androidskill.R;
-import test.cn.example.com.androidskill.model.City;
-import test.cn.example.com.androidskill.model.House;
 import test.cn.example.com.util.LogUtil;
-
-import static test.cn.example.com.androidskill.R.id.flatMap;
-import static test.cn.example.com.androidskill.R.id.observer;
 
 /**
  * rxJava创建操作符的使用
@@ -84,6 +71,9 @@ public class RxJavaOperatorCreate extends AppCompatActivity implements View.OnCl
                 LogUtil.i("onNext");
             }
         });
+        //打印结果：
+        //无
+
     }
 
     private void error(){

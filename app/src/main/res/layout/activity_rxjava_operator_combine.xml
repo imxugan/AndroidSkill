@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="rxjava合并操作符，结果看打印的日志"/>
+            <Button
+                android:id="@+id/combineLatest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="rxjava的转换类操作符combineLatest的使用"/>
+
+            <Button
+                android:id="@+id/join"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="rxjava的转换类操作符join的使用"/>
+
+            <Button
+                android:id="@+id/groupJoin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="rxjava的转换类操作符groupJoin的使用"/>
+
+            <Button
+                android:id="@+id/merge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="rxjava的转换类操作符merge的使用"/>
+
+            <Button
+                android:id="@+id/mergeDelayError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="rxjava的转换类操作符mergeDelayError的使用"/>
+
+            <Button
+                android:id="@+id/startWith"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="rxjava的转换类操作符startWith的使用"/>
+
+            <Button
+            android:id="@+id/switchOnNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="rxjava的转换类操作符switchOnNext的使用"/>
+
+            <Button
+                android:id="@+id/zip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="rxjava的转换类操作符zip的使用"/>
+
+            <Button
+                android:id="@+id/zipWith"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="rxjava的转换类操作符zipWith的使用"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
