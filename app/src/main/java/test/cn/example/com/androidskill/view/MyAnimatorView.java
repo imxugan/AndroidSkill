@@ -1,5 +1,7 @@
 package test.cn.example.com.androidskill.view;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -8,6 +10,7 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
+import test.cn.example.com.androidskill.model.ColorEvaluator;
 import test.cn.example.com.androidskill.model.Point;
 import test.cn.example.com.androidskill.model.PointEvaluator;
 import test.cn.example.com.util.DensityUtil;
@@ -23,6 +26,16 @@ public class MyAnimatorView extends View {
     private final float RADIUS = 50f;
     private Point currentPoint ,endPoint;
     private Context mContext;
+    private String color;
+    public String getColor(){
+        return color;
+    }
+
+    public void setColor(String color){
+        this.color = color;
+        mPaint.setColor(Color.parseColor(color));
+    }
+
     public MyAnimatorView(Context context, AttributeSet attrs) {
         super(context, attrs);
         //初始化paint  ,Paint.ANTI_ALIAS_FLAG 表示 消除锯齿
@@ -66,10 +79,24 @@ public class MyAnimatorView extends View {
         Point startPoint = new Point(RADIUS,RADIUS);
         LogUtil.i("getWidth()="+getWidth()+"---getHeight()="+getHeight());
         Point endPoint = new Point((getWidth() - startPoint.getX()),(getHeight() - startPoint.getY()));
-        ValueAnimator valueAnimator = ValueAnimator.ofObject(new PointEvaluator(), startPoint, endPoint);
-        valueAnimator.setDuration(5000);
-        valueAnimator.start();
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//        ValueAnimator valueAnimator = ValueAnimator.ofObject(new PointEvaluator(), startPoint, endPoint);
+//        valueAnimator.setDuration(5000);
+//        valueAnimator.start();
+//        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//            @Override
+//            public void onAnimationUpdate(ValueAnimator animation) {
+//                currentPoint = (Point) animation.getAnimatedValue();
+//                invalidate();
+//            }
+//        });
+
+        ValueAnimator pointAnimator = ValueAnimator.ofObject(new PointEvaluator(), startPoint, endPoint);
+        ObjectAnimator colorAnimator = ObjectAnimator.ofObject(this,"color",new ColorEvaluator(), "#000000", "#ffffff");
+        AnimatorSet set = new AnimatorSet();
+        set.play(pointAnimator).with(colorAnimator);
+        set.setDuration(5000).start();
+
+        pointAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 currentPoint = (Point) animation.getAnimatedValue();
