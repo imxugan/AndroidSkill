@@ -86,6 +86,8 @@ public class RxJavaTestActivity extends AppCompatActivity implements View.OnClic
         operator_filter.setOnClickListener(this);
         Button operator_combine = (Button) findViewById(R.id.operator_combine);
         operator_combine.setOnClickListener(this);
+        Button operator_assist = (Button) findViewById(R.id.operator_assist);
+        operator_assist.setOnClickListener(this);
 
     }
 
@@ -112,6 +114,9 @@ public class RxJavaTestActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.operator_combine:
                 startActivity(new Intent(RxJavaTestActivity.this,RxJavaOperatorCombine.class));
+                break;
+            case R.id.operator_assist:
+                startActivity(new Intent(RxJavaTestActivity.this,RxJavaOperatorAssist.class));
                 break;
             default:
                 break;

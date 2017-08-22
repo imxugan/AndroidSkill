@@ -57,9 +57,16 @@
         android:text="rxjava的过滤操作符使用"/>
 
     <Button
-        android:id="@+id/operator_combine"
+    android:id="@+id/operator_combine"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:text="rxjava的组合操作符使用"/>
+
+    <Button
+        android:id="@+id/operator_assist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="rxjava的组合操作符使用"/>
+        android:text="rxjava的辅助操作符使用"/>
 </LinearLayout>
