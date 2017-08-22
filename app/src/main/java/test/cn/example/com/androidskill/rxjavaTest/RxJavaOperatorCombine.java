@@ -375,11 +375,17 @@ public class RxJavaOperatorCombine extends AppCompatActivity implements View.OnC
                         new Func2<String,Integer,String>() {
                             @Override
                             public String call(String str1, Integer integer) {
-                                LogUtil.i(str1+"---"+integer);
+//                                LogUtil.i(str1+"---"+integer);
                                 return str1 + integer;
                             }
                         })
                 .subscribe(mSbuscriber);
+        //打印结果：
+//        08-24 16:00:24.720 4344-4344/test.cn.example.com.androidskill I/MY_LOG: RxJavaOperatorCombine.java::52::onNext-->>thread---main---srcObs-1
+//        08-24 16:00:24.720 4344-4344/test.cn.example.com.androidskill I/MY_LOG: RxJavaOperatorCombine.java::52::onNext-->>thread---main---srcObs-2
+//        08-24 16:00:24.720 4344-4344/test.cn.example.com.androidskill I/MY_LOG: RxJavaOperatorCombine.java::52::onNext-->>thread---main---srcObs-3
+//        08-24 16:00:24.730 4344-4344/test.cn.example.com.androidskill I/MY_LOG: RxJavaOperatorCombine.java::52::onNext-->>thread---main---srcObs-4
+//        08-24 16:00:27.720 4344-4541/test.cn.example.com.androidskill I/MY_LOG: RxJavaOperatorCombine.java::42::onCompleted-->>thread ---RxComputationThreadPool-1
 
     }
 
