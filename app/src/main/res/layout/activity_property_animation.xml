@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="属性动画的高级使用演示"/>
+        android:text="属性动画的Interpolator使用演示"/>
 
     <Button
         android:id="@+id/exercise"

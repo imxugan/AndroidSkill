@@ -11,12 +11,12 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AnticipateInterpolator;
-import android.view.animation.AnticipateOvershootInterpolator;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 
 import test.cn.example.com.androidskill.R;
+import test.cn.example.com.androidskill.model.MyDecelerateAccelerateInterpolator;
 import test.cn.example.com.androidskill.model.Point;
 import test.cn.example.com.androidskill.model.PointEvaluator;
 import test.cn.example.com.util.LogUtil;
@@ -41,8 +41,8 @@ public class MyAnimatorView2 extends View {
     private final String DECELERATEINTERPOLATOR = "DecelerateInterpolator";
     //AnticipateInterpolator 开始的时候向后然后向前甩
     private final String ANTICIPATEINTERPOLATOR = "AnticipateInterpolator";
-    //AnticipateOvershootInterpolator 开始的时候向后然后向前甩一定值后返回最后的值
-    private final String ANTICIPATEOVERSHOOTINTERPOLATOR = "AnticipateOvershootInterpolator";
+    //MyDecelerateAccelerateInterpolator 自定义的，先减速后加速
+    private final String MYDECELERATEACCELERATEINTERPOLATOR = "MyDecelerateAccelerateInterpolator";
 
     private final float RADIUS = 20f;
     public MyAnimatorView2(Context context, AttributeSet attrs) {
@@ -51,7 +51,6 @@ public class MyAnimatorView2 extends View {
         mStartPoint = new Point(RADIUS,RADIUS);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MyAnimatorView2);
         mCurrent_interpolator = typedArray.getString(R.styleable.MyAnimatorView2_current_interpolator);
-
 
     }
 
@@ -79,7 +78,7 @@ public class MyAnimatorView2 extends View {
         super.onDraw(canvas);
         if(null == mCurrentPoint){
             mCurrentPoint = new Point(RADIUS,RADIUS);
-            LogUtil.i("width="+getWidth()+"---height="+getHeight());
+//            LogUtil.i("width="+getWidth()+"---height="+getHeight());
             mEndPoint = new Point(RADIUS,getHeight()-RADIUS);
             canvas.drawCircle(mCurrentPoint.getX(),mCurrentPoint.getY(),RADIUS,mPaint);
             startMyAnimator();
@@ -106,8 +105,9 @@ public class MyAnimatorView2 extends View {
                 animator.setInterpolator(new DecelerateInterpolator());
             }else if(ANTICIPATEINTERPOLATOR.equals(mCurrent_interpolator)){
                 animator.setInterpolator(new AnticipateInterpolator());
-            }else if(ANTICIPATEOVERSHOOTINTERPOLATOR.equals(mCurrent_interpolator)){
-                animator.setInterpolator(new AnticipateOvershootInterpolator());
+            }else if(MYDECELERATEACCELERATEINTERPOLATOR.equals(mCurrent_interpolator)){
+                LogUtil.e("mCurrent_interpolator="+mCurrent_interpolator);
+                animator.setInterpolator(new MyDecelerateAccelerateInterpolator());
             }
         }
         animator.start();
