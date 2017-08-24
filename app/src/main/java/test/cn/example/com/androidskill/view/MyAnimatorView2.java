@@ -8,7 +8,12 @@ import android.graphics.Paint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AnticipateInterpolator;
+import android.view.animation.AnticipateOvershootInterpolator;
+import android.view.animation.BounceInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 
 import test.cn.example.com.androidskill.R;
@@ -24,8 +29,20 @@ public class MyAnimatorView2 extends View {
     private Paint mPaint;
     private Point mCurrentPoint, mStartPoint, mEndPoint;
     private String mCurrent_interpolator;
+    //匀速
     private final String LINEARINTERPOLATOR = "LinearInterpolator";
+    //加速
     private final String ACCELERATEINTERPOLATOR = "AccelerateInterpolator";
+    //先加速，后减速
+    private final String ACCELERATEDECELERATEINTERPOLATOR = "AccelerateDecelerateInterpolator";
+    //BounceInterpolator 动画结束的时候弹起
+    private final String BOUNCEINTERPOLATOR = "BounceInterpolator";
+    //DecelerateInterpolator 减速
+    private final String DECELERATEINTERPOLATOR = "DecelerateInterpolator";
+    //AnticipateInterpolator 开始的时候向后然后向前甩
+    private final String ANTICIPATEINTERPOLATOR = "AnticipateInterpolator";
+    //AnticipateOvershootInterpolator 开始的时候向后然后向前甩一定值后返回最后的值
+    private final String ANTICIPATEOVERSHOOTINTERPOLATOR = "AnticipateOvershootInterpolator";
 
     private final float RADIUS = 20f;
     public MyAnimatorView2(Context context, AttributeSet attrs) {
@@ -75,12 +92,22 @@ public class MyAnimatorView2 extends View {
     private void startMyAnimator(){
         ValueAnimator animator = ValueAnimator.ofObject(new PointEvaluator(), mStartPoint, mEndPoint);
         animator.setDuration(5000);
-        animator.setInterpolator(new AccelerateInterpolator(5f));
+        animator.setInterpolator(new AccelerateInterpolator());
         if(!TextUtils.isEmpty(mCurrent_interpolator)){
             if(LINEARINTERPOLATOR.equals(mCurrent_interpolator)){
                 animator.setInterpolator(new LinearInterpolator());
             }else if(ACCELERATEINTERPOLATOR.equals(mCurrent_interpolator)){
-                animator.setInterpolator(new AccelerateInterpolator(5f));
+                animator.setInterpolator(new AccelerateInterpolator());
+            }else if(ACCELERATEDECELERATEINTERPOLATOR.equals(mCurrent_interpolator)){
+                animator.setInterpolator(new AccelerateDecelerateInterpolator());
+            }else if(BOUNCEINTERPOLATOR.equals(mCurrent_interpolator)){
+                animator.setInterpolator(new BounceInterpolator());
+            }else if(DECELERATEINTERPOLATOR.equals(mCurrent_interpolator)){
+                animator.setInterpolator(new DecelerateInterpolator());
+            }else if(ANTICIPATEINTERPOLATOR.equals(mCurrent_interpolator)){
+                animator.setInterpolator(new AnticipateInterpolator());
+            }else if(ANTICIPATEOVERSHOOTINTERPOLATOR.equals(mCurrent_interpolator)){
+                animator.setInterpolator(new AnticipateOvershootInterpolator());
             }
         }
         animator.start();

@@ -40,8 +40,9 @@
             android:orientation="vertical">
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="带了匀速的差值器的效果"/>
+                android:layout_height="30dp"
+                android:textSize="10sp"
+                android:text="匀速"/>
             <test.cn.example.com.androidskill.view.MyAnimatorView2
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -56,13 +57,99 @@
             android:orientation="vertical">
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="带了加速的差值器的效果"/>
+                android:layout_height="30dp"
+                android:textSize="10sp"
+                android:text="加速"/>
             <test.cn.example.com.androidskill.view.MyAnimatorView2
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 app:current_interpolator="AccelerateInterpolator"
                 android:background="@color/colorPrimaryDark"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:textSize="10sp"
+                android:text="先加速后减速"/>
+            <test.cn.example.com.androidskill.view.MyAnimatorView2
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:current_interpolator="AccelerateDecelerateInterpolator"
+                android:background="#f4a"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:textSize="10sp"
+                android:text="动画结束的时候弹起"/>
+            <test.cn.example.com.androidskill.view.MyAnimatorView2
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:current_interpolator="BounceInterpolator"
+                android:background="#f95"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:textSize="10sp"
+                android:text="减速"/>
+            <test.cn.example.com.androidskill.view.MyAnimatorView2
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:current_interpolator="DecelerateInterpolator"
+                android:background="#295"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:textSize="10sp"
+                android:text="向后然后向前"/>
+            <test.cn.example.com.androidskill.view.MyAnimatorView2
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:current_interpolator="AnticipateInterpolator"
+                android:background="#56a"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:textSize="10sp"
+                android:text="向后然后向前"/>
+            <test.cn.example.com.androidskill.view.MyAnimatorView2
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:current_interpolator="AnticipateOvershootInterpolator"
+                android:background="#a73"/>
         </LinearLayout>
     </LinearLayout>
 
