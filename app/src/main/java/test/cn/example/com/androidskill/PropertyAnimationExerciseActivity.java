@@ -21,7 +21,7 @@ import test.cn.example.com.androidskill.view.ViewWrapper;
  * Created by xgxg on 2017/8/23.
  */
 public class PropertyAnimationExerciseActivity extends AppCompatActivity implements View.OnClickListener {
-    private Button testIntEvaluator;
+    private Button testIntEvaluator,trans;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +32,8 @@ public class PropertyAnimationExerciseActivity extends AppCompatActivity impleme
     private void initView() {
         testIntEvaluator = (Button) findViewById(R.id.testIntEvaluator);
         testIntEvaluator.setOnClickListener(this);
+        trans = (Button) findViewById(R.id.trans);
+        trans.setOnClickListener(this);
 
         TextView textView = (TextView) findViewById(R.id.text);
         ObjectAnimator moveIn = ObjectAnimator.ofFloat(textView,"translationX",-300f,0f);
@@ -99,7 +101,14 @@ public class PropertyAnimationExerciseActivity extends AppCompatActivity impleme
             case R.id.testIntEvaluator:
                 testIntEvaluator();
                 break;
+            case R.id.trans:
+                trans();
+                break;
         }
+    }
+
+    private void trans(){
+        startActivity(new Intent(PropertyAnimationExerciseActivity.this,TransZFBActivity.class));
     }
 
     private void testIntEvaluator() {
