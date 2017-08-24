@@ -177,7 +177,7 @@
                   android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.PropertyAnimationSeniorActivity"
+        <activity android:name="test.cn.example.com.androidskill.PropertyAnimationInterpolatorActivity"
                   android:screenOrientation="portrait">
         </activity>
 

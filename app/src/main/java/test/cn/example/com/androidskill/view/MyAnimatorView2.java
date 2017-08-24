@@ -2,11 +2,16 @@ package test.cn.example.com.androidskill.view;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 
+import test.cn.example.com.androidskill.R;
 import test.cn.example.com.androidskill.model.Point;
 import test.cn.example.com.androidskill.model.PointEvaluator;
 import test.cn.example.com.util.LogUtil;
@@ -17,13 +22,20 @@ import test.cn.example.com.util.LogUtil;
 
 public class MyAnimatorView2 extends View {
     private Paint mPaint;
-    private Point mCurrentPoint,startPoint,endPoint;
+    private Point mCurrentPoint, mStartPoint, mEndPoint;
+    private String mCurrent_interpolator;
+    private final String LINEARINTERPOLATOR = "LinearInterpolator";
+    private final String ACCELERATEINTERPOLATOR = "AccelerateInterpolator";
 
     private final float RADIUS = 20f;
     public MyAnimatorView2(Context context, AttributeSet attrs) {
         super(context, attrs);
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        startPoint = new Point(RADIUS,RADIUS);
+        mStartPoint = new Point(RADIUS,RADIUS);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MyAnimatorView2);
+        mCurrent_interpolator = typedArray.getString(R.styleable.MyAnimatorView2_current_interpolator);
+
+
     }
 
     @Override
@@ -51,7 +63,7 @@ public class MyAnimatorView2 extends View {
         if(null == mCurrentPoint){
             mCurrentPoint = new Point(RADIUS,RADIUS);
             LogUtil.i("width="+getWidth()+"---height="+getHeight());
-            endPoint = new Point(RADIUS,getHeight()-RADIUS);
+            mEndPoint = new Point(RADIUS,getHeight()-RADIUS);
             canvas.drawCircle(mCurrentPoint.getX(),mCurrentPoint.getY(),RADIUS,mPaint);
             startMyAnimator();
         }else {
@@ -61,8 +73,16 @@ public class MyAnimatorView2 extends View {
     }
 
     private void startMyAnimator(){
-        ValueAnimator animator = ValueAnimator.ofObject(new PointEvaluator(),startPoint,endPoint);
+        ValueAnimator animator = ValueAnimator.ofObject(new PointEvaluator(), mStartPoint, mEndPoint);
         animator.setDuration(5000);
+        animator.setInterpolator(new AccelerateInterpolator(5f));
+        if(!TextUtils.isEmpty(mCurrent_interpolator)){
+            if(LINEARINTERPOLATOR.equals(mCurrent_interpolator)){
+                animator.setInterpolator(new LinearInterpolator());
+            }else if(ACCELERATEINTERPOLATOR.equals(mCurrent_interpolator)){
+                animator.setInterpolator(new AccelerateInterpolator(5f));
+            }
+        }
         animator.start();
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override

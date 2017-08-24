@@ -17,7 +17,7 @@ import android.widget.TextView;
 import test.cn.example.com.androidskill.view.ViewWrapper;
 
 /**
- * 属性动画演示
+ * 属性动画Interpolator演示
  */
 public class PropertyAnimationActivity extends AppCompatActivity implements View.OnClickListener {
     @Override
@@ -32,8 +32,8 @@ public class PropertyAnimationActivity extends AppCompatActivity implements View
         base.setOnClickListener(this);
         Button typeEvaluator = (Button) findViewById(R.id.typeEvaluator);
         typeEvaluator.setOnClickListener(this);
-        Button senior = (Button) findViewById(R.id.senior);
-        senior.setOnClickListener(this);
+        Button interpolator = (Button) findViewById(R.id.interpolator);
+        interpolator.setOnClickListener(this);
         Button exercise = (Button) findViewById(R.id.exercise);
         exercise.setOnClickListener(this);
         TextView textView = (TextView) findViewById(R.id.text);
@@ -105,8 +105,8 @@ public class PropertyAnimationActivity extends AppCompatActivity implements View
             case R.id.typeEvaluator:
                 startActivity(new Intent(PropertyAnimationActivity.this,PropertyAnimationTypeEvaluatorActivity.class));
                 break;
-            case R.id.senior:
-                startActivity(new Intent(PropertyAnimationActivity.this,PropertyAnimationSeniorActivity.class));
+            case R.id.interpolator:
+                startActivity(new Intent(PropertyAnimationActivity.this,PropertyAnimationInterpolatorActivity.class));
                 break;
             case R.id.exercise:
                 startActivity(new Intent(PropertyAnimationActivity.this,PropertyAnimationExerciseActivity.class));

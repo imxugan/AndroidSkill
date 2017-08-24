@@ -10,18 +10,16 @@ import test.cn.example.com.androidskill.model.Point;
 import test.cn.example.com.androidskill.model.PointEvaluator;
 import test.cn.example.com.util.LogUtil;
 
-import static test.cn.example.com.androidskill.R.id.ball;
-
 /**
  * 属性动画高级演示
  * Created by xgxg on 2017/8/23.
  */
-public class PropertyAnimationSeniorActivity extends AppCompatActivity implements View.OnClickListener {
+public class PropertyAnimationInterpolatorActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_property_animation_senior);
+        setContentView(R.layout.activity_property_animation_interpolator);
         initView();
     }
 
@@ -38,13 +36,7 @@ public class PropertyAnimationSeniorActivity extends AppCompatActivity implement
             case R.id.testPointEvaluator:
                 testPointEvaluator();
                 break;
-            case ball:
-                testBall();
-                break;
         }
-    }
-
-    private void testBall() {
     }
 
     private void testPointEvaluator() {
@@ -61,15 +53,5 @@ public class PropertyAnimationSeniorActivity extends AppCompatActivity implement
             }
         });
 
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
     }
 }
