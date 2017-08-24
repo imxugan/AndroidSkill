@@ -40,28 +40,18 @@
         android:text="属性动画的Interpolator使用演示"/>
 
     <Button
+        android:id="@+id/viewPropertyAnimator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="属性动画的ViewPropertyAnimator使用演示"/>
+
+    <Button
         android:id="@+id/exercise"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="属性动画的练习"/>
-    <Button
-        android:id="@+id/scale"
-        android:layout_width="100px"
-        android:layout_height="120dp"
-        android:gravity="center"
-        android:text="将button从当前宽度增加到500px宽度动画,使用scale的效果"/>
-    <Button
-        android:id="@+id/scale2"
-        android:layout_width="100px"
-        android:layout_height="120dp"
-        android:gravity="center"
-        android:text="将button从当前宽度增加到500px宽度动画,使用属性动画的效果"/>
-    <Button
-        android:id="@+id/scale3"
-        android:layout_width="100px"
-        android:layout_height="120dp"
-        android:gravity="center"
-        android:text="将button从当前宽度增加到500px宽度动画,使用属性动画的效果"/>
+
 
 </LinearLayout>
