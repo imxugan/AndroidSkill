@@ -13,14 +13,15 @@ import test.cn.example.com.util.LogUtil;
 import static test.cn.example.com.androidskill.R.id.ball;
 
 /**
- * 属性动画中等演示
+ * 属性动画高级演示
+ * Created by xgxg on 2017/8/23.
  */
-public class PropertyAnimationMiddleActivity extends AppCompatActivity implements View.OnClickListener {
+public class PropertyAnimationSeniorActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_property_animation_middle);
+        setContentView(R.layout.activity_property_animation_senior);
         initView();
     }
 

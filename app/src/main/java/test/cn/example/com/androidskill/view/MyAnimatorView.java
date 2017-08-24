@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
 
 import test.cn.example.com.androidskill.model.ColorEvaluator;
 import test.cn.example.com.androidskill.model.Point;
@@ -95,7 +96,7 @@ public class MyAnimatorView extends View {
         AnimatorSet set = new AnimatorSet();
         set.play(pointAnimator).with(colorAnimator);
         set.setDuration(5000).start();
-
+        set.setInterpolator(new AccelerateInterpolator(50f));
         pointAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {

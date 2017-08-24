@@ -26,11 +26,25 @@
         android:text="属性动画的基础演示"/>
 
     <Button
-        android:id="@+id/middle"
+        android:id="@+id/typeEvaluator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="属性动画的中等使用演示"/>
+        android:text="属性动画的TypeEvaluator使用演示"/>
+
+    <Button
+        android:id="@+id/senior"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="属性动画的高级使用演示"/>
+
+    <Button
+        android:id="@+id/exercise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="属性动画的练习"/>
     <Button
         android:id="@+id/scale"
         android:layout_width="100px"
