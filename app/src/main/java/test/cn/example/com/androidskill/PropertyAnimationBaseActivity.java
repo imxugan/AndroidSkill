@@ -5,14 +5,20 @@ import android.animation.AnimatorInflater;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
+import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
+import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 
 import test.cn.example.com.util.LogUtil;
+
+import static android.animation.ValueAnimator.ofFloat;
 
 /**
  * 属性动画基础演示
@@ -50,6 +56,12 @@ public class PropertyAnimationBaseActivity extends AppCompatActivity implements 
         scale_xml.setOnClickListener(this);
         Button combination_xml = (Button) findViewById(R.id.combination_xml);
         combination_xml.setOnClickListener(this);
+        Button combine2 = (Button) findViewById(R.id.combine2);
+        combine2.setOnClickListener(this);
+        Button propertyValuesHolder = (Button) findViewById(R.id.propertyValuesHolder);
+        propertyValuesHolder.setOnClickListener(this);
+        Button paowuxian = (Button) findViewById(R.id.paowuxian);
+        paowuxian.setOnClickListener(this);
     }
 
     @Override
@@ -88,7 +100,104 @@ public class PropertyAnimationBaseActivity extends AppCompatActivity implements 
             case R.id.combination_xml:
                 testCombination_Xml();
                 break;
+            case R.id.combine2:
+                combine2();
+                break;
+            case R.id.propertyValuesHolder:
+                propertyValuesHolder();
+                break;
+            case R.id.paowuxian:
+                paowuxian();
+                break;
         }
+    }
+
+    private void paowuxian(){
+        ValueAnimator valueAnimator = new ValueAnimator();
+        valueAnimator.setDuration(5000);
+        final float startX = iv.getLeft() + iv.getWidth()/2f;
+        final float startY = iv.getTop() + iv.getHeight()/2f;
+        LogUtil.i("iv.getLeft()="+iv.getLeft()+"---iv.getTop()="+iv.getTop()+"iv.getWidth()="+iv.getWidth()+"---iv.getHeight()="+iv.getHeight());
+        LogUtil.i("startX="+startX+"---startY="+startY);
+        valueAnimator.setObjectValues(new PointF(startX,startY));
+//        valueAnimator.setObjectValues(new PointF(startX,startY));
+//        valueAnimator.setObjectValues(new PointF(startX,startY),new PointF(0,0),new PointF(1,1));
+        valueAnimator.setInterpolator(new LinearInterpolator());
+        valueAnimator.setEvaluator(new TypeEvaluator() {
+            @Override
+            public Object evaluate(float fraction, Object startValue, Object endValue) {
+                //如果valueAnimator.setObjectValues(new PointF(startX,startY),new PointF(0,0));
+                //传入了两个值，则第一个值就是startValue,第二个值就是endValue
+                //如果valueAnimator.setObjectValues(new PointF(startX,startY));值传入了一
+                //个值，则startValue为null,endValue的值就是这个传入的值
+                //如果valueAnimator.setObjectValues(new PointF(startX,startY),new PointF(0,0)，...);
+                // 传入3个以及3个以上的参数,则数据的过度顺序是，从第一个参数值变化到第二个参数值，
+                //再从第二个参数值，变化到第三个参数值，以此类推
+//                LogUtil.i("startValue===="+startValue+"---endValue="+endValue);
+                PointF p = new PointF();
+                //从view自身的中心点做起始点
+//                p.x = fraction * 1 * 200 + startX;
+//                p.y = (fraction * 1)* (fraction * 1) * 100f + startY;
+                //从坐标(0,0)作为起始点
+                p.x = fraction * 3 * 200 ;
+                p.y = (fraction * 3)* (fraction * 3) * 100f ;
+                return p;
+            }
+        });
+        valueAnimator.start();
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                PointF p = (PointF) animation.getAnimatedValue();
+                iv.setX(p.x);
+                iv.setY(p.y);
+            }
+        });
+        valueAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                LogUtil.i("animation is end");
+            }
+        });
+    }
+
+    private void propertyValuesHolder(){
+        PropertyValuesHolder pvh_alpha = PropertyValuesHolder.ofFloat("alpha",1f,0.5f);
+        PropertyValuesHolder pvh_scaleX = PropertyValuesHolder.ofFloat("scaleX",1f,0.5f);
+        PropertyValuesHolder pvh_scaleY = PropertyValuesHolder.ofFloat("scaleY",1f,0.5f);
+        ObjectAnimator.ofPropertyValuesHolder(iv,pvh_alpha,pvh_scaleX,pvh_scaleY)
+                .setDuration(5000).start();
+    }
+
+    private void combine2(){
+        ValueAnimator animator = ofFloat(1f, 0.5f, 1f);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                Float animatedValue = (Float) animation.getAnimatedValue();
+                iv.setAlpha(animatedValue);
+                iv.setScaleX(animatedValue);
+                iv.setScaleY(animatedValue);
+            }
+        });
+        animator.setDuration(5000).start();
+
+        //下面这种写法，传入的属性名"abc",由于iv这个控件没有这个属性，所以，改变这个abc
+        //属性值，是无法出现动画效果的，但是可以利用AnimatorUpdateListener监听，
+        //在其回调方法中，去根据属性值的变化，去调用iv这个控件存在的属性，并对这些存在
+        //的属性进行操作，以此来达到iv的相应属性变化所呈现的动画效果。
+//        ObjectAnimator objectAnimator =  ObjectAnimator.ofFloat(iv,"abc",1f, 0.5f, 1f);
+//        objectAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//            @Override
+//            public void onAnimationUpdate(ValueAnimator animation) {
+//                Float animatedValue = (Float) animation.getAnimatedValue();
+//                iv.setAlpha(animatedValue);
+//                iv.setScaleX(animatedValue);
+//                iv.setScaleY(animatedValue);
+//            }
+//        });
+//        objectAnimator.setDuration(5000).start();
     }
 
     private void testCombination_Xml() {
@@ -183,7 +292,7 @@ public class PropertyAnimationBaseActivity extends AppCompatActivity implements 
     }
 
     private void testValueAnimator() {
-        ValueAnimator valueAnimator = ValueAnimator.ofFloat(10f, 100f);
+        ValueAnimator valueAnimator = ofFloat(10f, 100f);
         valueAnimator.setDuration(100);
         valueAnimator.setRepeatMode(ValueAnimator.RESTART);
         valueAnimator.setRepeatCount(1);//设置了重复2次，表示是重复两次，加上本来要执行的一次，就是3次了，

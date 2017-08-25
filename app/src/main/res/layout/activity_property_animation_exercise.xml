@@ -35,6 +35,12 @@
                 android:text="模拟支付宝断网条件下，点击口碑中的条目，显示我的口碑页面，有两个小圆圈来回移动"/>
 
             <Button
+                android:id="@+id/animator2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="模拟支付宝断网条件下，点击口碑中“专属优惠”后，跳转到新的页面时，显示的动画效果"/>
+
+            <Button
                 android:id="@+id/scale"
                 android:layout_width="100px"
                 android:layout_height="120dp"

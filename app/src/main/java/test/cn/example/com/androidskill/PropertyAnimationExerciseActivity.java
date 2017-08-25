@@ -34,6 +34,8 @@ public class PropertyAnimationExerciseActivity extends AppCompatActivity impleme
         testIntEvaluator.setOnClickListener(this);
         trans = (Button) findViewById(R.id.trans);
         trans.setOnClickListener(this);
+        Button animator2 = (Button) findViewById(R.id.animator2);
+        animator2.setOnClickListener(this);
 
         TextView textView = (TextView) findViewById(R.id.text);
         ObjectAnimator moveIn = ObjectAnimator.ofFloat(textView,"translationX",-300f,0f);
@@ -104,7 +106,14 @@ public class PropertyAnimationExerciseActivity extends AppCompatActivity impleme
             case R.id.trans:
                 trans();
                 break;
+            case R.id.animator2:
+                animator2();
+                break;
         }
+    }
+
+    private void animator2(){
+        startActivity(new Intent(PropertyAnimationExerciseActivity.this,ZFBAnimator2Activity.class));
     }
 
     private void trans(){
