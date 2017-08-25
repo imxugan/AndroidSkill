@@ -62,6 +62,8 @@ public class PropertyAnimationBaseActivity extends AppCompatActivity implements 
         propertyValuesHolder.setOnClickListener(this);
         Button paowuxian = (Button) findViewById(R.id.paowuxian);
         paowuxian.setOnClickListener(this);
+        Button scale_left_top = (Button) findViewById(R.id.scale_left_top);
+        scale_left_top.setOnClickListener(this);
     }
 
     @Override
@@ -109,7 +111,17 @@ public class PropertyAnimationBaseActivity extends AppCompatActivity implements 
             case R.id.paowuxian:
                 paowuxian();
                 break;
+            case R.id.scale_left_top:
+                scale_left_top();
+                break;
         }
+    }
+
+    private void scale_left_top(){
+        iv.setPivotX(0);
+        iv.setPivotY(0);
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(iv, "scaleX", 1f, 2f);
+        objectAnimator.setDuration(5000).start();
     }
 
     private void paowuxian(){

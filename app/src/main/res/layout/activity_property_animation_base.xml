@@ -67,6 +67,12 @@
             android:layout_height="wrap_content"
             android:text="抛物线动画"/>
 
+        <Button
+            android:id="@+id/scale_left_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="以左上角为中心进行缩放"/>
+
     </LinearLayout>
 
     <LinearLayout
