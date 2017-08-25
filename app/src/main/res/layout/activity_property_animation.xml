@@ -47,6 +47,13 @@
         android:text="属性动画的ViewPropertyAnimator使用演示"/>
 
     <Button
+        android:id="@+id/layoutTransition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="LayoutTransition为布局的容器设置动画"/>
+
+    <Button
         android:id="@+id/exercise"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
