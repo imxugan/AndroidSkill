@@ -32,6 +32,8 @@ public class PropertyAnimationActivity extends AppCompatActivity implements View
         viewPropertyAnimator.setOnClickListener(this);
         Button layoutTransition = (Button) findViewById(R.id.layoutTransition);
         layoutTransition.setOnClickListener(this);
+        Button animateLayoutChanges = (Button) findViewById(R.id.animateLayoutChanges);
+        animateLayoutChanges.setOnClickListener(this);
         Button exercise = (Button) findViewById(R.id.exercise);
         exercise.setOnClickListener(this);
         TextView textView = (TextView) findViewById(R.id.text);
@@ -82,6 +84,9 @@ public class PropertyAnimationActivity extends AppCompatActivity implements View
                 break;
             case R.id.layoutTransition:
                 startActivity(new Intent(PropertyAnimationActivity.this,PropertyAnimationLayoutTransitionActivity.class));
+                break;
+            case R.id.animateLayoutChanges:
+                startActivity(new Intent(PropertyAnimationActivity.this,PropertyAnimationLayoutChangesActivity.class));
                 break;
             case R.id.exercise:
                 startActivity(new Intent(PropertyAnimationActivity.this,PropertyAnimationExerciseActivity.class));

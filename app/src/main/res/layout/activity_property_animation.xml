@@ -54,6 +54,13 @@
         android:text="LayoutTransition为布局的容器设置动画"/>
 
     <Button
+        android:id="@+id/animateLayoutChanges"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="animateLayoutChanges为布局的容器设置动画"/>
+
+    <Button
         android:id="@+id/exercise"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
