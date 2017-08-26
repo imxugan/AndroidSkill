@@ -15,32 +15,32 @@
         android:text="addButton"/>
 
     <CheckBox
-        android:id="@+id/appearance"
+        android:id="@+id/appearing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:checked="true"
-        android:text="appearance"/>
+        android:text="appearing"/>
 
     <CheckBox
-        android:id="@+id/change_appearance"
+        android:id="@+id/change_appearing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:checked="true"
-        android:text="change_appearance"/>
+        android:text="change_appearing"/>
 
     <CheckBox
-        android:id="@+id/disappear"
+        android:id="@+id/disappearing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:checked="true"
-        android:text="disappear"/>
+        android:text="disappearing"/>
 
     <CheckBox
-        android:id="@+id/change_disappear"
+        android:id="@+id/change_disappearing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:checked="true"
-        android:text="change_disappear"/>
+        android:text="change_disappearing"/>
 
     <LinearLayout
         android:id="@+id/ll_contain"
