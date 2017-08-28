@@ -34,6 +34,8 @@ public class PropertyAnimationExerciseActivity extends AppCompatActivity impleme
         testIntEvaluator.setOnClickListener(this);
         trans = (Button) findViewById(R.id.trans);
         trans.setOnClickListener(this);
+        Button explode = (Button) findViewById(R.id.explode);
+        explode.setOnClickListener(this);
         Button animator2 = (Button) findViewById(R.id.animator2);
         animator2.setOnClickListener(this);
 
@@ -109,7 +111,14 @@ public class PropertyAnimationExerciseActivity extends AppCompatActivity impleme
             case R.id.animator2:
                 animator2();
                 break;
+            case R.id.explode:
+                explode();
+                break;
         }
+    }
+
+    private void explode(){
+        startActivity(new Intent(PropertyAnimationExerciseActivity.this,ExplodeActivity.class));
     }
 
     private void animator2(){

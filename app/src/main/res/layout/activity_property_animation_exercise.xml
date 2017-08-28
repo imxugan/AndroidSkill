@@ -40,6 +40,14 @@
                 android:layout_height="wrap_content"
                 android:text="模拟支付宝断网条件下，点击口碑中“专属优惠”后，跳转到新的页面时，显示的动画效果"/>
 
+
+            <Button
+                android:id="@+id/explode"
+                android:layout_width="100px"
+                android:layout_height="120dp"
+                android:gravity="center"
+                android:text="粒子爆炸特效"/>
+
             <Button
                 android:id="@+id/scale"
                 android:layout_width="100px"

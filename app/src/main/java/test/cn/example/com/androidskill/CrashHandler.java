@@ -62,7 +62,7 @@ class CrashHandler implements UncaughtExceptionHandler {
 	 */
 	@Override
 	public void uncaughtException(Thread paramThread , Throwable paramThrowable) {
-		Log.i(TAG, "uncaughtException");
+		Log.i(TAG, ""+paramThrowable.toString());
 		 if (!handleException(paramThrowable) && mDefaultHandler != null) {
 	            mDefaultHandler.uncaughtException(paramThread, paramThrowable);
         } else {
@@ -70,6 +70,7 @@ class CrashHandler implements UncaughtExceptionHandler {
     		PrintWriter mPrintWriter = new PrintWriter(mWriter) ;
     		paramThrowable.printStackTrace(mPrintWriter) ;
     		Throwable mThrowable = paramThrowable.getCause() ;
+			 Log.e(TAG, "mThrowable.getCause()="+ cause);
     		cause = mThrowable.getCause().toString();
 //    		Log.e(TAG, "mThrowable.getCause()="+ cause);
 //    		Log.i(TAG, "mThrowable.getStackTrace()="+mThrowable.getStackTrace());

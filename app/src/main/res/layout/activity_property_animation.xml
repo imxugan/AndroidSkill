@@ -10,7 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context="test.cn.example.com.androidskill.LannchModeActivity">
-
     <TextView
         android:id="@+id/text"
         android:layout_width="200dp"
@@ -18,54 +17,66 @@
         android:gravity="center"
         android:text="属性动画演示"/>
 
-    <Button
-        android:id="@+id/base"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="属性动画的基础演示"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/base"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="属性动画的基础演示"/>
 
-    <Button
-        android:id="@+id/typeEvaluator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="属性动画的TypeEvaluator使用演示"/>
+            <Button
+                android:id="@+id/typeEvaluator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="属性动画的TypeEvaluator使用演示"/>
 
-    <Button
-        android:id="@+id/interpolator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="属性动画的Interpolator使用演示"/>
+            <Button
+                android:id="@+id/interpolator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="属性动画的Interpolator使用演示"/>
 
-    <Button
-        android:id="@+id/viewPropertyAnimator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="属性动画的ViewPropertyAnimator使用演示"/>
+            <Button
+                android:id="@+id/viewPropertyAnimator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="属性动画的ViewPropertyAnimator使用演示"/>
 
-    <Button
-        android:id="@+id/layoutTransition"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="LayoutTransition为布局的容器设置动画"/>
+            <Button
+                android:id="@+id/layoutTransition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="LayoutTransition为布局的容器设置动画"/>
 
-    <Button
-        android:id="@+id/animateLayoutChanges"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="animateLayoutChanges为布局的容器设置动画"/>
+            <Button
+                android:id="@+id/animateLayoutChanges"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="animateLayoutChanges为布局的容器设置动画"/>
 
-    <Button
-        android:id="@+id/exercise"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="属性动画的练习"/>
+            <Button
+                android:id="@+id/exercise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="属性动画的练习"/>
+        </LinearLayout>
+    </ScrollView>
+
+
+
 
 
 </LinearLayout>
