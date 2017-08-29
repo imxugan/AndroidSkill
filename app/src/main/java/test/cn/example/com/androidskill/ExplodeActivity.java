@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import test.cn.example.com.androidskill.model.explode.factory.ExplodeParticleFacory;
 import test.cn.example.com.androidskill.model.explode.factory.FallingParticleFactory;
 import test.cn.example.com.androidskill.model.explode.factory.FlyawayFactory;
+import test.cn.example.com.androidskill.model.explode.factory.InnerFallingParticleFactory;
 import test.cn.example.com.androidskill.view.explode.ExplosionField;
 import test.cn.example.com.util.LogUtil;
 
@@ -33,6 +34,10 @@ public class ExplodeActivity extends AppCompatActivity {
         ExplosionField explosionFieldFlyaway = new ExplosionField(this,new FlyawayFactory());
         explosionFieldFlyaway.addListener(findViewById(R.id.text3));
         explosionField.addListener(findViewById(R.id.ll_3));
+
+        ExplosionField explosionFieldInnerFalling = new ExplosionField(this,new InnerFallingParticleFactory());
+        explosionFieldInnerFalling.addListener(findViewById(R.id.text4));
+        explosionFieldInnerFalling.addListener(findViewById(R.id.ll_4));
     }
 
     private void initView() {
