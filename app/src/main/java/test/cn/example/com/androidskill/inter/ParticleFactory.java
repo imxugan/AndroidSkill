@@ -3,7 +3,7 @@ package test.cn.example.com.androidskill.inter;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 
-import test.cn.example.com.androidskill.model.Particle;
+import test.cn.example.com.androidskill.model.explode.Particle;
 
 /**
  * Created by xgxg on 2017/8/28.

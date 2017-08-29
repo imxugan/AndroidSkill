@@ -5,8 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import test.cn.example.com.androidskill.model.FallingParticleFactory;
-import test.cn.example.com.androidskill.view.ExplosionField;
+import test.cn.example.com.androidskill.model.explode.factory.FallingParticleFactory;
+import test.cn.example.com.androidskill.view.explode.ExplosionField;
 import test.cn.example.com.util.LogUtil;
 
 /**

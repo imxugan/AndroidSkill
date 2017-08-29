@@ -1,4 +1,4 @@
-package test.cn.example.com.androidskill.view;
+package test.cn.example.com.androidskill.view.animator;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;

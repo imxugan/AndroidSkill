@@ -34,7 +34,7 @@
                 android:paddingRight="5dp"
                 android:gravity="center"
                 android:text="匀速"/>
-            <test.cn.example.com.androidskill.view.MyAnimatorView2
+            <test.cn.example.com.androidskill.view.animator.MyAnimatorView2
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 app:current_interpolator="LinearInterpolator"
@@ -54,7 +54,7 @@
                 android:paddingRight="5dp"
                 android:gravity="center"
                 android:text="加速"/>
-            <test.cn.example.com.androidskill.view.MyAnimatorView2
+            <test.cn.example.com.androidskill.view.animator.MyAnimatorView2
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 app:current_interpolator="AccelerateInterpolator"
@@ -74,7 +74,7 @@
                 android:paddingRight="5dp"
                 android:gravity="center"
                 android:text="先加速后减速"/>
-            <test.cn.example.com.androidskill.view.MyAnimatorView2
+            <test.cn.example.com.androidskill.view.animator.MyAnimatorView2
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 app:current_interpolator="AccelerateDecelerateInterpolator"
@@ -94,7 +94,7 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:text="先减速后加速"/>
-            <test.cn.example.com.androidskill.view.MyAnimatorView2
+            <test.cn.example.com.androidskill.view.animator.MyAnimatorView2
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 app:current_interpolator="MyDecelerateAccelerateInterpolator"
@@ -114,7 +114,7 @@
                 android:paddingRight="5dp"
                 android:gravity="center"
                 android:text="动画结束的时候弹起"/>
-            <test.cn.example.com.androidskill.view.MyAnimatorView2
+            <test.cn.example.com.androidskill.view.animator.MyAnimatorView2
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 app:current_interpolator="BounceInterpolator"
@@ -134,7 +134,7 @@
                 android:paddingRight="5dp"
                 android:gravity="center"
                 android:text="减速"/>
-            <test.cn.example.com.androidskill.view.MyAnimatorView2
+            <test.cn.example.com.androidskill.view.animator.MyAnimatorView2
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 app:current_interpolator="DecelerateInterpolator"
@@ -154,7 +154,7 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:text="向后然后向前"/>
-            <test.cn.example.com.androidskill.view.MyAnimatorView2
+            <test.cn.example.com.androidskill.view.animator.MyAnimatorView2
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 app:current_interpolator="AnticipateInterpolator"

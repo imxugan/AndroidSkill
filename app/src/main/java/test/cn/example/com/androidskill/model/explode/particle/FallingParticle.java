@@ -1,4 +1,4 @@
-package test.cn.example.com.androidskill.model;
+package test.cn.example.com.androidskill.model.explode.particle;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -6,6 +6,9 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 
 import java.util.Random;
+
+import test.cn.example.com.androidskill.model.explode.Particle;
+import test.cn.example.com.androidskill.model.explode.factory.FallingParticleFactory;
 
 /**
  * Created by xgxg on 2017/8/28.

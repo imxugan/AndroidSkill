@@ -44,12 +44,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <test.cn.example.com.androidskill.view.MyAnimatorView
+        <test.cn.example.com.androidskill.view.animator.MyAnimatorView
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:background="@color/colorAccent"/>
-        <test.cn.example.com.androidskill.view.MyAnimatorView2
+        <test.cn.example.com.androidskill.view.animator.MyAnimatorView2
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"

@@ -1,4 +1,4 @@
-package test.cn.example.com.androidskill.model;
+package test.cn.example.com.androidskill.model.explode;
 
 import android.animation.ValueAnimator;
 import android.graphics.Bitmap;

@@ -9,29 +9,66 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical">
 
+
     <TextView
         android:id="@+id/text"
         android:text="向下破碎"
         android:textSize="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-    <ImageView
-        android:id="@+id/iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher"/>
 
     <LinearLayout
-        android:id="@+id/ll"
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
         <ImageView
-            android:id="@+id/iv_by"
+            android:id="@+id/iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/test_ic_img_user_default"/>
+            android:src="@mipmap/ic_launcher"/>
+
+        <LinearLayout
+            android:id="@+id/ll"
+            android:layout_marginLeft="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical">
+            <ImageView
+                android:id="@+id/iv_by"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/test_ic_img_user_default"/>
+        </LinearLayout>
     </LinearLayout>
 
+    <TextView
+        android:text="向上破碎"
+        android:textSize="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher"/>
+
+        <LinearLayout
+            android:id="@+id/ll"
+            android:layout_marginLeft="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical">
+            <ImageView
+                android:id="@+id/iv_by"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/test_ic_img_user_default"/>
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

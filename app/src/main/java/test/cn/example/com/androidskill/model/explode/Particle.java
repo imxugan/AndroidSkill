@@ -1,4 +1,4 @@
-package test.cn.example.com.androidskill.model;
+package test.cn.example.com.androidskill.model.explode;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;

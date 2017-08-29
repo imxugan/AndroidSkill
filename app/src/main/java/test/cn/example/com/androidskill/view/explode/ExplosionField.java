@@ -1,4 +1,4 @@
-package test.cn.example.com.androidskill.view;
+package test.cn.example.com.androidskill.view.explode;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 import test.cn.example.com.androidskill.inter.ParticleFactory;
-import test.cn.example.com.androidskill.model.ExplosionAnimator;
+import test.cn.example.com.androidskill.model.explode.ExplosionAnimator;
 import test.cn.example.com.util.BitmapUtils;
 import test.cn.example.com.util.LogUtil;
 
