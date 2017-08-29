@@ -9,6 +9,7 @@ import test.cn.example.com.androidskill.model.explode.factory.ExplodeParticleFac
 import test.cn.example.com.androidskill.model.explode.factory.FallingParticleFactory;
 import test.cn.example.com.androidskill.model.explode.factory.FlyawayFactory;
 import test.cn.example.com.androidskill.model.explode.factory.InnerFallingParticleFactory;
+import test.cn.example.com.androidskill.model.explode.factory.VerticalAscentParticleFactory;
 import test.cn.example.com.androidskill.view.explode.ExplosionField;
 import test.cn.example.com.util.LogUtil;
 
@@ -38,6 +39,10 @@ public class ExplodeActivity extends AppCompatActivity {
         ExplosionField explosionFieldInnerFalling = new ExplosionField(this,new InnerFallingParticleFactory());
         explosionFieldInnerFalling.addListener(findViewById(R.id.text4));
         explosionFieldInnerFalling.addListener(findViewById(R.id.ll_4));
+
+        ExplosionField explosionFieldVerticalAscent = new ExplosionField(this,new VerticalAscentParticleFactory());
+        explosionFieldVerticalAscent.addListener(findViewById(R.id.text5));
+        explosionFieldVerticalAscent.addListener(findViewById(R.id.ll_5));
     }
 
     private void initView() {
