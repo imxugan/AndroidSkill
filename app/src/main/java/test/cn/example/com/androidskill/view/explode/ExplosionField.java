@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-import test.cn.example.com.androidskill.inter.ParticleFactory;
+import test.cn.example.com.androidskill.inter.explode.ParticleFactory;
 import test.cn.example.com.androidskill.model.explode.ExplosionAnimator;
 import test.cn.example.com.util.BitmapUtils;
 import test.cn.example.com.util.LogUtil;

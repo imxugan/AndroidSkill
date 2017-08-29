@@ -3,7 +3,7 @@ package test.cn.example.com.androidskill.model.explode.factory;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 
-import test.cn.example.com.androidskill.inter.ParticleFactory;
+import test.cn.example.com.androidskill.inter.explode.ParticleFactory;
 import test.cn.example.com.androidskill.model.explode.particle.FallingParticle;
 import test.cn.example.com.androidskill.model.explode.Particle;
 import test.cn.example.com.util.LogUtil;

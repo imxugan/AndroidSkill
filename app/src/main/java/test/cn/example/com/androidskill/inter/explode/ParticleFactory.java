@@ -1,4 +1,4 @@
-package test.cn.example.com.androidskill.inter;
+package test.cn.example.com.androidskill.inter.explode;
 
 import android.graphics.Bitmap;
 import android.graphics.Rect;

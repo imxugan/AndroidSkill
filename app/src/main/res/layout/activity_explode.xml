@@ -42,33 +42,36 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/text2"
         android:text="向上破碎"
+        android:layout_marginTop="20dp"
         android:textSize="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <LinearLayout
+        android:id="@+id/ll_2"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <ImageView
-            android:id="@+id/iv"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@drawable/qq_music"/>
 
-        <LinearLayout
-            android:id="@+id/ll"
-            android:layout_marginLeft="20dp"
-            android:layout_width="match_parent"
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical">
-            <ImageView
-                android:id="@+id/iv_by"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/test_ic_img_user_default"/>
-        </LinearLayout>
+            android:src="@drawable/vx"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/qq"/>
     </LinearLayout>
 
 </LinearLayout>

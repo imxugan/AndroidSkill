@@ -7,7 +7,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.View;
 
-import test.cn.example.com.androidskill.inter.ParticleFactory;
+import test.cn.example.com.androidskill.inter.explode.ParticleFactory;
 
 /**
  * Created by xgxg on 2017/8/28.
