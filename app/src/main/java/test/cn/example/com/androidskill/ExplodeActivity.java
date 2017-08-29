@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import test.cn.example.com.androidskill.model.explode.factory.BooleanParticleFactory;
 import test.cn.example.com.androidskill.model.explode.factory.ExplodeParticleFacory;
 import test.cn.example.com.androidskill.model.explode.factory.FallingParticleFactory;
 import test.cn.example.com.androidskill.model.explode.factory.FlyawayFactory;
@@ -43,6 +44,10 @@ public class ExplodeActivity extends AppCompatActivity {
         ExplosionField explosionFieldVerticalAscent = new ExplosionField(this,new VerticalAscentParticleFactory());
         explosionFieldVerticalAscent.addListener(findViewById(R.id.text5));
         explosionFieldVerticalAscent.addListener(findViewById(R.id.ll_5));
+
+        ExplosionField explosionFieldBoolean = new ExplosionField(this,new BooleanParticleFactory());
+        explosionFieldBoolean.addListener(findViewById(R.id.text6));
+        explosionFieldBoolean.addListener(findViewById(R.id.ll_6));
     }
 
     private void initView() {
