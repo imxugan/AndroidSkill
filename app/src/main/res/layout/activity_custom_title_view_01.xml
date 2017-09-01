@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <!--安卓自定义属性，Android studio无法提示-->
+    <!--解决：把styleable里面的名称跟自定义View的类名写成一样-->
+    <test.cn.example.com.androidskill.view.defineView.CustomTitleView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:titleText="2323"
+        app:titleTextColor="#ff0000"
+        app:titleTextSize="28sp">
+
+    </test.cn.example.com.androidskill.view.defineView.CustomTitleView>
+</LinearLayout>

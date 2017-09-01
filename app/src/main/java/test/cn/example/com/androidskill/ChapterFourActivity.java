@@ -1,66 +1,45 @@
 package test.cn.example.com.androidskill;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.FrameLayout;
-
-import test.cn.example.com.androidskill.view.CircleView;
-import test.cn.example.com.util.DensityUtil;
-import test.cn.example.com.util.LogUtil;
+import android.widget.Button;
 
 /**
  * Created by xgxg on 2017/8/9.
  * view的工作原理
  */
 public class ChapterFourActivity extends AppCompatActivity implements View.OnClickListener{
-    CircleView circleView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_charapter_four);
-//        initView();
-        circleView = (CircleView) findViewById(R.id.circleView);
-        FrameLayout frameLayout = (FrameLayout) circleView.getParent();
-        LogUtil.i(""+frameLayout.getLayoutParams().width);
-        LogUtil.i(""+frameLayout.getLayoutParams().height);
-        LogUtil.i("FrameLayout.LayoutParams.MATCH_PARENT="+ FrameLayout.LayoutParams.MATCH_PARENT);
-        LogUtil.i("FrameLayout.LayoutParams.WRAP_CONTENT="+ FrameLayout.LayoutParams.WRAP_CONTENT);
+        initView();
+
     }
 
-//    private void initView() {
-//        Button life = (Button)findViewById(R.id.life);
-//        life.setOnClickListener(this);
-//        Button launch_mode = (Button)findViewById(R.id.launch_mode);
-//        launch_mode.setOnClickListener(this);
-//    }
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        circleView.post(new Runnable() {
-            @Override
-            public void run() {
-                int width = circleView.getMeasuredWidth();
-
-                LogUtil.i("tv----width------"+width);
-
-            }
-        });
+    private void initView() {
+        Button circleView = (Button)findViewById(R.id.circleView);
+        circleView.setOnClickListener(this);
+        Button customTitleView01 = (Button)findViewById(R.id.customTitleView01);
+        customTitleView01.setOnClickListener(this);
     }
+
+
+
 
     @Override
     public void onClick(View v) {
-//        switch (v.getId()){
-//            case R.id.life:
-//                startActivity(new Intent(ChapterFourActivity.this,LifeActivity.class));
-//                break;
-//            case R.id.launch_mode:
-//                startActivity(new Intent(ChapterFourActivity.this,LannchModeActivity.class));
-//                break;
-//            default:
-//                break;
-//        }
+        switch (v.getId()){
+            case R.id.circleView:
+                startActivity(new Intent(ChapterFourActivity.this,CircleViewActivity.class));
+                break;
+            case R.id.customTitleView01:
+                startActivity(new Intent(ChapterFourActivity.this,CircleViewActivity.class));
+                break;
+            default:
+                break;
+        }
     }
 }
