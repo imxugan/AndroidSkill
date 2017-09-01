@@ -36,6 +36,8 @@ public class PropertyAnimationExerciseActivity extends AppCompatActivity impleme
         trans.setOnClickListener(this);
         Button explode = (Button) findViewById(R.id.explode);
         explode.setOnClickListener(this);
+        Button loadingIndicator = (Button) findViewById(R.id.loadingIndicator);
+        loadingIndicator.setOnClickListener(this);
         Button animator2 = (Button) findViewById(R.id.animator2);
         animator2.setOnClickListener(this);
 
@@ -50,22 +52,18 @@ public class PropertyAnimationExerciseActivity extends AppCompatActivity impleme
         animatorSet.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
-
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
-
             }
 
             @Override
             public void onAnimationCancel(Animator animation) {
-
             }
 
             @Override
             public void onAnimationRepeat(Animator animation) {
-
             }
         });
 
@@ -114,7 +112,14 @@ public class PropertyAnimationExerciseActivity extends AppCompatActivity impleme
             case R.id.explode:
                 explode();
                 break;
+            case R.id.loadingIndicator:
+                loadingIndicator();
+                break;
         }
+    }
+
+    private void loadingIndicator() {
+        startActivity(new Intent(PropertyAnimationExerciseActivity.this,LoadingIndicatorActivity.class));
     }
 
     private void explode(){

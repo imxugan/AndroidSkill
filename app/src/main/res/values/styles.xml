@@ -8,4 +8,27 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="LoadingIndicatorView">
+        <item name="android:minWidth">48dp</item>
+        <item name="android:maxWidth">48dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:maxHeight">48dp</item>
+        <item name="indicatorName">BallBeatIndicator</item>
+    </style>
+
+    <style name="LoadingIndicatorView.Large">
+        <item name="minWidth">76dp</item>
+        <item name="maxWidth">76dp</item>
+        <item name="minHeight">76dp</item>
+        <item name="maxHeight">76dp</item>
+        <item name="indicatorName">BallBeatIndicator</item>
+    </style>
+
+    <style name="LoadingIndicatorView.Small">
+        <item name="minWidth">24dp</item>
+        <item name="maxWidth">24dp</item>
+        <item name="minHeight">24dp</item>
+        <item name="maxHeight">24dp</item>
+        <item name="indicatorName">BallBeatIndicator</item>
+    </style>
 </resources>
