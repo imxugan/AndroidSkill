@@ -18,4 +18,14 @@
         <attr name="titleTextColor" format="color"/>
         <attr name="titleTextSize" format="dimension"/>
     </declare-styleable>
+
+    <declare-styleable name="CustomView">
+        <attr name="attr1" format="string"/>
+        <attr name="attr2" format="string"/>
+        <attr name="attr3" format="string"/>
+        <attr name="attr4" format="string"/>
+        <attr name="attr5" format="string"/>
+        <attr name="attr6" format="string"/>
+    </declare-styleable>
+    <attr name="customViewStyle" format="reference"/>
 </resources>

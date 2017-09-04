@@ -12,7 +12,9 @@
         android:layout_height="wrap_content"
         app:titleText="2323"
         app:titleTextColor="#ff0000"
-        app:titleTextSize="28sp">
+        android:background="#23dfaa"
+        app:titleTextSize="28sp"
+        style="@style/xml_style">
 
     </test.cn.example.com.androidskill.view.defineView.CustomTitleView>
 </LinearLayout>

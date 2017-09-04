@@ -36,7 +36,7 @@ public class ChapterFourActivity extends AppCompatActivity implements View.OnCli
                 startActivity(new Intent(ChapterFourActivity.this,CircleViewActivity.class));
                 break;
             case R.id.customTitleView01:
-                startActivity(new Intent(ChapterFourActivity.this,CircleViewActivity.class));
+                startActivity(new Intent(ChapterFourActivity.this,CustomTitleView01Activity.class));
                 break;
             default:
                 break;

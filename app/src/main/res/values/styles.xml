@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="customViewStyle">@style/custom_view</item>
     </style>
 
     <style name="LoadingIndicatorView">
@@ -30,5 +31,16 @@
         <item name="minHeight">24dp</item>
         <item name="maxHeight">24dp</item>
         <item name="indicatorName">BallBeatIndicator</item>
+    </style>
+
+    <!--自定义属性的样式-->
+    <style name="custom_view">
+        <item name="attr3">attr3 from custom title view style</item>
+        <item name="attr4">attr4 from custom title view style</item>
+    </style>
+
+    <style name="xml_style">
+        <item name="attr2">attr2 from xml style</item>
+        <item name="attr3">attr3 from xml style</item>
     </style>
 </resources>
