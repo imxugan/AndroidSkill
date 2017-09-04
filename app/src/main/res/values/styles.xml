@@ -6,7 +6,9 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="customViewStyle">@style/custom_view</item>
+        <!--<item name="customViewStyle">@style/custom_view_style</item>-->
+        <item name="attr5">attr5 from AppTheme style</item>
+        <item name="attr6">attr6 from AppTheme style</item>
     </style>
 
     <style name="LoadingIndicatorView">
@@ -34,13 +36,18 @@
     </style>
 
     <!--自定义属性的样式-->
-    <style name="custom_view">
-        <item name="attr3">attr3 from custom title view style</item>
-        <item name="attr4">attr4 from custom title view style</item>
-    </style>
-
     <style name="xml_style">
         <item name="attr2">attr2 from xml style</item>
         <item name="attr3">attr3 from xml style</item>
+    </style>
+
+    <style name="custom_view_style">
+        <item name="attr3">attr3 from custom view style</item>
+        <item name="attr4">attr4 from custom view style</item>
+    </style>
+
+    <style name="default_custom_view_style">
+        <item name="attr4">attr4 from default custom view style</item>
+        <item name="attr5">attr5 from default custom view style</item>
     </style>
 </resources>

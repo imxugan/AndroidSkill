@@ -24,6 +24,8 @@ public class ChapterFourActivity extends AppCompatActivity implements View.OnCli
         circleView.setOnClickListener(this);
         Button customTitleView01 = (Button)findViewById(R.id.customTitleView01);
         customTitleView01.setOnClickListener(this);
+        Button customView01 = (Button)findViewById(R.id.customView01);
+        customView01.setOnClickListener(this);
     }
 
 
@@ -37,6 +39,9 @@ public class ChapterFourActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.customTitleView01:
                 startActivity(new Intent(ChapterFourActivity.this,CustomTitleView01Activity.class));
+                break;
+            case R.id.customView01:
+                startActivity(new Intent(ChapterFourActivity.this,CustomViewActivity.class));
                 break;
             default:
                 break;
