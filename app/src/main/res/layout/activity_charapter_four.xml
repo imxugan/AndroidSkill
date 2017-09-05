@@ -24,5 +24,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="customView01"/>
+
+        <Button
+            android:id="@+id/customImageView01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="customImageView01"/>
     </LinearLayout>
 </ScrollView>

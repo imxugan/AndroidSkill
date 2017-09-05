@@ -26,6 +26,8 @@ public class ChapterFourActivity extends AppCompatActivity implements View.OnCli
         customTitleView01.setOnClickListener(this);
         Button customView01 = (Button)findViewById(R.id.customView01);
         customView01.setOnClickListener(this);
+        Button customImageView01 = (Button)findViewById(R.id.customImageView01);
+        customImageView01.setOnClickListener(this);
     }
 
 
@@ -42,6 +44,9 @@ public class ChapterFourActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.customView01:
                 startActivity(new Intent(ChapterFourActivity.this,CustomViewActivity.class));
+                break;
+            case R.id.customImageView01:
+                startActivity(new Intent(ChapterFourActivity.this,CustomImageViewActivity.class));
                 break;
             default:
                 break;
