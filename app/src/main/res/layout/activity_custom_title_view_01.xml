@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         app:titleText="2323"
         app:titleTextColor="#ff0000"
-        android:background="#23dfaa"
         app:titleTextSize="28sp"
         style="@style/xml_style">
 

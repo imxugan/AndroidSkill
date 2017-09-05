@@ -3,8 +3,16 @@ package test.cn.example.com.androidskill.view.defineView;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Random;
+import java.util.Set;
 
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.util.DensityUtil;
@@ -17,36 +25,16 @@ import test.cn.example.com.util.LogUtil;
 public class CustomTitleView extends View {
     private final int defaultWidth = DensityUtil.dp2Px(150);
     private final int defaultHeight = DensityUtil.dp2Px(150);
-    public CustomTitleView(Context context) {
-        this(context,null);
-        LogUtil.i("CustomTitleView(Context context)");
-    }
+    private Paint mPaint;
+    private float mTitleTextSize;
+    private Rect mBound;
+    private String mTitleText;
+    private int mTitleTextColor;
+    private Random mRandom;
+    private Set<Integer> set = new HashSet<>();
 
     public CustomTitleView(Context context, AttributeSet attrs) {
-//        super(context, attrs);
         this(context,attrs,0);
-//        LogUtil.i("CustomTitleView(Context context, AttributeSet attrs)");
-//        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.CustomTitleView);
-//        int count = array.getIndexCount();
-//        for (int i =0;i<count;i++){
-//            int arr = array.getIndex(i);
-//            switch (arr){
-//                case R.styleable.CustomTitleView_titleText:
-//                    String titleText = array.getString(arr);
-//                    LogUtil.i("titleText="+titleText);
-//                    break;
-//                case R.styleable.CustomTitleView_titleTextColor:
-//                    String titleTextColor = array.getString(arr);
-//                    LogUtil.i("titleTextColor="+titleTextColor);
-//                    break;
-//                case R.styleable.CustomTitleView_titleTextSize:
-//                    String titleTextSize = array.getString(arr);
-//                    LogUtil.i("titleTextSize="+titleTextSize);
-//                    break;
-//            }
-//            array.recycle();
-
-//        }
     }
 
     public CustomTitleView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -55,19 +43,18 @@ public class CustomTitleView extends View {
         int count = array.getIndexCount();
         for (int i =0;i<count;i++){
             int arr = array.getIndex(i);
-            LogUtil.e("arr="+arr);
             switch (arr){
                 case R.styleable.CustomTitleView_titleText:
-                    String titleText = array.getString(arr);
-                    LogUtil.i("titleText="+titleText);
+                    mTitleText = array.getString(arr);
+                    LogUtil.i("mTitleText="+mTitleText);
                     break;
                 case R.styleable.CustomTitleView_titleTextColor:
-                    String titleTextColor = array.getString(arr);
-                    LogUtil.i("titleTextColor="+titleTextColor);
+                    mTitleTextColor = array.getColor(arr, Color.BLACK);
+                    LogUtil.i("mTitleTextColor="+mTitleTextColor);
                     break;
                 case R.styleable.CustomTitleView_titleTextSize:
-                    String titleTextSize = array.getString(arr);
-                    LogUtil.i("titleTextSize="+titleTextSize);
+                    mTitleTextSize = array.getDimension(arr, DensityUtil.dp2Px(28));
+                    LogUtil.i("mTitleTextSize="+mTitleTextSize);
                     break;
                 default:
                     String s = array.getString(arr);
@@ -75,7 +62,33 @@ public class CustomTitleView extends View {
                     break;
             }
             array.recycle();
+            mRandom = new Random();
+            mPaint = new Paint();
+            mPaint.setColor(Color.BLUE);
+            mPaint.setTextSize(mTitleTextSize);
+            mBound = new Rect();
+            mPaint.getTextBounds(mTitleText,0,mTitleText.length(),mBound);
+            this.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    set.clear();
+                    mTitleText = getText();
+                    postInvalidate();
+                }
+            });
         }
+    }
+
+    private String getText() {
+        while(set.size()<4){
+            set.add(mRandom.nextInt(10));
+        }
+        StringBuilder sb = new StringBuilder();
+        Iterator<Integer> iterator = set.iterator();
+        while(iterator.hasNext()){
+            sb.append(iterator.next());
+        }
+        return sb.toString();
     }
 
     @Override
@@ -98,6 +111,13 @@ public class CustomTitleView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        LogUtil.i("onDraw");
+        LogUtil.i("onDraw======"+mTitleText);
+        mPaint.setColor(Color.BLUE);
+        canvas.drawRect(0,0,getMeasuredWidth(),getMeasuredHeight(),mPaint);
+        mPaint.setColor(mTitleTextColor);
+        canvas.drawText(mTitleText
+                ,getWidth()/2-mBound.width()/2
+                ,getHeight()/2 + mBound.height()/2
+                ,mPaint);
     }
 }
