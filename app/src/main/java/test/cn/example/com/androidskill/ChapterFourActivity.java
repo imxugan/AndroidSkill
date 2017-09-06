@@ -30,6 +30,8 @@ public class ChapterFourActivity extends AppCompatActivity implements View.OnCli
         customImageView01.setOnClickListener(this);
         Button customProgressBar01 = (Button)findViewById(R.id.customProgressBar01);
         customProgressBar01.setOnClickListener(this);
+        Button paint_canvas = (Button)findViewById(R.id.paint_canvas);
+        paint_canvas.setOnClickListener(this);
     }
 
 
@@ -52,6 +54,9 @@ public class ChapterFourActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.customProgressBar01:
                 startActivity(new Intent(ChapterFourActivity.this,CustomProgressBarActivity.class));
+                break;
+            case R.id.paint_canvas:
+                startActivity(new Intent(ChapterFourActivity.this,CustomActivity.class));
                 break;
             default:
                 break;

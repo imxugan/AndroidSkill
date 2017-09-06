@@ -36,5 +36,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="customProgressBar01"/>
+
+        <Button
+            android:id="@+id/paint_canvas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="绘制给种集合图形"/>
     </LinearLayout>
 </ScrollView>
