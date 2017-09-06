@@ -28,6 +28,8 @@ public class ChapterFourActivity extends AppCompatActivity implements View.OnCli
         customView01.setOnClickListener(this);
         Button customImageView01 = (Button)findViewById(R.id.customImageView01);
         customImageView01.setOnClickListener(this);
+        Button customProgressBar01 = (Button)findViewById(R.id.customProgressBar01);
+        customProgressBar01.setOnClickListener(this);
     }
 
 
@@ -47,6 +49,9 @@ public class ChapterFourActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.customImageView01:
                 startActivity(new Intent(ChapterFourActivity.this,CustomImageViewActivity.class));
+                break;
+            case R.id.customProgressBar01:
+                startActivity(new Intent(ChapterFourActivity.this,CustomProgressBarActivity.class));
                 break;
             default:
                 break;

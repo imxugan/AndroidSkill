@@ -30,5 +30,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="customImageView01"/>
+
+        <Button
+            android:id="@+id/customProgressBar01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="customProgressBar01"/>
     </LinearLayout>
 </ScrollView>
