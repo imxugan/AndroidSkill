@@ -95,9 +95,9 @@ public class CustomImageView extends View {
         canvas.drawRect(0,0,getMeasuredWidth(),getMeasuredHeight(),mPaint);
         mRect.left = getPaddingLeft();
         mRect.right = getWidth()-getPaddingRight();
-        mRect.top = getTop();
+        mRect.top = getPaddingTop();//记得不要写成getTop()，否则会出现图片显示不出来的问题
 //        LogUtil.i("getHeight()="+getHeight()+"---getPaddingBottom()="+getPaddingBottom());
-        mRect.bottom = getBottom() - getPaddingBottom();
+        mRect.bottom = getHeight() - getPaddingBottom();
         //绘制文字
         mPaint.setColor(mTitleTextColor);
         mPaint.setStyle(Paint.Style.FILL);

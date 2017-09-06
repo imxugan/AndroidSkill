@@ -9,15 +9,15 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical">
-    <!--<test.cn.example.com.androidskill.view.defineView.CustomImageView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--app:titleText="asddffghjklmnopq"-->
-        <!--app:titleTextColor="#12da4f"-->
-        <!--android:padding="10dp"-->
-        <!--app:imageScaleType="fillXY"-->
-        <!--app:image="@mipmap/ic_launcher"-->
-        <!--app:titleTextSize="18sp"/>-->
+    <test.cn.example.com.androidskill.view.defineView.CustomImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:titleText="asddffghjklmnopq"
+        app:titleTextColor="#12da4f"
+        android:padding="10dp"
+        app:imageScaleType="fillXY"
+        app:image="@mipmap/ic_launcher"
+        app:titleTextSize="18sp"/>
 
     <test.cn.example.com.androidskill.view.defineView.CustomImageView
         android:layout_width="wrap_content"
@@ -33,6 +33,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:titleText="asddffghjklmnopq"
+        app:titleTextColor="#12da4f"
+        android:padding="10dp"
+        app:imageScaleType="fillXY"
+        app:image="@mipmap/ic_launcher"
+        app:titleTextSize="18sp"/>
+
+    <test.cn.example.com.androidskill.view.defineView.CustomImageView2
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:titleText="abcdefghijklmnopqrstuvwxyz"
         app:titleTextColor="#12da4f"
         android:padding="10dp"
         app:imageScaleType="fillXY"
