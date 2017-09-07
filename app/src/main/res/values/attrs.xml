@@ -55,4 +55,15 @@
         <attr name="circleWidth"/>
         <attr name="speed"/>
     </declare-styleable>
+
+    <attr name="count" format="integer"/>
+    <attr name="splitSize" format="integer"/>
+    <declare-styleable name="CustomVolumeControlBar">
+        <attr name="firstColor"/>
+        <attr name="secondColor"/>
+        <attr name="circleWidth"/>
+        <attr name="count"/>
+        <attr name="image"/>
+        <attr name="splitSize"/>
+    </declare-styleable>
 </resources>

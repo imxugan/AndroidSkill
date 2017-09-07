@@ -70,6 +70,7 @@ public class CustomView extends View {
         //CustomView_attr4=attr4 from custom title view style
         //CustomView_attr5=null
         //CustomView_attr6=null
+        a.recycle();
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)

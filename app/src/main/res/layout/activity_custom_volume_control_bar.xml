@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="点击下面这个控件，可以实现类似音量的调节"/>
+    <test.cn.example.com.androidskill.view.defineView.CustomVolumeControlBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:circleWidth="10dp"
+        app:firstColor="@color/colorAccent"
+        app:secondColor="@color/colorPrimary"
+        app:image="@mipmap/ic_launcher"
+        app:count="12"
+        app:splitSize="10">
+
+
+    </test.cn.example.com.androidskill.view.defineView.CustomVolumeControlBar>
+
+</LinearLayout>

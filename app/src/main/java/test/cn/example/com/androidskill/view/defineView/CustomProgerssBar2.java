@@ -53,6 +53,7 @@ public class CustomProgerssBar2 extends View {
                     break;
             }
         }
+        a.recycle();
 
         //初始化画笔
         mFirstPaint = new Paint();
