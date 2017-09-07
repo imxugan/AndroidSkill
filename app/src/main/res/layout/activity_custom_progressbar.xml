@@ -14,4 +14,14 @@
         app:speed="20">
 
     </test.cn.example.com.androidskill.view.defineView.CustomProgressBar>
+
+    <test.cn.example.com.androidskill.view.defineView.CustomProgerssBar2
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:firstColor="@color/colorAccent"
+        app:secondColor="@color/colorPrimary"
+        app:circleWidth="18dp"
+        app:speed="20">
+
+    </test.cn.example.com.androidskill.view.defineView.CustomProgerssBar2>
 </LinearLayout>
