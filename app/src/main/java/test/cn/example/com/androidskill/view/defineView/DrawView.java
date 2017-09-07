@@ -160,5 +160,43 @@ public class DrawView extends View {
         path3.lineTo(290,850);
         path3.lineTo(80, 740);
         canvas.drawTextOnPath("Android开发者", path3, 10, 10, mPaint);
+
+        //绘制弧线区域
+        text = "弧线区域,填充圆弧但包含圆心 ";
+        mPaint.reset();
+        mPaint.setColor(Color.BLUE);
+        mPaint.setStyle(Paint.Style.FILL);
+        canvas.drawText(text,10,870,mPaint);
+        RectF oval4 = new RectF(230,860,260,880);
+        canvas.drawArc(oval4,0,120,true,mPaint);
+
+        text = "弧线区域，不填充圆弧，包含圆心";
+        mPaint.reset();
+        mPaint.setColor(Color.RED);
+        canvas.drawText(text,10,900,mPaint);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setAntiAlias(true);
+        RectF oval5 = new RectF(270,880,300,900);
+        canvas.drawArc(oval5,0,120,true,mPaint);
+
+        text = "弧线区域，填充圆弧，不包含圆心";
+        mPaint.reset();
+        mPaint.setColor(Color.GREEN);
+        canvas.drawText(text,10,930,mPaint);
+        mPaint.setAntiAlias(true);
+        mPaint.setStyle(Paint.Style.FILL);
+        RectF oval6 = new RectF(330,910,360,930);
+        canvas.drawArc(oval6,0,120,false,mPaint);
+
+        text = "弧线区域，不填充圆弧，不包含圆心";
+        mPaint.reset();
+        mPaint.setColor(Color.BLACK);
+        mPaint.setAntiAlias(true);
+        canvas.drawText(text,10,960,mPaint);
+        mPaint.setAntiAlias(true);
+        mPaint.setStyle(Paint.Style.STROKE);
+        RectF oval7 = new RectF(390,940,420,960);
+        canvas.drawArc(oval7,0,120,false,mPaint);
+
     }
 }
