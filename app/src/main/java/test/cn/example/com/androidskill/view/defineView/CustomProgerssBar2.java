@@ -131,13 +131,15 @@ public class CustomProgerssBar2 extends View {
 //        LogUtil.i("mSecondProgress="+mSecondProgress+"---secondColor="+mSecondPaint.getColor());
 //        LogUtil.i("mFirstProgerss="+mFirstProgerss+"---firstColor="+mFirstPaint.getColor());
         if(mIsNext){
+            //当两个圆圈交替时，由于第一个圆圈作为了背景，所以，先画第一个圆圈，
+            //第二个圆圈在变动，所以第二个圆圈后画，第二个圆圈显示在最上面
             canvas.drawArc(oval,-90,mFirstProgerss,false,mFirstPaint);
             canvas.drawArc(oval,-90,mSecondProgress,false,mSecondPaint);
         }else {
+            //第二个圆圈由于是作为背景，所以，先画，第二个圆圈
             canvas.drawArc(oval,-90,mSecondProgress,false,mSecondPaint);
+            //在画第一个圆圈，这样第一个圆圈在上面，
             canvas.drawArc(oval,-90,mFirstProgerss,false,mFirstPaint);
         }
-
-
     }
 }
