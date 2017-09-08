@@ -48,5 +48,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="音量调节控件"/>
+
+        <Button
+            android:id="@+id/customContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="自定义viewgrop"/>
     </LinearLayout>
 </ScrollView>
