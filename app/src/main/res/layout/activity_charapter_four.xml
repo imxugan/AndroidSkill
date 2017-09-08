@@ -53,6 +53,12 @@
             android:id="@+id/customContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="自定义viewgrop"/>
+            android:text="自定义viewgroup"/>
+
+        <Button
+            android:id="@+id/customContainer2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="自定义viewgroup2"/>
     </LinearLayout>
 </ScrollView>

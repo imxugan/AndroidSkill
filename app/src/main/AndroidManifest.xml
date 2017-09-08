@@ -253,6 +253,10 @@
                   android:screenOrientation="portrait">
         </activity>
 
+        <activity android:name="test.cn.example.com.androidskill.CustomContainer2Activity"
+                  android:screenOrientation="portrait">
+        </activity>
+
 
 
         <service android:name="test.cn.example.com.androidskill.service.MyService"

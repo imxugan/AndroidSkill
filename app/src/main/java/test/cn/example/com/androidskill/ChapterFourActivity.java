@@ -6,8 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import test.cn.example.com.androidskill.view.defineView.CustomContainer;
-
 /**
  * Created by xgxg on 2017/8/9.
  * view的工作原理
@@ -38,6 +36,8 @@ public class ChapterFourActivity extends AppCompatActivity implements View.OnCli
         customVolumeControlBar.setOnClickListener(this);
         Button customContainer = (Button)findViewById(R.id.customContainer);
         customContainer.setOnClickListener(this);
+        Button customContainer2 = (Button)findViewById(R.id.customContainer2);
+        customContainer2.setOnClickListener(this);
     }
 
 
@@ -69,6 +69,9 @@ public class ChapterFourActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.customContainer:
                 startActivity(new Intent(ChapterFourActivity.this,CustomContainerActivity.class));
+                break;
+            case R.id.customContainer2:
+                startActivity(new Intent(ChapterFourActivity.this,CustomContainer2Activity.class));
                 break;
             default:
                 break;
