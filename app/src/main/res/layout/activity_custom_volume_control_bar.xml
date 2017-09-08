@@ -17,8 +17,27 @@
         app:image="@mipmap/ic_launcher"
         app:count="12"
         app:splitSize="10">
-
-
     </test.cn.example.com.androidskill.view.defineView.CustomVolumeControlBar>
 
+    <test.cn.example.com.androidskill.view.defineView.CustomVolumeControlBar2
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:firstColor="@color/colorPrimaryDark"
+        app:secondColor="@color/colorAccent"
+        app:count="8"
+        app:splitSize="15"
+        app:image="@drawable/qzone"
+        app:circleWidth="10dp">
+
+    </test.cn.example.com.androidskill.view.defineView.CustomVolumeControlBar2>
+
+    <test.cn.example.com.androidskill.view.defineView.CustomVolumeControlBar3
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:firstColor="@color/colorPrimaryDark"
+        app:secondColor="@color/colorAccent"
+        app:count="8"
+        app:splitSize="15">
+
+    </test.cn.example.com.androidskill.view.defineView.CustomVolumeControlBar3>
 </LinearLayout>
