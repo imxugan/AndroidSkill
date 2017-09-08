@@ -77,6 +77,11 @@ public class CustomContainer extends ViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        setChildLayout2();
+    }
+
+
+    private void setChildLayout2() {
         int childCount = getChildCount();
         int childWidth = 0;
         int childHeight = 0;
@@ -96,30 +101,22 @@ public class CustomContainer extends ViewGroup {
                 case 0:
                     childLeft = childParams.leftMargin;
                     childTop = childParams.topMargin;
-                    childRight = childParams.leftMargin + childWidth + childParams.rightMargin;
-                    childBottom = childParams.topMargin+ childHeight + childParams.bottomMargin;
                     break;
                 case 1:
-//                    childLeft = childParams.leftMargin + childParams.rightMargin + childWidth ;
                     childLeft = getWidth() - childParams.leftMargin - childWidth - childParams.rightMargin;
                     childTop = childParams.topMargin;
-                    childRight = getWidth() - childParams.rightMargin;
-//                    childBottom = getHeight() - childParams.bottomMargin;
-                    childBottom = childParams.topMargin+ childHeight + childParams.bottomMargin;
                     break;
                 case 2:
                     childLeft = childParams.leftMargin;
-                    childTop = getHeight() - childParams.topMargin - childHeight - childParams.bottomMargin;
-                    childRight = childParams.leftMargin + childWidth + childParams.rightMargin;
-                    childBottom = getHeight() - childParams.bottomMargin;
+                    childTop = getHeight() - childHeight - childParams.bottomMargin;
                     break;
                 case 3:
                     childLeft = getWidth() - childParams.leftMargin - childWidth - childParams.rightMargin;
-                    childTop = getHeight() - childParams.bottomMargin - childHeight - childParams.topMargin;
-                    childRight = getWidth() - childParams.rightMargin;
-                    childBottom = getHeight() - childParams.bottomMargin;
+                    childTop = getHeight() - childParams.bottomMargin - childHeight;
                     break;
             }
+            childRight = childLeft + childWidth;
+            childBottom = childTop + childHeight;
             childView.layout(childLeft,childTop,childRight,childBottom);
         }
     }
