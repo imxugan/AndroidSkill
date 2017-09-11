@@ -60,5 +60,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="自定义viewgroup2"/>
+
+        <Button
+            android:id="@+id/customAttr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="深入理解Android中的自定义属性"/>
     </LinearLayout>
 </ScrollView>

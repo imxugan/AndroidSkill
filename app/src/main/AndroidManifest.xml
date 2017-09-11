@@ -257,6 +257,10 @@
                   android:screenOrientation="portrait">
         </activity>
 
+        <activity android:name="test.cn.example.com.androidskill.CustomAttrActivity"
+                  android:screenOrientation="portrait">
+        </activity>
+
 
 
         <service android:name="test.cn.example.com.androidskill.service.MyService"

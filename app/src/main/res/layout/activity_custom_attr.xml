@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <!--安卓自定义属性，Android studio无法提示-->
+    <!--解决：把styleable里面的名称跟自定义View的类名写成一样-->
+    <test.cn.example.com.androidskill.view.defineView.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp100"
+        app:text="hello"
+        app:testAttr="23"
+        android:text="@string/app_name"
+        app:custom_text="hello world!"
+        app:custom_testAttr="456">
+
+    </test.cn.example.com.androidskill.view.defineView.CustomTextView>
+</LinearLayout>

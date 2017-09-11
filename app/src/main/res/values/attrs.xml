@@ -66,4 +66,14 @@
         <attr name="image"/>
         <attr name="splitSize"/>
     </declare-styleable>
+
+    <attr name="custom_text" format="string"/>
+    <attr name="custom_testAttr" format="integer"/>
+    <declare-styleable name="test">
+        <attr name="text" format="string"/>
+        <attr name="testAttr" format="integer"/>
+        <!--使用系统自带的属性，注意这里没有format了-->
+        <!--布局文件中直接android:text="@string/hello_world"即可-->
+        <attr name="android:text"/>
+    </declare-styleable>
 </resources>
