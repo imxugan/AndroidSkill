@@ -66,5 +66,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="深入理解Android中的自定义属性"/>
+
+        <Button
+            android:id="@+id/viewDragHelper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="viewDragHelper使用"/>
     </LinearLayout>
 </ScrollView>

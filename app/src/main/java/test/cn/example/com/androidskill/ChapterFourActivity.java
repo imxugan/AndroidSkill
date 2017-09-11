@@ -40,6 +40,8 @@ public class ChapterFourActivity extends AppCompatActivity implements View.OnCli
         customContainer2.setOnClickListener(this);
         Button customAttr = (Button)findViewById(R.id.customAttr);
         customAttr.setOnClickListener(this);
+        Button viewDragHelper = (Button)findViewById(R.id.viewDragHelper);
+        viewDragHelper.setOnClickListener(this);
     }
 
 
@@ -77,6 +79,9 @@ public class ChapterFourActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.customAttr:
                 startActivity(new Intent(ChapterFourActivity.this,CustomAttrActivity.class));
+                break;
+            case R.id.viewDragHelper:
+                startActivity(new Intent(ChapterFourActivity.this,ViewDragHelperLayoutActivity.class));
                 break;
             default:
                 break;

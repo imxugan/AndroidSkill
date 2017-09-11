@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:background="#666"
+        android:layout_height="match_parent">
+        <test.cn.example.com.androidskill.view.defineView.ViewDragHelperLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:clickable="true"
+                android:background="#44ff0000"
+                android:text="I can be dragged (边界未受控制)!"
+                android:layout_width="100dp"
+                android:layout_height="100dp"/>
+
+            <TextView
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="#44ff0000"
+                android:text="I can be dragged (移动后，松开，回到原处)!"
+                android:layout_width="100dp"
+                android:layout_height="100dp"/>
+
+            <TextView
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="#44ff0000"
+                android:text="I can be dragged (边界受控制)!"
+                android:layout_width="100dp"
+                android:layout_height="100dp"/>
+
+        </test.cn.example.com.androidskill.view.defineView.ViewDragHelperLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent">
+        <test.cn.example.com.androidskill.view.defineView.ViewDragHelperLayout2
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:clickable="true"
+                android:background="#44ff0000"
+                android:text="I can be dragged (边界未受控制)!"
+                android:layout_width="100dp"
+                android:layout_height="100dp"/>
+
+            <TextView
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="#44ff0000"
+                android:text="I can be dragged (移动后，松开，回到原处)!"
+                android:layout_width="100dp"
+                android:layout_height="100dp"/>
+
+            <TextView
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="#44ff0000"
+                android:text="I can be dragged (边界受控制)!"
+                android:layout_width="100dp"
+                android:layout_height="100dp"/>
+
+        </test.cn.example.com.androidskill.view.defineView.ViewDragHelperLayout2>
+    </LinearLayout>
+
+</LinearLayout>
