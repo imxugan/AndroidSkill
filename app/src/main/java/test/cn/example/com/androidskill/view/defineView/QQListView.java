@@ -57,36 +57,36 @@ public class QQListView extends ListView {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int childCount = getChildCount();
         LogUtil.i("childCount====="+childCount);
-        measureChildren(widthMeasureSpec,heightMeasureSpec);
-
-        int childMaxWidth = 0;
-        int childMaxHeight = 0;
-        int childWidth = 0;
-        int childHeight = 0;
-        View child = null;
-        for (int i = 0; i < childCount; i++) {
-            child = getChildAt(i);
-            childWidth = child.getMeasuredWidth();
-//            childHeight = child.getMeasuredHeight();
-            if(childMaxWidth<=childWidth){
-                childMaxWidth = childWidth;
-            }
-
-//            if(childMaxHeight <= childHeight){
-//                childMaxHeight = childHeight;
+//        measureChildren(widthMeasureSpec,heightMeasureSpec);
+//
+//        int childMaxWidth = 0;
+//        int childMaxHeight = 0;
+//        int childWidth = 0;
+//        int childHeight = 0;
+//        View child = null;
+//        for (int i = 0; i < childCount; i++) {
+//            child = getChildAt(i);
+//            childWidth = child.getMeasuredWidth();
+////            childHeight = child.getMeasuredHeight();
+//            if(childMaxWidth<=childWidth){
+//                childMaxWidth = childWidth;
 //            }
-
-            mHeight += child.getMeasuredHeight();
-        }
-        mWdith = childMaxWidth + mPopupWindowWidth;
-        LogUtil.i("mWdith==="+mWdith+"---mHeight="+mHeight);
-        int widthSpecMode = MeasureSpec.getMode(widthMeasureSpec);
-        int widthSpecSize = MeasureSpec.getSize(widthMeasureSpec);
-        int heightSpecMode = MeasureSpec.getMode(heightMeasureSpec);
-        int heightSpecSize = MeasureSpec.getSize(heightMeasureSpec);
-        LogUtil.i("widthSpecMode==="+widthSpecMode+"---heightSpecMode="+heightSpecMode);
-        setMeasuredDimension((widthSpecMode == MeasureSpec.AT_MOST)?mWdith:widthSpecSize,
-                (heightSpecMode == MeasureSpec.AT_MOST)?mHeight:heightSpecSize);
+//
+////            if(childMaxHeight <= childHeight){
+////                childMaxHeight = childHeight;
+////            }
+//
+//            mHeight += child.getMeasuredHeight();
+//        }
+//        mWdith = childMaxWidth + mPopupWindowWidth;
+//        LogUtil.i("mWdith==="+mWdith+"---mHeight="+mHeight);
+//        int widthSpecMode = MeasureSpec.getMode(widthMeasureSpec);
+//        int widthSpecSize = MeasureSpec.getSize(widthMeasureSpec);
+//        int heightSpecMode = MeasureSpec.getMode(heightMeasureSpec);
+//        int heightSpecSize = MeasureSpec.getSize(heightMeasureSpec);
+//        LogUtil.i("widthSpecMode==="+widthSpecMode+"---heightSpecMode="+heightSpecMode);
+//        setMeasuredDimension((widthSpecMode == MeasureSpec.AT_MOST)?mWdith:widthSpecSize,
+//                (heightSpecMode == MeasureSpec.AT_MOST)?mHeight:heightSpecSize);
     }
 
     @Override

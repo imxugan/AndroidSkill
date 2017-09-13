@@ -46,5 +46,7 @@ public class QQListViewActivity extends AppCompatActivity {
                 Toast.makeText(QQListViewActivity.this,position+":"+mAdapter.getItem(position),Toast.LENGTH_SHORT).show();
             }
         });
+
     }
+
 }
