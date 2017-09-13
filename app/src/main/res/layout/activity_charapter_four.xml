@@ -72,5 +72,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="viewDragHelper使用"/>
+
+        <Button
+            android:id="@+id/qqListView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="仿qqListView"/>
     </LinearLayout>
 </ScrollView>

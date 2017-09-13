@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="#f00"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent">
+              <Button android:id="@+id/item_btn_delete"
+                  android:layout_width="60dp"
+                  android:layout_height="wrap_content"
+                 android:maxLines="1"
+                  android:text="删除"
+                  android:background="@mipmap/ic_launcher"
+                  android:textColor="#ffffff"
+                  android:paddingLeft="15dp"
+                  android:paddingRight="15dp"
+                  android:layout_gravity="right|center_vertical"
+                  android:layout_marginRight="15dp"/>
+
+</LinearLayout>

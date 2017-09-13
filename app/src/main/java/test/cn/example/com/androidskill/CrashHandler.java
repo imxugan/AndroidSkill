@@ -62,7 +62,12 @@ class CrashHandler implements UncaughtExceptionHandler {
 	 */
 	@Override
 	public void uncaughtException(Thread paramThread , Throwable paramThrowable) {
-		Log.i(TAG, ""+paramThrowable.toString());
+		if(null != paramThrowable){
+			Log.i(TAG, ""+paramThrowable.toString());
+		}else {
+			Log.i(TAG,"null == paramThrowable");
+		}
+
 		 if (!handleException(paramThrowable) && mDefaultHandler != null) {
 	            mDefaultHandler.uncaughtException(paramThread, paramThrowable);
         } else {
