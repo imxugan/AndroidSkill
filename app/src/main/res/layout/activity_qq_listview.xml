@@ -3,10 +3,14 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="当自定义的QQListView的宽和高是wrap_content时，未起作用，并且，需要在文字上滑动才能看到删除按钮"/>
         <test.cn.example.com.androidskill.view.defineView.QQListView
             android:id="@+id/qqListView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
         </test.cn.example.com.androidskill.view.defineView.QQListView>
 </LinearLayout>

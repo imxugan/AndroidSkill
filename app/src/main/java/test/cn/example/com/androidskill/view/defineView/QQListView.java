@@ -21,7 +21,8 @@ import test.cn.example.com.util.LogUtil;
  */
 
 public class QQListView extends ListView {
-
+    private int mWdith;
+    private int mHeight;
     private final LayoutInflater mInflater;
     private final int mScaledTouchSlop;
     private final PopupWindow mPopupWindow;
@@ -48,7 +49,44 @@ public class QQListView extends ListView {
         mPopupWindow.getContentView().measure(0,0);
         mPopupWindowHeight = mPopupWindow.getContentView().getMeasuredHeight();
         mPopupWindowWidth = mPopupWindow.getContentView().getMeasuredWidth();
+        LogUtil.i("mPopupWindowWidth="+mPopupWindowWidth+"---mPopupWindowHeight="+mPopupWindowHeight);
+    }
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int childCount = getChildCount();
+        LogUtil.i("childCount====="+childCount);
+        measureChildren(widthMeasureSpec,heightMeasureSpec);
+
+        int childMaxWidth = 0;
+        int childMaxHeight = 0;
+        int childWidth = 0;
+        int childHeight = 0;
+        View child = null;
+        for (int i = 0; i < childCount; i++) {
+            child = getChildAt(i);
+            childWidth = child.getMeasuredWidth();
+//            childHeight = child.getMeasuredHeight();
+            if(childMaxWidth<=childWidth){
+                childMaxWidth = childWidth;
+            }
+
+//            if(childMaxHeight <= childHeight){
+//                childMaxHeight = childHeight;
+//            }
+
+            mHeight += child.getMeasuredHeight();
+        }
+        mWdith = childMaxWidth + mPopupWindowWidth;
+        LogUtil.i("mWdith==="+mWdith+"---mHeight="+mHeight);
+        int widthSpecMode = MeasureSpec.getMode(widthMeasureSpec);
+        int widthSpecSize = MeasureSpec.getSize(widthMeasureSpec);
+        int heightSpecMode = MeasureSpec.getMode(heightMeasureSpec);
+        int heightSpecSize = MeasureSpec.getSize(heightMeasureSpec);
+        LogUtil.i("widthSpecMode==="+widthSpecMode+"---heightSpecMode="+heightSpecMode);
+        setMeasuredDimension((widthSpecMode == MeasureSpec.AT_MOST)?mWdith:widthSpecSize,
+                (heightSpecMode == MeasureSpec.AT_MOST)?mHeight:heightSpecSize);
     }
 
     @Override
@@ -61,14 +99,14 @@ public class QQListView extends ListView {
             case MotionEvent.ACTION_DOWN:
                 xDown = x;
                 yDown = y;
-//                LogUtil.i("mPopupWindow======="+mPopupWindow);
+                LogUtil.i("mPopupWindow======="+mPopupWindow+"---mPopupWindow.isShowing()="+mPopupWindow.isShowing());
+
                 if(null != mPopupWindow && mPopupWindow.isShowing()){
                     mPopupWindow.dismiss();
                 }
                 //获取当前手指按下的位置
                 mCurrentViewPosition = pointToPosition(xDown, yDown);
-//                LogUtil.i("mCurrentViewPosition====="+mCurrentViewPosition+"---mPopupWindow======="+mPopupWindow
-//                        +"---mPopupWindow.isShowing()="+mPopupWindow.isShowing());
+                LogUtil.i("mCurrentViewPosition====="+mCurrentViewPosition);
                 //获取当前手指按下时的item
                 View view = getChildAt(mCurrentViewPosition - getFirstVisiblePosition());
                 mCurrentView = view;
@@ -97,7 +135,7 @@ public class QQListView extends ListView {
                     if(null != mCurrentView){
                         int[] location = new int[2];
                         //获取当前item的位置x与y
-//                    LogUtil.i("mCurrentView======"+mCurrentView);
+                    LogUtil.e("mCurrentView======"+mCurrentView+"---mPopupWindow.isShowing()="+mPopupWindow.isShowing());
                         mCurrentView.getLocationOnScreen(location);
                         mPopupWindow.update();
                         mPopupWindow.showAtLocation(mCurrentView, Gravity.LEFT|Gravity.TOP,
