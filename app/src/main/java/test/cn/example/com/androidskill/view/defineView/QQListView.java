@@ -139,7 +139,7 @@ public class QQListView extends ListView {
                         mCurrentView.getLocationOnScreen(location);
                         mPopupWindow.update();
                         mPopupWindow.showAtLocation(mCurrentView, Gravity.LEFT|Gravity.TOP,
-                                location[0] + mCurrentView.getWidth(),
+                                location[0] + mCurrentView.getWidth() - mPopupWindowWidth,
                                 location[1]+ mCurrentView.getHeight()/2 - mPopupWindowHeight/2);
                         //设置删除按钮的回调
                         mDeleteButton.setOnClickListener(new OnClickListener() {
