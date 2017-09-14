@@ -13,8 +13,8 @@
             android:orientation="horizontal">
                 <test.cn.example.com.androidskill.view.defineView.QQListView
                     android:id="@+id/qqListView"
-                    android:visibility="gone"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content">
 
                 </test.cn.example.com.androidskill.view.defineView.QQListView>
@@ -26,8 +26,8 @@
 
                 <test.cn.example.com.androidskill.view.defineView.QQListView2
                     android:id="@+id/qqListView2"
-
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content">
 
                 </test.cn.example.com.androidskill.view.defineView.QQListView2>
