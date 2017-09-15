@@ -44,6 +44,8 @@ public class ChapterFourActivity extends AppCompatActivity implements View.OnCli
         viewDragHelper.setOnClickListener(this);
         Button qqListView = (Button)findViewById(R.id.qqListView);
         qqListView.setOnClickListener(this);
+        Button verticalLinearLayout = (Button)findViewById(R.id.verticalLinearLayout);
+        verticalLinearLayout.setOnClickListener(this);
     }
 
 
@@ -87,6 +89,9 @@ public class ChapterFourActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.qqListView:
                 startActivity(new Intent(ChapterFourActivity.this,QQListViewActivity.class));
+                break;
+            case R.id.verticalLinearLayout:
+                startActivity(new Intent(ChapterFourActivity.this,VerticalLinearLayoutActivity.class));
                 break;
             default:
                 break;

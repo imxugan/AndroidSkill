@@ -77,7 +77,13 @@
             android:id="@+id/qqListView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
             android:text="仿qqListView"/>
+
+        <Button
+            android:id="@+id/verticalLinearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="自定义ViewGroup实现竖向引导界面"/>
     </LinearLayout>
 </ScrollView>
