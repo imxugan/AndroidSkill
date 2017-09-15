@@ -80,6 +80,13 @@
             android:text="仿qqListView"/>
 
         <Button
+            android:id="@+id/scroll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="Scroll相关的知识点"/>
+
+        <Button
             android:id="@+id/verticalLinearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

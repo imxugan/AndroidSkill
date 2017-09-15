@@ -269,6 +269,10 @@
                   android:screenOrientation="portrait">
         </activity>
 
+        <activity android:name="test.cn.example.com.androidskill.ScrollActivity"
+                  android:screenOrientation="portrait">
+        </activity>
+
         <activity android:name="test.cn.example.com.androidskill.VerticalLinearLayoutActivity"
                   android:screenOrientation="portrait">
         </activity>
