@@ -55,12 +55,14 @@ public class VerticalLinearLayout extends ViewGroup {
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         if(changed){
             int childCount = getChildCount();
+//            LogUtil.i("childCount="+childCount);
             MarginLayoutParams params = (MarginLayoutParams) getLayoutParams();
             params.height = mScreenHeight * childCount;
             setLayoutParams(params);//设置VerticalLinearLayout自身在父容器中的宽高
             for (int i = 0; i < childCount; i++) {
                 View child = getChildAt(i);
                 if(child.getVisibility() != View.GONE){
+//                    LogUtil.i("child.getMeasuredHeight()="+child.getMeasuredHeight());
                     //确定每个子view在父控件中的位置
                     child.layout(l,i * mScreenHeight,r,(i + 1) * mScreenHeight);
                 }
@@ -80,7 +82,7 @@ public class VerticalLinearLayout extends ViewGroup {
             case MotionEvent.ACTION_DOWN:
                 mScrollStart = getScrollY();
                 mLastY = y;
-                LogUtil.i("mScrollStart===="+mScrollStart);
+//                LogUtil.i("mScrollStart===="+mScrollStart+"---y="+y);
                 break;
             case MotionEvent.ACTION_MOVE:
                 if(!mScroller.isFinished()){
@@ -92,21 +94,26 @@ public class VerticalLinearLayout extends ViewGroup {
 //                LogUtil.i("scrollY===="+scrollY+"---dy="+dy+"--mLastY="+mLastY+"---y="+y);
                 //已经到达顶端，下拉多少，加往上滚动多少
                 if(dy < 0 && (scrollY + dy)<0){
+//                    LogUtil.i("scrollY===="+scrollY+"---dy="+dy+"--mLastY="+mLastY+"---y="+y);
                     dy = -scrollY;
                 }
                 //已经到达底部，上拉多少，就往下滚动多少
                 if(dy > 0 && (scrollY + dy) > (getHeight() - mScreenHeight)){
+//                    LogUtil.i("scrollY===="+scrollY+"---dy="+dy+"--mLastY="+mLastY+"---y="+y);
+//                    LogUtil.i("getHeight()===="+getHeight()+"---mScreenHeight="+mScreenHeight);
                     dy = getHeight() - mScreenHeight - scrollY;
+//                    LogUtil.i("dy===="+dy);
                 }
                 scrollBy(0,dy);
                 mLastY = y;
                 break;
             case MotionEvent.ACTION_UP:
                 mScrollEnd = getScrollY();
-                LogUtil.i("mScrollEnd===="+mScrollEnd);
+//                LogUtil.i("mScrollEnd===="+mScrollEnd);
                 int dScrollY = mScrollEnd - mScrollStart;
                 if(wantScrollToNext()){
                    if(shouldScrollToNext()){
+                       LogUtil.i("(mScreenHeight - dScrollY)===="+(mScreenHeight - dScrollY));
                        mScroller.startScroll(0,getScrollY(),0,(mScreenHeight - dScrollY));
                    } else {
                        mScroller.startScroll(0,getScrollY(),0,-dScrollY);
@@ -131,6 +138,10 @@ public class VerticalLinearLayout extends ViewGroup {
     @Override
     public void computeScroll() {
         super.computeScroll();
+
+//        computeScrollOffset
+//        返回值为boolean，true说明滚动尚未完成，false说明滚动已经完成。
+
         if(mScroller.computeScrollOffset()){
             scrollTo(0,mScroller.getCurrY());
             postInvalidate();
@@ -184,15 +195,17 @@ public class VerticalLinearLayout extends ViewGroup {
      * @return
      */
     private boolean shouScrollToPre() {
-        return (-mScrollEnd + mScrollStart)>mScreenHeight/2 || Math.abs(getVolicity())>600;
+//        LogUtil.i("getVelocity()="+getVelocity());
+        return (-mScrollEnd + mScrollStart)>mScreenHeight/2 || Math.abs(getVelocity())>600;
     }
 
     /**
-     * 根据滑动的距离，判读能否滚动到下一页
+     * 根据滑动的距离，判断能否滚动到下一页
      * @return
      */
     private boolean shouldScrollToNext() {
-        return (mScrollEnd - mScrollStart)>mScreenHeight/2 || Math.abs(getVolicity())>600;
+//        LogUtil.i("getVelocity()="+getVelocity());
+        return (mScrollEnd - mScrollStart)>mScreenHeight/2 || Math.abs(getVelocity())>600;
     }
 
     /**
@@ -210,7 +223,7 @@ public class VerticalLinearLayout extends ViewGroup {
      * 获取Y方向的加速度
      * @return
      */
-    public int getVolicity() {
+    public int getVelocity() {
         mVelocityTracker.computeCurrentVelocity(1000);
         return (int)mVelocityTracker.getYVelocity();
     }
