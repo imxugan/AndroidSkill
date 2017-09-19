@@ -245,6 +245,10 @@
                   android:screenOrientation="portrait">
         </activity>
 
+        <activity android:name="test.cn.example.com.androidskill.CustomViewActivity2"
+                  android:screenOrientation="portrait">
+        </activity>
+
         <activity android:name="test.cn.example.com.androidskill.CustomVolumeControlBar"
                   android:screenOrientation="portrait">
         </activity>
@@ -274,6 +278,10 @@
         </activity>
 
         <activity android:name="test.cn.example.com.androidskill.VerticalLinearLayoutActivity"
+                  android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name="test.cn.example.com.androidskill.GestureLockViewActivity"
                   android:screenOrientation="portrait">
         </activity>
 

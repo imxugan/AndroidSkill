@@ -26,6 +26,8 @@ public class ChapterFourActivity extends AppCompatActivity implements View.OnCli
         customTitleView01.setOnClickListener(this);
         Button customView01 = (Button)findViewById(R.id.customView01);
         customView01.setOnClickListener(this);
+        Button customView02 = (Button)findViewById(R.id.customView02);
+        customView02.setOnClickListener(this);
         Button customImageView01 = (Button)findViewById(R.id.customImageView01);
         customImageView01.setOnClickListener(this);
         Button customProgressBar01 = (Button)findViewById(R.id.customProgressBar01);
@@ -48,6 +50,8 @@ public class ChapterFourActivity extends AppCompatActivity implements View.OnCli
         scroll.setOnClickListener(this);
         Button verticalLinearLayout = (Button)findViewById(R.id.verticalLinearLayout);
         verticalLinearLayout.setOnClickListener(this);
+        Button gestureLockView = (Button)findViewById(R.id.gestureLockView);
+        gestureLockView.setOnClickListener(this);
     }
 
 
@@ -64,6 +68,9 @@ public class ChapterFourActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.customView01:
                 startActivity(new Intent(ChapterFourActivity.this,CustomViewActivity.class));
+                break;
+            case R.id.customView02:
+                startActivity(new Intent(ChapterFourActivity.this,CustomViewActivity2.class));
                 break;
             case R.id.customImageView01:
                 startActivity(new Intent(ChapterFourActivity.this,CustomImageViewActivity.class));
@@ -97,6 +104,9 @@ public class ChapterFourActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.verticalLinearLayout:
                 startActivity(new Intent(ChapterFourActivity.this,VerticalLinearLayoutActivity.class));
+                break;
+            case R.id.gestureLockView:
+                startActivity(new Intent(ChapterFourActivity.this,GestureLockViewActivity.class));
                 break;
             default:
                 break;

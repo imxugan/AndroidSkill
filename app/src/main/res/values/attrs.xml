@@ -76,4 +76,13 @@
         <!--布局文件中直接android:text="@string/hello_world"即可-->
         <attr name="android:text"/>
     </declare-styleable>
+
+    <declare-styleable name="GestureLockView">
+        <attr name="no_finger_inner_circle_color" format="color"/>
+        <attr name="no_finger_outer_circle_color" format="color"/>
+        <attr name="finger_on_color" format="color"/>
+        <attr name="finger_up_color" format="color"/>
+        <attr name="count"/>
+        <attr name="tryTimes" format="integer"/>
+    </declare-styleable>
 </resources>

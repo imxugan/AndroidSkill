@@ -26,6 +26,12 @@
             android:text="customView01"/>
 
         <Button
+            android:id="@+id/customView02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="customView02"/>
+
+        <Button
             android:id="@+id/customImageView01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -83,14 +89,19 @@
             android:id="@+id/scroll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
             android:text="Scroll相关的知识点"/>
 
         <Button
             android:id="@+id/verticalLinearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
             android:text="自定义ViewGroup实现竖向引导界面"/>
+
+        <Button
+            android:id="@+id/gestureLockView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="手势解锁"/>
     </LinearLayout>
 </ScrollView>
