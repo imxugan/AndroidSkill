@@ -85,4 +85,13 @@
         <attr name="count"/>
         <attr name="tryTimes" format="integer"/>
     </declare-styleable>
+
+    <declare-styleable name="GestureLockViewGroup">
+        <attr name="no_finger_inner_circle_color"/>
+        <attr name="no_finger_outer_circle_color"/>
+        <attr name="finger_on_color"/>
+        <attr name="finger_up_color"/>
+        <attr name="count"/>
+        <attr name="tryTimes"/>
+    </declare-styleable>
 </resources>

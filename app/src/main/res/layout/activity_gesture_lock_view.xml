@@ -4,10 +4,19 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-        <test.cn.example.com.androidskill.view.defineView.GestureLockView
+        <test.cn.example.com.androidskill.view.defineView.GestureLockViewGroup
+            android:id="@+id/gestureLockViewGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/colorAccent">
+            android:layout_marginLeft="10dp"
+            app:count="4">
+
+
+        </test.cn.example.com.androidskill.view.defineView.GestureLockViewGroup>
+
+        <test.cn.example.com.androidskill.view.defineView.GestureLockView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
         </test.cn.example.com.androidskill.view.defineView.GestureLockView>
 </LinearLayout>
