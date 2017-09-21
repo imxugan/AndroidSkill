@@ -94,4 +94,10 @@
         <attr name="count"/>
         <attr name="tryTimes"/>
     </declare-styleable>
+
+    <declare-styleable name="GestureLockView2">
+        <attr name="inner_circle_color" format="color"/>
+        <attr name="out_circle_color" format="color"/>
+        <attr name="arrow_circle_color" format="color"/>
+    </declare-styleable>
 </resources>
