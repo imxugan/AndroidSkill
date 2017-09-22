@@ -199,8 +199,11 @@ public class GestureLockViewGroup extends RelativeLayout {
                 mPaint.setAlpha(50);
                 this.mTryTimes--;
                 //判断是否回调成功
-                mOnGestureLockViewSelectedListener.restMatchTimes(mTryTimes);
-                mOnGestureLockViewSelectedListener.isMatch(checkAnswer());
+                if(null != mOnGestureLockViewSelectedListener){
+                    mOnGestureLockViewSelectedListener.restMatchTimes(mTryTimes);
+                    mOnGestureLockViewSelectedListener.isMatch(checkAnswer());
+                }
+
                 //将终点位置设置为起点，即取消指引线
                 mTempleTarget.x = mLastPathX;
                 mTempleTarget.y = mLastPathY;
@@ -212,7 +215,10 @@ public class GestureLockViewGroup extends RelativeLayout {
                     int nextChildId = mChoose.get(i + 1);
                     GestureLockView startChild = (GestureLockView) findViewById(childId);
                     GestureLockView nextChild = (GestureLockView) findViewById(nextChildId);
-                    mOnGestureLockViewSelectedListener.onSingleSelected(childId);
+                    if(null != mOnGestureLockViewSelectedListener){
+                        mOnGestureLockViewSelectedListener.onSingleSelected(childId);
+                    }
+
                     int dx = nextChild.getLeft() - startChild.getLeft();
                     int dy = nextChild.getTop() - startChild.getTop();
                     //计算角度
@@ -223,7 +229,10 @@ public class GestureLockViewGroup extends RelativeLayout {
                     LogUtil.i("i="+i+"---dx="+dx+"---dy="+dy+"---degree="+degree);
                     startChild.setmArrowDegree(degree);
                     if(i+1 == mChoose.size() -1){
-                        mOnGestureLockViewSelectedListener.onSingleSelected(nextChildId);
+                        if(null != mOnGestureLockViewSelectedListener){
+                            mOnGestureLockViewSelectedListener.onSingleSelected(nextChildId);
+                        }
+
                         degree = -1;
                         nextChild.setmArrowDegree(degree);
                         LogUtil.e("i="+i+"---dx="+dx+"---dy="+dy+"---degree="+degree);

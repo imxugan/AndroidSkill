@@ -4,7 +4,7 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-        <test.cn.example.com.androidskill.view.defineView.GestureLockViewGroup
+        <test.cn.example.com.androidskill.view.defineView.GestureLockViewGroup2
             android:id="@+id/gestureLockViewGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -12,11 +12,12 @@
             app:count="4">
 
 
-        </test.cn.example.com.androidskill.view.defineView.GestureLockViewGroup>
+        </test.cn.example.com.androidskill.view.defineView.GestureLockViewGroup2>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:orientation="horizontal">
                 <test.cn.example.com.androidskill.view.defineView.GestureLockView
                     android:layout_width="wrap_content"
@@ -31,10 +32,10 @@
                             android:layout_height="wrap_content"
                             android:textSize="8sp"
                             android:text="手指沿着下面的圆圈滑动，里面的三角形也会跟着转动"/>
-                        <test.cn.example.com.androidskill.view.defineView.GestureLockView2
-                            android:layout_width="120dp"
-                            android:layout_height="120dp">
-                        </test.cn.example.com.androidskill.view.defineView.GestureLockView2>
+                        <!--<test.cn.example.com.androidskill.view.defineView.GestureLockView2-->
+                            <!--android:layout_width="120dp"-->
+                            <!--android:layout_height="120dp">-->
+                        <!--</test.cn.example.com.androidskill.view.defineView.GestureLockView2>-->
                 </LinearLayout>
 
         </LinearLayout>

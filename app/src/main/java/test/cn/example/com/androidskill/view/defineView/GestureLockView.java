@@ -207,7 +207,8 @@ public class GestureLockView extends View {
 
     private void drawArrow(Canvas canvas){
         if(mArrowDegree != -1){
-            LogUtil.i("mArrowDegree="+mArrowDegree);
+//            LogUtil.i("mArrowDegree="+mArrowDegree+"---mArrowPath="+mArrowPath+"---getId()="+getId());
+            LogUtil.i("mArrowPath="+mArrowPath+"---mArrowPath.isEmpty()="+mArrowPath.isEmpty()+"---getId()="+getId());
             mPaint.setStyle(Paint.Style.FILL);
             canvas.save();
             canvas.rotate(mArrowDegree,mCenterX,mCenterY);
