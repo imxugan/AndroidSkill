@@ -100,4 +100,10 @@
         <attr name="out_circle_color" format="color"/>
         <attr name="arrow_circle_color" format="color"/>
     </declare-styleable>
+
+    <declare-styleable name="ArcMenuViewGroup">
+        <attr name="arcMenuRadius" format="dimension"/>
+        <attr name="arcMenuCount" format="integer"/>
+        <attr name="degree" format="integer"/>
+    </declare-styleable>
 </resources>

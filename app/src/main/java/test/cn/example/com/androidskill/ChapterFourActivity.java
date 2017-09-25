@@ -52,10 +52,9 @@ public class ChapterFourActivity extends AppCompatActivity implements View.OnCli
         verticalLinearLayout.setOnClickListener(this);
         Button gestureLockView = (Button)findViewById(R.id.gestureLockView);
         gestureLockView.setOnClickListener(this);
+        Button arcMenu = (Button)findViewById(R.id.arcMenu);
+        arcMenu.setOnClickListener(this);
     }
-
-
-
 
     @Override
     public void onClick(View v) {
@@ -107,6 +106,9 @@ public class ChapterFourActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.gestureLockView:
                 startActivity(new Intent(ChapterFourActivity.this,GestureLockViewActivity.class));
+                break;
+            case R.id.arcMenu:
+                startActivity(new Intent(ChapterFourActivity.this,ArcMenuActivity.class));
                 break;
             default:
                 break;

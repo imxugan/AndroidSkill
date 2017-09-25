@@ -103,5 +103,12 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:text="手势解锁"/>
+
+        <Button
+            android:id="@+id/arcMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="卫星环绕效果"/>
     </LinearLayout>
 </ScrollView>
