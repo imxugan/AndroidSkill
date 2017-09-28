@@ -7,8 +7,10 @@
 
     <test.cn.example.com.androidskill.view.defineView.ArcMenuViewGroup
         android:id="@+id/arcMenu"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@color/colorAccent"
         app:arcMenuCount="6">
 
         <ImageView
@@ -42,6 +44,54 @@
 
         <ImageView
             android:id="@+id/vx"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/vx"/>
+    </test.cn.example.com.androidskill.view.defineView.ArcMenuViewGroup>
+
+    <test.cn.example.com.androidskill.view.defineView.ArcMenuViewGroup
+        android:id="@+id/arcMenu_3"
+        android:background="@color/colorAccent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="30dp"
+        android:layout_gravity="bottom|right"
+        app:position="right_bottom"
+        app:arcMenuCount="6">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/qzone"/>
+
+        <ImageView
+            android:id="@+id/qq_3"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/qq"/>
+
+        <!--android:id="@+id/qq_music_3"-->
+        <ImageView
+
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/qq_music"/>
+
+        <!--android:id="@+id/test_ic_img_user_default_3"-->
+        <ImageView
+
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/test_ic_img_user_default"/>
+        <!--android:id="@+id/wb_3"-->
+        <ImageView
+
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/wb"/>
+        <!--android:id="@+id/vx_3"-->
+        <ImageView
+
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/vx"/>

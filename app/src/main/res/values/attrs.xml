@@ -105,5 +105,11 @@
         <attr name="arcMenuRadius" format="dimension"/>
         <attr name="arcMenuCount" format="integer"/>
         <attr name="degree" format="integer"/>
+        <attr name="position" format="enum">
+            <enum name="left_top" value="0"/>
+            <enum name="right_top" value="1"/>
+            <enum name="left_botttom" value="2"/>
+            <enum name="right_bottom" value="3"/>
+        </attr>
     </declare-styleable>
 </resources>

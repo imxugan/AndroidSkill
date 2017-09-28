@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import test.cn.example.com.androidskill.view.defineView.ArcMenuViewGroup;
+import test.cn.example.com.util.LogUtil;
 
 /**
  * Created by xgxg on 2017/9/25.
@@ -40,6 +42,10 @@ public class ArcMenuActivity extends AppCompatActivity {
                 }
             }
         });
+
+        ArcMenuViewGroup arcMenu3 = (ArcMenuViewGroup) findViewById(R.id.arcMenu_3);
+        ImageView qq_3 = (ImageView) arcMenu3.findViewById(R.id.qq_3);
+        LogUtil.i("qq_3.getId()="+qq_3.getId());
     }
 
     private void showToast(String msg){

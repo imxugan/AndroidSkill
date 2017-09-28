@@ -7,8 +7,10 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.util.DensityUtil;
@@ -20,6 +22,8 @@ import test.cn.example.com.util.LogUtil;
 
 public class ArcMenuViewGroup extends ViewGroup implements View.OnClickListener{
 
+    private final int mScreenWidth;
+    private final int mScreenHeight;
     private int mDefaultCount = 4;
     private int mDefaultRadius = DensityUtil.dp2Px(200);
     private int mDefaultDegree = 90;
@@ -27,6 +31,11 @@ public class ArcMenuViewGroup extends ViewGroup implements View.OnClickListener{
     private boolean mIsOpen = true;
     private View mMenu;
     private OnItemClickListener mOnItemClickListener;
+    private int mDefaultPosition;
+    private final int LEFT_TOP = 0;
+    private final int RIGHT_TOP = 1;
+    private final int LEFT_BOTTTOM = 2;
+    private final int RIGHT_BOTTOM = 3;
 
     public ArcMenuViewGroup(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -44,10 +53,16 @@ public class ArcMenuViewGroup extends ViewGroup implements View.OnClickListener{
                 case R.styleable.ArcMenuViewGroup_degree:
                     mDefaultDegree = (int) a.getDimension(attr, this.mDefaultDegree);
                     break;
+                case R.styleable.ArcMenuViewGroup_position:
+                    mDefaultPosition = a.getInteger(attr, mDefaultPosition);
+                    break;
             }
         }
         a.recycle();
-        mChildBetweenDegree = Math.PI/2/(mDefaultCount-2);
+        if(mDefaultCount>3){
+            mChildBetweenDegree = Math.PI/2/(mDefaultCount-2);
+        }
+
         LogUtil.i("mChildBetweenDegree="+mChildBetweenDegree);
 //        LogUtil.i("mDefaultCount="+mDefaultCount);
         LogUtil.i("Math.sin(mChildBetweenDegree)="+Math.sin(mChildBetweenDegree));
@@ -55,6 +70,14 @@ public class ArcMenuViewGroup extends ViewGroup implements View.OnClickListener{
 //        LogUtil.i("Math.sin(30)="+Math.sin(30));
 //        LogUtil.i("Math.sin(Math.PI/2/3)="+Math.sin(Math.PI/2/3));
 //        LogUtil.i("Math.sin(Math.toDegrees(30))="+Math.sin(Math.toDegrees(30)));
+
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        windowManager.getDefaultDisplay().getMetrics(displayMetrics);
+        mScreenWidth = displayMetrics.widthPixels;
+        mScreenHeight = displayMetrics.heightPixels;
+        LogUtil.i("mScreenWidth="+mScreenWidth);
+        LogUtil.i("mScreenHeight="+mScreenHeight);
     }
 
     @Override
@@ -63,9 +86,11 @@ public class ArcMenuViewGroup extends ViewGroup implements View.OnClickListener{
         int childCount = getChildCount();
         LogUtil.i("childCount="+childCount);
         View child = null;
+        int childWidth = 0;
         for (int i = 0; i < childCount; i++) {
             child = getChildAt(i);
             measureChild(child,widthMeasureSpec,heightMeasureSpec);
+            childWidth = child.getMeasuredWidth();
         }
         int widthSpecSize = MeasureSpec.getSize(widthMeasureSpec);
         int widthSpecMode = MeasureSpec.getMode(widthMeasureSpec);
@@ -78,7 +103,12 @@ public class ArcMenuViewGroup extends ViewGroup implements View.OnClickListener{
             size = (mDefaultRadius>size)?size:mDefaultRadius;
         }else if(MeasureSpec.AT_MOST == heightSpecMode){
             size = (mDefaultRadius>size)?size:mDefaultRadius;
+        }else {
+            //如果是固定大小,则要将半径从新赋值,如果不进行重新赋值，
+            // 将有可能出现半径大于当前控件的宽或者高的情况,这样展示出来的控件，就会不好看了
+            mDefaultRadius = size;
         }
+        size += childWidth;
         setMeasuredDimension(size,size);
     }
 
@@ -93,20 +123,39 @@ public class ArcMenuViewGroup extends ViewGroup implements View.OnClickListener{
             if(i == 0){
                 //菜单中心点的child
                 mMenu = getChildAt(i);
-                mMenu.layout(l,t,l+child.getMeasuredWidth(),t+child.getMeasuredHeight());
-            }else if(i == 1){//紧挨着x轴的child
-                LogUtil.i("i==1 时  child.getId()==="+child.getId());
-                child.layout(l+mDefaultRadius-child.getMeasuredWidth()/2,t,
-                        l+mDefaultRadius+child.getMeasuredWidth()/2,t+child.getMeasuredHeight());
-            }  else if(i == childCount -1){//紧挨着y轴的child
-                child.layout(l,t+mDefaultRadius-child.getMeasuredHeight()/2,
-                        l+child.getMeasuredWidth(),t+mDefaultRadius+child.getMeasuredHeight()/2);
+                if(mDefaultPosition == LEFT_TOP){
+                    LogUtil.i("LEFT_TOP");
+                    LogUtil.i("l="+l);
+                    LogUtil.i("t="+t);
+                    LogUtil.i("r="+r);
+                    LogUtil.i("b="+b);
+                    mMenu.layout(0,0,child.getMeasuredWidth(),child.getMeasuredHeight());
+                }else if(mDefaultPosition == RIGHT_BOTTOM){
+                    LogUtil.e("RIGHT_BOTTOM");
+                    LogUtil.i("l="+l);
+                    LogUtil.i("t="+t);
+                    LogUtil.i("r="+r);
+                    LogUtil.i("b="+b);
+                    mMenu.layout(getMeasuredWidth()-child.getMeasuredWidth(),getMeasuredHeight() - mMenu.getMeasuredHeight(),
+                            getMeasuredWidth(),getMeasuredHeight());
+                }
             }else {
-                LogUtil.i("i="+i);
-                child.layout(l+(int)(mDefaultRadius *Math.cos(mChildBetweenDegree*(i-1)))-child.getMeasuredWidth()/2,
-                        t+(int)(mDefaultRadius * Math.sin(mChildBetweenDegree*(i-1)))-child.getMeasuredHeight()/2,
-                        l+(int)(mDefaultRadius * Math.cos(mChildBetweenDegree*(i-1)))+child.getMeasuredWidth()/2,
-                        t+(int)(mDefaultRadius * Math.sin(mChildBetweenDegree*(i-1)))+child.getMeasuredHeight()/2);
+                if(mDefaultPosition == LEFT_TOP){
+                    child.layout((int)(mDefaultRadius * Math.cos(mChildBetweenDegree*(i-1))),
+                            (int)(mDefaultRadius * Math.sin(mChildBetweenDegree*(i-1))),
+                            (int)(mDefaultRadius * Math.cos(mChildBetweenDegree*(i-1))+child.getMeasuredWidth()),
+                            (int)(mDefaultRadius * Math.sin(mChildBetweenDegree*(i-1))+child.getMeasuredHeight()));
+                }else if(mDefaultPosition == RIGHT_BOTTOM){
+                    if(i == 1){
+                        LogUtil.i("child.getId()="+child.getId()+"---qq3?");//2131558502
+                    }
+                    LogUtil.e("RIGHT_BOTTOM---i="+i+"Math.sin(mChildBetweenDegree*(i-1))="+Math.sin(mChildBetweenDegree*(i-1)));
+                    child.layout(getMeasuredWidth()-(int)(mDefaultRadius * Math.sin(mChildBetweenDegree*(i-1))-child.getMeasuredWidth()),
+                            getMeasuredHeight()-(int)(mDefaultRadius * Math.cos(mChildBetweenDegree*(i-1))-child.getMeasuredHeight()),
+                            getMeasuredWidth()-(int)(mDefaultRadius * Math.sin(mChildBetweenDegree*(i-1))),
+                            getMeasuredHeight()-(int)(mDefaultRadius * Math.cos(mChildBetweenDegree*(i-1))));
+                }
+
             }
         }
     }
@@ -140,18 +189,20 @@ public class ArcMenuViewGroup extends ViewGroup implements View.OnClickListener{
         for (int i = 0; i < childCount-1; i++) {
             child = getChildAt(i+1);
             AnimatorSet set = new AnimatorSet();
-            if(i== 0){
-                //靠近x轴的卫星
-                destationX = child.getTranslationX()+mDefaultRadius - child.getMeasuredWidth()/2;
-                destationY = child.getTranslationY();
-            }else if(i == (childCount -2)){
-                //靠近y轴的卫星
-                destationX = child.getTranslationX();
-                destationY = child.getTranslationY()+mDefaultRadius - child.getMeasuredHeight()/2;
-            }else {
-                destationX = child.getTranslationX()+(float) (mDefaultRadius * Math.cos(mChildBetweenDegree * i))-child.getMeasuredWidth()/2;
-                destationY = child.getTranslationY()+(float) (mDefaultRadius * Math.sin(mChildBetweenDegree * i))-child.getMeasuredHeight()/2;
-            }
+//            if(i== 0){
+//                //靠近x轴的卫星
+//                destationX = child.getTranslationX()+mDefaultRadius;
+//                destationY = child.getTranslationY();
+//            }else if(i == (childCount -2)){
+//                //靠近y轴的卫星
+//                destationX = child.getTranslationX();
+//                destationY = child.getTranslationY()+mDefaultRadius;
+//            }else {
+//                destationX = child.getTranslationX()+(float) (mDefaultRadius * Math.cos(mChildBetweenDegree * i));
+//                destationY = child.getTranslationY()+(float) (mDefaultRadius * Math.sin(mChildBetweenDegree * i));
+//            }
+            destationX = child.getTranslationX()+(float) (mDefaultRadius * Math.cos(mChildBetweenDegree * i));
+            destationY = child.getTranslationY()+(float) (mDefaultRadius * Math.sin(mChildBetweenDegree * i));
             ObjectAnimator translateX = ObjectAnimator.ofFloat(child, "translationX", child.getTranslationX(), destationX);
             ObjectAnimator translateY = ObjectAnimator.ofFloat(child, "translationY", child.getTranslationY(), destationY);
             ObjectAnimator alpha = ObjectAnimator.ofFloat(child,"alpha",0,1);
@@ -185,19 +236,21 @@ public class ArcMenuViewGroup extends ViewGroup implements View.OnClickListener{
         for (int i = 0; i < childCount-1; i++) {
             child = getChildAt(i+1);
             AnimatorSet set = new AnimatorSet();
-            if(i == 0){
-                //靠近x轴的卫星
-                destationX = -(child.getTranslationX()+mDefaultRadius - child.getMeasuredWidth()/2);
-                destationY = child.getTranslationY();
-            }else if(i == (childCount-2)){
-                //靠近y轴的卫星
-                destationX = child.getTranslationX();
-                destationY = -(child.getTranslationY()+mDefaultRadius - child.getMeasuredHeight()/2);
-
-            }else {
-                destationX = -(float)(child.getTranslationX()+mDefaultRadius * Math.cos(mChildBetweenDegree * i)-child.getMeasuredWidth()/2);
-                destationY = -(float)(child.getTranslationY()+mDefaultRadius * Math.sin(mChildBetweenDegree * i)-child.getMeasuredHeight()/2);
-            }
+//            if(i == 0){
+//                //靠近x轴的卫星
+//                destationX = -(child.getTranslationX()+mDefaultRadius);
+//                destationY = child.getTranslationY();
+//            }else if(i == (childCount-2)){
+//                //靠近y轴的卫星
+//                destationX = child.getTranslationX();
+//                destationY = -(child.getTranslationY()+mDefaultRadius);
+//
+//            }else {
+//                destationX = -(float)(child.getTranslationX()+mDefaultRadius * Math.cos(mChildBetweenDegree * i));
+//                destationY = -(float)(child.getTranslationY()+mDefaultRadius * Math.sin(mChildBetweenDegree * i));
+//            }
+            destationX = -(float)(child.getTranslationX()+mDefaultRadius * Math.cos(mChildBetweenDegree * i));
+            destationY = -(float)(child.getTranslationY()+mDefaultRadius * Math.sin(mChildBetweenDegree * i));
             ObjectAnimator translateX = ObjectAnimator.ofFloat(child, "translationX", child.getTranslationX(), destationX);
             ObjectAnimator translateY = ObjectAnimator.ofFloat(child, "translationY", child.getTranslationY(), destationY);
             ObjectAnimator alpha = ObjectAnimator.ofFloat(child,"alpha",1,0);
