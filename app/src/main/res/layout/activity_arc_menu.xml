@@ -1,34 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
-        <test.cn.example.com.androidskill.view.defineView.ArcMenuViewGroup
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <test.cn.example.com.androidskill.view.defineView.ArcMenuViewGroup
+        android:id="@+id/arcMenu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:arcMenuCount="6">
+
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:arcMenuCount="5">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/qzone"/>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/qq"/>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/qq_music"/>
+            android:src="@drawable/qzone"/>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/test_ic_img_user_default"/>
+        <ImageView
+            android:id="@+id/qq"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/qq"/>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/qq"/>
-        </test.cn.example.com.androidskill.view.defineView.ArcMenuViewGroup>
+        <ImageView
+            android:id="@+id/qq_music"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/qq_music"/>
+
+        <ImageView
+            android:id="@+id/test_ic_img_user_default"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/test_ic_img_user_default"/>
+
+        <ImageView
+            android:id="@+id/wb"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/wb"/>
+
+        <ImageView
+            android:id="@+id/vx"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/vx"/>
+    </test.cn.example.com.androidskill.view.defineView.ArcMenuViewGroup>
 </LinearLayout>
