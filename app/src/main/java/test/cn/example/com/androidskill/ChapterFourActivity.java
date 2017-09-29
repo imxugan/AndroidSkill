@@ -54,6 +54,8 @@ public class ChapterFourActivity extends AppCompatActivity implements View.OnCli
         gestureLockView.setOnClickListener(this);
         Button arcMenu = (Button)findViewById(R.id.arcMenu);
         arcMenu.setOnClickListener(this);
+        Button flowLayout = (Button)findViewById(R.id.flowLayout);
+        flowLayout.setOnClickListener(this);
     }
 
     @Override
@@ -109,6 +111,9 @@ public class ChapterFourActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.arcMenu:
                 startActivity(new Intent(ChapterFourActivity.this,ArcMenuActivity.class));
+                break;
+            case R.id.flowLayout:
+                startActivity(new Intent(ChapterFourActivity.this,FlowLayoutActivity.class));
                 break;
             default:
                 break;
