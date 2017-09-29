@@ -148,10 +148,22 @@ public class ArcMenuViewGroup extends ViewGroup implements View.OnClickListener{
                 }else if(mDefaultPosition == RIGHT_BOTTOM){
                     if(i == 1){
                         LogUtil.i("child.getId()="+child.getId()+"---qq3?");//2131558502
+                        int left = getMeasuredWidth()-(int)(mDefaultRadius * Math.sin(mChildBetweenDegree*(i-1)))-child.getMeasuredWidth();
+                        int top = getMeasuredHeight()-(int)(mDefaultRadius * Math.cos(mChildBetweenDegree*(i-1)))-child.getMeasuredHeight();
+                        int right = getMeasuredWidth()-(int)(mDefaultRadius * Math.sin(mChildBetweenDegree*(i-1)));
+                        int bottom = getMeasuredHeight()-(int)(mDefaultRadius * Math.cos(mChildBetweenDegree*(i-1)));
+                        LogUtil.i("getMeasuredHeight()="+getMeasuredHeight());
+                        LogUtil.i("child.getMeasuredHeight()="+child.getMeasuredHeight());
+                        LogUtil.i("(int)(mDefaultRadius * Math.cos(mChildBetweenDegree*(i-1))="+(int)(mDefaultRadius * Math.cos(mChildBetweenDegree*(i-1))));
+                        LogUtil.i("left="+left);
+                        LogUtil.i("top="+top);
+                        LogUtil.i("right="+right);
+                        LogUtil.i("bottom="+bottom);
+
                     }
-                    LogUtil.e("RIGHT_BOTTOM---i="+i+"Math.sin(mChildBetweenDegree*(i-1))="+Math.sin(mChildBetweenDegree*(i-1)));
-                    child.layout(getMeasuredWidth()-(int)(mDefaultRadius * Math.sin(mChildBetweenDegree*(i-1))-child.getMeasuredWidth()),
-                            getMeasuredHeight()-(int)(mDefaultRadius * Math.cos(mChildBetweenDegree*(i-1))-child.getMeasuredHeight()),
+//                    LogUtil.e("RIGHT_BOTTOM---i="+i+"Math.sin(mChildBetweenDegree*(i-1))="+Math.sin(mChildBetweenDegree*(i-1)));
+                    child.layout(getMeasuredWidth()-(int)(mDefaultRadius * Math.sin(mChildBetweenDegree*(i-1)))-child.getMeasuredWidth(),
+                            getMeasuredHeight()-(int)(mDefaultRadius * Math.cos(mChildBetweenDegree*(i-1)))-child.getMeasuredHeight(),
                             getMeasuredWidth()-(int)(mDefaultRadius * Math.sin(mChildBetweenDegree*(i-1))),
                             getMeasuredHeight()-(int)(mDefaultRadius * Math.cos(mChildBetweenDegree*(i-1))));
                 }
@@ -164,6 +176,7 @@ public class ArcMenuViewGroup extends ViewGroup implements View.OnClickListener{
     public void onClick(View v) {
         if(v == mMenu){
             LogUtil.i("mMenu is click");
+            mMenu.setClickable(false);
             if(mIsOpen){
                 playRotationAnimation(mMenu,180,0);
                 close();
@@ -189,7 +202,8 @@ public class ArcMenuViewGroup extends ViewGroup implements View.OnClickListener{
         for (int i = 0; i < childCount-1; i++) {
             child = getChildAt(i+1);
             AnimatorSet set = new AnimatorSet();
-//            if(i== 0){
+            if(mDefaultPosition == LEFT_TOP){
+                //            if(i== 0){
 //                //靠近x轴的卫星
 //                destationX = child.getTranslationX()+mDefaultRadius;
 //                destationY = child.getTranslationY();
@@ -201,8 +215,23 @@ public class ArcMenuViewGroup extends ViewGroup implements View.OnClickListener{
 //                destationX = child.getTranslationX()+(float) (mDefaultRadius * Math.cos(mChildBetweenDegree * i));
 //                destationY = child.getTranslationY()+(float) (mDefaultRadius * Math.sin(mChildBetweenDegree * i));
 //            }
-            destationX = child.getTranslationX()+(float) (mDefaultRadius * Math.cos(mChildBetweenDegree * i));
-            destationY = child.getTranslationY()+(float) (mDefaultRadius * Math.sin(mChildBetweenDegree * i));
+                destationX = child.getTranslationX()+(float) (mDefaultRadius * Math.cos(mChildBetweenDegree * i));
+                destationY = child.getTranslationY()+(float) (mDefaultRadius * Math.sin(mChildBetweenDegree * i));
+            }else if(mDefaultPosition == RIGHT_BOTTOM){
+                if(i == 0){
+                    //由于执行了close动画，第一个小卫星已经从靠近Y轴的位置向下移动到了最右角，
+                    // 所以这个时候获取到的child.getTranslationY()的值，就是close动画执行完后
+                    //这个小卫星Y轴方向的偏移量，如果是向下移动，则这个偏移量是正值，向上移动这个偏移量的值是负值
+                    //同理，如果是X轴方向的便宜量，向右移动，则这个偏移量的值是正值，向左移动，则这个偏移量的值是负值
+                    LogUtil.i("RIGHT_BOTTOM---open---i="+i);
+                    LogUtil.i("child.getTranslationX()="+child.getTranslationX());
+                    LogUtil.i("child.getTranslationY()="+child.getTranslationY());
+                }
+
+                destationX = child.getTranslationX()-(float) (mDefaultRadius * Math.sin(mChildBetweenDegree * i));
+                destationY = child.getTranslationY()-(float) (mDefaultRadius * Math.cos(mChildBetweenDegree * i));
+            }
+
             ObjectAnimator translateX = ObjectAnimator.ofFloat(child, "translationX", child.getTranslationX(), destationX);
             ObjectAnimator translateY = ObjectAnimator.ofFloat(child, "translationY", child.getTranslationY(), destationY);
             ObjectAnimator alpha = ObjectAnimator.ofFloat(child,"alpha",0,1);
@@ -214,6 +243,7 @@ public class ArcMenuViewGroup extends ViewGroup implements View.OnClickListener{
                 public void onAnimationEnd(Animator animation) {
                     super.onAnimationEnd(animation);
                     finalChild.setClickable(true);
+                    mMenu.setClickable(true);
                 }
             });
         }
@@ -236,7 +266,8 @@ public class ArcMenuViewGroup extends ViewGroup implements View.OnClickListener{
         for (int i = 0; i < childCount-1; i++) {
             child = getChildAt(i+1);
             AnimatorSet set = new AnimatorSet();
-//            if(i == 0){
+            if(mDefaultPosition == LEFT_TOP){
+                //            if(i == 0){
 //                //靠近x轴的卫星
 //                destationX = -(child.getTranslationX()+mDefaultRadius);
 //                destationY = child.getTranslationY();
@@ -249,8 +280,18 @@ public class ArcMenuViewGroup extends ViewGroup implements View.OnClickListener{
 //                destationX = -(float)(child.getTranslationX()+mDefaultRadius * Math.cos(mChildBetweenDegree * i));
 //                destationY = -(float)(child.getTranslationY()+mDefaultRadius * Math.sin(mChildBetweenDegree * i));
 //            }
-            destationX = -(float)(child.getTranslationX()+mDefaultRadius * Math.cos(mChildBetweenDegree * i));
-            destationY = -(float)(child.getTranslationY()+mDefaultRadius * Math.sin(mChildBetweenDegree * i));
+                destationX = -(float)(child.getTranslationX()+mDefaultRadius * Math.cos(mChildBetweenDegree * i));
+                destationY = -(float)(child.getTranslationY()+mDefaultRadius * Math.sin(mChildBetweenDegree * i));
+            }else if(mDefaultPosition == RIGHT_BOTTOM){
+                if(i == 0){
+                    LogUtil.i("RIGHT_BOTTOM---close---i="+i);
+                    LogUtil.i("child.getTranslationX()="+child.getTranslationX());
+                    LogUtil.i("child.getTranslationY()="+child.getTranslationY());
+                }
+                destationX = (float)(child.getTranslationX()+mDefaultRadius * Math.sin(mChildBetweenDegree * i));
+                destationY = (float)(child.getTranslationY()+mDefaultRadius * Math.cos(mChildBetweenDegree * i));
+            }
+
             ObjectAnimator translateX = ObjectAnimator.ofFloat(child, "translationX", child.getTranslationX(), destationX);
             ObjectAnimator translateY = ObjectAnimator.ofFloat(child, "translationY", child.getTranslationY(), destationY);
             ObjectAnimator alpha = ObjectAnimator.ofFloat(child,"alpha",1,0);
@@ -263,6 +304,7 @@ public class ArcMenuViewGroup extends ViewGroup implements View.OnClickListener{
                 public void onAnimationEnd(Animator animation) {
                     super.onAnimationEnd(animation);
                     finalChild.setClickable(false);
+                    mMenu.setClickable(true);
                 }
             });
         }
