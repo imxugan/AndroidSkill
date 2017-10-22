@@ -50,4 +50,13 @@
         <item name="attr4">attr4 from default custom view style</item>
         <item name="attr5">attr5 from default custom view style</item>
     </style>
+
+    <!--给flowlayout的子view添加的样式-->
+    <style name="text_flag_01">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:background">@drawable/flag_01</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
 </resources>

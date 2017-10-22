@@ -6,7 +6,42 @@
             <test.cn.example.com.androidskill.view.defineView.FlowLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:background="@color/colorPrimary">
 
             </test.cn.example.com.androidskill.view.defineView.FlowLayout>
+
+    <test.cn.example.com.androidskill.view.defineView.FlowLayout2
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary">
+        <TextView
+            style="@style/text_flag_01"
+            android:text="Welcome" />
+
+        <TextView
+            style="@style/text_flag_01"
+            android:text="IT工程师" />
+
+        <TextView
+            style="@style/text_flag_01"
+            android:text="学习ing" />
+
+        <TextView
+            style="@style/text_flag_01"
+            android:text="恋爱ing" />
+
+        <TextView
+            style="@style/text_flag_01"
+            android:text="挣钱ing" />
+
+        <TextView
+            style="@style/text_flag_01"
+            android:text="努力ing" />
+
+        <TextView
+            style="@style/text_flag_01"
+            android:text="I thick i can" />
+
+    </test.cn.example.com.androidskill.view.defineView.FlowLayout2>
 </LinearLayout>
