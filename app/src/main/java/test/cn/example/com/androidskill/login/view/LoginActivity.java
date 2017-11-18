@@ -80,4 +80,10 @@ public class LoginActivity extends Activity implements View.OnClickListener,ILog
 	private void showToast(String msg,Context context){
 		Toast.makeText(context,msg,Toast.LENGTH_SHORT).show();
 	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+//		楼主这里没说完整，在activity的onDestroy等类似的回调中应该要把presenter的中对view的引用给断开。presenter.setView(null);
+	}
 }
