@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         charapter9.setOnClickListener(this);
         TextView charapter10 = (TextView) findViewById(R.id.charapter10);
         charapter10.setOnClickListener(this);
+        TextView toolbar = (TextView) findViewById(R.id.toolbar);
+        toolbar.setOnClickListener(this);
     }
 
 
@@ -117,6 +119,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.charapter10:
                 Intent intent_10 = new Intent(MainActivity.this, HandlerActivity.class);
                 myStartActivity(intent_10);
+                break;
+            case R.id.toolbar:
+                Intent intent_toolbar = new Intent(MainActivity.this, ToolBarTestActivity.class);
+                myStartActivity(intent_toolbar);
                 break;
             default:
                 break;
