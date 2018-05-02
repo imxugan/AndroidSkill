@@ -5,6 +5,7 @@ package test.cn.example.com.androidskill.login.presenter;
  */
 
 public interface ILoginPresenter {
+    void checkCluaseState(boolean state);
     void clear();
     void login(String name,String psw);
     void setProgressBarVisibility(int visibility);

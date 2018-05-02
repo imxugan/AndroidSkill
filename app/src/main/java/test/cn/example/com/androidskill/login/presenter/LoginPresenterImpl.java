@@ -16,6 +16,7 @@ public class LoginPresenterImpl implements ILoginPresenter {
     ILoginView iLoginView;
     IUser user;
     Handler handler;
+    boolean state;
     public LoginPresenterImpl(ILoginView iLoginView){
         this.iLoginView = iLoginView;
         initUser();
@@ -27,16 +28,27 @@ public class LoginPresenterImpl implements ILoginPresenter {
     }
 
     @Override
+    public void checkCluaseState(boolean state) {
+        this.state = state;
+        iLoginView.upDateCluaseState(state);
+    }
+
+    @Override
     public void clear() {
         iLoginView.clearText();
     }
 
     @Override
     public void login(String name, String psw) {
+        if(!state){ //未勾选同意协议
+            iLoginView.showShortToast("请勾选同意《XXXX平台服务协议》，才能登陆。");
+            return;
+        }
         boolean isLoginSuccess = true;
         final int code = user.checkUserValidity(name,psw);
         if(code != 1){
-            isLoginSuccess = false;
+            iLoginView.showShortToast("用户名或者密码不能为空");
+            return;
         }
         final boolean result = isLoginSuccess;
         setProgressBarVisibility(View.VISIBLE);
@@ -46,7 +58,6 @@ public class LoginPresenterImpl implements ILoginPresenter {
                 iLoginView.onLoginResult(result,code);
             }
         },3000);
-
     }
 
     @Override

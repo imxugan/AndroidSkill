@@ -6,19 +6,24 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.androidskill.login.presenter.ILoginPresenter;
 import test.cn.example.com.androidskill.login.presenter.LoginPresenterImpl;
 import test.cn.example.com.util.LogUtil;
+import test.cn.example.com.util.ToastUtils;
 
 
 public class LoginActivity extends Activity implements View.OnClickListener,ILoginView{
 	private EditText et_name, et_psw;
 	private ProgressBar pbLogin;
 	private ILoginPresenter iLoginPresenter;
+	private TextView tv_check;
+	private boolean isClauseChecked;
 
 
 	@Override
@@ -35,6 +40,9 @@ public class LoginActivity extends Activity implements View.OnClickListener,ILog
 		pbLogin.setVisibility(View.INVISIBLE);
 		et_name = (EditText) findViewById(R.id.name);
 		et_psw = (EditText) findViewById(R.id.psw);
+		tv_check = (TextView) findViewById(R.id.tv_check);
+		tv_check.setOnClickListener(this);
+		tv_check.setSelected(isClauseChecked);
 		Button btnLogin = (Button) findViewById(R.id.btn_login);
 		btnLogin.setOnClickListener(this);
 		Button btnClear = (Button) findViewById(R.id.btn_clear);
@@ -45,6 +53,10 @@ public class LoginActivity extends Activity implements View.OnClickListener,ILog
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()){
+			case R.id.tv_check:
+				isClauseChecked = !isClauseChecked;
+				iLoginPresenter.checkCluaseState(isClauseChecked);
+				break;
 			case R.id.btn_login:
 				iLoginPresenter.login(et_name.getText().toString(), et_psw.getText().toString());
 				break;
@@ -52,6 +64,11 @@ public class LoginActivity extends Activity implements View.OnClickListener,ILog
 				iLoginPresenter.clear();
 				break;
 		}
+	}
+
+	@Override
+	public void upDateCluaseState(boolean isServiceClauseChecked) {
+		tv_check.setSelected(isServiceClauseChecked);
 	}
 
 	@Override
@@ -75,6 +92,11 @@ public class LoginActivity extends Activity implements View.OnClickListener,ILog
 	@Override
 	public void onSetProgressBarVisibility(int visibility) {
 			pbLogin.setVisibility(View.VISIBLE);
+	}
+
+	@Override
+	public void showShortToast(String s) {
+		ToastUtils.shortToast(LoginActivity.this,s);
 	}
 
 	private void showToast(String msg,Context context){
