@@ -25,6 +25,20 @@ android {
         aidl.srcDirs = ['src/main/aidl']
         res.srcDirs = ['src/main/res']
     }
+
+    flavorDimensions("server")
+
+    productFlavors{
+        ceshi{
+            dimension "server"
+            buildConfigField("String","BaseUrl" ,"\"http://test.api.wws.xywy.com/api.php/\"")
+        }
+
+        formal{
+            dimension "server"
+            buildConfigField("String","BaseUrl" ,"\"http://api.wws.xywy.com/api.php/\"")
+        }
+    }
 }
 
 dependencies {
@@ -38,9 +52,21 @@ dependencies {
     compile project(':util')
     compile 'com.google.android.gms:play-services-appindexing:8.4.0'
     //添加rxjava2.x依赖
-    //compile 'io.reactivex.rxjava2:rxjava:2.0.1'
+//    compile 'io.reactivex.rxjava2:rxjava:2.0.1'
 
     //添加rxJava1.x版本依赖
     compile 'io.reactivex:rxjava:1.0.14'
     compile 'io.reactivex:rxandroid:1.0.1'
+
+    // Retrofit库
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    // Okhttp库
+    compile 'com.squareup.okhttp3:okhttp:3.1.2'
+
+    //数据解析器（Converter）
+    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+
+//    //网络请求适配器（CallAdapter）
+//    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
+
 }

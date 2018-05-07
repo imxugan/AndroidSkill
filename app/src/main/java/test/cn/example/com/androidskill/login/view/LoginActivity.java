@@ -108,4 +108,19 @@ public class LoginActivity extends Activity implements View.OnClickListener,ILog
 		super.onDestroy();
 //		楼主这里没说完整，在activity的onDestroy等类似的回调中应该要把presenter的中对view的引用给断开。presenter.setView(null);
 	}
+
+	@Override
+	public void onSuccessResult() {
+
+	}
+
+	@Override
+	public void onEmptyResult() {
+
+	}
+
+	@Override
+	public void onErrorResult() {
+
+	}
 }

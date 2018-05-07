@@ -14,10 +14,11 @@ import test.cn.example.com.androidskill.R;
  * Created by xugan on 2018/5/4.
  */
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements IBaseView{
 
     protected ViewStub viewstub_empty;
     protected ViewStub viewstub_error;
+    protected View currentSubRootView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,11 +30,28 @@ public abstract class BaseActivity extends AppCompatActivity {
         viewstub_error = (ViewStub) findViewById(R.id.viewstub_error);
         viewstub_error.inflate();
         LayoutInflater inflater = LayoutInflater.from(this);
-        inflater.inflate(getLayoutId(),root,true);
+        currentSubRootView = inflater.inflate(getLayoutId(), root, true);
         initView();
     }
 
     public abstract int getLayoutId();
 
     public abstract void initView();
+
+    @Override
+    public void onSuccessResult() {
+
+    }
+
+    @Override
+    public void onEmptyResult() {
+        currentSubRootView.setVisibility(View.GONE);
+        viewstub_empty.setVisibility(View.VISIBLE);
+        viewstub_error.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onErrorResult() {
+
+    }
 }

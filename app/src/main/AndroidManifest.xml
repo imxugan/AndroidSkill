@@ -301,7 +301,9 @@
                   android:screenOrientation="portrait">
         </activity>
 
-
+        <activity android:name="test.cn.example.com.androidskill.RetrofitActivity"
+                  android:screenOrientation="portrait">
+        </activity>
 
 
 

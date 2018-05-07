@@ -55,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         toolbar.setOnClickListener(this);
         TextView viewstub = (TextView) findViewById(R.id.viewstub);
         viewstub.setOnClickListener(this);
+        TextView retrofit = (TextView) findViewById(R.id.retrofit);
+        retrofit.setOnClickListener(this);
     }
 
 
@@ -63,79 +65,70 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.debug:
-                Intent intent_debug = new Intent(MainActivity.this, DebugActivity.class);
-                myStartActivity(intent_debug);
+                myStartActivity(DebugActivity.class,false);
                 break;
             case R.id.classLoader:
-                Intent intent_classLoader = new Intent(MainActivity.this, ClassLoaderTestActivity.class);
-                myStartActivity(intent_classLoader);
+                myStartActivity(ClassLoaderTestActivity.class,false);
                 break;
             case R.id.threadPool:
-                Intent intent_threadPool = new Intent(MainActivity.this, ThreadPoolActivity.class);
-                myStartActivity(intent_threadPool);
+                myStartActivity(ThreadPoolActivity.class,false);
                 break;
             case R.id.callBack:
-                Intent intent_callBack = new Intent(MainActivity.this, CallBackActivity.class);
-                myStartActivity(intent_callBack);
+                myStartActivity(CallBackActivity.class,false);
                 break;
             case R.id.rxJava:
-                Intent intent_rxJava = new Intent(MainActivity.this, RxJavaTestActivity.class);
-                myStartActivity(intent_rxJava);
+                myStartActivity(RxJavaTestActivity.class,false);
                 break;
             case R.id.design_pattern:
-                Intent intent_design_pattern = new Intent(MainActivity.this, DesignPatternActivity.class);
-                myStartActivity(intent_design_pattern);
+                myStartActivity(DesignPatternActivity.class,false);
                 break;
             case R.id.mvp:
-                Intent intent_mvp = new Intent(MainActivity.this, LoginActivity.class);
-                myStartActivity(intent_mvp);
+                myStartActivity(LoginActivity.class,false);
                 break;
             case R.id.annotation:
-                Intent intent_annotation = new Intent(MainActivity.this, AnnotationActivity.class);
-                myStartActivity(intent_annotation);
+                myStartActivity(AnnotationActivity.class,false);
                 break;
             case R.id.httpUrlConnection:
-                Intent intent_http = new Intent(MainActivity.this, HttpTestActivity.class);
-                myStartActivity(intent_http);
+                myStartActivity(HttpTestActivity.class,false);
                 break;
             case R.id.charapter1:
-                Intent intent = new Intent(MainActivity.this, ChapterOneActivity.class);
-                myStartActivity(intent);
+                myStartActivity(ChapterOneActivity.class,false);
                 break;
             case R.id.charapter2:
-                Intent intent_2 = new Intent(MainActivity.this,ChapterTwoActivity.class);
-                startActivity(intent_2);
+                myStartActivity(ChapterTwoActivity.class,false);
                 break;
             case R.id.charapter4:
-                Intent intent_4 = new Intent(MainActivity.this,ChapterFourActivity.class);
-                startActivity(intent_4);
+                myStartActivity(ChapterFourActivity.class,false);
                 break;
             case R.id.charapter7:
-                Intent intent_7 = new Intent(MainActivity.this, ChapterSevenActivity.class);
-                myStartActivity(intent_7);
+                myStartActivity(ChapterSevenActivity.class,false);
                 break;
             case R.id.charapter9:
                 Intent intent_9 = new Intent(MainActivity.this, ChapterNineActivity.class);
-                myStartActivity(intent_9);
+                myStartActivity(ChapterNineActivity.class,false);
                 break;
             case R.id.charapter10:
-                Intent intent_10 = new Intent(MainActivity.this, HandlerActivity.class);
-                myStartActivity(intent_10);
+                myStartActivity(HandlerActivity.class,false);
                 break;
             case R.id.toolbar:
-                Intent intent_toolbar = new Intent(MainActivity.this, ToolBarTestActivity.class);
-                myStartActivity(intent_toolbar);
+                myStartActivity(ToolBarTestActivity.class,false);
                 break;
             case R.id.viewstub:
-                Intent intent_retrofit = new Intent(MainActivity.this, ViewStubActivity.class);
-                myStartActivity(intent_retrofit);
+                myStartActivity(ViewStubActivity.class,false);
+                break;
+            case R.id.retrofit:
+                myStartActivity(RetrofitActivity.class,false);
                 break;
             default:
                 break;
         }
     }
 
-    private void myStartActivity(Intent i){
-        startActivity(i);
+    private void myStartActivity(Class clazz,boolean isFinish){
+        Intent intent = new Intent(MainActivity.this, clazz);
+        startActivity(intent);
+        if(isFinish){
+            finish();
+        }
     }
 }
