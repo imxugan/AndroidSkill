@@ -36,7 +36,8 @@ public class GetUserInfoPresenterImpl implements IGetUserInfoPresenter {
             //请求失败时候的回调
             @Override
             public void onFailure(Call<BaseBean<User>> call, Throwable throwable) {
-                System.out.println("连接失败");
+                LogUtil.i("连接失败----Thread="+Thread.currentThread().getName());
+                iBaseView.onErrorResultView();
             }
         });
 

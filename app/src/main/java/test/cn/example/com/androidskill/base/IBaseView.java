@@ -6,7 +6,7 @@ package test.cn.example.com.androidskill.base;
  */
 
 public interface IBaseView {
-    void onSuccessResult();
-    void onEmptyResult();
-    void onErrorResult();
+    void onSuccessResultView();
+    void onEmptyResultView();
+    void onErrorResultView();
 }

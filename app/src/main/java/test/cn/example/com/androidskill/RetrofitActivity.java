@@ -21,6 +21,16 @@ public class RetrofitActivity extends BaseActivity implements View.OnClickListen
     }
 
     @Override
+    public int getMyDefinedEmptyLayoutId() {
+        return 0;
+    }
+
+    @Override
+    public int getMyDefinedErrorLayoutId() {
+        return 0;
+    }
+
+    @Override
     public void initView() {
         iGetUserInfoPresenter = new GetUserInfoPresenterImpl(this);
         findViewById(R.id.btn_retrofit_test).setOnClickListener(this);

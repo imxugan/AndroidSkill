@@ -110,17 +110,17 @@ public class LoginActivity extends Activity implements View.OnClickListener,ILog
 	}
 
 	@Override
-	public void onSuccessResult() {
+	public void onSuccessResultView() {
 
 	}
 
 	@Override
-	public void onEmptyResult() {
+	public void onEmptyResultView() {
 
 	}
 
 	@Override
-	public void onErrorResult() {
+	public void onErrorResultView() {
 
 	}
 }

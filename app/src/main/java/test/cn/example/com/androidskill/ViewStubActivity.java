@@ -21,17 +21,25 @@ public class ViewStubActivity extends BaseActivity {
     }
 
     @Override
+    public int getMyDefinedEmptyLayoutId() {
+        return 0;
+    }
+
+    @Override
+    public int getMyDefinedErrorLayoutId() {
+        return 0;
+    }
+
+    @Override
     public void initView() {
         TextView tv_random = (TextView) findViewById(R.id.tv_random);
         int random = (int)(Math.random() * 10);
         tv_random.setText(random+"");
         if(random>=5){
-            viewstub_error.setVisibility(View.VISIBLE);
-            viewstub_empty.setVisibility(View.GONE);
+            onErrorResultView();
         }else {
-            viewstub_error.setVisibility(View.GONE);
-            viewstub_empty.setVisibility(View.VISIBLE);
+            onEmptyResultView();
         }
-
+        currentSubRootView.setVisibility(View.VISIBLE);
     }
 }
