@@ -40,6 +40,5 @@ public class ViewStubActivity extends BaseActivity {
         }else {
             onEmptyResultView();
         }
-        currentSubRootView.setVisibility(View.VISIBLE);
     }
 }

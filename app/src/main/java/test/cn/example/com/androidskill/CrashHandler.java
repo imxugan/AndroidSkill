@@ -20,6 +20,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import test.cn.example.com.util.LogUtil;
+
 /**
  *	ClassName:	CrashHandler
  *	Function: 	UncaughtException,当程序发生异常时，该类来捕获异常信息
@@ -138,6 +140,7 @@ class CrashHandler implements UncaughtExceptionHandler {
 		}
 		printWriter.close();
 		String result = writer.toString();
+		LogUtil.i(result);
 		sb.append(result);
 		try {
 			long timestamp = System.currentTimeMillis();

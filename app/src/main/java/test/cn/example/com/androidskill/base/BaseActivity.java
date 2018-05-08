@@ -6,10 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewStub;
+import android.widget.Button;
 import android.widget.FrameLayout;
 
 import test.cn.example.com.androidskill.R;
-import test.cn.example.com.util.LogUtil;
 
 /**
  * Created by xugan on 2018/5/4.
@@ -35,7 +35,10 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
             errorLayoutId = R.layout.common_error;
         }
         LayoutInflater inflater = LayoutInflater.from(this);
-        currentSubRootView = inflater.inflate(getLayoutId(), root, true);
+        //这种方式导致的后果是，如果currentSubRootView设置为INVISIBLE或者GONE时，整个页面都看不到了
+//        currentSubRootView = inflater.inflate(getLayoutId(), root, true);
+        currentSubRootView = inflater.inflate(getLayoutId(), root, false);
+        root.addView(currentSubRootView);
         initView();
     }
 
@@ -49,7 +52,15 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
 
     @Override
     public void onSuccessResultView() {
+        if(null != view_empty){
+           view_empty.setVisibility(View.GONE);
+        }
 
+        if(null !=view_error){
+            view_error.setVisibility(View.GONE);
+        }
+
+        currentSubRootView.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -58,7 +69,6 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
             ViewStub viewstub_empty = (ViewStub) findViewById(R.id.viewstub_empty);
             viewstub_empty.setLayoutResource(emptyLayoutId);
             view_empty = viewstub_empty.inflate();
-            LogUtil.i(view_empty.getVisibility()+"======="+View.VISIBLE);
         }else {
             view_empty.setVisibility(View.VISIBLE);
         }
@@ -79,11 +89,20 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
             ViewStub viewstub_error = ((ViewStub) findViewById(R.id.viewstub_error));
             viewstub_error.setLayoutResource(errorLayoutId);
             view_error = viewstub_error.inflate();
-            LogUtil.i(view_error.getVisibility()+"======="+View.VISIBLE+"---parent="+view_error.getParent());
-            LogUtil.i("height="+view_error.getHeight()+"-------width="+view_error.getWidth());
+            Button btn_try_aggin = (Button) view_error.findViewById(R.id.btn_try_again);
+            if(null != btn_try_aggin){
+                btn_try_aggin.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        tryAgain();
+                    }
+                });
+            }
         }else {
             view_error.setVisibility(View.VISIBLE);
         }
         currentSubRootView.setVisibility(View.GONE);
     }
+
+    protected void tryAgain(){}
 }
