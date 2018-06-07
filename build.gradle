@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 project.ext {
     androidCommonDir = "${project.rootDir}/libs";
-    androidBuildToolsVersion = '23.0.2'
+    androidBuildToolsVersion = '25.0.2'
     compileSdkVersion = 23
     minSdkVersion = 16
     targetSdkVersion = 23
@@ -10,7 +10,6 @@ project.ext {
     abortOnLintError = false
     checkLintRelease = false
     useJack = false
-    abortOnLintError = false
 }
 buildscript {
     repositories {
