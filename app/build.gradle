@@ -18,12 +18,22 @@ android {
         }
     }
 
-    sourceSets.main {
-        manifest.srcFile 'src/main/AndroidManifest.xml'
-        java.srcDirs = ['src/main/java', 'src/main/aidl']
-        resources.srcDirs = ['src/main/java', 'src/main/aidl']
-        aidl.srcDirs = ['src/main/aidl']
-        res.srcDirs = ['src/main/res']
+    sourceSets{
+        main{
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+            java.srcDirs = ['src/main/java', 'src/main/aidl']
+            resources.srcDirs = ['src/main/java', 'src/main/aidl']
+            aidl.srcDirs = ['src/main/aidl']
+            res.srcDirs = ['src/main/res']
+        }
+
+        ceshi{
+            manifest.srcFile 'src/ceshi/AndroidManifest.xml'
+            java.srcDirs = ['src/ceshi/java', 'src/ceshi/aidl']
+            resources.srcDirs = ['src/ceshi/java', 'src/ceshi/aidl']
+            aidl.srcDirs = ['src/ceshi/aidl']
+            res.srcDirs = ['src/ceshi/res']
+        }
     }
 
     flavorDimensions("server")
