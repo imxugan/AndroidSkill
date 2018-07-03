@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <Button
+        android:onClick="manage"
+        android:id="@+id/btn_httpUrlConnection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="httpUrlConnection" />
+       <RelativeLayout
+           android:id="@+id/rl"
+           android:layout_width="match_parent"
+           android:layout_height="50dp"
+           android:background="@color/c_00c8aa">
+           <TextView
+               android:id="@+id/tv"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:padding="@dimen/dp5"
+               android:layout_centerInParent="true"
+               android:background="@color/c_fc5348"
+               android:text="hello"/>
+       </RelativeLayout>
+
+</LinearLayout>

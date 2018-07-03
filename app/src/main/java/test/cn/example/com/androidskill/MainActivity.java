@@ -57,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         viewstub.setOnClickListener(this);
         TextView retrofit = (TextView) findViewById(R.id.retrofit);
         retrofit.setOnClickListener(this);
+        TextView dispatch_event = (TextView) findViewById(R.id.dispatch_event);
+        dispatch_event.setOnClickListener(this);
     }
 
 
@@ -118,6 +120,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.retrofit:
                 myStartActivity(RetrofitActivity.class,false);
+                break;
+            case R.id.dispatch_event:
+                myStartActivity(DispatchEventActivity.class,false);
                 break;
             default:
                 break;
