@@ -1,6 +1,7 @@
 package com.xywy.im;
 
-import android.util.Log;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
@@ -366,10 +367,15 @@ public class Message {
             byte[] startBytes = CommonUtils.int2Bytes(Constant.PUBLISH,1);
             IMMessage im = (IMMessage) body;
             byte[] toUidBytes = CommonUtils.int2Bytes(im.receiver,4);
+            LogUtil.i("toUidBytes="+Arrays.toString(toUidBytes)+"---toUid=="+BytePacket.readInt32(toUidBytes, 0));
             byte[] msgIdBytes = CommonUtils.int2Bytes(im.msgLocalID,4);
-            byte[] payloadLenBytes = CommonUtils.int2Bytes(im.content.length(),2);
+
             try {
-                byte[] payloadBytes = im.content.getBytes("utf-8");
+                JSONObject jsonObject = new JSONObject(im.content);
+                String payLoad = jsonObject.get("text").toString();
+                byte[] payloadLenBytes = CommonUtils.int2Bytes(payLoad.length(),2);
+
+                byte[] payloadBytes = payLoad.getBytes("utf-8");
                 if (payloadBytes.length + 24 >= 32 * 1024) {
                     LogUtils.e("packet buffer overflow");
                     return null;
@@ -377,6 +383,9 @@ public class Message {
                 return CommonUtils.byteMergerAll(startBytes,toUidBytes, msgIdBytes,payloadLenBytes,
                         payloadBytes);
             } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+                return null;
+            }catch (JSONException e) {
                 e.printStackTrace();
                 return null;
             }
@@ -444,12 +453,13 @@ public class Message {
             this.msgId = msg_id;
             return true;
         } else if (cmd == 0x04) {
-            //客户端回复
-
+            //服务端单聊消息回复
+            LogUtil.i("服务端单聊消息回复    "+Arrays.toString(data)+"---msgId=="+BytePacket.readInt32(data, 1));
             return true;
         }else if (cmd == 0x06) {
             //服务端群消息的回复
             this.cmd = Constant.GROUP_PUB_ACK;
+            LogUtil.i("服务端群消息的回复    "+Arrays.toString(data)+"---msgId=="+BytePacket.readInt32(data, 1));
             return true;
         }else if (cmd == 0x07) {
             //PING      服务器会自动发送心跳包
