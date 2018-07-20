@@ -237,29 +237,29 @@ public class PeerMessageActivity extends MessageActivity implements
 
     @Override
     public void onPeerMessage(IMMessage msg) {
-        if (msg.sender != peerUID && msg.receiver != peerUID) {
-            return;
-        }
-        Log.i(TAG, "recv msg:" + msg.content);
-        final IMessage imsg = new IMessage();
-        imsg.timestamp = msg.timestamp;
-        imsg.msgLocalID = msg.msgLocalID;
-        imsg.sender = msg.sender;
-        imsg.receiver = msg.receiver;
-        imsg.setContent(msg.content);
-        imsg.isOutgoing = (msg.sender == this.currentUID);
-        if (imsg.isOutgoing) {
-            imsg.flags |= MessageFlag.MESSAGE_FLAG_ACK;
-        }
-
-        if (!TextUtils.isEmpty(imsg.getUUID()) && findMessage(imsg.getUUID()) != null) {
-            Log.i(TAG, "receive repeat message:" + imsg.getUUID());
-            return;
-        }
-
-        loadUserName(imsg);
-        downloadMessageContent(imsg);
-        insertMessage(imsg);
+//        if (msg.sender != peerUID && msg.receiver != peerUID) {
+//            return;
+//        }
+//        Log.i(TAG, "recv msg:" + msg.content);
+//        final IMessage imsg = new IMessage();
+//        imsg.timestamp = msg.timestamp;
+//        imsg.msgLocalID = msg.msgLocalID;
+//        imsg.sender = msg.sender;
+//        imsg.receiver = msg.receiver;
+//        imsg.setContent(msg.content);
+//        imsg.isOutgoing = (msg.sender == this.currentUID);
+//        if (imsg.isOutgoing) {
+//            imsg.flags |= MessageFlag.MESSAGE_FLAG_ACK;
+//        }
+//
+//        if (!TextUtils.isEmpty(imsg.getUUID()) && findMessage(imsg.getUUID()) != null) {
+//            Log.i(TAG, "receive repeat message:" + imsg.getUUID());
+//            return;
+//        }
+//
+//        loadUserName(imsg);
+//        downloadMessageContent(imsg);
+//        insertMessage(imsg);
     }
 
     @Override

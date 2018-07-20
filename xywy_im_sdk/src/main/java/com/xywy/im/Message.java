@@ -399,7 +399,8 @@ public class Message {
         }else if (cmd ==4) {
             byte[] startBytes = CommonUtils.int2Bytes(Constant.PUB_ACK,1);
             IMMessage im = (IMMessage) body;
-            byte[] msgIdBytes = CommonUtils.int2Bytes(im.msgLocalID,4);
+//            byte[] msgIdBytes = CommonUtils.int2Bytes(im.msgLocalID,4);
+            byte[] msgIdBytes = CommonUtils.int2Bytes(0,4);
             return CommonUtils.byteMergerAll(startBytes,msgIdBytes);
         }
         return null;

@@ -700,7 +700,7 @@ public class XywyIMService {
         XywyIMService.this.publishConnectState();
 //        this.tcp = new AsyncTCP();
         final String vhost = "com.xywy.default";
-        final String userName = "test2";
+        final String userName = "test456";
         final String pwd = "com.password1234";
 
         Log.i(TAG, "new tcp...");
@@ -793,7 +793,7 @@ public class XywyIMService {
 
             @Override
             public void onClose(int code, String reason, boolean remote) {
-
+                XywyIMService.this.connect();
             }
 
             @Override

@@ -365,4 +365,8 @@ public class WebSocketApi {
     public void setConnected(boolean connected) {
         isConnected = connected;
     }
+
+    public void sendHeartBeat(){
+        sendMsg(CommonUtils.int2Bytes(Constant.PING_RESP,1));
+    }
 }
