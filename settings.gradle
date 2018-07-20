@@ -1,2 +1,2 @@
-include ':app',"util"
+include ':app', ':xywy_im_sdk', ':im_demo', "util"
 project(':util').projectDir = new File(settingsDir, 'libs/util')

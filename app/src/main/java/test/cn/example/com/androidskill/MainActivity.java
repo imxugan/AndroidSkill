@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+import com.xywy.im.WebSocketApi;
 
 import test.cn.example.com.androidskill.callback.CallBackActivity;
 import test.cn.example.com.androidskill.designpattern.DesignPatternActivity;
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         CrashHandler.getInstance().init(this);
         initView();
+        WebSocketApi.getInStance().start("", "com.xywy.default","test1","password1234");
     }
 
     private void initView() {
