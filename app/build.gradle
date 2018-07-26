@@ -12,6 +12,13 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    //greendao配置
+    greendao {
+        //版本号，升级时可配置
+        schemaVersion 1
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -66,8 +73,8 @@ dependencies {
 //    compile 'io.reactivex.rxjava2:rxjava:2.0.1'
 
     //添加rxJava1.x版本依赖
-    compile 'io.reactivex:rxjava:1.0.14'
-    compile 'io.reactivex:rxandroid:1.0.1'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxjava:1.2.9'
 
     // Retrofit库
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
@@ -83,4 +90,7 @@ dependencies {
     compile project(':xywy_im_sdk')
 
     compile 'org.greenrobot:greendao:3.2.2' // add library
+    compile 'net.zetetic:android-database-sqlcipher:3.5.6' //数据库加密相关
+
+    compile 'com.jakewharton.rxbinding:rxbinding:1.0.1'
 }
