@@ -209,13 +209,20 @@ public class PeerMessageActivity extends MessageActivity implements
         return PeerMessageDB.getInstance().newMessageIterator(peerUID);
     }
 
-    public void onConnectState(XywyIMService.ConnectState state) {
-        if (state == XywyIMService.ConnectState.STATE_CONNECTED) {
-            enableSend();
-        } else {
-            disableSend();
-        }
-        setSubtitle();
+    public void onConnectState(final XywyIMService.ConnectState state) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+//                if (state == XywyIMService.ConnectState.STATE_CONNECTED) {
+//                    enableSend();
+//                } else {
+//                    disableSend();
+//                }
+                enableSend();
+                setSubtitle();
+            }
+        });
+
     }
 
 
@@ -236,30 +243,36 @@ public class PeerMessageActivity extends MessageActivity implements
     }
 
     @Override
-    public void onPeerMessage(IMMessage msg) {
-//        if (msg.sender != peerUID && msg.receiver != peerUID) {
-//            return;
-//        }
-//        Log.i(TAG, "recv msg:" + msg.content);
-//        final IMessage imsg = new IMessage();
-//        imsg.timestamp = msg.timestamp;
-//        imsg.msgLocalID = msg.msgLocalID;
-//        imsg.sender = msg.sender;
-//        imsg.receiver = msg.receiver;
-//        imsg.setContent(msg.content);
-//        imsg.isOutgoing = (msg.sender == this.currentUID);
-//        if (imsg.isOutgoing) {
-//            imsg.flags |= MessageFlag.MESSAGE_FLAG_ACK;
-//        }
-//
-//        if (!TextUtils.isEmpty(imsg.getUUID()) && findMessage(imsg.getUUID()) != null) {
-//            Log.i(TAG, "receive repeat message:" + imsg.getUUID());
-//            return;
-//        }
-//
-//        loadUserName(imsg);
-//        downloadMessageContent(imsg);
-//        insertMessage(imsg);
+    public void onPeerMessage(final IMMessage msg) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (msg.sender != peerUID && msg.receiver != peerUID) {
+                    return;
+                }
+                Log.i(TAG, "recv msg:" + msg.content);
+                final IMessage imsg = new IMessage();
+                imsg.timestamp = msg.timestamp;
+                imsg.msgLocalID = msg.msgLocalID;
+                imsg.sender = msg.sender;
+                imsg.receiver = msg.receiver;
+                imsg.setContent(msg.content);
+                imsg.isOutgoing = (msg.sender == PeerMessageActivity.this.currentUID);
+                if (imsg.isOutgoing) {
+                    imsg.flags |= MessageFlag.MESSAGE_FLAG_ACK;
+                }
+
+                if (!TextUtils.isEmpty(imsg.getUUID()) && findMessage(imsg.getUUID()) != null) {
+                    Log.i(TAG, "receive repeat message:" + imsg.getUUID());
+                    return;
+                }
+
+                loadUserName(imsg);
+                downloadMessageContent(imsg);
+                insertMessage(imsg);
+            }
+        });
+
     }
 
     @Override
@@ -468,7 +481,7 @@ public class PeerMessageActivity extends MessageActivity implements
 
 
     protected void sendMessageContent(IMessage.MessageContent content) {
-        IMessage imsg = new IMessage();
+        final IMessage imsg = new IMessage();
         imsg.sender = this.sender;
         imsg.receiver = this.receiver;
         imsg.setContent(content);
@@ -487,8 +500,12 @@ public class PeerMessageActivity extends MessageActivity implements
         }
 
         sendMessage(imsg);
-
-        insertMessage(imsg);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                insertMessage(imsg);
+            }
+        });
 
         NotificationCenter nc = NotificationCenter.defaultCenter();
         Notification notification = new Notification(imsg, SEND_MESSAGE_NAME);

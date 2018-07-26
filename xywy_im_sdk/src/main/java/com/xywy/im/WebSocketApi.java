@@ -6,10 +6,15 @@ import android.util.Log;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 import java.net.URI;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import test.cn.example.com.util.LogUtil;
 import test.cn.example.com.util.LogUtils;
@@ -280,6 +285,7 @@ public class WebSocketApi {
 
                 @Override
                 public void onError(final Exception e) {
+                    printErrorInfo(e);
                     LogUtil.e("连接发生了异常【异常原因：" + e.getMessage() + "】");
 //                    onSocketError(e);
 //                    //异常断开重连 3次
@@ -368,5 +374,28 @@ public class WebSocketApi {
 
     public void sendHeartBeat(){
         sendMsg(CommonUtils.int2Bytes(Constant.PING_RESP,1));
+    }
+
+
+    private void printErrorInfo(Exception ex){
+        Map<String, String> infos = new HashMap<String, String>();
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<String, String> entry : infos.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            sb.append(key).append("=").append(value).append("\n");
+        }
+
+        Writer writer = new StringWriter();
+        PrintWriter printWriter = new PrintWriter(writer);
+        ex.printStackTrace(printWriter);
+        Throwable cause = ex.getCause();
+        while (cause != null) {
+            cause.printStackTrace(printWriter);
+            cause = cause.getCause();
+        }
+        printWriter.close();
+        String result = writer.toString();
+        LogUtil.i(result);
     }
 }
