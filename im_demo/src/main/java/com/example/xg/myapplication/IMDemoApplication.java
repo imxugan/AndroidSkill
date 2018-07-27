@@ -14,11 +14,15 @@ import com.xywy.im.XywyIMService;
 import com.xywy.im.api.IMHttpAPI;
 import com.xywy.im.db.CustomerMessageDB;
 import com.xywy.im.db.CustomerMessageHandler;
+import com.xywy.im.db.DaoMaster;
+import com.xywy.im.db.DaoSession;
 import com.xywy.im.db.GroupMessageDB;
 import com.xywy.im.db.GroupMessageHandler;
 import com.xywy.im.db.PeerMessageDB;
 import com.xywy.im.db.PeerMessageHandler;
 import com.xywy.im.tools.FileCache;
+
+import org.greenrobot.greendao.database.Database;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -61,13 +65,20 @@ public class IMDemoApplication extends Application {
         }
     }
 
-
-
+    /**
+     * A flag to show how easily you can switch from standard SQLite to the encrypted SQLCipher.
+     */
+    public static final boolean ENCRYPTED = true;
+    private DaoSession daoSession;
 
     @Override
     public void onCreate() {
         super.onCreate();
         sApplication = this;
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this,ENCRYPTED ? "notes-db-encrypted" : "notes-db");
+        Database imDB = ENCRYPTED ? helper.getEncryptedWritableDb("super-secret") : helper.getWritableDb();
+        daoSession = new DaoMaster(imDB).newSession();
+
         CrashHandler crashHandler = CrashHandler.getInstance();
         crashHandler.init(getApplicationContext());
         XywyIMService mIMService = XywyIMService.getInstance();
@@ -118,6 +129,9 @@ public class IMDemoApplication extends Application {
 
         //预先做dns查询
 //        refreshHost();
+    }
+    public DaoSession getDaoSession() {
+        return daoSession;
     }
 
     private void copyDataBase(String asset, String path) throws IOException

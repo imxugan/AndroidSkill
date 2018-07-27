@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-
+apply plugin: 'org.greenrobot.greendao'
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.androidBuildToolsVersion
@@ -13,6 +13,13 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
+
+    //greendao配置
+    greendao {
+        //版本号，升级时可配置
+        schemaVersion 1
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -41,4 +48,6 @@ dependencies {
     compile 'joda-time:joda-time:2.5'
     compile 'com.commit451:PhotoView:1.2.5'
     compile 'com.squareup.picasso:picasso:2.4.0'
+
+    compile 'org.greenrobot:greendao:3.2.2'
 }

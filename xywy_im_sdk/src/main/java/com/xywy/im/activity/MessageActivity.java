@@ -41,6 +41,7 @@ import android.widget.Toast;
 import com.xywy.im.R;
 import com.xywy.im.XywyIMService;
 import com.xywy.im.db.IMessage;
+import com.xywy.im.db.Message;
 import com.xywy.im.db.MessageIterator;
 import com.xywy.im.easeui.widget.EaseChatExtendMenu;
 import com.xywy.im.easeui.widget.EaseChatInputMenu;
@@ -49,22 +50,35 @@ import com.xywy.im.gallery.ui.GalleryUI;
 import com.xywy.im.tools.AudioDownloader;
 import com.xywy.im.tools.AudioRecorder;
 import com.xywy.im.tools.AudioUtil;
+import com.xywy.im.tools.CrashInfo;
 import com.xywy.im.tools.DeviceUtil;
 import com.xywy.im.tools.FileCache;
+import com.xywy.im.tools.GetNetworkTime;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.UUID;
+
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import test.cn.example.com.util.LogUtil;
 
 import static com.xywy.im.constant.RequestCodes.PICK_LOCATION;
 import static com.xywy.im.constant.RequestCodes.SELECT_PICTURE;
@@ -907,7 +921,15 @@ public class MessageActivity extends BaseActivity implements
         }
 
         sendMessageContent(IMessage.newText(text));
+        try {
+            Message msg = new Message();
+        }catch (Exception e){
+            CrashInfo.printErrorInfo(e);
+        }
+
     }
+
+
 
     protected void sendImageMessage(Bitmap bmp) {
         double w = bmp.getWidth();

@@ -9,17 +9,25 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.jakewharton.rxbinding.widget.RxTextView;
 import com.jakewharton.rxbinding.widget.TextViewAfterTextChangeEvent;
+import com.xywy.im.tools.GetNetworkTime;
 
 import org.greenrobot.greendao.rx.RxDao;
 import org.greenrobot.greendao.rx.RxQuery;
 
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import rx.Observable;
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
@@ -28,6 +36,7 @@ import test.cn.example.com.androidskill.model.greendao.DaoSession;
 import test.cn.example.com.androidskill.model.greendao.Note;
 import test.cn.example.com.androidskill.model.greendao.NoteDao;
 import test.cn.example.com.androidskill.model.greendao.NoteType;
+import test.cn.example.com.util.LogUtil;
 
 /**
  *  GreenDao的使用演示
@@ -47,6 +56,7 @@ public class GreenDaoActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_greendao);
 //        init();
         setUpViews();
+        getInternetTimeByRxJava();
         // get the Rx variant of the note DAO
         DaoSession daoSession = MyApplication.getInstance().getDaoSession();
         noteDao = daoSession.getNoteDao().rx();
@@ -54,6 +64,43 @@ public class GreenDaoActivity extends AppCompatActivity implements View.OnClickL
         // query all notes, sorted a-z by their text
         notesQuery = daoSession.getNoteDao().queryBuilder().orderAsc(NoteDao.Properties.Text).rx();
         updateNotes();
+    }
+
+    private void getInternetTimeByRxJava() {
+        Observable.create(new Observable.OnSubscribe<Long>() {
+
+            @Override
+            public void call(Subscriber<? super Long> subscriber) {
+                long msgId = GetNetworkTime.getWebsiteDatetime("http://open.baidu.com/special/time");
+                subscriber.onNext(msgId);
+                subscriber.onCompleted();
+                Log.e(" call ---> ", "运行在 " + Thread.currentThread().getName() + " 线程");
+            }
+        }).subscribeOn(Schedulers.newThread()) // 指定subscribe()发生在IO线程
+                .observeOn(AndroidSchedulers.mainThread()) // 指定Subscriber的回调发生在UI线程
+                .subscribe(new Subscriber<Long>() {
+                    @Override
+                    public void onStart() {
+                        super.onStart();
+                    }
+
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(Long s) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+                        LogUtil.i("msgId="+sdf.format(new Date(s)));
+                    }
+                });
     }
 
     private void init() {
