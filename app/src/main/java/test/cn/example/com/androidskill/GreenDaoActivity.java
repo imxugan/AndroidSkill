@@ -110,22 +110,17 @@ public class GreenDaoActivity extends AppCompatActivity implements View.OnClickL
         String comment = "Added on " + df.format(new Date());
 
         for (int i = 0; i < 10; i++) {
-            final Note note = new Note(null, noteText+"---"+i, comment, new Date(), NoteType.TEXT);
-            new Thread(){
-                @Override
-                public void run() {
-
-                    noteDao.insert(note)
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(new Action1<Note>() {
-                                @Override
-                                public void call(Note note) {
-                                    Log.d("DaoExample", "Inserted new note, ID: " + note.getId()+"---"+Thread.currentThread().getName());
-                                    updateNotes();
-                                }
-                            });
-                }
-            }.start();
+            final Note note = new Note(null, noteText+"---"+i, comment, new Date(), NoteType.TEXT);;
+            noteDao.insert(note)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Action1<Note>() {
+                        @Override
+                        public void call(Note note) {
+                            Log.d("DaoExample", "Inserted new note, ID: " + note.getId()+"---"+Thread.currentThread().getName());
+                            updateNotes();
+                        }
+                    });
 
         }
 //        Note note = new Note(null, noteText, comment, new Date(), NoteType.TEXT);
