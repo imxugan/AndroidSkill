@@ -74,13 +74,14 @@ public class IMDemoApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        CrashHandler crashHandler = CrashHandler.getInstance();
+        crashHandler.init(this);
         sApplication = this;
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this,ENCRYPTED ? "notes-db-encrypted" : "notes-db");
         Database imDB = ENCRYPTED ? helper.getEncryptedWritableDb("super-secret") : helper.getWritableDb();
         daoSession = new DaoMaster(imDB).newSession();
 
-        CrashHandler crashHandler = CrashHandler.getInstance();
-        crashHandler.init(getApplicationContext());
+
         XywyIMService mIMService = XywyIMService.getInstance();
         //app可以单独部署服务器，给予第三方应用更多的灵活性
         mIMService.setHost("imnode2.gobelieve.io");

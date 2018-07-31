@@ -9,7 +9,13 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.xywy.im.activity.PeerMessageActivity;
+import com.xywy.im.db.DaoMaster;
+import com.xywy.im.db.DaoSession;
 import com.xywy.im.db.IMessage;
+
+import org.greenrobot.greendao.database.Database;
+import org.greenrobot.greendao.rx.RxDao;
 
 import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
@@ -21,7 +27,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReferenceArray;
 
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 import test.cn.example.com.util.LogUtil;
 import test.cn.example.com.util.LogUtils;
 
@@ -106,6 +116,16 @@ public class XywyIMService {
 
     private byte[] data;
 
+    /**
+     * A flag to show how easily you can switch from standard SQLite to the encrypted SQLCipher.
+     */
+    public static final boolean ENCRYPTED = false;
+    private static DaoSession daoSession;
+
+    private String vhost = "";
+    private String userName = "";
+    private String pwd = "";
+
     private static XywyIMService im = new XywyIMService();
 
     public static XywyIMService getInstance() {
@@ -129,8 +149,19 @@ public class XywyIMService {
 //
 //        this.host = HOST;
 //        this.port = PORT;
+    }
 
-        XywyIMService.this.connect();
+    public static DaoSession getDaoSession(Context context) {
+        if(null == daoSession){
+            synchronized (DaoSession.class){
+                if(null == daoSession){
+                    DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(context,ENCRYPTED ? "messages-db-encrypted" : "messages-db");
+                    Database imDB = ENCRYPTED ? helper.getEncryptedWritableDb("super-secret") : helper.getWritableDb();
+                    daoSession = new DaoMaster(imDB).newSession();
+                }
+            }
+        }
+        return daoSession;
     }
 
     private boolean isOnNet(Context context) {
@@ -446,6 +477,19 @@ public class XywyIMService {
         return true;
     }
 
+    public boolean sendPeerMessage(com.xywy.im.db.Message msg) {
+        if(XywyIMService.this.connectState != ConnectState.STATE_CONNECTED){
+            return false;
+        }
+        if (!sendMessage(msg)) {
+            return false;
+        }
+//        peerMessages.put(new Integer(msg.seq), im);
+
+
+        return true;
+    }
+
     public boolean sendGroupMessage(IMMessage im) {
         Message msg = new Message();
         msg.cmd = Command.MSG_GROUP_IM;
@@ -665,7 +709,7 @@ public class XywyIMService {
 //        this.webSocketClient.startRead();
     }
 
-    private void connect() {
+    public void connect(final String vhost,final String userName,final String pwd) {
 //        if (this.webSocketClient != null) {
 //            return;
 //        }
@@ -695,13 +739,13 @@ public class XywyIMService {
 //        if (now() - timestamp > 5*60) {
 //            refreshHost();
 //        }
-
+        if(XywyIMService.this.connectState == ConnectState.STATE_CONNECTED){
+            return;
+        }
         this.pingTimestamp = 0;
-        XywyIMService.this.publishConnectState();
+        XywyIMService.this.publishConnectState();//这里有必要发送连接状态的改变通知？？？？
 //        this.tcp = new AsyncTCP();
-        final String vhost = "com.xywy.default";
-        final String userName = "test456";
-        final String pwd = "com.password1234";
+
 
         Log.i(TAG, "new tcp...");
         WebSocketApi.getInStance().setWebSocketStatusCallBack(new WebSocketStatusCallBack() {
@@ -782,6 +826,7 @@ public class XywyIMService {
 //                }
 
                 //z这个方法的回调是在子线程中，源码是在主线程中处理的
+                XywyIMService.this.connectState = ConnectState.STATE_CONNECTED;
                 boolean b = XywyIMService.this.handleData(buf.array());
                 if (!b) {
                     XywyIMService.this.connectState = ConnectState.STATE_UNCONNECTED;
@@ -793,12 +838,15 @@ public class XywyIMService {
 
             @Override
             public void onClose(int code, String reason, boolean remote) {
-                XywyIMService.this.connect();
+                XywyIMService.this.connectState = ConnectState.STATE_UNCONNECTED;
+                publishConnectState();
+                XywyIMService.this.connect(vhost,userName,pwd);
             }
 
             @Override
             public void onError(Exception e) {
-
+                XywyIMService.this.connectState = ConnectState.STATE_CONNECTFAIL;
+                publishConnectState();
             }
         });
 
@@ -1183,28 +1231,75 @@ public class XywyIMService {
 //        } else {
 //            Log.i(TAG, "unknown message cmd:"+msg.cmd);
 //        }
+    }
+
+    private void handleMessage(com.xywy.im.db.Message msg) {
+//        Log.i(TAG, "message cmd:" + msg.cmd);
+//        if (msg.cmd == Command.MSG_AUTH_STATUS) {
+//            handleAuthStatus(msg);
+//        } else if (msg.cmd == Command.MSG_IM) {
+//            handleIMMessage(msg);
+//        } else if (msg.cmd == Command.MSG_ACK) {
+//            handleACK(msg);
+//        } else if (msg.cmd == Command.MSG_INPUTTING) {
+//            handleInputting(msg);
+//        } else if (msg.cmd == Command.MSG_PONG) {
+//            handlePong(msg);
+//        } else if (msg.cmd == Command.MSG_GROUP_IM) {
+//            handleGroupIMMessage(msg);
+//        } else if (msg.cmd == Command.MSG_GROUP_NOTIFICATION) {
+//            handleGroupNotification(msg);
+//        } else if (msg.cmd == Command.MSG_SYSTEM) {
+//            handleSystemMessage(msg);
+//        } else if (msg.cmd == Command.MSG_RT) {
+//            handleRTMessage(msg);
+//        } else if (msg.cmd == Command.MSG_VOIP_CONTROL) {
+//            handleVOIPControl(msg);
+//        } else if (msg.cmd == Command.MSG_CUSTOMER) {
+//            handleCustomerMessage(msg);
+//        } else if (msg.cmd == Command.MSG_CUSTOMER_SUPPORT) {
+//            handleCustomerSupportMessage(msg);
+//        } else if (msg.cmd == Command.MSG_ROOM_IM) {
+//            handleRoomMessage(msg);
+//        } else if (msg.cmd == Command.MSG_SYNC_NOTIFY) {
+//            handleSyncNotify(msg);
+//        } else if (msg.cmd == Command.MSG_SYNC_BEGIN) {
+//            handleSyncBegin(msg);
+//        } else if (msg.cmd == Command.MSG_SYNC_END) {
+//            handleSyncEnd(msg);
+//        } else if (msg.cmd == Command.MSG_SYNC_GROUP_NOTIFY) {
+//            handleSyncGroupNotify(msg);
+//        } else if (msg.cmd == Command.MSG_SYNC_GROUP_BEGIN) {
+//            handleSyncGroupBegin(msg);
+//        } else if (msg.cmd == Command.MSG_SYNC_GROUP_END) {
+//            handleSyncGroupEnd(msg);
+//        } else {
+//            Log.i(TAG, "unknown message cmd:"+msg.cmd);
+//        }
 
 
         //*************************
-        Log.i(TAG, "message cmd:" + msg.cmd);
-        if (msg.cmd == Constant.CONNECT_ACK) {  //连接上服务端后，服务端返回的数据中所带的cmd
+        Log.i(TAG, "message cmd:" + msg.getCmd());
+        if (msg.getCmd() == Constant.CONNECT_ACK) {  //连接上服务端后，服务端返回的数据中所带的cmd
             //可以不做任何处理
-        } else if (msg.cmd == Constant.PUB_ACK) {   //消息发送后，服务端返回的数据中所带的cmd
+        } else if (msg.getCmd() == Constant.PUB_ACK) {   //消息发送后，服务端返回的数据中所带的cmd
 //            handleIMMessage(msg);
-        }  else if (msg.cmd == Constant.GROUP_PUB_ACK) {   //群消息发送后，服务端返回的数据中所带的cmd
+        }  else if (msg.getCmd() == Constant.GROUP_PUB_ACK) {   //群消息发送后，服务端返回的数据中所带的cmd
             //暂不处理
-        } else if (msg.cmd == Constant.PING) {
+        } else if (msg.getCmd() == Constant.PING) {
             handleHeartbeatAck();
-        } else if (msg.cmd == Constant.PUBLISH) {
-            handlePublishAck(msg);
+        } else if (msg.getCmd() == Constant.PUBLISH) {
+            publishPeerMessageNew(msg);//通知聊天页面将收到的消息插入数据库
+            handlePublishAck(msg);//发送应答消息给服务器
         }else {
-            Log.i(TAG, "unknown message cmd:"+msg.cmd);
+            Log.i(TAG, "unknown message cmd:"+msg.getCmd());
         }
     }
 
+
     private void handleHeartbeatAck() {
-        Message ack = new Message();
-        ack.cmd = Constant.PING_RESP;
+        com.xywy.im.db.Message ack = new com.xywy.im.db.Message();
+        ack.setCmd(Constant.PING_RESP);
         sendMessage(ack);
     }
 
@@ -1212,6 +1307,13 @@ public class XywyIMService {
         Message ack = new Message();
         ack.cmd = Constant.PUB_ACK;
         ack.msgId = msg.msgId;
+        sendMessage(ack);
+    }
+
+    private void handlePublishAck(com.xywy.im.db.Message msg) {
+        com.xywy.im.db.Message ack = new com.xywy.im.db.Message();
+        ack.setCmd(Constant.PUB_ACK);
+        ack.setMsgId(msg.getMsgId());
         sendMessage(ack);
     }
 
@@ -1255,7 +1357,16 @@ public class XywyIMService {
 //        this.data = left;
 //        return true;
 
-        Message msg = new Message();
+//        Message msg = new Message();
+//        if (!msg.unpack(data)) {
+//            Log.i(TAG, "unpack message error");
+//            return false;
+//        }
+//        handleMessage(msg);
+//        return true;
+
+
+        com.xywy.im.db.Message msg = new com.xywy.im.db.Message();
         if (!msg.unpack(data)) {
             Log.i(TAG, "unpack message error");
             return false;
@@ -1360,6 +1471,13 @@ public class XywyIMService {
         return true;
     }
 
+    private boolean sendMessage(com.xywy.im.db.Message msg) {
+        byte[] buf = msg.pack();
+        WebSocketApi.getInStance().sendMsg(buf);
+
+        return true;
+    }
+
     private void publishGroupNotification(String notification) {
         for (int i = 0; i < groupObservers.size(); i++ ) {
             GroupMessageObserver ob = groupObservers.get(i);
@@ -1396,6 +1514,13 @@ public class XywyIMService {
         }
     }
 
+    private void publishPeerMessageNew(com.xywy.im.db.Message msg) {
+        for (int i = 0; i < peerObservers.size(); i++ ) {
+            PeerMessageObserver ob = peerObservers.get(i);
+            ob.onPeerMessageNew(msg);
+        }
+    }
+
     private void publishPeerMessageACK(int msgLocalID, long uid) {
         for (int i = 0; i < peerObservers.size(); i++ ) {
             PeerMessageObserver ob = peerObservers.get(i);
@@ -1407,6 +1532,13 @@ public class XywyIMService {
         for (int i = 0; i < peerObservers.size(); i++ ) {
             PeerMessageObserver ob = peerObservers.get(i);
             ob.onPeerMessageFailure(msgLocalID, uid);
+        }
+    }
+
+    private void publishPeerMessageFailureNew(int msgLocalID, long uid) {
+        for (int i = 0; i < peerObservers.size(); i++ ) {
+            PeerMessageObserver ob = peerObservers.get(i);
+            ob.onPeerMessageFailureNew(msgLocalID, uid);
         }
     }
 

@@ -10,4 +10,8 @@ public interface PeerMessageObserver {
     public void onPeerMessage(IMMessage msg);
     public void onPeerMessageACK(int msgLocalID, long uid);
     public void onPeerMessageFailure(int msgLocalID, long uid);
+
+
+    public void onPeerMessageNew(com.xywy.im.db.Message msg);
+    public void onPeerMessageFailureNew(int msgLocalID, long uid);
 }

@@ -1,7 +1,10 @@
 package com.xywy.im;
 
+import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.xywy.im.tools.CrashInfo;
 
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
@@ -15,6 +18,8 @@ import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReferenceArray;
+import java.util.jar.Pack200;
 
 import test.cn.example.com.util.LogUtil;
 import test.cn.example.com.util.LogUtils;
@@ -173,7 +178,8 @@ public class WebSocketApi {
 
                 @Override
                 public void onMessage(ByteBuffer buf) {
-                    LogUtil.e("接收的数据：" + Arrays.toString(buf.array())+"---当前线程 "+Thread.currentThread().getName());
+                    unpackRecevieMessage(buf.array());
+//                    LogUtil.e("接收的数据：" + Arrays.toString(buf.array())+"---当前线程 "+Thread.currentThread().getName());
                     if(null != webSocketStatusCallBack){
                         webSocketStatusCallBack.onMessage(buf);
                     }
@@ -341,10 +347,12 @@ public class WebSocketApi {
 
         try {
             if (webSocketClient != null) {
-                LogUtil.e("发送消息:" + Arrays.toString(socketMsg)+"---当前线程 "+Thread.currentThread().getName());
+                unpackSendMessage(socketMsg);
+//                LogUtil.e("发送消息:" + Arrays.toString(socketMsg)+"---当前线程 "+Thread.currentThread().getName());
                 webSocketClient.send(socketMsg);
             }
         } catch (Exception e) {
+            webSocketStatusCallBack.onError(e);
             LogUtils.e("sendMsg() exception="+e.getMessage());
             e.printStackTrace();
         }
@@ -398,4 +406,146 @@ public class WebSocketApi {
         String result = writer.toString();
         LogUtil.i(result);
     }
+
+    public String getVhost() {
+        return vhost;
+    }
+
+    public String UserName() {
+        return userName;
+    }
+
+    public String Pwd() {
+        return pwd;
+    }
+
+
+    /**
+     * 客户端发送数据时所带的数据中的几种cmd
+     * CONNECT,	        1	客户端发送到服务器端的第一个包必须是connect包,包中的数据中所带的cmd
+     * PUBLISH		    3	客户端发送的数据中所带的cmd
+     * GROUP_PUB_ACK	5	客户端发送的群消息数据中所带的cmd
+     * DISCONNECT		9	客户端自动断开连接时发送的数据中所带的数据的cmd
+     * PING_RESP	    8	客户端发送心跳包时，所带的cmd
+     * PUB_ACK		    4	客户端收到服务端推送的消息后，返给服务端的数据中所带的cmd
+     * @param data
+     */
+    public void unpackSendMessage(byte[] data){
+        int cmd = data[0];
+        byte[] msgIdByte = new byte[32];
+        if(cmd==Constant.CONNECT){
+            byte[] vhostLenByte = new byte[2];
+            System.arraycopy(data,1,vhostLenByte,0,2);
+            int vhostLen = BytePacket.readInt16(vhostLenByte,0);
+            byte[] vhostByte = new byte[vhostLen];
+            System.arraycopy(data,3,vhostByte,0,vhostLen);
+
+            byte[] userNameLenByte = new byte[2];
+            System.arraycopy(data,3+vhostLen,userNameLenByte,0,2);
+            int userNameLen = BytePacket.readInt16(userNameLenByte,0);
+            byte[] userNameByte = new byte[userNameLen];
+            System.arraycopy(data,3+vhostLen+2,userNameByte,0,userNameLen);
+
+            byte[] pwdLenByte = new byte[2];
+            System.arraycopy(data,3+vhostLen+2+userNameLen,pwdLenByte,0,2);
+            int pwdLen = BytePacket.readInt16(pwdLenByte,0);
+            byte[] pwdByte = new byte[pwdLen];
+            System.arraycopy(data,3+vhostLen+2+userNameLen+2,pwdByte,0,pwdLen);
+            try {
+                String vhost = new String(vhostByte, "UTF-8");
+                String userName = new String(userNameByte, "UTF-8");
+                String pwd = new String(pwdByte, "UTF-8");
+                LogUtil.i("vhost "+vhost+"    userName "+userName+"     pwd "+pwd);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }else if(cmd == Constant.PUBLISH){
+            byte[] toUserIdByte = new byte[4];
+            System.arraycopy(data,1,toUserIdByte,0,4);
+            int to_user_id = BytePacket.readInt32(toUserIdByte,0);
+            System.arraycopy(data,5,msgIdByte,0,32);
+            try {
+                String msgId = new String(msgIdByte,"utf-8");
+                byte[] payloadLenByte = new byte[2];
+                System.arraycopy(data,37,payloadLenByte,0,2);
+                int payloadLen = BytePacket.readInt16(payloadLenByte,0);
+                byte[] payloadByte = new byte[payloadLen];
+                System.arraycopy(data,39,payloadByte,0,payloadLen);
+                String content = new String(payloadByte, "UTF-8");
+                LogUtil.i("客户端发送的数据中所带的    to_user_id  "+to_user_id+"    msgId    "+msgId+"   "+content);
+            } catch (UnsupportedEncodingException e) {
+                CrashInfo.printErrorInfo(e);
+                e.printStackTrace();
+            }catch (Exception e){
+                CrashInfo.printErrorInfo(e);
+            }
+        }else if(cmd == Constant.GROUP_PUB_ACK){
+            LogUtil.i("客户端发送的群消息数据中所带的cmd"+ cmd);
+        }else if(cmd == Constant.DISCONNECT){
+            LogUtil.i("客户端自动断开连接时发送的数据中所带的数据的cmd"+cmd);
+        }else if(cmd == Constant.PING_RESP){
+            LogUtil.i("收到服务器心跳后，客户端返回的心跳应答消息 "+cmd);
+        }else if(cmd == Constant.PUB_ACK){
+            System.arraycopy(data,1,msgIdByte,0,32);
+            String msg_id = null;
+            try {
+                msg_id = new String(msgIdByte,"utf-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            LogUtil.i("客户端收到服务端推送的消息后，返给服务端的数据中所带的msg_id    "+msg_id);
+        }
+
+    }
+
+    /**
+     * 收到服务端的应答的几种cmd
+     * CONNECT_ACK,     2	连接上服务端后，服务端返回的数据中所带的cmd
+     * PUB_ACK		    4	消息发送后，服务端返回的数据中所带的cmd
+     * GROUP_PUB_ACK	6	群消息发送后，服务端返回的数据中所带的cmd
+     * PING		        7	服务端发送的心跳包中所带的数据的cmd
+     * PUBLISH		    3	服务端推送消息时，所带的cmd
+     * @param data
+     */
+    public void unpackRecevieMessage(byte[] data){
+        int cmd = data[0];
+        byte[] msgIdByte = new byte[32];
+        if(cmd==Constant.CONNECT_ACK){
+            LogUtil.i("收到连接上服务器后，服务器返回的应答消息 "+cmd);
+        }else if(cmd==Constant.PUB_ACK){
+            System.arraycopy(data,1,msgIdByte,0,32);
+            String msg_id = null;
+            try {
+                msg_id = new String(msgIdByte,"utf-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            LogUtil.i("向服务器发送消息后，服务器返回的应答消息 "+msg_id);
+        }else if(cmd==Constant.GROUP_PUB_ACK){
+            LogUtil.i("群消息发送后，服务端返回的数据中所带的消息 "+cmd);
+        }else if(cmd==Constant.PING){
+            LogUtil.i("收到连接上服务器后，服务器返回的心跳应答消息 "+cmd);
+        }else if(cmd==Constant.PUBLISH){
+            System.arraycopy(data,1,msgIdByte,0,32);
+            String msgId = null;
+            try {
+                msgId = new String(msgIdByte,"utf-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            byte[] payLoadLenByte = new byte[2];
+            System.arraycopy(data,33,payLoadLenByte,0,2);
+            int payLoadLen = BytePacket.readInt16(payLoadLenByte,0);
+            byte[] payLoad = new byte[payLoadLen];
+            System.arraycopy(data,35,payLoad,0,payLoadLen);
+            try {
+                String content = new String(payLoad,"utf-8");
+                LogUtil.i("服务器推送的消息id   "+msgId+"   "+content);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
 }

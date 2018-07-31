@@ -1,6 +1,9 @@
 package com.xywy.im.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -10,18 +13,38 @@ import com.xywy.im.IMServiceObserver;
 import com.xywy.im.PeerMessageObserver;
 import com.xywy.im.Timer;
 import com.xywy.im.XywyIMService;
+import com.xywy.im.db.DaoSession;
 import com.xywy.im.db.IMessage;
+import com.xywy.im.db.Message;
+import com.xywy.im.db.MessageDao;
 import com.xywy.im.db.MessageFlag;
 import com.xywy.im.db.MessageIterator;
+import com.xywy.im.db.MessageSendState;
 import com.xywy.im.db.PeerMessageDB;
 import com.xywy.im.tools.AudioDownloader;
+import com.xywy.im.tools.CrashInfo;
 import com.xywy.im.tools.FileCache;
 import com.xywy.im.tools.Notification;
 import com.xywy.im.tools.NotificationCenter;
 import com.xywy.im.tools.PeerOutbox;
 
+import org.greenrobot.greendao.query.Query;
+import org.greenrobot.greendao.query.QueryBuilder;
+import org.greenrobot.greendao.query.WhereCondition;
+import org.greenrobot.greendao.rx.RxDao;
+import org.greenrobot.greendao.rx.RxTransaction;
+
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+import java.util.UUID;
+
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
+import test.cn.example.com.util.LogUtil;
+import test.cn.example.com.util.ToastUtils;
 
 import static android.os.SystemClock.uptimeMillis;
 
@@ -43,7 +66,7 @@ public class PeerMessageActivity extends MessageActivity implements
     protected long currentUID;
     protected long peerUID;
     protected String peerName;
-
+    private DaoSession daoSession;
 
 
     @Override
@@ -52,6 +75,9 @@ public class PeerMessageActivity extends MessageActivity implements
 
         Intent intent = getIntent();
 
+        String replace = UUID.randomUUID().toString().replace("-", "");
+        byte[] bytes = replace.getBytes();
+        LogUtil.i("uuid的字节码长度   "+bytes.length);
         currentUID = intent.getLongExtra("current_uid", 0);
         if (currentUID == 0) {
             Log.e(TAG, "current uid is 0");
@@ -69,22 +95,72 @@ public class PeerMessageActivity extends MessageActivity implements
         }
 
         Log.i(TAG, "local id:" + currentUID +  "peer id:" + peerUID);
-
+        String vhost = "com.xywy.default";
+        String userName = "";
+        String pwd = "password1234";
+        XywyIMService.getInstance().connect(vhost,"test"+currentUID,pwd);
         this.sender = currentUID;
         this.receiver = peerUID;
 
-        this.loadConversationData();
+//        this.loadConversationData();
+        daoSession = XywyIMService.getDaoSession(PeerMessageActivity.this);
+        try {
+            messagesNew = daoSession.queryBuilder(Message.class).limit(10).list();
+        }catch (Exception e){
+            CrashInfo.printErrorInfo(e);
+        }
+
         getSupportActionBar().setTitle(peerName);
 
         //显示最后一条消息
-        if (this.messages.size() > 0) {
-            listview.setSelection(this.messages.size() - 1);
+        if (this.messagesNew.size() > 0) {
+            listview.setSelection(this.messagesNew.size() - 1);
         }
 
         PeerOutbox.getInstance().addObserver(this);
         XywyIMService.getInstance().addObserver(this);
         XywyIMService.getInstance().addPeerObserver(this);
         AudioDownloader.getInstance().addObserver(this);
+    }
+
+    @Override
+    protected void sendMessage(String content) {
+        if(isOnNet(PeerMessageActivity.this)){
+            Message msg = new Message();
+            msg.setSender(this.sender);
+            msg.setReceiver(this.receiver);
+
+            msg.setMsgType((byte)0);
+            try {
+                msg.setContent(new String(content.getBytes(),"utf-8"));
+                msg.setMsgId(new String(UUID.randomUUID().toString().replace("-", "").getBytes(),"utf-8"));
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            msg.setTime(System.currentTimeMillis());
+            msg.setIsOutgoing(true);
+            msg.setCmd(3);
+            //将数据存入数据库
+
+            RxDao<Message, Long> rx = daoSession.getMessageDao().rx();
+            rx.insert(msg).subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Message>() {
+                @Override
+                public void call(Message message) {
+                    LogUtil.i("msgId = "+message.getMsgId());
+                }
+            });
+//        loadUserName(imsg);//暂时先省略
+
+
+//        sendMessage(imsg);
+            XywyIMService im = XywyIMService.getInstance();
+            im.sendPeerMessage(msg);
+//        insertMessage(imsg);
+        }else {
+            ToastUtils.shortToast(PeerMessageActivity.this,"请连接网络");
+        }
+
     }
 
     @Override
@@ -218,6 +294,9 @@ public class PeerMessageActivity extends MessageActivity implements
 //                } else {
 //                    disableSend();
 //                }
+                if(state == XywyIMService.ConnectState.STATE_CONNECTFAIL){
+                    ToastUtils.shortToast(PeerMessageActivity.this,"websocket 连接失败");
+                }
                 enableSend();
                 setSubtitle();
             }
@@ -244,50 +323,50 @@ public class PeerMessageActivity extends MessageActivity implements
 
     @Override
     public void onPeerMessage(final IMMessage msg) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (msg.sender != peerUID && msg.receiver != peerUID) {
-                    return;
-                }
-                Log.i(TAG, "recv msg:" + msg.content);
-                final IMessage imsg = new IMessage();
-                imsg.timestamp = msg.timestamp;
-                imsg.msgLocalID = msg.msgLocalID;
-                imsg.sender = msg.sender;
-                imsg.receiver = msg.receiver;
-                imsg.setContent(msg.content);
-                imsg.isOutgoing = (msg.sender == PeerMessageActivity.this.currentUID);
-                if (imsg.isOutgoing) {
-                    imsg.flags |= MessageFlag.MESSAGE_FLAG_ACK;
-                }
-
-                if (!TextUtils.isEmpty(imsg.getUUID()) && findMessage(imsg.getUUID()) != null) {
-                    Log.i(TAG, "receive repeat message:" + imsg.getUUID());
-                    return;
-                }
-
-                loadUserName(imsg);
-                downloadMessageContent(imsg);
-                insertMessage(imsg);
-            }
-        });
+//        runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                if (msg.sender != peerUID && msg.receiver != peerUID) {
+//                    return;
+//                }
+//                Log.i(TAG, "recv msg:" + msg.content);
+//                final IMessage imsg = new IMessage();
+//                imsg.timestamp = msg.timestamp;
+//                imsg.msgLocalID = msg.msgLocalID;
+//                imsg.sender = msg.sender;
+//                imsg.receiver = msg.receiver;
+//                imsg.setContent(msg.content);
+//                imsg.isOutgoing = (msg.sender == PeerMessageActivity.this.currentUID);
+//                if (imsg.isOutgoing) {
+//                    imsg.flags |= MessageFlag.MESSAGE_FLAG_ACK;
+//                }
+//
+//                if (!TextUtils.isEmpty(imsg.getUUID()) && findMessage(imsg.getUUID()) != null) {
+//                    Log.i(TAG, "receive repeat message:" + imsg.getUUID());
+//                    return;
+//                }
+//
+//                loadUserName(imsg);
+//                downloadMessageContent(imsg);
+//                insertMessage(imsg);
+//            }
+//        });
 
     }
 
     @Override
     public void onPeerMessageACK(int msgLocalID, long uid) {
-        if (peerUID != uid) {
-            return;
-        }
-        Log.i(TAG, "message ack");
-
-        IMessage imsg = findMessage(msgLocalID);
-        if (imsg == null) {
-            Log.i(TAG, "can't find msg:" + msgLocalID);
-            return;
-        }
-        imsg.setAck(true);
+//        if (peerUID != uid) {
+//            return;
+//        }
+//        Log.i(TAG, "message ack");
+//
+//        IMessage imsg = findMessage(msgLocalID);
+//        if (imsg == null) {
+//            Log.i(TAG, "can't find msg:" + msgLocalID);
+//            return;
+//        }
+//        imsg.setAck(true);
     }
 
     @Override
@@ -305,6 +384,36 @@ public class PeerMessageActivity extends MessageActivity implements
         imsg.setFailure(true);
     }
 
+    @Override
+    public void onPeerMessageNew(Message msg) {
+        //将数据存入数据库
+        DaoSession daoSession = XywyIMService.getDaoSession(PeerMessageActivity.this);
+        RxDao<Message, Long> rx = daoSession.getMessageDao().rx();
+        rx.insert(msg).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Message>() {
+            @Override
+            public void call(Message message) {
+                LogUtil.i("msgId = "+message.getMsgId());
+            }
+        });
+    }
+
+    @Override
+    public void onPeerMessageFailureNew(int msgLocalID, long uid) {
+        if (peerUID != uid) {
+            return;
+        }
+        Log.i(TAG, "message failure");
+
+        QueryBuilder<Message> where = daoSession.queryBuilder(Message.class).where(MessageDao.Properties.MsgId.eq(msgLocalID));
+        Query<Message> build = where.build();
+        Message msg = build.unique();
+        if (msg == null) {
+            Log.i(TAG, "can't find msg:" + msgLocalID);
+            return;
+        }
+        msg.setSendState(MessageSendState.MESSAGE_SEND_SUCCESS);
+    }
 
 
     void checkMessageFailureFlag(IMessage msg) {
@@ -334,9 +443,9 @@ public class PeerMessageActivity extends MessageActivity implements
 
     @Override
     protected void resend(IMessage msg) {
-        eraseMessageFailure(msg);
-        msg.setFailure(false);
-        this.sendMessage(msg);
+//        eraseMessageFailure(msg);
+//        msg.setFailure(false);
+//        this.sendMessage(msg);
     }
 
     void sendMessage(IMessage imsg) {
@@ -413,6 +522,7 @@ public class PeerMessageActivity extends MessageActivity implements
     @Override
     void clearConversation() {
         super.clearConversation();
+        super.clearConversationNew();
 
         PeerMessageDB db = PeerMessageDB.getInstance();
         db.clearCoversation(this.peerUID);
@@ -510,6 +620,22 @@ public class PeerMessageActivity extends MessageActivity implements
         NotificationCenter nc = NotificationCenter.defaultCenter();
         Notification notification = new Notification(imsg, SEND_MESSAGE_NAME);
         nc.postNotification(notification);
+    }
+
+    private boolean isOnNet(Context context) {
+        if (null == context) {
+            Log.e("", "context is null");
+            return false;
+        }
+        boolean isOnNet = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
+        if (null != activeNetInfo) {
+            isOnNet = activeNetInfo.isConnected();
+            Log.i(TAG, "active net info:" + activeNetInfo);
+        }
+        return isOnNet;
     }
 
 }

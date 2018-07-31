@@ -63,12 +63,14 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -104,8 +106,13 @@ public class MessageActivity extends BaseActivity implements
     protected HashMap<Integer, IMessage.Attachment> attachments = new HashMap<Integer, IMessage.Attachment>();
 
     BaseAdapter adapter;
+    BaseAdapter adapterNew;
 
     IMessage playingMessage;
+
+    //******************************
+    protected List<Message> messagesNew = new ArrayList<Message>();
+    //******************************
 
     //录音相关
     protected Handler mHandler = new Handler();
@@ -284,7 +291,10 @@ public class MessageActivity extends BaseActivity implements
         swipeLayout.setOnRefreshListener(this);
 
         adapter = new ChatAdapter();
-        listview.setAdapter(adapter);
+//        listview.setAdapter(adapter);
+
+        adapterNew = new ChatAdapterNew();
+        listview.setAdapter(adapterNew);
 
         listview.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -390,6 +400,153 @@ public class MessageActivity extends BaseActivity implements
         public static int TEXT = 8;
         public static int NOTIFICATION = 10;
         public static int LINK = 12;
+    }
+
+    class ChatAdapterNew extends BaseAdapter implements ContentTypes {
+        @Override
+        public int getCount() {
+            return messagesNew.size();
+        }
+        @Override
+        public Object getItem(int position) {
+            return messagesNew.get(position);
+        }
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            final int basic;
+            if (messagesNew.get(position).getMsgType() == 0) {
+                basic = OUT_MSG;
+            } else {
+                basic = IN_MSG;
+            }
+            return getMediaType(position) + basic;
+        }
+
+        int getMediaType(int position) {
+            Message msg = messagesNew.get(position);
+            final int media;
+            if (msg.getMsgType() == 0) {
+                media = TEXT;
+            } else if (msg.getMsgType() == 1) {
+                media = IMAGE;
+            } else if (msg.getMsgType() == 2) {
+                media = AUDIO;
+            } else if (msg.getMsgType() == 3) {
+                media = LOCATION;
+//            } else if (msg.content instanceof IMessage.GroupNotification ||
+//                    msg.content instanceof IMessage.TimeBase ||
+//                    msg.content instanceof IMessage.Headline) {
+//                media = NOTIFICATION;
+            } else if (msg.getMsgType() == 7) {
+                media = LINK;
+            } else {
+                media = UNKNOWN;
+            }
+
+            return media;
+        }
+
+        @Override
+        public int getViewTypeCount() {
+            return 5;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            Message msg = messagesNew.get(position);
+            MessageRowView rowView = (MessageRowView)convertView;
+            if (rowView == null) {
+                int msgType = msg.getMsgType();
+                switch (msgType) {
+                    case 0:
+                        rowView = new MessageImageView(MessageActivity.this, !msg.getIsOutgoing(), isShowUserName);
+                        break;
+                    case 1:
+                        rowView = new MessageAudioView(MessageActivity.this, !msg.getIsOutgoing(), isShowUserName);
+                        break;
+                    case 2:
+                        rowView = new MessageTextView(MessageActivity.this, !msg.getIsOutgoing(), isShowUserName);
+                        break;
+                    case 3:
+                        rowView = new MessageLocationView(MessageActivity.this, !msg.getIsOutgoing(), isShowUserName);
+                        break;
+                    case 4:
+                        rowView = new MessageLinkView(MessageActivity.this, !msg.getIsOutgoing(), isShowUserName);
+                        break;
+//                    case MESSAGE_GROUP_NOTIFICATION:
+//                    case MESSAGE_TIME_BASE:
+//                    case MESSAGE_HEADLINE:
+//                        rowView = new MessageNotificationView(MessageActivity.this);
+//                        break;
+                    default:
+                        rowView = new MessageTextView(MessageActivity.this, !msg.getIsOutgoing(), isShowUserName);
+                        break;
+                }
+
+                if (rowView != null) {
+                    View contentView = rowView.getContentView();
+                    contentView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            IMessage im = (IMessage)v.getTag();
+                            Log.i(TAG, "im:" + im.msgLocalID);
+                            MessageActivity.this.onMessageClicked(im);
+                        }
+                    });
+                    contentView.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View v) {
+                            final IMessage im = (IMessage)v.getTag();
+
+                            ArrayList<ChatItemQuickAction.ChatQuickAction> actions = new ArrayList<ChatItemQuickAction.ChatQuickAction>();
+
+                            if (im.isFailure()) {
+                                actions.add(ChatItemQuickAction.ChatQuickAction.RESEND);
+                            }
+
+                            if (im.content.getType() == IMessage.MessageType.MESSAGE_TEXT) {
+                                actions.add(ChatItemQuickAction.ChatQuickAction.COPY);
+                            }
+
+                            if (actions.size() == 0) {
+                                return true;
+                            }
+
+                            ChatItemQuickAction.showAction(MessageActivity.this,
+                                    actions.toArray(new ChatItemQuickAction.ChatQuickAction[actions.size()]),
+                                    new ChatItemQuickAction.ChatQuickActionResult() {
+
+                                        @Override
+                                        public void onSelect(ChatItemQuickAction.ChatQuickAction action) {
+                                            switch (action) {
+                                                case COPY:
+                                                    ClipboardManager clipboard =
+                                                            (ClipboardManager)MessageActivity.this
+                                                                    .getSystemService(Context.CLIPBOARD_SERVICE);
+                                                    clipboard.setText(((IMessage.Text) im.content).text);
+                                                    break;
+                                                case RESEND:
+                                                    MessageActivity.this.resend(im);
+                                                    break;
+                                                default:
+                                                    break;
+                                            }
+                                        }
+                                    }
+                            );
+                            return true;
+                        }
+                    });
+                }
+            }
+            rowView.setMessage(msg);
+            return rowView;
+        }
     }
 
     class ChatAdapter extends BaseAdapter implements ContentTypes {
@@ -785,10 +942,20 @@ public class MessageActivity extends BaseActivity implements
         Log.i(TAG, "not implemented");
     }
 
+    protected void sendMessage(String msg) {
+        Log.i(TAG, "not implemented");
+    }
+
     void clearConversation() {
         Log.i(TAG, "clearConversation");
         messages = new ArrayList<IMessage>();
         adapter.notifyDataSetChanged();
+    }
+
+    void clearConversationNew() {
+        Log.i(TAG, "clearConversationNew");
+        messagesNew = new ArrayList<Message>();
+        adapterNew.notifyDataSetChanged();
     }
 
     private String formatTimeBase(long ts) {
@@ -892,25 +1059,48 @@ public class MessageActivity extends BaseActivity implements
     }
 
     protected void insertMessage(IMessage imsg) {
-        IMessage lastMsg = null;
-        if (messages.size() > 0) {
-            lastMsg = messages.get(messages.size() - 1);
-        }
-        //间隔10分钟，添加时间分割线
-        if (lastMsg == null || imsg.timestamp - lastMsg.timestamp > 10*60) {
-            IMessage.TimeBase timeBase = IMessage.newTimeBase(imsg.timestamp);
-            String s = formatTimeBase(timeBase.timestamp);
-            timeBase.description = s;
-            IMessage t = new IMessage();
-            t.content = timeBase;
-            t.timestamp = imsg.timestamp;
-            messages.add(t);
-        }
+//        IMessage lastMsg = null;
+//        if (messages.size() > 0) {
+//            lastMsg = messages.get(messages.size() - 1);
+//        }
+//        //间隔10分钟，添加时间分割线
+//        if (lastMsg == null || imsg.timestamp - lastMsg.timestamp > 10*60) {
+//            IMessage.TimeBase timeBase = IMessage.newTimeBase(imsg.timestamp);
+//            String s = formatTimeBase(timeBase.timestamp);
+//            timeBase.description = s;
+//            IMessage t = new IMessage();
+//            t.content = timeBase;
+//            t.timestamp = imsg.timestamp;
+//            messages.add(t);
+//        }
+//
+//        messages.add(imsg);
+//
+//        adapter.notifyDataSetChanged();
+//        listview.smoothScrollToPosition(messages.size()-1);
+    }
 
-        messages.add(imsg);
+    protected void insertMessage(Message msg) {
+//        Message lastMsg = null;
+//        if (messages.size() > 0) {
+//            lastMsg = messagesNew.get(messagesNew.size() - 1);
+//        }
+        // TODO: 2018/7/31  还要做处理
+//        //间隔10分钟，添加时间分割线
+//        if (lastMsg == null || msg.getTime() - lastMsg.getTime() > 10*60) {
+//            IMessage.TimeBase timeBase = IMessage.newTimeBase(imsg.timestamp);
+//            String s = formatTimeBase(timeBase.timestamp);
+//            timeBase.description = s;
+//            IMessage t = new IMessage();
+//            t.content = timeBase;
+//            t.timestamp = imsg.timestamp;
+//            messages.add(t);
+//        }
 
-        adapter.notifyDataSetChanged();
-        listview.smoothScrollToPosition(messages.size()-1);
+        messagesNew.add(msg);
+
+        adapterNew.notifyDataSetChanged();
+        listview.smoothScrollToPosition(messagesNew.size()-1);
     }
 
 
@@ -920,13 +1110,8 @@ public class MessageActivity extends BaseActivity implements
             return;
         }
 
-        sendMessageContent(IMessage.newText(text));
-        try {
-            Message msg = new Message();
-        }catch (Exception e){
-            CrashInfo.printErrorInfo(e);
-        }
-
+//        sendMessageContent(IMessage.newText(text));
+        sendMessage(text);
     }
 
 

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.xywy.im.R;
 import com.xywy.im.db.IMessage;
+import com.xywy.im.db.Message;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -22,6 +23,7 @@ public class MessageRowView extends FrameLayout implements PropertyChangeListene
     protected Context context;
 
     protected IMessage message;
+    protected Message messageNew;
 
     protected View contentView;
     protected TextView nameView;
@@ -103,6 +105,57 @@ public class MessageRowView extends FrameLayout implements PropertyChangeListene
 
         ImageView headerView = (ImageView)findViewById(R.id.header);
         String avatar = msg.getSenderAvatar();
+        if (headerView != null && !TextUtils.isEmpty(avatar)) {
+            Picasso.with(context)
+                    .load(avatar)
+                    .placeholder(R.drawable.image_download_fail)
+                    .into(headerView);
+        }
+    }
+
+    public void setMessage(Message msg) {
+        if (this.messageNew != null) {
+            this.message.removePropertyChangeListener(this);
+        }
+        this.messageNew = msg;
+        this.message.addPropertyChangeListener(this);
+
+        this.contentView.setTag(this.message);
+
+        if (msg.getIsOutgoing()) {
+//            if (msg.isFailure()) {
+//                ImageView flagView = (ImageView) findViewById(R.id.flag);
+//                flagView.setVisibility(View.VISIBLE);
+//                ProgressBar sendingProgressBar = (ProgressBar) findViewById(R.id.sending_progress_bar);
+//                sendingProgressBar.setVisibility(View.GONE);
+//            } else if (msg.isAck()) {
+//                ImageView flagView = (ImageView) findViewById(R.id.flag);
+//                flagView.setVisibility(View.GONE);
+//                ProgressBar sendingProgressBar = (ProgressBar) findViewById(R.id.sending_progress_bar);
+//                sendingProgressBar.setVisibility(View.GONE);
+//            } else if (msg.getUploading()) {
+//                ImageView flagView = (ImageView) findViewById(R.id.flag);
+//                flagView.setVisibility(View.GONE);
+//                ProgressBar sendingProgressBar = (ProgressBar) findViewById(R.id.sending_progress_bar);
+//                sendingProgressBar.setVisibility(View.GONE);
+//            } else {
+//                ImageView flagView = (ImageView) findViewById(R.id.flag);
+//                flagView.setVisibility(View.GONE);
+//                ProgressBar sendingProgressBar = (ProgressBar) findViewById(R.id.sending_progress_bar);
+//                sendingProgressBar.setVisibility(View.VISIBLE);
+//            }
+                ImageView flagView = (ImageView) findViewById(R.id.flag);
+                flagView.setVisibility(View.GONE);
+                ProgressBar sendingProgressBar = (ProgressBar) findViewById(R.id.sending_progress_bar);
+                sendingProgressBar.setVisibility(View.VISIBLE);
+        } else {
+            if (nameView != null) {
+                nameView.setText(msg.getSender().toString());
+            }
+        }
+
+        ImageView headerView = (ImageView)findViewById(R.id.header);
+        String avatar = "test";
         if (headerView != null && !TextUtils.isEmpty(avatar)) {
             Picasso.with(context)
                     .load(avatar)

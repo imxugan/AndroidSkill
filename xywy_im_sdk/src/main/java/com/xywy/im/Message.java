@@ -450,7 +450,7 @@ public class Message {
 
             byte[] msgIdByte = new byte[4];
             System.arraycopy(data,1,msgIdByte,0,4);
-            int msg_id = CommonUtils.byteArrayToInt(msgIdByte);
+            int msg_id = BytePacket.readInt32(msgIdByte,1);
             this.msgId = msg_id;
             return true;
         } else if (cmd == 0x04) {

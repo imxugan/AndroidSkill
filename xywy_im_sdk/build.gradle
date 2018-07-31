@@ -50,4 +50,6 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.4.0'
 
     compile 'org.greenrobot:greendao:3.2.2'
+
+    compile 'net.zetetic:android-database-sqlcipher:3.5.6' //数据库加密相关
 }

@@ -28,6 +28,7 @@ import com.xywy.im.db.CustomerMessageDB;
 import com.xywy.im.db.GroupMessageDB;
 import com.xywy.im.db.ICustomerMessage;
 import com.xywy.im.db.IMessage;
+import com.xywy.im.db.Message;
 import com.xywy.im.db.MessageIterator;
 import com.xywy.im.db.PeerMessageDB;
 import com.xywy.im.tools.Notification;
@@ -429,6 +430,16 @@ public class MessageListActivity extends BaseActivity implements IMServiceObserv
 
     @Override
     public void onPeerMessageFailure(int msgLocalID, long uid) {
+    }
+
+    @Override
+    public void onPeerMessageNew(Message msg) {
+
+    }
+
+    @Override
+    public void onPeerMessageFailureNew(int msgLocalID, long uid) {
+
     }
 
     @Override
