@@ -2,6 +2,7 @@ package com.xywy.im.activity;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -129,6 +130,7 @@ public class MessageRowViewNew extends FrameLayout implements PropertyChangeList
             byte sendState = this.messageNew.getSendState();
             switch (sendState){
                 case MessageSendState.MESSAGE_SEND_SUCCESS:
+                    Log.e("WebSocketApi","propertyChange            "+Thread.currentThread().getName());
                     flagView.setVisibility(View.GONE);
                     sendingProgressBar.setVisibility(View.GONE);
                     break;

@@ -438,12 +438,12 @@ public class MessageListActivity extends BaseActivity implements IMServiceObserv
     }
 
     @Override
-    public void onPeerMessageACKNew(String msgLocalID, long uid) {
+    public void onPeerMessageACKNew(String msgLocalID) {
 
     }
 
     @Override
-    public void onPeerMessageFailureNew(int msgLocalID, long uid) {
+    public void onPeerMessageFailureNew(int msgLocalID) {
 
     }
 

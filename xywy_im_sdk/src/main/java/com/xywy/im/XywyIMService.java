@@ -1280,10 +1280,12 @@ public class XywyIMService {
 
         //*************************
         Log.i(TAG, "message cmd:" + msg.getCmd());
+//        Log.e("WebSocketApi", "message cmd:" + msg.getCmd());
         if (msg.getCmd() == Constant.CONNECT_ACK) {  //连接上服务端后，服务端返回的数据中所带的cmd
             //可以不做任何处理
         } else if (msg.getCmd() == Constant.PUB_ACK) {   //消息发送后，服务端返回的数据中所带的cmd
 //            handleIMMessage(msg);
+//            Log.i("WebSocketApi","handleAck(msg)    msg="+msg+"     msgId   "+msg.getMsgId());
             handleAck(msg);
         }  else if (msg.getCmd() == Constant.GROUP_PUB_ACK) {   //群消息发送后，服务端返回的数据中所带的cmd
             //暂不处理
@@ -1298,7 +1300,14 @@ public class XywyIMService {
     }
 
     private void handleAck(com.xywy.im.db.Message msg) {
-        publishPeerMessageACKNew(msg.getMsgId(), msg.getReceiver());
+        Log.i("WebSocketApi","msg="+msg+"msgId=  "+msg.getMsgId());
+        //模拟网络延时的消息发送状态改变的效果
+//        try {
+//            Thread.currentThread().sleep(3000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        publishPeerMessageACKNew(msg.getMsgId());
     }
 
 
@@ -1533,10 +1542,10 @@ public class XywyIMService {
         }
     }
 
-    private void publishPeerMessageACKNew(String msgLocalID, long uid) {
+    private void publishPeerMessageACKNew(String msgLocalID) {
         for (int i = 0; i < peerObservers.size(); i++ ) {
             PeerMessageObserver ob = peerObservers.get(i);
-            ob.onPeerMessageACKNew(msgLocalID, uid);
+            ob.onPeerMessageACKNew(msgLocalID);
         }
     }
 
@@ -1547,10 +1556,10 @@ public class XywyIMService {
         }
     }
 
-    private void publishPeerMessageFailureNew(int msgLocalID, long uid) {
+    private void publishPeerMessageFailureNew(int msgLocalID) {
         for (int i = 0; i < peerObservers.size(); i++ ) {
             PeerMessageObserver ob = peerObservers.get(i);
-            ob.onPeerMessageFailureNew(msgLocalID, uid);
+            ob.onPeerMessageFailureNew(msgLocalID);
         }
     }
 

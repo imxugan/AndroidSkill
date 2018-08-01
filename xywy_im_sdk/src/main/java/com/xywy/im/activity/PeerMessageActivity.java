@@ -134,9 +134,9 @@ public class PeerMessageActivity extends MessageActivity implements
             }
             msg.setTime(System.currentTimeMillis());
             msg.setIsOutgoing(true);
+            msg.setSendState(MessageSendState.MESSAGE_SEND_LISTENED);
             msg.setCmd(3);
             //将数据存入数据库
-
             RxDao<Message, Long> rx = daoSession.getMessageDao().rx();
             rx.insert(msg).subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Message>() {
@@ -152,6 +152,7 @@ public class PeerMessageActivity extends MessageActivity implements
             XywyIMService im = XywyIMService.getInstance();
             im.sendPeerMessage(msg);
 //        insertMessage(imsg);
+            insertMessage(msg);
         }else {
             ToastUtils.shortToast(PeerMessageActivity.this,"请连接网络");
         }
@@ -381,6 +382,7 @@ public class PeerMessageActivity extends MessageActivity implements
 
     @Override
     public void onPeerMessageNew(Message msg) {
+        Log.e("WebSocketApi","onPeerMessageNew   msgLocalID    "+msg.getMsgId());
         //将数据存入数据库
         DaoSession daoSession = XywyIMService.getDaoSession(PeerMessageActivity.this);
         RxDao<Message, Long> rx = daoSession.getMessageDao().rx();
@@ -394,24 +396,25 @@ public class PeerMessageActivity extends MessageActivity implements
     }
 
     @Override
-    public void onPeerMessageACKNew(String msgLocalID, long uid) {
-        if(peerUID != uid){
-            return;
-        }
+    public void onPeerMessageACKNew(String msgLocalID) {
+        Log.e("WebSocketApi","onPeerMessageACKNew   msgLocalID    "+msgLocalID+"        "+Thread.currentThread().getName());
         QueryBuilder<Message> where = daoSession.queryBuilder(Message.class).where(MessageDao.Properties.MsgId.eq(msgLocalID));
         Query<Message> build = where.build();
-        Message msg = build.unique();
+        final Message msg = build.unique();
         if(null == msg){
             LogUtil.i("can not find msg:"+msgLocalID);
         }
-        msg.setSendState(MessageSendState.MESSAGE_SEND_SUCCESS);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                msg.setSendState(MessageSendState.MESSAGE_SEND_SUCCESS);
+            }
+        });
+
     }
 
     @Override
-    public void onPeerMessageFailureNew(int msgLocalID, long uid) {
-        if (peerUID != uid) {
-            return;
-        }
+    public void onPeerMessageFailureNew(int msgLocalID) {
         Log.i(TAG, "message failure");
 
         QueryBuilder<Message> where = daoSession.queryBuilder(Message.class).where(MessageDao.Properties.MsgId.eq(msgLocalID));
