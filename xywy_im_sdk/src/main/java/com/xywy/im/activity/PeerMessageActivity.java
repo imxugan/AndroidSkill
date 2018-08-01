@@ -104,12 +104,7 @@ public class PeerMessageActivity extends MessageActivity implements
 
 //        this.loadConversationData();
         daoSession = XywyIMService.getDaoSession(PeerMessageActivity.this);
-        try {
-            messagesNew = daoSession.queryBuilder(Message.class).limit(10).list();
-        }catch (Exception e){
-            CrashInfo.printErrorInfo(e);
-        }
-
+        messagesNew = daoSession.queryBuilder(Message.class).limit(10).list();
         getSupportActionBar().setTitle(peerName);
 
         //显示最后一条消息
@@ -399,6 +394,20 @@ public class PeerMessageActivity extends MessageActivity implements
     }
 
     @Override
+    public void onPeerMessageACKNew(String msgLocalID, long uid) {
+        if(peerUID != uid){
+            return;
+        }
+        QueryBuilder<Message> where = daoSession.queryBuilder(Message.class).where(MessageDao.Properties.MsgId.eq(msgLocalID));
+        Query<Message> build = where.build();
+        Message msg = build.unique();
+        if(null == msg){
+            LogUtil.i("can not find msg:"+msgLocalID);
+        }
+        msg.setSendState(MessageSendState.MESSAGE_SEND_SUCCESS);
+    }
+
+    @Override
     public void onPeerMessageFailureNew(int msgLocalID, long uid) {
         if (peerUID != uid) {
             return;
@@ -412,7 +421,7 @@ public class PeerMessageActivity extends MessageActivity implements
             Log.i(TAG, "can't find msg:" + msgLocalID);
             return;
         }
-        msg.setSendState(MessageSendState.MESSAGE_SEND_SUCCESS);
+        msg.setSendState(MessageSendState.MESSAGE_SEND_FAILED);
     }
 
 

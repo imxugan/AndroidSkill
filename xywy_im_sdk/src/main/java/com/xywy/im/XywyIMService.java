@@ -1284,6 +1284,7 @@ public class XywyIMService {
             //可以不做任何处理
         } else if (msg.getCmd() == Constant.PUB_ACK) {   //消息发送后，服务端返回的数据中所带的cmd
 //            handleIMMessage(msg);
+            handleAck(msg);
         }  else if (msg.getCmd() == Constant.GROUP_PUB_ACK) {   //群消息发送后，服务端返回的数据中所带的cmd
             //暂不处理
         } else if (msg.getCmd() == Constant.PING) {
@@ -1294,6 +1295,10 @@ public class XywyIMService {
         }else {
             Log.i(TAG, "unknown message cmd:"+msg.getCmd());
         }
+    }
+
+    private void handleAck(com.xywy.im.db.Message msg) {
+        publishPeerMessageACKNew(msg.getMsgId(), msg.getReceiver());
     }
 
 
@@ -1525,6 +1530,13 @@ public class XywyIMService {
         for (int i = 0; i < peerObservers.size(); i++ ) {
             PeerMessageObserver ob = peerObservers.get(i);
             ob.onPeerMessageACK(msgLocalID, uid);
+        }
+    }
+
+    private void publishPeerMessageACKNew(String msgLocalID, long uid) {
+        for (int i = 0; i < peerObservers.size(); i++ ) {
+            PeerMessageObserver ob = peerObservers.get(i);
+            ob.onPeerMessageACKNew(msgLocalID, uid);
         }
     }
 

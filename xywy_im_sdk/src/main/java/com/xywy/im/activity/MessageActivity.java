@@ -418,65 +418,36 @@ public class MessageActivity extends BaseActivity implements
 
         @Override
         public int getItemViewType(int position) {
-            final int basic;
-            if (messagesNew.get(position).getMsgType() == 0) {
-                basic = OUT_MSG;
-            } else {
-                basic = IN_MSG;
-            }
-            return getMediaType(position) + basic;
+            return messagesNew.get(position).getMsgType();
         }
 
-        int getMediaType(int position) {
-            Message msg = messagesNew.get(position);
-            final int media;
-            if (msg.getMsgType() == 0) {
-                media = TEXT;
-            } else if (msg.getMsgType() == 1) {
-                media = IMAGE;
-            } else if (msg.getMsgType() == 2) {
-                media = AUDIO;
-            } else if (msg.getMsgType() == 3) {
-                media = LOCATION;
-//            } else if (msg.content instanceof IMessage.GroupNotification ||
-//                    msg.content instanceof IMessage.TimeBase ||
-//                    msg.content instanceof IMessage.Headline) {
-//                media = NOTIFICATION;
-            } else if (msg.getMsgType() == 7) {
-                media = LINK;
-            } else {
-                media = UNKNOWN;
-            }
-
-            return media;
-        }
 
         @Override
         public int getViewTypeCount() {
-            return 5;
+            return 2;
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             Message msg = messagesNew.get(position);
-            MessageRowView rowView = (MessageRowView)convertView;
+            MessageRowViewNew rowView = (MessageRowViewNew) convertView;
             if (rowView == null) {
                 int msgType = msg.getMsgType();
                 switch (msgType) {
                     case 0:
-                        rowView = new MessageImageView(MessageActivity.this, !msg.getIsOutgoing(), isShowUserName);
+                        rowView = new MessageTextViewNew(MessageActivity.this, !msg.getIsOutgoing(), isShowUserName);
                         break;
                     case 1:
-                        rowView = new MessageAudioView(MessageActivity.this, !msg.getIsOutgoing(), isShowUserName);
+//                        rowView = new MessageImageViewNew(MessageActivity.this, !msg.getIsOutgoing(), isShowUserName);
                         break;
                     case 2:
-                        rowView = new MessageTextView(MessageActivity.this, !msg.getIsOutgoing(), isShowUserName);
+//                        rowView = new MessageAudioView(MessageActivity.this, !msg.getIsOutgoing(), isShowUserName);
                         break;
                     case 3:
-                        rowView = new MessageLocationView(MessageActivity.this, !msg.getIsOutgoing(), isShowUserName);
+//                        rowView = new MessageLocationView(MessageActivity.this, !msg.getIsOutgoing(), isShowUserName);
                         break;
                     case 4:
-                        rowView = new MessageLinkView(MessageActivity.this, !msg.getIsOutgoing(), isShowUserName);
+//                        rowView = new MessageLinkView(MessageActivity.this, !msg.getIsOutgoing(), isShowUserName);
                         break;
 //                    case MESSAGE_GROUP_NOTIFICATION:
 //                    case MESSAGE_TIME_BASE:
@@ -484,7 +455,7 @@ public class MessageActivity extends BaseActivity implements
 //                        rowView = new MessageNotificationView(MessageActivity.this);
 //                        break;
                     default:
-                        rowView = new MessageTextView(MessageActivity.this, !msg.getIsOutgoing(), isShowUserName);
+                        rowView = new MessageTextViewNew(MessageActivity.this, !msg.getIsOutgoing(), isShowUserName);
                         break;
                 }
 
