@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView dispatch_event = (TextView) findViewById(R.id.dispatch_event);
         dispatch_event.setOnClickListener(this);
         findViewById(R.id.greenDao).setOnClickListener(this);
+        findViewById(R.id.propertyChangeSupport).setOnClickListener(this);
     }
 
 
@@ -129,6 +130,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.greenDao:
                 myStartActivity(GreenDaoActivity.class,false);
+                break;
+            case R.id.propertyChangeSupport:
+                myStartActivity(PropertyChangeSupportActivity.class,false);
                 break;
             default:
                 break;
