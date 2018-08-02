@@ -14,5 +14,5 @@ public interface PeerMessageObserver {
 
     public void onPeerMessageNew(com.xywy.im.db.Message msg);
     public void onPeerMessageACKNew(String msgLocalID);
-    public void onPeerMessageFailureNew(int msgLocalID);
+    public void onPeerMessageFailureNew(String msgLocalID);
 }

@@ -443,7 +443,7 @@ public class MessageListActivity extends BaseActivity implements IMServiceObserv
     }
 
     @Override
-    public void onPeerMessageFailureNew(int msgLocalID) {
+    public void onPeerMessageFailureNew(String msgLocalID) {
 
     }
 

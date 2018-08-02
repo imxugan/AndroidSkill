@@ -14,6 +14,7 @@ import com.xywy.im.XywyIMService;
 import com.xywy.im.api.IMHttpAPI;
 import com.xywy.im.db.CustomerMessageDB;
 import com.xywy.im.db.CustomerMessageHandler;
+import com.xywy.im.db.DBUtils;
 import com.xywy.im.db.DaoMaster;
 import com.xywy.im.db.DaoSession;
 import com.xywy.im.db.GroupMessageDB;
@@ -65,23 +66,12 @@ public class IMDemoApplication extends Application {
         }
     }
 
-    /**
-     * A flag to show how easily you can switch from standard SQLite to the encrypted SQLCipher.
-     */
-    public static final boolean ENCRYPTED = true;
-    private DaoSession daoSession;
-
     @Override
     public void onCreate() {
         super.onCreate();
         CrashHandler crashHandler = CrashHandler.getInstance();
         crashHandler.init(this);
         sApplication = this;
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this,ENCRYPTED ? "notes-db-encrypted" : "notes-db");
-        Database imDB = ENCRYPTED ? helper.getEncryptedWritableDb("super-secret") : helper.getWritableDb();
-        daoSession = new DaoMaster(imDB).newSession();
-
-
         XywyIMService mIMService = XywyIMService.getInstance();
         //app可以单独部署服务器，给予第三方应用更多的灵活性
         mIMService.setHost("imnode2.gobelieve.io");
@@ -130,9 +120,6 @@ public class IMDemoApplication extends Application {
 
         //预先做dns查询
 //        refreshHost();
-    }
-    public DaoSession getDaoSession() {
-        return daoSession;
     }
 
     private void copyDataBase(String asset, String path) throws IOException

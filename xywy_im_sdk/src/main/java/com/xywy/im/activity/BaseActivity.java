@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.xywy.im.XywyIMService;
+import com.xywy.im.tools.CrashHandler;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class BaseActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        CrashHandler.getInstance().init(this);
     }
 
     @Override

@@ -120,7 +120,7 @@ public class XywyIMService {
      * A flag to show how easily you can switch from standard SQLite to the encrypted SQLCipher.
      */
     public static final boolean ENCRYPTED = false;
-    private static DaoSession daoSession;
+//    private static DaoSession daoSession;
 
     private String vhost = "";
     private String userName = "";
@@ -151,18 +151,18 @@ public class XywyIMService {
 //        this.port = PORT;
     }
 
-    public static DaoSession getDaoSession(Context context) {
-        if(null == daoSession){
-            synchronized (DaoSession.class){
-                if(null == daoSession){
-                    DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(context,ENCRYPTED ? "messages-db-encrypted" : "messages-db");
-                    Database imDB = ENCRYPTED ? helper.getEncryptedWritableDb("super-secret") : helper.getWritableDb();
-                    daoSession = new DaoMaster(imDB).newSession();
-                }
-            }
-        }
-        return daoSession;
-    }
+//    public static DaoSession getDaoSession(Context context) {
+//        if(null == daoSession){
+//            synchronized (DaoSession.class){
+//                if(null == daoSession){
+//                    DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(context,ENCRYPTED ? "messages-db-encrypted" : "messages-db");
+//                    Database imDB = ENCRYPTED ? helper.getEncryptedWritableDb("super-secret") : helper.getWritableDb();
+//                    daoSession = new DaoMaster(imDB).newSession();
+//                }
+//            }
+//        }
+//        return daoSession;
+//    }
 
     private boolean isOnNet(Context context) {
         if (null == context) {
@@ -1300,7 +1300,7 @@ public class XywyIMService {
     }
 
     private void handleAck(com.xywy.im.db.Message msg) {
-        Log.i("WebSocketApi","msg="+msg+"msgId=  "+msg.getMsgId());
+        Log.i("WebSocketApi","handleAck()       msg="+msg+"   msgId=  "+msg.getMsgId());
         //模拟网络延时的消息发送状态改变的效果
 //        try {
 //            Thread.currentThread().sleep(3000);
@@ -1556,7 +1556,7 @@ public class XywyIMService {
         }
     }
 
-    private void publishPeerMessageFailureNew(int msgLocalID) {
+    private void publishPeerMessageFailureNew(String msgLocalID) {
         for (int i = 0; i < peerObservers.size(); i++ ) {
             PeerMessageObserver ob = peerObservers.get(i);
             ob.onPeerMessageFailureNew(msgLocalID);

@@ -13,6 +13,7 @@ import com.xywy.im.IMServiceObserver;
 import com.xywy.im.PeerMessageObserver;
 import com.xywy.im.Timer;
 import com.xywy.im.XywyIMService;
+import com.xywy.im.db.DBUtils;
 import com.xywy.im.db.DaoSession;
 import com.xywy.im.db.IMessage;
 import com.xywy.im.db.Message;
@@ -32,14 +33,10 @@ import org.greenrobot.greendao.rx.RxDao;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.UUID;
 
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
 import test.cn.example.com.util.LogUtil;
 import test.cn.example.com.util.ToastUtils;
 
@@ -63,8 +60,6 @@ public class PeerMessageActivity extends MessageActivity implements
     protected long currentUID;
     protected long peerUID;
     protected String peerName;
-    private DaoSession daoSession;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,31 +95,24 @@ public class PeerMessageActivity extends MessageActivity implements
         this.receiver = peerUID;
 
 //        this.loadConversationData();
-        daoSession = XywyIMService.getDaoSession(PeerMessageActivity.this);
-        messagesNew = daoSession.queryBuilder(Message.class).orderDesc(MessageDao.Properties.Id).limit(10).list();
-        Comparator<Message> cmp = new Comparator<Message>() {
-            public int compare(Message c1, Message c2) {
-                if (c2.getTime() > c1.getTime()) {
-                    return -1;
-                } else if (c2.getTime() == c1.getTime()) {
-                    return 0;
-                } else {
-                    return 1;
+        DBUtils.getInstance(this).getMessageByPageSize(1,new DBUtils.GetMessageListListener(){
+
+            @Override
+            public void getMessageList(List<Message> data) {
+                messagesNew.addAll(data);
+                for (int i = 0; i < messagesNew.size(); i++) {
+                    Log.i("WebSocketApi",""+messagesNew.get(i).getSendState()+"         "+messagesNew.get(i).getContent());
+                }
+
+                //显示最后一条消息
+                if (messagesNew.size() > 0) {
+                    listview.setSelection(messagesNew.size() - 1);
                 }
             }
-        };
-        Collections.sort(messagesNew, cmp);
-        for (int i = 0; i < messagesNew.size(); i++) {
-            Log.i("WebSocketApi",""+messagesNew.get(i).getSendState()+"         "+messagesNew.get(i).getContent());
-        }
+        });
+
 
         getSupportActionBar().setTitle(peerName);
-
-        //显示最后一条消息
-        if (this.messagesNew.size() > 0) {
-            listview.setSelection(this.messagesNew.size() - 1);
-        }
-
         PeerOutbox.getInstance().addObserver(this);
         XywyIMService.getInstance().addObserver(this);
         XywyIMService.getInstance().addPeerObserver(this);
@@ -134,7 +122,7 @@ public class PeerMessageActivity extends MessageActivity implements
     @Override
     protected void sendMessage(String content) {
         if(isOnNet(PeerMessageActivity.this)){
-            Message msg = new Message();
+            final Message msg = new Message();
             msg.setSender(this.sender);
             msg.setReceiver(this.receiver);
 
@@ -150,22 +138,19 @@ public class PeerMessageActivity extends MessageActivity implements
             msg.setSendState(MessageSendState.MESSAGE_SEND_LISTENED);
             msg.setCmd(3);
             //将数据存入数据库
-            RxDao<Message, Long> rx = daoSession.getMessageDao().rx();
-            rx.insert(msg).subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Message>() {
+            DBUtils.getInstance(this).addMessage(msg, new DBUtils.AddMessageListener() {
                 @Override
-                public void call(Message message) {
-                    LogUtil.i("msgId = "+message.getMsgId());
-                }
-            });
-//        loadUserName(imsg);//暂时先省略
+                public void addMessage(Message message) {
+                    //        loadUserName(imsg);//暂时先省略
 
 
 //        sendMessage(imsg);
-            XywyIMService im = XywyIMService.getInstance();
-            im.sendPeerMessage(msg);
+                    XywyIMService im = XywyIMService.getInstance();
+                    im.sendPeerMessage(message);
 //        insertMessage(imsg);
-            insertMessage(msg);
+                    insertMessage(message);
+                }
+            });
         }else {
             ToastUtils.shortToast(PeerMessageActivity.this,"请连接网络");
         }
@@ -397,54 +382,46 @@ public class PeerMessageActivity extends MessageActivity implements
     public void onPeerMessageNew(Message msg) {
         Log.e("WebSocketApi","onPeerMessageNew   msgLocalID    "+msg.getMsgId());
         //将数据存入数据库
-        RxDao<Message, Long> rx = daoSession.getMessageDao().rx();
-        rx.insert(msg).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Message>() {
+        DBUtils.getInstance(this).addMessage(msg, new DBUtils.AddMessageListener() {
             @Override
-            public void call(Message message) {
-                LogUtil.i("msgId = "+message.getMsgId());
+            public void addMessage(Message message) {
+
             }
         });
     }
 
     @Override
-    public void onPeerMessageACKNew(String msgLocalID) {
+    public void onPeerMessageACKNew(final String msgLocalID) {
         Log.e("WebSocketApi","onPeerMessageACKNew   msgLocalID    "+msgLocalID+"        "+Thread.currentThread().getName());
-        QueryBuilder<Message> where = daoSession.queryBuilder(Message.class).where(MessageDao.Properties.MsgId.eq(msgLocalID));
-        Query<Message> build = where.build();
-        final Message msg = build.unique();
-        if(null == msg){
-            LogUtil.i("can not find msg:"+msgLocalID);
-        }
-        runOnUiThread(new Runnable() {
+        DBUtils.getInstance(PeerMessageActivity.this).getMessageByMessageId(msgLocalID,new DBUtils.GetMessageListener(){
+
             @Override
-            public void run() {
-//                Log.i("WebSocketApi","runOnUiThread         "+Thread.currentThread().getName());//main
+            public void getMessage(Message msg) {
+                if(null == msg){
+                    LogUtil.i("can not find msg:"+msgLocalID);
+                    return;
+                }
                 msg.setSendState(MessageSendState.MESSAGE_SEND_SUCCESS);
-                daoSession.getMessageDao().rx().update(msg).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).
-                        subscribe(new Action1<Message>() {
-                    @Override
-                    public void call(Message message) {
-                        Log.i("WebSocketApi","更新message的发送状态    "+message.getMsgId());
-                    }
-                });
+                DBUtils.getInstance(PeerMessageActivity.this).upateMessage(msg);
             }
         });
 
     }
 
     @Override
-    public void onPeerMessageFailureNew(int msgLocalID) {
+    public void onPeerMessageFailureNew(final String msgLocalID) {
         Log.i(TAG, "message failure");
 
-        QueryBuilder<Message> where = daoSession.queryBuilder(Message.class).where(MessageDao.Properties.MsgId.eq(msgLocalID));
-        Query<Message> build = where.build();
-        Message msg = build.unique();
-        if (msg == null) {
-            Log.i(TAG, "can't find msg:" + msgLocalID);
-            return;
-        }
-        msg.setSendState(MessageSendState.MESSAGE_SEND_FAILED);
+        DBUtils.getInstance(PeerMessageActivity.this).getMessageByMessageId(msgLocalID, new DBUtils.GetMessageListener() {
+            @Override
+            public void getMessage(Message msg) {
+                if (msg == null) {
+                    Log.i(TAG, "can't find msg:" + msgLocalID);
+                    return;
+                }
+                msg.setSendState(MessageSendState.MESSAGE_SEND_FAILED);
+            }
+        });
     }
 
 
