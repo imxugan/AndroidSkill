@@ -17,12 +17,10 @@ import com.xywy.im.db.DaoSession;
 import com.xywy.im.db.IMessage;
 import com.xywy.im.db.Message;
 import com.xywy.im.db.MessageDao;
-import com.xywy.im.db.MessageFlag;
 import com.xywy.im.db.MessageIterator;
 import com.xywy.im.db.MessageSendState;
 import com.xywy.im.db.PeerMessageDB;
 import com.xywy.im.tools.AudioDownloader;
-import com.xywy.im.tools.CrashInfo;
 import com.xywy.im.tools.FileCache;
 import com.xywy.im.tools.Notification;
 import com.xywy.im.tools.NotificationCenter;
@@ -30,14 +28,13 @@ import com.xywy.im.tools.PeerOutbox;
 
 import org.greenrobot.greendao.query.Query;
 import org.greenrobot.greendao.query.QueryBuilder;
-import org.greenrobot.greendao.query.WhereCondition;
 import org.greenrobot.greendao.rx.RxDao;
-import org.greenrobot.greendao.rx.RxTransaction;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
-import java.util.List;
 import java.util.UUID;
 
 import rx.android.schedulers.AndroidSchedulers;
@@ -104,7 +101,23 @@ public class PeerMessageActivity extends MessageActivity implements
 
 //        this.loadConversationData();
         daoSession = XywyIMService.getDaoSession(PeerMessageActivity.this);
-        messagesNew = daoSession.queryBuilder(Message.class).limit(10).list();
+        messagesNew = daoSession.queryBuilder(Message.class).orderDesc(MessageDao.Properties.Id).limit(10).list();
+        Comparator<Message> cmp = new Comparator<Message>() {
+            public int compare(Message c1, Message c2) {
+                if (c2.getTime() > c1.getTime()) {
+                    return -1;
+                } else if (c2.getTime() == c1.getTime()) {
+                    return 0;
+                } else {
+                    return 1;
+                }
+            }
+        };
+        Collections.sort(messagesNew, cmp);
+        for (int i = 0; i < messagesNew.size(); i++) {
+            Log.i("WebSocketApi",""+messagesNew.get(i).getSendState()+"         "+messagesNew.get(i).getContent());
+        }
+
         getSupportActionBar().setTitle(peerName);
 
         //显示最后一条消息
@@ -384,7 +397,6 @@ public class PeerMessageActivity extends MessageActivity implements
     public void onPeerMessageNew(Message msg) {
         Log.e("WebSocketApi","onPeerMessageNew   msgLocalID    "+msg.getMsgId());
         //将数据存入数据库
-        DaoSession daoSession = XywyIMService.getDaoSession(PeerMessageActivity.this);
         RxDao<Message, Long> rx = daoSession.getMessageDao().rx();
         rx.insert(msg).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Message>() {
@@ -407,7 +419,15 @@ public class PeerMessageActivity extends MessageActivity implements
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+//                Log.i("WebSocketApi","runOnUiThread         "+Thread.currentThread().getName());//main
                 msg.setSendState(MessageSendState.MESSAGE_SEND_SUCCESS);
+                daoSession.getMessageDao().rx().update(msg).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).
+                        subscribe(new Action1<Message>() {
+                    @Override
+                    public void call(Message message) {
+                        Log.i("WebSocketApi","更新message的发送状态    "+message.getMsgId());
+                    }
+                });
             }
         });
 
