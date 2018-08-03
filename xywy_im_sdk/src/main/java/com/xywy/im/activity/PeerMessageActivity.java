@@ -457,6 +457,13 @@ public class PeerMessageActivity extends MessageActivity implements
 //        this.sendMessage(msg);
     }
 
+    @Override
+    protected void resendNew(Message msg){
+        msg.setTime(System.currentTimeMillis());
+
+        XywyIMService.getInstance().sendPeerMessage(msg);
+    }
+
     void sendMessage(IMessage imsg) {
         if (imsg.content.getType() == IMessage.MessageType.MESSAGE_AUDIO) {
             PeerOutbox ob = PeerOutbox.getInstance();

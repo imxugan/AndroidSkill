@@ -43,6 +43,7 @@ import com.xywy.im.XywyIMService;
 import com.xywy.im.db.IMessage;
 import com.xywy.im.db.Message;
 import com.xywy.im.db.MessageIterator;
+import com.xywy.im.db.MessageSendState;
 import com.xywy.im.easeui.widget.EaseChatExtendMenu;
 import com.xywy.im.easeui.widget.EaseChatInputMenu;
 import com.xywy.im.gallery.GalleryImage;
@@ -464,24 +465,27 @@ public class MessageActivity extends BaseActivity implements
                     contentView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            IMessage im = (IMessage)v.getTag();
-                            Log.i(TAG, "im:" + im.msgLocalID);
-                            MessageActivity.this.onMessageClicked(im);
+                            Message im = (Message) v.getTag();
+                            Log.i(TAG, "im:" + im.getMsgId());
+                            MessageActivity.this.onMessageClickedNew(im);
                         }
                     });
                     contentView.setOnLongClickListener(new View.OnLongClickListener() {
                         @Override
                         public boolean onLongClick(View v) {
-                            final IMessage im = (IMessage)v.getTag();
+                            final Message im = (Message) v.getTag();
 
                             ArrayList<ChatItemQuickAction.ChatQuickAction> actions = new ArrayList<ChatItemQuickAction.ChatQuickAction>();
 
-                            if (im.isFailure()) {
-                                actions.add(ChatItemQuickAction.ChatQuickAction.RESEND);
-                            }
-
-                            if (im.content.getType() == IMessage.MessageType.MESSAGE_TEXT) {
-                                actions.add(ChatItemQuickAction.ChatQuickAction.COPY);
+                            switch (im.getSendState()){
+                                case MessageSendState.MESSAGE_SEND_FAILED:
+                                    actions.add(ChatItemQuickAction.ChatQuickAction.RESEND);
+                                    break;
+                                case MessageSendState.MESSAGE_SEND_SUCCESS:
+                                    actions.add(ChatItemQuickAction.ChatQuickAction.COPY);
+                                    break;
+                                default:
+                                    break;
                             }
 
                             if (actions.size() == 0) {
@@ -499,10 +503,10 @@ public class MessageActivity extends BaseActivity implements
                                                     ClipboardManager clipboard =
                                                             (ClipboardManager)MessageActivity.this
                                                                     .getSystemService(Context.CLIPBOARD_SERVICE);
-                                                    clipboard.setText(((IMessage.Text) im.content).text);
+                                                    clipboard.setText(im.getContent());
                                                     break;
                                                 case RESEND:
-                                                    MessageActivity.this.resend(im);
+                                                    MessageActivity.this.resendNew(im);
                                                     break;
                                                 default:
                                                     break;
@@ -905,6 +909,10 @@ public class MessageActivity extends BaseActivity implements
         Log.i(TAG, "not implemented");
     }
 
+    protected void resendNew(Message msg) {
+        Log.i(TAG, "not implemented");
+    }
+
     void saveMessageAttachment(IMessage msg, String address) {
         Log.i(TAG, "not implemented");
     }
@@ -1290,6 +1298,10 @@ public class MessageActivity extends BaseActivity implements
             intent.setClass(this, WebActivity.class);
             startActivity(intent);
         }
+    }
+
+    void onMessageClickedNew(Message message) {
+
     }
 
     private void navigateToViewImage(IMessage imageMessage) {

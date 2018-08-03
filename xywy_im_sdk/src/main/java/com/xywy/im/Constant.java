@@ -70,5 +70,4 @@ public class Constant {
      *  vhost非法
      */
     public static int  USERNAME_OR_PASSWORD_IS_ERROR = 3;
-
 }

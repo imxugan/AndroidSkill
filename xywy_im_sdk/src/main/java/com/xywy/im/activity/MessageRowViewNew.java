@@ -20,6 +20,8 @@ import com.xywy.im.db.MessageSendState;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import test.cn.example.com.util.ToastUtils;
+
 public class MessageRowViewNew extends FrameLayout implements PropertyChangeListener {
 
     protected Context context;
@@ -145,6 +147,10 @@ public class MessageRowViewNew extends FrameLayout implements PropertyChangeList
                 default:
                     break;
             }
+        }
+
+        if("time".equals(event.getPropertyName())){
+            ToastUtils.shortToast(context,"新的发送时间是  "+event.getNewValue());
         }
 
         if (event.getPropertyName().equals("sender")) {

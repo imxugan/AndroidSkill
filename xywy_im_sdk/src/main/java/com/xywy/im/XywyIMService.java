@@ -13,6 +13,8 @@ import com.xywy.im.activity.PeerMessageActivity;
 import com.xywy.im.db.DaoMaster;
 import com.xywy.im.db.DaoSession;
 import com.xywy.im.db.IMessage;
+import com.xywy.im.tools.CrashHandler;
+import com.xywy.im.tools.CrashInfo;
 
 import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.rx.RxDao;
@@ -125,6 +127,8 @@ public class XywyIMService {
     private String vhost = "";
     private String userName = "";
     private String pwd = "";
+
+    private byte reconnectCounts = 0;
 
     private static XywyIMService im = new XywyIMService();
 
@@ -592,6 +596,10 @@ public class XywyIMService {
         this.roomID = 0;
     }
 
+    public void closeNew(){
+        WebSocketApi.getInStance().close();
+    }
+
     private void close() {
         Iterator iter = peerMessages.entrySet().iterator();
         while (iter.hasNext()) {
@@ -743,6 +751,7 @@ public class XywyIMService {
             return;
         }
         this.pingTimestamp = 0;
+        Log.i("XYWYIM","connect()     publishConnectState   reconnectCounts="+reconnectCounts);
         XywyIMService.this.publishConnectState();//这里有必要发送连接状态的改变通知？？？？
 //        this.tcp = new AsyncTCP();
 
@@ -830,6 +839,7 @@ public class XywyIMService {
                 boolean b = XywyIMService.this.handleData(buf.array());
                 if (!b) {
                     XywyIMService.this.connectState = ConnectState.STATE_UNCONNECTED;
+                    Log.i("WebSocketApi","onMessage()     publishConnectState   ");
                     XywyIMService.this.publishConnectState();
                     XywyIMService.this.handleClose();
                 }
@@ -839,14 +849,29 @@ public class XywyIMService {
             @Override
             public void onClose(int code, String reason, boolean remote) {
                 XywyIMService.this.connectState = ConnectState.STATE_UNCONNECTED;
+                Log.i("WebSocketApi","onClose() publishConnectState   ");
                 publishConnectState();
-                XywyIMService.this.connect(vhost,userName,pwd);
+                closeNew();
+
             }
 
             @Override
             public void onError(Exception e) {
                 XywyIMService.this.connectState = ConnectState.STATE_CONNECTFAIL;
+                Log.i("WebSocketApi","onError()     publishConnectState   "+""+e.getMessage());
                 publishConnectState();
+                WebSocketApi.getInStance().close();
+                if(reconnectCounts == 3){
+                    reconnectCounts = 0;
+                    return;
+                }
+                try {
+                    Thread.currentThread().sleep((reconnectCounts+1)*30000);
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                }
+                XywyIMService.this.connect(vhost,userName,pwd);
+                reconnectCounts++;
             }
         });
 

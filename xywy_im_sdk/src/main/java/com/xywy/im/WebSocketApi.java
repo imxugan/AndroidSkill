@@ -1,8 +1,6 @@
 package com.xywy.im;
 
-import android.os.SystemClock;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.xywy.im.tools.CrashInfo;
 
@@ -15,11 +13,8 @@ import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.net.URI;
 import java.nio.ByteBuffer;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicReferenceArray;
-import java.util.jar.Pack200;
 
 import test.cn.example.com.util.LogUtil;
 import test.cn.example.com.util.LogUtils;
@@ -44,66 +39,6 @@ public class WebSocketApi {
     public static WebSocketApi getInStance(){
         return instance;
     }
-
-//    public void testWebSocket() throws URISyntaxException {
-////        ws://10.20.8.23:9095/ws
-////        ws://im.xywy.com:9095/ws
-//
-//        webSocketClient = new WebSocketClient(new URI("ws://im.xywy.com:9095/ws")) {
-//            @Override
-//            public void onOpen(ServerHandshake handshakedata) {
-//                LogUtil.i("onOpen");
-//                try {
-//                    byte[] startBytes = CommonUtils.int2Bytes(Constant.CONNECT,1);
-//                    byte[] vhostLengthBytes = CommonUtils.intToByteArray(vhost.length());
-//                    byte[] vhostBytes = vhost.getBytes("utf-8");
-//                    byte[] userNameLengthBytes = CommonUtils.intToByteArray(userName.length());
-//                    byte[] userNameBytes = userName.getBytes("utf-8");
-//                    byte[] pwdLengthBytes = CommonUtils.intToByteArray(pwd.length());
-//                    byte[] pwdBytes = pwd.getBytes("utf-8");
-//                    byte[] connectBytes = CommonUtils.byteMergerAll(startBytes,vhostLengthBytes, vhostBytes,userNameLengthBytes,
-//                            userNameBytes,pwdLengthBytes,pwdBytes);
-//                    sendConnectMsg(connectBytes);
-//                } catch (UnsupportedEncodingException e) {
-//                    LogUtils.i(""+e.getMessage());
-//                    e.printStackTrace();
-//                }
-//            }
-//
-//            @Override
-//            public void onMessage(ByteBuffer buf) {
-//                byte[] bytes = buf.array();
-//                int cmd = bytes[0] & 0xFF;
-//                if (cmd == 0x02) {
-//                    int code = bytes[1] & 0xFF;
-//                    LogUtils.i("code="+code);
-//                    sendMsg(CommonUtils.int2Bytes(Constant.PING_RESP,1));
-//                } else if (cmd == 0x07) {
-//                    sendMsg(CommonUtils.int2Bytes(Constant.PING_RESP,1));
-//                }
-//
-////                    super.onMessage(bytes);
-//
-//            }
-//
-//            @Override
-//            public void onMessage(String message) {
-//                LogUtil.i("onMessage");
-//            }
-//
-//            @Override
-//            public void onClose(int code, String reason, boolean remote) {
-//                LogUtil.i("onClose  "+reason);
-//            }
-//
-//            @Override
-//            public void onError(Exception ex) {
-//                LogUtil.i("onError get a exception" + ex);
-//            }
-//        };
-//
-//        webSocketClient.connect();
-//    }
 
     public void start(String webSocketUrl, String vhost,String userName,String pwd) {
         webSocketUrl = "ws://im.xywy.com:9095/ws";
@@ -153,22 +88,6 @@ public class WebSocketApi {
                     if(null != webSocketStatusCallBack){
                         webSocketStatusCallBack.onOpen();
                     }
-//                    try {
-//                        byte[] startBytes = CommonUtils.int2Bytes(Constant.CONNECT,1);
-//                        byte[] vhostLengthBytes = CommonUtils.intToByteArray(vhost.length());
-//                        byte[] vhostBytes = vhost.getBytes("utf-8");
-//                        byte[] userNameLengthBytes = CommonUtils.intToByteArray(userName.length());
-//                        byte[] userNameBytes = userName.getBytes("utf-8");
-//                        byte[] pwdLengthBytes = CommonUtils.intToByteArray(pwd.length());
-//                        byte[] pwdBytes = pwd.getBytes("utf-8");
-//                        byte[] connectBytes = CommonUtils.byteMergerAll(startBytes,vhostLengthBytes, vhostBytes,userNameLengthBytes,
-//                                userNameBytes,pwdLengthBytes,pwdBytes);
-//                        sendConnectMsg(connectBytes);
-//                    } catch (UnsupportedEncodingException e) {
-//                        LogUtils.i(""+e.getMessage());
-//                        e.printStackTrace();
-//                    }
-
                 }
 
                 @Override
@@ -183,106 +102,12 @@ public class WebSocketApi {
                     if(null != webSocketStatusCallBack){
                         webSocketStatusCallBack.onMessage(buf);
                     }
-
-//                    byte[] bytes = buf.array();
-//                    int cmd = bytes[0] & 0xFF;
-//                    if (cmd == 0x02) {
-//                        int code = bytes[1] & 0xFF;
-//                        LogUtils.i("code="+code);
-//
-//                        sendMsg(CommonUtils.int2Bytes(Constant.PING_RESP,1));
-//                    } else if (cmd == 0x07) {
-//                        sendMsg(CommonUtils.int2Bytes(Constant.PING_RESP,1));
-//                    }
-
-//                    super.onMessage(bytes);
-
-
-
                 }
-
-//                @Override
-//                public void onMessage(final String str) {
-//                    if (TextUtils.isEmpty(str)) {
-//                        LogUtils.e("消息为空");
-//                        return;
-//                    }
-//                    Log.e("WebSocketApi_binary", "收到到服务端信息【" + str + "】");
-//
-//                    try {
-//                        BaseSocketMsg baseSocketMsg = GsonUtils.toObj(str, BaseSocketMsg.class);
-//
-//                        switch (baseSocketMsg.getAct()) {
-//                            case CONNECT:
-//                                LogUtils.e("socket 连接请求");
-//                                break;
-//                            case CONNECT_ACK:
-//                                LogUtils.e("socket 连接成功");
-////                                final ConnectAckMsg connectAckMsg = getSocketMsg(str, ConnectAckMsg.class);
-////                                if (null != connectAckMsg) {
-////                                    LogUtils.e("socket 连接成功:sequenceId:" + connectAckMsg.getSequence());
-////                                    setConnected(true);
-////                                    WebSocketRxBus.notifyChatStarted(connectAckMsg.getSequence());
-////                                    //webSocketImInterface.onStartChat(connectAckMsg.getSequence());
-////                                }
-//                                break;
-//                            case CONNECT_FAIL:
-//                                LogUtils.e("socket 建立连接失败");
-//                                break;
-//                            case PUB:
-//                                LogUtils.e("收到会话消息");
-////                                final ChatMsg chatMsg = getSocketMsg(str, ChatMsg.class);
-////                                if (null != chatMsg) {
-////                                    String msgId = String.valueOf(chatMsg.getId());
-////                                    // TODO: 2018/5/29 websocket新版本 stone
-//////                                    String msgId = String.valueOf(chatMsg.getMsg_id());
-////                                    //发送消息收到回执,收到服务端的推送消息后，客户端需要向服务端发送一个收到消息的回执给服务端
-////                                    sendMsgAck(msgId);
-////                                    WebSocketRxBus.notifyChatMsg(chatMsg);
-////                                }
-//                                break;
-//                            case PUB_ACK:
-//                                //客户端发送消息后，收到服务端的应答消息，表示服务端已经收到客户端发送的消息了
-//                                LogUtils.e("服务端收到消息ack");
-////                                AckMsg ackMsg = getSocketMsg(str, AckMsg.class);
-////                                if (null != ackMsg) {
-////                                    WebSocketRxBus.notifyChatMsgReceived(ackMsg.getId());
-////                                    // TODO: 2018/5/29 websocket新版本 stone
-//////                                    WebSocketRxBus.notifyChatMsgReceived(String.valueOf(ackMsg.getMsg_id()));
-////                                }
-//                                break;
-//                            case PING:
-//                                LogUtils.e("心跳 问询");
-//                                //发送心跳答复
-//                                sendMsg(CommonUtils.int2Bytes(Constants.PING,1));
-//
-//                                break;
-//                            case PONG:
-//                                LogUtils.e("服务端 心跳答复");
-//                                break;
-//
-//                            case READ:
-//                                LogUtils.e("服务端已读消息 回执");
-////                                ReadMsg readMsg = getSocketMsg(str, ReadMsg.class);
-////                                if (null != readMsg) {
-////                                    // TODO: 2018/5/29 websocket新版本 stone
-////                                    WebSocketRxBus.notifyChatMsgRead(new MsgReadEventBody(readMsg.getId(), readMsg.getQid()));
-//////                                    WebSocketRxBus.notifyChatMsgRead(new MsgReadEventBody(readMsg.getMsg_id(), readMsg.getQid()));
-////                                }
-//
-//                                break;
-//                        }
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                        LogUtils.e("解析socket消息异常：" + e.getMessage());
-//
-//                    }
-//
-//                }
 
                 @Override
                 public void onClose(final int code, final String reason, final boolean remote) {
-                    LogUtil.e("断开服务器连接【" + getURI() + "，状态码： " + code + "，断开原因：" + reason + "】");
+                    LogUtil.e("断开服务器连接【" + getURI() + "，状态码： " + code + "，断开原因：" + reason + "】"+"       remote="+remote);
+                    showLogDetail(code,reason,remote);
 //                    onDisconnect();
                     if(null != webSocketStatusCallBack){
                         webSocketStatusCallBack.onClose(code,reason,remote);
@@ -310,6 +135,57 @@ public class WebSocketApi {
             e.printStackTrace();
         }
         return webSocketClient;
+    }
+
+    private void showLogDetail(int code, String reason, boolean remote) {
+        switch (code){
+            case WebSocketsCode.CLOSE_NORMAL:
+                LogUtil.i("用于期望收到状态码时连接非正常关闭 (也就是说, 没有发送关闭帧)");
+                break;
+            case WebSocketsCode.CLOSE_GOING_AWAY:
+                LogUtil.i("终端离开, 可能因为服务端错误, 也可能因为浏览器正从打开连接的页面跳转离开");
+                break;
+            case WebSocketsCode.CLOSE_PROTOCOL_ERROR:
+                LogUtil.i("由于协议错误而中断连接");
+                break;
+            case WebSocketsCode.CLOSE_UNSUPPORTED:
+                LogUtil.i("由于接收到不允许的数据类型而断开连接 (如仅接收文本数据的终端接收到了二进制数据)");
+                break;
+            case WebSocketsCode.CLOSE_NO_STATUS:
+                LogUtil.i("表示没有收到预期的状态码");
+                break;
+            case WebSocketsCode.CLOSE_ABNORMAL:
+                LogUtil.i("用于期望收到状态码时连接非正常关闭 (也就是说, 没有发送关闭帧)");
+                break;
+            case WebSocketsCode.UNSUPPORTED_DATA:
+                LogUtil.i("由于收到了格式不符的数据而断开连接 (如文本消息中包含了非 UTF-8 数据)");
+                break;
+            case WebSocketsCode.POLICY_VIOLATION:
+                LogUtil.i("由于收到不符合约定的数据而断开连接。 这是一个通用状态码, 用于不适合使用 1003 和 1009 状态码的场景");
+                break;
+            case WebSocketsCode.CLOSE_TOO_LARGE:
+                LogUtil.i("由于收到过大的数据帧而断开连接");
+                break;
+            case WebSocketsCode.MISSING_EXTENSION:
+                LogUtil.i("客户端期望服务器商定一个或多个拓展, 但服务器没有处理, 因此客户端断开连接");
+                break;
+            case WebSocketsCode.INTERNAL_ERROR:
+                LogUtil.i("客户端由于遇到没有预料的情况阻止其完成请求, 因此服务端断开连接");
+                break;
+            case WebSocketsCode.SERVICE_RESTART:
+                LogUtil.i("服务器由于重启而断开连接");
+                break;
+            case WebSocketsCode.TRY_AGAIN_LATER:
+                LogUtil.i("服务器由于临时原因断开连接, 如服务器过载因此断开一部分客户端连接");
+                break;
+            case WebSocketsCode.TLS_HANDSHAKE:
+                LogUtil.i("表示连接由于无法完成 TLS 握手而关闭 (例如无法验证服务器证书)");
+                break;
+            default:
+                LogUtil.i(" "+reason+"              remote  "+remote);
+                break;
+
+        }
     }
 
     /**
