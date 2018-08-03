@@ -28,7 +28,9 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.atomic.AtomicReferenceArray;
 
 import rx.android.schedulers.AndroidSchedulers;
@@ -860,6 +862,7 @@ public class XywyIMService {
                 XywyIMService.this.connectState = ConnectState.STATE_CONNECTFAIL;
                 Log.i("WebSocketApi","onError()     publishConnectState   "+""+e.getMessage());
                 publishConnectState();
+                // TODO: 2018/8/3 这里还要处理，消息发送状态的改变
                 WebSocketApi.getInStance().close();
                 if(reconnectCounts == 3){
                     reconnectCounts = 0;
@@ -1511,9 +1514,15 @@ public class XywyIMService {
     }
 
     private boolean sendMessage(com.xywy.im.db.Message msg) {
-        byte[] buf = msg.pack();
-        WebSocketApi.getInStance().sendMsg(buf);
+        // TODO: 2018/8/3  测试发送失败后的从发功能
+//        if("53".equals(msg.getContent()) && new Random().nextBoolean() ){
+//            Log.i("WebSocketApi","sendMessage()    return fasle    dur = ");
+//            return false;
+//        }
 
+        byte[] buf = msg.pack();
+        //WebSocketApi.getInStance().sendMsg(buf)这个方法抛出异常后，这里无法返回true
+        WebSocketApi.getInStance().sendMsg(buf);
         return true;
     }
 
