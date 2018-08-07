@@ -488,9 +488,12 @@ public class XywyIMService {
 
     public boolean sendPeerMessage(com.xywy.im.db.Message msg) {
         if(XywyIMService.this.connectState != ConnectState.STATE_CONNECTED){
+            LogUtil.i("连接失败，无法发送");
+            publishPeerMessageFailureNew(msg.getMsgId());
             return false;
         }
         if (!sendMessage(msg)) {
+            publishPeerMessageFailureNew(msg.getMsgId());
             return false;
         }
 //        peerMessages.put(new Integer(msg.seq), im);

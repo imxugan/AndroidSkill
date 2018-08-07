@@ -1082,6 +1082,19 @@ public class MessageActivity extends BaseActivity implements
         listview.smoothScrollToPosition(messagesNew.size()-1);
     }
 
+    protected void updateMessage(Message msg) {
+        Message lastMsg = null;
+        if(messagesNew.size()>0){
+            lastMsg = messagesNew.get(messagesNew.size()-1);
+        }
+        if(null != lastMsg && !lastMsg.getMsgId().equals(msg.getMsgId())){
+            messagesNew.remove(msg);
+            messagesNew.add(msg);
+
+            adapterNew.notifyDataSetChanged();
+            listview.smoothScrollToPosition(messagesNew.size()-1);
+        }
+    }
 
 
     protected void sendTextMessage(String text) {

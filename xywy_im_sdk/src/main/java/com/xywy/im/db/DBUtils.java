@@ -108,7 +108,7 @@ public class DBUtils {
                     @Override
                     public void call(Message message) {
                         listener.addMessage(message);
-                        LogUtil.i("增加的消息id  "+message.getMsgId());
+                        LogUtil.i("增加的消息id  "+message.getMsgId()+"          "+message.getCmd()+"         "+message.getContent());
                     }
                 });
     }

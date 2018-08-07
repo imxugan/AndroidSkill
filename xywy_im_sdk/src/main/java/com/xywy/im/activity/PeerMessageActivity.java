@@ -101,7 +101,7 @@ public class PeerMessageActivity extends MessageActivity implements
             public void getMessageList(List<Message> data) {
                 messagesNew.addAll(data);
                 for (int i = 0; i < messagesNew.size(); i++) {
-                    Log.i("WebSocketApi",""+messagesNew.get(i).getSendState()+"         "+messagesNew.get(i).getContent());
+                    Log.i("WebSocketApi",""+messagesNew.get(i).getSendState()+"         "+messagesNew.get(i).getContent()+"     "+messagesNew.get(i).getCmd());
                 }
 
                 //显示最后一条消息
@@ -288,7 +288,7 @@ public class PeerMessageActivity extends MessageActivity implements
 //                } else {
 //                    disableSend();
 //                }
-                if(state == XywyIMService.ConnectState.STATE_CONNECTFAIL){
+                if(state == XywyIMService.ConnectState.STATE_CONNECTFAIL || state == XywyIMService.ConnectState.STATE_UNCONNECTED){
                     ToastUtils.shortToast(PeerMessageActivity.this,"websocket 连接失败");
                 }
                 enableSend();
@@ -403,6 +403,7 @@ public class PeerMessageActivity extends MessageActivity implements
                 }
                 msg.setSendState(MessageSendState.MESSAGE_SEND_SUCCESS);
                 DBUtils.getInstance().upateMessage(msg);
+                updateMessage(msg);
             }
         });
 
@@ -461,7 +462,7 @@ public class PeerMessageActivity extends MessageActivity implements
     @Override
     protected void resendNew(Message msg){
         msg.setTime(System.currentTimeMillis());
-
+        msg.setCmd(3);//由于cmd这个字段未存入数据库，所以，这里需要将cmd重新赋值，否则cmd就是默认值0
         XywyIMService.getInstance().sendPeerMessage(msg);
     }
 
