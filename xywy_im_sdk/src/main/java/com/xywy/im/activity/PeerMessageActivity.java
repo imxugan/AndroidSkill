@@ -101,7 +101,7 @@ public class PeerMessageActivity extends MessageActivity implements
             public void getMessageList(List<Message> data) {
                 messagesNew.addAll(data);
                 for (int i = 0; i < messagesNew.size(); i++) {
-                    Log.i("WebSocketApi",""+messagesNew.get(i).getSendState()+"         "+messagesNew.get(i).getContent()+"     "+messagesNew.get(i).getCmd());
+                    LogUtil.i(""+messagesNew.get(i).getSendState()+"         "+messagesNew.get(i).getContent()+"     "+messagesNew.get(i).getCmd());
                 }
 
                 //显示最后一条消息

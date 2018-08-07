@@ -488,7 +488,7 @@ public class XywyIMService {
 
     public boolean sendPeerMessage(com.xywy.im.db.Message msg) {
         if(XywyIMService.this.connectState != ConnectState.STATE_CONNECTED){
-            LogUtil.i("连接失败，无法发送");
+            LogUtil.i("连接失败，无法发送    "+XywyIMService.this.connectState);
             publishPeerMessageFailureNew(msg.getMsgId());
             return false;
         }
@@ -847,7 +847,7 @@ public class XywyIMService {
                 boolean b = XywyIMService.this.handleData(buf.array());
                 if (!b) {
                     XywyIMService.this.connectState = ConnectState.STATE_UNCONNECTED;
-                    Log.i("WebSocketApi","onMessage()     publishConnectState   ");
+                    LogUtil.i("onMessage()     publishConnectState   ");
                     XywyIMService.this.publishConnectState();
                     XywyIMService.this.handleClose();
                 }
@@ -857,7 +857,7 @@ public class XywyIMService {
             @Override
             public void onClose(int code, String reason, boolean remote) {
                 XywyIMService.this.connectState = ConnectState.STATE_UNCONNECTED;
-                Log.i("WebSocketApi","onClose() publishConnectState   ");
+                LogUtil.i("onClose() publishConnectState   ");
                 publishConnectState();
                 // 当消息发送后，如果连接关闭，将消息发送状态的改成发送失败的状态
                 //需要将数据库中的数据进行查询，查看当前发送状态是正在发送中的消息，将这些消息的发送状态置为发送失败
@@ -870,26 +870,19 @@ public class XywyIMService {
                         }
                     }
                 });
-                closeNew();
+                if(remote){
+                    //如果是服务端主动断开连接，这客户端也断开连接，如果是客户端主动断开连接，则不用再次
+                    //调用WebSocketApi.getInStance().close();进行客户端的断开连接的操作
+                    closeNew();
+                }
 
             }
 
             @Override
             public void onError(Exception e) {
                 XywyIMService.this.connectState = ConnectState.STATE_CONNECTFAIL;
-                Log.i("WebSocketApi","onError()     publishConnectState   "+""+e.getMessage());
+                LogUtil.i("onError()     publishConnectState   "+""+e.getMessage());
                 publishConnectState();
-                // 当消息发送失败后，将消息发送状态的改成发送失败的状态
-                //需要将数据库中的数据进行查询，查看当前发送状态是正在发送中的消息，将这些消息的发送状态置为发送失败
-                DBUtils.getInstance().getSendingMessage(new DBUtils.GetMessageListListener(){
-
-                    @Override
-                    public void getMessageList(List<com.xywy.im.db.Message> data) {
-                        for (int i = 0; i < data.size(); i++) {
-                            publishPeerMessageFailureNew(data.get(i).getMsgId());
-                        }
-                    }
-                });
                 WebSocketApi.getInStance().close();
                 reconnectTimeStampNow = System.currentTimeMillis();
                 if(reconnectCounts == 0){
@@ -1343,7 +1336,7 @@ public class XywyIMService {
             //可以不做任何处理
         } else if (msg.getCmd() == Constant.PUB_ACK) {   //消息发送后，服务端返回的数据中所带的cmd
 //            handleIMMessage(msg);
-//            Log.i("WebSocketApi","handleAck(msg)    msg="+msg+"     msgId   "+msg.getMsgId());
+//            LogUtil.i("handleAck(msg)    msg="+msg+"     msgId   "+msg.getMsgId());
             handleAck(msg);
         }  else if (msg.getCmd() == Constant.GROUP_PUB_ACK) {   //群消息发送后，服务端返回的数据中所带的cmd
             //暂不处理
@@ -1358,7 +1351,7 @@ public class XywyIMService {
     }
 
     private void handleAck(com.xywy.im.db.Message msg) {
-        Log.i("WebSocketApi","handleAck()       msg="+msg+"   msgId=  "+msg.getMsgId());
+        LogUtil.i("handleAck()       msg="+msg+"   msgId=  "+msg.getMsgId());
         //模拟网络延时的消息发送状态改变的效果
 //        try {
 //            Thread.currentThread().sleep(3000);
@@ -1546,7 +1539,7 @@ public class XywyIMService {
     private boolean sendMessage(com.xywy.im.db.Message msg) {
         // TODO: 2018/8/3  测试发送失败后的从发功能
 //        if("53".equals(msg.getContent()) && new Random().nextBoolean() ){
-//            Log.i("WebSocketApi","sendMessage()    return fasle    dur = ");
+//            LogUtil.i("sendMessage()    return fasle    dur = ");
 //            return false;
 //        }
 
