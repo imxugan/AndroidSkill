@@ -859,6 +859,17 @@ public class XywyIMService {
                 XywyIMService.this.connectState = ConnectState.STATE_UNCONNECTED;
                 Log.i("WebSocketApi","onClose() publishConnectState   ");
                 publishConnectState();
+                // 当消息发送后，如果连接关闭，将消息发送状态的改成发送失败的状态
+                //需要将数据库中的数据进行查询，查看当前发送状态是正在发送中的消息，将这些消息的发送状态置为发送失败
+                DBUtils.getInstance().getSendingMessage(new DBUtils.GetMessageListListener(){
+
+                    @Override
+                    public void getMessageList(List<com.xywy.im.db.Message> data) {
+                        for (int i = 0; i < data.size(); i++) {
+                            publishPeerMessageFailureNew(data.get(i).getMsgId());
+                        }
+                    }
+                });
                 closeNew();
 
             }
@@ -868,7 +879,7 @@ public class XywyIMService {
                 XywyIMService.this.connectState = ConnectState.STATE_CONNECTFAIL;
                 Log.i("WebSocketApi","onError()     publishConnectState   "+""+e.getMessage());
                 publishConnectState();
-                // TODO: 2018/8/3 这里还要处理，消息发送状态的改变
+                // 当消息发送失败后，将消息发送状态的改成发送失败的状态
                 //需要将数据库中的数据进行查询，查看当前发送状态是正在发送中的消息，将这些消息的发送状态置为发送失败
                 DBUtils.getInstance().getSendingMessage(new DBUtils.GetMessageListListener(){
 
