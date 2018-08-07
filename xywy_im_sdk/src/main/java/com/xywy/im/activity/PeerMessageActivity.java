@@ -60,6 +60,7 @@ public class PeerMessageActivity extends MessageActivity implements
     protected long currentUID;
     protected long peerUID;
     protected String peerName;
+    private int page;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,21 +96,9 @@ public class PeerMessageActivity extends MessageActivity implements
         this.receiver = peerUID;
 
 //        this.loadConversationData();
-        DBUtils.getInstance().getMessageByPageSize(1,new DBUtils.GetMessageListListener(){
+        page = 1;
+        loadData(page);
 
-            @Override
-            public void getMessageList(List<Message> data) {
-                messagesNew.addAll(data);
-                for (int i = 0; i < messagesNew.size(); i++) {
-                    LogUtil.i(""+messagesNew.get(i).getSendState()+"         "+messagesNew.get(i).getContent()+"     "+messagesNew.get(i).getCmd());
-                }
-
-                //显示最后一条消息
-                if (messagesNew.size() > 0) {
-                    listview.setSelection(messagesNew.size() - 1);
-                }
-            }
-        });
 
 
         getSupportActionBar().setTitle(peerName);
@@ -117,6 +106,27 @@ public class PeerMessageActivity extends MessageActivity implements
         XywyIMService.getInstance().addObserver(this);
         XywyIMService.getInstance().addPeerObserver(this);
         AudioDownloader.getInstance().addObserver(this);
+    }
+
+    private void loadData(final int page) {
+        DBUtils.getInstance().getMessageByPageSize(page,new DBUtils.GetMessageListListener(){
+
+            @Override
+            public void getMessageList(List<Message> data) {
+                messagesNew.addAll(data);
+                DBUtils.getInstance().sort(messagesNew);
+                for (int i = 0; i < messagesNew.size(); i++) {
+                    LogUtil.i(""+messagesNew.get(i).getSendState()+"         "+messagesNew.get(i).getContent()+"     "+messagesNew.get(i).getCmd());
+                }
+
+                //显示最后一条消息
+                if (messagesNew.size() > 0 && page == 1) {
+                    listview.setSelection(messagesNew.size() - 1);
+                }else {
+                    adapterNew.notifyDataSetChanged();
+                }
+            }
+        });
     }
 
     @Override
@@ -211,7 +221,13 @@ public class PeerMessageActivity extends MessageActivity implements
         resetMessageTimeBase();
     }
 
+    protected void loadEarlierDataNew(){
+        page+=10;
+       loadData(page);
+    }
+
     protected void loadEarlierData() {
+        LogUtil.i("下拉刷新");
         if (messages.size() == 0) {
             return;
         }

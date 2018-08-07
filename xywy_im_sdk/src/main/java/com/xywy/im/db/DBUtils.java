@@ -1,6 +1,7 @@
 package com.xywy.im.db;
 
 import android.content.Context;
+import android.util.Log;
 
 import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.rx.RxDao;
@@ -62,13 +63,13 @@ public class DBUtils {
         return daoSession.getMessageDao().loadAll();
     }
 
-    public void getMessageByPageSize(int page,final GetMessageListListener listener){
-        RxQuery<Message> rxQuery = daoSession.getMessageDao().queryBuilder().orderDesc(MessageDao.Properties.Id).offset(page - 1).limit(10).rx();
+    public void getMessageByPageSize(final int page, final GetMessageListListener listener){
+        RxQuery<Message> rxQuery = daoSession.getMessageDao().queryBuilder().orderDesc(MessageDao.Properties.Time).offset(page - 1).limit(10).rx();
         rxQuery.list().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<List<Message>>() {
             @Override
             public void call(List<Message> messages) {
-                LogUtil.i("size=    "+messages.size());
-                Collections.sort(messages,cmp);
+                LogUtil.i("page=    "+page+"    size=    "+messages.size());
+                sort(messages);
                 listener.getMessageList(messages);
             }
         });
@@ -156,6 +157,10 @@ public class DBUtils {
             helper.close();
             helper = null;
         }
+    }
+
+    public void sort(List<Message> messages){
+        Collections.sort(messages,cmp);
     }
 
     private Comparator<Message> cmp = new Comparator<Message>() {

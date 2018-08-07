@@ -392,6 +392,7 @@ public class MessageActivity extends BaseActivity implements
     }
 
     protected void loadEarlierData() {}
+    protected void loadEarlierDataNew() {}
 
     static interface ContentTypes {
         public static int UNKNOWN = 0;
@@ -870,6 +871,7 @@ public class MessageActivity extends BaseActivity implements
         swipeLayout.setRefreshing(false);
 
         loadEarlierData();
+        loadEarlierDataNew();
     }
 
     protected void setSubtitle() {
