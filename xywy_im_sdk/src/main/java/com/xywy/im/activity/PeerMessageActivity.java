@@ -95,7 +95,7 @@ public class PeerMessageActivity extends MessageActivity implements
         this.receiver = peerUID;
 
 //        this.loadConversationData();
-        DBUtils.getInstance(this).getMessageByPageSize(1,new DBUtils.GetMessageListListener(){
+        DBUtils.getInstance().getMessageByPageSize(1,new DBUtils.GetMessageListListener(){
 
             @Override
             public void getMessageList(List<Message> data) {
@@ -138,7 +138,7 @@ public class PeerMessageActivity extends MessageActivity implements
             msg.setSendState(MessageSendState.MESSAGE_SEND_LISTENED);
             msg.setCmd(3);
             //将数据存入数据库
-            DBUtils.getInstance(this).addMessage(msg, new DBUtils.AddMessageListener() {
+            DBUtils.getInstance().addMessage(msg, new DBUtils.AddMessageListener() {
                 @Override
                 public void addMessage(Message message) {
                     //        loadUserName(imsg);//暂时先省略
@@ -382,7 +382,7 @@ public class PeerMessageActivity extends MessageActivity implements
     public void onPeerMessageNew(Message msg) {
         Log.e("WebSocketApi","onPeerMessageNew   msgLocalID    "+msg.getMsgId());
         //将数据存入数据库
-        DBUtils.getInstance(this).addMessage(msg, new DBUtils.AddMessageListener() {
+        DBUtils.getInstance().addMessage(msg, new DBUtils.AddMessageListener() {
             @Override
             public void addMessage(Message message) {
 
@@ -393,7 +393,7 @@ public class PeerMessageActivity extends MessageActivity implements
     @Override
     public void onPeerMessageACKNew(final String msgLocalID) {
         Log.e("WebSocketApi","onPeerMessageACKNew   msgLocalID    "+msgLocalID+"        "+Thread.currentThread().getName());
-        DBUtils.getInstance(PeerMessageActivity.this).getMessageByMessageId(msgLocalID,new DBUtils.GetMessageListener(){
+        DBUtils.getInstance().getMessageByMessageId(msgLocalID,new DBUtils.GetMessageListener(){
 
             @Override
             public void getMessage(Message msg) {
@@ -402,7 +402,7 @@ public class PeerMessageActivity extends MessageActivity implements
                     return;
                 }
                 msg.setSendState(MessageSendState.MESSAGE_SEND_SUCCESS);
-                DBUtils.getInstance(PeerMessageActivity.this).upateMessage(msg);
+                DBUtils.getInstance().upateMessage(msg);
             }
         });
 
@@ -412,7 +412,7 @@ public class PeerMessageActivity extends MessageActivity implements
     public void onPeerMessageFailureNew(final String msgLocalID) {
         Log.i(TAG, "message failure");
 
-        DBUtils.getInstance(PeerMessageActivity.this).getMessageByMessageId(msgLocalID, new DBUtils.GetMessageListener() {
+        DBUtils.getInstance().getMessageByMessageId(msgLocalID, new DBUtils.GetMessageListener() {
             @Override
             public void getMessage(Message msg) {
                 if (msg == null) {
@@ -420,6 +420,7 @@ public class PeerMessageActivity extends MessageActivity implements
                     return;
                 }
                 msg.setSendState(MessageSendState.MESSAGE_SEND_FAILED);
+                DBUtils.getInstance().upateMessage(msg);
             }
         });
     }

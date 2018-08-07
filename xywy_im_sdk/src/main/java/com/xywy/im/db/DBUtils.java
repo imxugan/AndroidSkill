@@ -2,13 +2,10 @@ package com.xywy.im.db;
 
 import android.content.Context;
 
-import com.xywy.im.tools.CrashInfo;
-
 import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.rx.RxDao;
 import org.greenrobot.greendao.rx.RxQuery;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -27,29 +24,36 @@ public class DBUtils {
 
     private static DBUtils instacne;
     private DaoSession daoSession;
-    private final RxDao<Message, Long> messageDao;
-    private List<Message> messageList = new ArrayList<>();
+    private static RxDao<Message, Long> messageDao;
     private DaoMaster.DevOpenHelper helper;
+    private static Context context;
 
-    private DBUtils(Context context){
+    private DBUtils(){
         helper = new DaoMaster.DevOpenHelper(context,"xywy-im-db-encrypted");
         Database encryptedReadableDb = helper.getEncryptedReadableDb("super-secret");
         daoSession = new DaoMaster(encryptedReadableDb).newSession();
         messageDao = daoSession.getMessageDao().rx();
     }
 
-    public static DBUtils getInstance(Context context){
+    public static void init(Context ctx){
+        if(null == ctx){
+            throw new RuntimeException("context must not be null");
+        }
+        context = ctx;
+    }
+
+    public static DBUtils getInstance(){
         if(null == instacne){
             synchronized (DBUtils.class){
                 if(null == instacne){
-                    instacne = new DBUtils(context);
+                    instacne = new DBUtils();
                 }
             }
         }
         return instacne;
     }
 
-    public RxDao getMessageDao(){
+    public static RxDao getMessageDao(){
         return messageDao;
     }
 
@@ -74,11 +78,24 @@ public class DBUtils {
 //        LogUtil.i("getMessageByMessageId()      msgId=      "+msgId);
         MessageDao messageDao = daoSession.getMessageDao();
         RxQuery<Message> rx = messageDao.queryBuilder().where(MessageDao.Properties.MsgId.eq(msgId)).rx();
-        rx.unique().observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Message>() {
+        rx.unique().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Message>() {
             @Override
             public void call(Message message) {
                 LogUtil.i("查询的消息id      =      "+message.getMsgId());
                 listener.getMessage(message);
+            }
+        });
+    }
+
+    public void getSendingMessage(final GetMessageListListener listener){
+//        LogUtil.i("getSendingMessage());
+        MessageDao messageDao = daoSession.getMessageDao();
+        RxQuery<Message> rx = messageDao.queryBuilder().where(MessageDao.Properties.SendState.eq(MessageSendState.MESSAGE_SEND_LISTENED)).rx();
+        rx.list().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<List<Message>>() {
+            @Override
+            public void call(List<Message> messages) {
+                LogUtil.i("发送中的消息的数量是   "+messages.size());
+                listener.getMessageList(messages);
             }
         });
     }
@@ -116,17 +133,12 @@ public class DBUtils {
 
     public void upateMessage(Message msg){
         LogUtil.i("upateMessage  消息id   "+msg.getMsgId());
-        try {
-            getMessageDao().update(msg).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Message>() {
-                @Override
-                public void call(Message message) {
-                    LogUtil.i("更新的消息id  "+message.getMsgId());
-                }
-            });
-        }catch (Exception e){
-            CrashInfo.printErrorInfo(e);
-        }
-
+        getMessageDao().update(msg).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Message>() {
+            @Override
+            public void call(Message message) {
+                LogUtil.i("更新的消息id  "+message.getMsgId());
+            }
+        });
     }
 
     /**

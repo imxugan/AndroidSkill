@@ -15,6 +15,7 @@ import java.net.URI;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import test.cn.example.com.util.LogUtil;
 import test.cn.example.com.util.LogUtils;
@@ -223,7 +224,8 @@ public class WebSocketApi {
 
         try {
             // TODO: 2018/8/3 模拟消息发送失败后，抛出的异常
-            if(socketMsg[0] == 3){
+            if(socketMsg[0] == 3 && new Random().nextBoolean()){
+                LogUtil.i("Thread.currentThread().getName()     "+ Thread.currentThread().getName());
                 throw new NullPointerException("测试发送数据异常时，sendMessage是否有返回值");
             }
             if (webSocketClient != null) {

@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.xywy.im.activity.PeerMessageActivity;
+import com.xywy.im.db.DBUtils;
 import com.xywy.im.db.DaoMaster;
 import com.xywy.im.db.DaoSession;
 import com.xywy.im.db.IMessage;
@@ -49,6 +50,8 @@ public class XywyIMService {
 
     private final String HOST = "imnode2.gobelieve.io";
     private final int PORT = 23000;
+    private long reconnectTimeStampNow;
+    private long reconnectTimeStampOld;
 
     public enum ConnectState {
         STATE_UNCONNECTED,
@@ -863,17 +866,30 @@ public class XywyIMService {
                 Log.i("WebSocketApi","onError()     publishConnectState   "+""+e.getMessage());
                 publishConnectState();
                 // TODO: 2018/8/3 这里还要处理，消息发送状态的改变
+                //需要将数据库中的数据进行查询，查看当前发送状态是正在发送中的消息，将这些消息的发送状态置为发送失败
+                DBUtils.getInstance().getSendingMessage(new DBUtils.GetMessageListListener(){
+
+                    @Override
+                    public void getMessageList(List<com.xywy.im.db.Message> data) {
+                        for (int i = 0; i < data.size(); i++) {
+                            publishPeerMessageFailureNew(data.get(i).getMsgId());
+                        }
+                    }
+                });
                 WebSocketApi.getInStance().close();
+                reconnectTimeStampNow = System.currentTimeMillis();
+                if(reconnectCounts == 0){
+                    reconnectTimeStampOld = reconnectTimeStampNow;
+                }
+
                 if(reconnectCounts == 3){
                     reconnectCounts = 0;
                     return;
                 }
-                try {
-                    Thread.currentThread().sleep((reconnectCounts+1)*30000);
-                } catch (InterruptedException e1) {
-                    e1.printStackTrace();
+                if((reconnectTimeStampNow-reconnectTimeStampOld)>= reconnectCounts*30000){
+                    XywyIMService.this.connect(vhost,userName,pwd);
                 }
-                XywyIMService.this.connect(vhost,userName,pwd);
+
                 reconnectCounts++;
             }
         });

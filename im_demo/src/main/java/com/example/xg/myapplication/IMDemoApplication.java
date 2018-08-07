@@ -23,8 +23,6 @@ import com.xywy.im.db.PeerMessageDB;
 import com.xywy.im.db.PeerMessageHandler;
 import com.xywy.im.tools.FileCache;
 
-import org.greenrobot.greendao.database.Database;
-
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -72,6 +70,7 @@ public class IMDemoApplication extends Application {
         CrashHandler crashHandler = CrashHandler.getInstance();
         crashHandler.init(this);
         sApplication = this;
+        DBUtils.init(this);
         XywyIMService mIMService = XywyIMService.getInstance();
         //app可以单独部署服务器，给予第三方应用更多的灵活性
         mIMService.setHost("imnode2.gobelieve.io");
