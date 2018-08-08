@@ -133,7 +133,6 @@ public class DBUtils {
     }
 
     public void upateMessage(Message msg){
-        LogUtil.i("upateMessage  消息id   "+msg.getMsgId());
         getMessageDao().update(msg).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Message>() {
             @Override
             public void call(Message message) {

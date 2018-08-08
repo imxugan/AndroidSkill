@@ -490,6 +490,7 @@ public class XywyIMService {
     public boolean sendPeerMessage(com.xywy.im.db.Message msg) {
         if(XywyIMService.this.connectState != ConnectState.STATE_CONNECTED){
             LogUtil.i("连接失败，无法发送    "+XywyIMService.this.connectState);
+            publishConnectState();
             if(MessageSendState.MESSAGE_SEND_LISTENED == msg.getSendState()){
                 publishPeerMessageFailureNew(msg.getMsgId());
             }
