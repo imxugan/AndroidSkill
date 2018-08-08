@@ -11,6 +11,7 @@ import test.cn.example.com.androidskill.callback.CallBackActivity;
 import test.cn.example.com.androidskill.designpattern.DesignPatternActivity;
 import test.cn.example.com.androidskill.login.view.LoginActivity;
 import test.cn.example.com.androidskill.rxjavaTest.RxJavaTestActivity;
+import test.cn.example.com.androidskill.websocket.WebsocketActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     @Override
@@ -19,7 +20,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         CrashHandler.getInstance().init(this);
         initView();
-        WebSocketApi.getInStance().start("", "com.xywy.default","test1","password1234");
     }
 
     private void initView() {
@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dispatch_event.setOnClickListener(this);
         findViewById(R.id.greenDao).setOnClickListener(this);
         findViewById(R.id.propertyChangeSupport).setOnClickListener(this);
+        findViewById(R.id.websokcet).setOnClickListener(this);
     }
 
 
@@ -133,6 +134,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.propertyChangeSupport:
                 myStartActivity(PropertyChangeSupportActivity.class,false);
+                break;
+            case R.id.websokcet:
+                myStartActivity(WebsocketActivity.class,false);
                 break;
             default:
                 break;
