@@ -865,9 +865,6 @@ public class XywyIMService {
 
             @Override
             public void onClose(int code, String reason, boolean remote) {
-                XywyIMService.this.connectState = ConnectState.STATE_UNCONNECTED;
-                LogUtil.i("onClose() publishConnectState   ");
-                publishConnectState();
                 // 当消息发送后，如果连接关闭，将消息发送状态的改成发送失败的状态
                 //需要将数据库中的数据进行查询，查看当前发送状态是正在发送中的消息，将这些消息的发送状态置为发送失败
                 DBUtils.getInstance().getSendingMessage(new DBUtils.GetMessageListListener(){
@@ -880,6 +877,14 @@ public class XywyIMService {
                     }
                 });
                 if(remote){
+                    //当服务端返回异常时，关闭本次连接，由于在异常时，
+                    // 已经通知了监听页面连接状态的改变，这时，由于本地主动断开连接，则onClose方法中，
+                    // 如果是本地断开连接，则不必再次发送连接状态改变的通知给监听页面，
+                    // 只要在服务端断开连接时，将连接状态的改变通知给监听页面，
+                    // 这样就可以减少本地断开连接时，重复的通知监听页面连接状态的改变
+                    XywyIMService.this.connectState = ConnectState.STATE_UNCONNECTED;
+                    LogUtil.i("onClose() publishConnectState   ");
+                    publishConnectState();
                     //如果是服务端主动断开连接，这客户端也断开连接，如果是客户端主动断开连接，则不用再次
                     //调用WebSocketApi.getInStance().close();进行客户端的断开连接的操作
                     closeNew();
