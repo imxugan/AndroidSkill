@@ -33,6 +33,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicReferenceArray;
 
 import rx.android.schedulers.AndroidSchedulers;
@@ -51,8 +53,6 @@ public class XywyIMService {
 
     private final String HOST = "imnode2.gobelieve.io";
     private final int PORT = 23000;
-    private long reconnectTimeStampNow;
-    private long reconnectTimeStampOld;
 
     public enum ConnectState {
         STATE_UNCONNECTED,
@@ -135,6 +135,7 @@ public class XywyIMService {
     private String pwd = "";
 
     private byte reconnectCounts = 0;
+    ExecutorService executorService ;
 
     private static XywyIMService im = new XywyIMService();
 
@@ -159,6 +160,8 @@ public class XywyIMService {
 //
 //        this.host = HOST;
 //        this.port = PORT;
+
+        executorService = Executors.newSingleThreadExecutor();
     }
 
 //    public static DaoSession getDaoSession(Context context) {
@@ -890,20 +893,30 @@ public class XywyIMService {
                 LogUtil.i("onError()     publishConnectState   "+""+e.getMessage());
                 publishConnectState();
                 WebSocketApi.getInStance().close();
-                reconnectTimeStampNow = System.currentTimeMillis();
-                if(reconnectCounts == 0){
-                    reconnectTimeStampOld = reconnectTimeStampNow;
-                }
 
                 if(reconnectCounts == 3){
                     reconnectCounts = 0;
+                    executorService.shutdown();
                     return;
                 }
-                if((reconnectTimeStampNow-reconnectTimeStampOld)>= reconnectCounts*30000){
-                    XywyIMService.this.connect(vhost,userName,pwd);
-                }
 
-                reconnectCounts++;
+                executorService.execute(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        try {
+                            LogUtil.i("reconnectCounts      "+reconnectCounts);
+                            Thread.sleep(reconnectCounts*30000);
+                            XywyIMService.this.connect(vhost,userName,pwd);
+                        } catch (InterruptedException e1) {
+                            e1.printStackTrace();
+                        }
+                        reconnectCounts++;
+                    }
+                });
+
+
+
             }
         });
 
@@ -1606,6 +1619,8 @@ public class XywyIMService {
     }
 
     private void publishPeerMessageACKNew(String msgLocalID) {
+        //消息发送成功后，将从连的次数重新置为0
+        reconnectCounts = 0;
         for (int i = 0; i < peerObservers.size(); i++ ) {
             PeerMessageObserver ob = peerObservers.get(i);
             ob.onPeerMessageACKNew(msgLocalID);
