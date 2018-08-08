@@ -150,7 +150,9 @@ public class MessageRowViewNew extends FrameLayout implements PropertyChangeList
         }
 
         if("time".equals(event.getPropertyName())){
-            ToastUtils.shortToast(context,"新的发送时间是  "+event.getNewValue());
+            if(MessageSendState.MESSAGE_SEND_SUCCESS == this.messageNew.getSendState()){
+                ToastUtils.shortToast(context,"新的发送时间是  "+event.getNewValue());
+            }
         }
 
         if (event.getPropertyName().equals("sender")) {

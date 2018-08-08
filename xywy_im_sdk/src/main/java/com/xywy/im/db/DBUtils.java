@@ -142,20 +142,29 @@ public class DBUtils {
         });
     }
 
+    public void close(){
+        closeDaoSession();
+        closeHelper();
+    }
+
     /**
      * 关闭DaoSession
      */
-    public void closeDaoSession(){
+    private void closeDaoSession(){
         if(null != daoSession){
             daoSession.clear();
             daoSession = null;
         }
     }
 
-    public void closeHelper(){
+    private void closeHelper(){
         if(null != helper){
             helper.close();
             helper = null;
+        }
+
+        if(instacne !=null){
+            instacne = null;
         }
     }
 

@@ -14,6 +14,7 @@ import com.xywy.im.db.DBUtils;
 import com.xywy.im.db.DaoMaster;
 import com.xywy.im.db.DaoSession;
 import com.xywy.im.db.IMessage;
+import com.xywy.im.db.MessageSendState;
 import com.xywy.im.tools.CrashHandler;
 import com.xywy.im.tools.CrashInfo;
 
@@ -489,11 +490,15 @@ public class XywyIMService {
     public boolean sendPeerMessage(com.xywy.im.db.Message msg) {
         if(XywyIMService.this.connectState != ConnectState.STATE_CONNECTED){
             LogUtil.i("连接失败，无法发送    "+XywyIMService.this.connectState);
-            publishPeerMessageFailureNew(msg.getMsgId());
+            if(MessageSendState.MESSAGE_SEND_LISTENED == msg.getSendState()){
+                publishPeerMessageFailureNew(msg.getMsgId());
+            }
             return false;
         }
         if (!sendMessage(msg)) {
-            publishPeerMessageFailureNew(msg.getMsgId());
+            if(MessageSendState.MESSAGE_SEND_LISTENED == msg.getSendState()){
+                publishPeerMessageFailureNew(msg.getMsgId());
+            }
             return false;
         }
 //        peerMessages.put(new Integer(msg.seq), im);

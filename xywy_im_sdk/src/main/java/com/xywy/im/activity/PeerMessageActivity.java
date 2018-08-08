@@ -180,6 +180,8 @@ public class PeerMessageActivity extends MessageActivity implements
         XywyIMService.getInstance().removeObserver(this);
         XywyIMService.getInstance().removePeerObserver(this);
         AudioDownloader.getInstance().removeObserver(this);
+        //退出后，添加关闭数据库的操作
+        DBUtils.getInstance().close();
     }
 
     protected void loadConversationData() {
@@ -396,8 +398,8 @@ public class PeerMessageActivity extends MessageActivity implements
 
     @Override
     public void onPeerMessageNew(Message msg) {
-        Log.e("WebSocketApi","onPeerMessageNew   msgLocalID    "+msg.getMsgId());
-        //将数据存入数据库
+        LogUtil.e("onPeerMessageNew   msgLocalID    "+msg.getMsgId());
+        //将将系统推送的数据存入数据库
         DBUtils.getInstance().addMessage(msg, new DBUtils.AddMessageListener() {
             @Override
             public void addMessage(Message message) {
@@ -408,7 +410,7 @@ public class PeerMessageActivity extends MessageActivity implements
 
     @Override
     public void onPeerMessageACKNew(final String msgLocalID) {
-        Log.e("WebSocketApi","onPeerMessageACKNew   msgLocalID    "+msgLocalID+"        "+Thread.currentThread().getName());
+        LogUtil.e("onPeerMessageACKNew   msgLocalID    "+msgLocalID+"        "+Thread.currentThread().getName());
         DBUtils.getInstance().getMessageByMessageId(msgLocalID,new DBUtils.GetMessageListener(){
 
             @Override
@@ -418,6 +420,7 @@ public class PeerMessageActivity extends MessageActivity implements
                     return;
                 }
                 msg.setSendState(MessageSendState.MESSAGE_SEND_SUCCESS);
+                msg.setTime(msg.getTime());
                 DBUtils.getInstance().upateMessage(msg);
                 updateMessage(msg);
             }
