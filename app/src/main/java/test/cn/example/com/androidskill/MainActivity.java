@@ -11,6 +11,7 @@ import test.cn.example.com.androidskill.callback.CallBackActivity;
 import test.cn.example.com.androidskill.designpattern.DesignPatternActivity;
 import test.cn.example.com.androidskill.login.view.LoginActivity;
 import test.cn.example.com.androidskill.rxjavaTest.RxJavaTestActivity;
+import test.cn.example.com.androidskill.sqlite.SqliteActivity;
 import test.cn.example.com.androidskill.websocket.WebsocketActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.greenDao).setOnClickListener(this);
         findViewById(R.id.propertyChangeSupport).setOnClickListener(this);
         findViewById(R.id.websokcet).setOnClickListener(this);
+        findViewById(R.id.sqlite).setOnClickListener(this);
     }
 
 
@@ -137,6 +139,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.websokcet:
                 myStartActivity(WebsocketActivity.class,false);
+                break;
+            case R.id.sqlite:
+                myStartActivity(SqliteActivity.class,false);
                 break;
             default:
                 break;
