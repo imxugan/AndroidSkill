@@ -100,6 +100,20 @@ public class DBManager {
         return users;
     }
 
+    public ArrayList<String> queryMsgTableName(String tableName){
+        ArrayList<String> data = new ArrayList<>();
+
+        Cursor cursor = db.rawQuery("select msgTableName from " + tableName, null);
+        if(null != cursor && cursor.getCount()>0){
+            while(cursor.moveToNext()){
+                String msgTableName = cursor.getString(cursor.getColumnIndex("msgTableName"));
+                data.add(msgTableName);
+            }
+        }
+        cursor.close();
+        return data;
+    }
+
     private Cursor queryTheCursor(String tableName) {
         Cursor c = db.rawQuery("select * from "+tableName,null);
         return c;

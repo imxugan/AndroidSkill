@@ -52,6 +52,7 @@ public class SqliteActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.btn_15).setOnClickListener(this);
         findViewById(R.id.btn_16).setOnClickListener(this);
         findViewById(R.id.btn_17).setOnClickListener(this);
+        findViewById(R.id.btn_18).setOnClickListener(this);
         try{
             dbManager = new DBManager(this);
         }catch (Exception e){
@@ -158,12 +159,11 @@ public class SqliteActivity extends BaseActivity implements View.OnClickListener
                     new Thread(){
                         @Override
                         public void run() {
-                            LogUtil.i(""+finalI);
                             List<User> users = new ArrayList<>();
                             User u = new User();
                             u.userId = finalI +1;
                             u.userName = "zhangsan  "+finalI;
-                            u.msgTableName = 123456;
+                            u.msgTableName = finalI;
                             users.add(u);
                             dbManager.addUsers(users,"user_1");
                         }
@@ -189,13 +189,11 @@ public class SqliteActivity extends BaseActivity implements View.OnClickListener
                     new Thread(){
                         @Override
                         public void run() {
-                            List<User> userList = new ArrayList<User>();
                             User user = new User();
                             user.userId = finalI +10;
                             user.userName = "zhangsan   "+finalI;
                             user.msgTableName = finalI + 10;
-                            userList.add(user);
-                            dbManager.addUsers(userList,"user_1");
+                            dbManager.add(user,"user_1");
                         }
                     }.start();
                 }
@@ -207,6 +205,13 @@ public class SqliteActivity extends BaseActivity implements View.OnClickListener
                 for (int i = 0; i <users1.size(); i++) {
                     LogUtil.i("分页查询的表一中的数据是 "+users1.get(i).userId+"    "+users1.get(i).userName+"  "+users1.get(i).msgTableName);
                 }
+                break;
+            case R.id.btn_18:
+                ArrayList<String> data_msgTableNaems = dbManager.queryMsgTableName("user_1");
+                for (int i = 0; i < data_msgTableNaems.size(); i++) {
+                    LogUtil.i(""+data_msgTableNaems.get(i));
+                }
+
                 break;
         }
     }
