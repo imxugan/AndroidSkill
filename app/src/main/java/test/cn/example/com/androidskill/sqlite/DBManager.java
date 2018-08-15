@@ -132,25 +132,29 @@ public class DBManager {
 
     }
 
-    public ArrayList<Message> queryMsg(String tableName){
+    public ArrayList<Message> queryMsg(String tableName,int pageSize){
         ArrayList<Message> messages = new ArrayList<>();
-        Message msg = null;
-        Cursor cursor = queryTheCursor(tableName);
-        if(null != cursor && cursor.getCount()>0){
-            LogUtil.i("cursor.getCount()=   "+cursor.getCount());
-            while (cursor.moveToNext()){
-                msg = new Message();
-                msg.setMsgId(cursor.getString(cursor.getColumnIndex("msgId")));
-                msg.setSender(cursor.getLong(cursor.getColumnIndex("sender")));
-                msg.setReceiver(cursor.getLong(cursor.getColumnIndex("receiver")));
-                msg.setTime(cursor.getLong(cursor.getColumnIndex("time")));
-                msg.setContent(cursor.getString(cursor.getColumnIndex("content")));
-                msg.setMsgType(cursor.getInt(cursor.getColumnIndex("msgType")));
-                msg.setIsOutgoing(cursor.getInt(cursor.getColumnIndex("isOutgoing")));
-                msg.setSendState(cursor.getInt(cursor.getColumnIndex("sendState")));
-                messages.add(msg);
+        if(helper.tableIsExist(tableName)){
+            Message msg = null;
+            Cursor cursor = db.rawQuery("select * from "+tableName+" order by time desc limit 10 offset "+pageSize,null);
+            LogUtil.i("cursor.getCount()=   "+cursor.getCount()+"      pageSize="+pageSize);
+            if(null != cursor && cursor.getCount()>0){
+                while (cursor.moveToNext()){
+                    msg = new Message();
+                    msg.setMsgId(cursor.getString(cursor.getColumnIndex("msgId")));
+                    msg.setSender(cursor.getLong(cursor.getColumnIndex("sender")));
+                    msg.setReceiver(cursor.getLong(cursor.getColumnIndex("receiver")));
+                    msg.setTime(cursor.getLong(cursor.getColumnIndex("time")));
+                    msg.setContent(cursor.getString(cursor.getColumnIndex("content")));
+                    msg.setMsgType(cursor.getInt(cursor.getColumnIndex("msgType")));
+                    msg.setIsOutgoing(cursor.getInt(cursor.getColumnIndex("isOutgoing")));
+                    msg.setSendState(cursor.getInt(cursor.getColumnIndex("sendState")));
+                    messages.add(msg);
+                }
+                cursor.close();
             }
-            cursor.close();
+        }else {
+            LogUtil.i(tableName+"   is not exist");
         }
         return messages;
     }

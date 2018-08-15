@@ -1,11 +1,14 @@
 package test.cn.example.com.androidskill.sqlite;
 
+import android.util.TimeUtils;
 import android.view.View;
 
 import com.xywy.im.db.MessageSendState;
 
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,6 +25,8 @@ import test.cn.example.com.util.LogUtil;
 public class SqliteActivity extends BaseActivity implements View.OnClickListener {
 
     private DBManager dbManager;
+    private int index;
+    private int page;
 
     @Override
     public int getLayoutId() {
@@ -230,6 +235,7 @@ public class SqliteActivity extends BaseActivity implements View.OnClickListener
             case R.id.btn_20:
                 LogUtil.i("btn_20");
                 //异步向消息表1中添加数据
+                index +=10;
                 for (int i = 0; i < 10; i++) {
                     final int finalI = i;
                     new Thread(){
@@ -241,7 +247,7 @@ public class SqliteActivity extends BaseActivity implements View.OnClickListener
                                 msg.setSender(2L);
                                 msg.setReceiver(1L);
                                 msg.setTime(System.currentTimeMillis());
-                                msg.setContent(""+finalI);
+                                msg.setContent(""+(finalI+index));
                                 msg.setMsgType(MessageSendState.MESSAGE_SEND_LISTENED);
                                 msg.setIsOutgoing(1);
                                 msg.setSendState(MessageSendState.MESSAGE_SEND_LISTENED);
@@ -255,11 +261,14 @@ public class SqliteActivity extends BaseActivity implements View.OnClickListener
                 }
                 break;
             case R.id.btn_21:
+                LogUtil.i("btn_21");
                 //对消息表1进行分页查询
-                ArrayList<Message> messages = dbManager.queryMsg("msg_1");
+                ArrayList<Message> messages = dbManager.queryMsg("msg_1",page);
                 for (int i = 0; i < messages.size(); i++) {
-                    LogUtil.i(messages.get(i).getMsgId()+"      "+messages.get(i).getContent());
+                    LogUtil.i(messages.get(i).getMsgId()+"   "+ getDateTime(messages.get(i).getTime())+"   "+messages.get(i).getContent());
+//                    LogUtil.i(messages.get(i).getMsgId()+"  "+ messages.get(i).getTime()+"   "+messages.get(i).getContent());
                 }
+                page +=10;
                 break;
             case R.id.btn_22:
                 //修改消息表一中的数据
@@ -271,5 +280,10 @@ public class SqliteActivity extends BaseActivity implements View.OnClickListener
                 break;
 
         }
+    }
+
+    private String getDateTime(Long timeStamp){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss:SSS");
+        return simpleDateFormat.format(new Date(timeStamp));
     }
 }
