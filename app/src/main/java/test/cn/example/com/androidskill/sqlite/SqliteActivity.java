@@ -272,7 +272,12 @@ public class SqliteActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.btn_22:
                 //修改消息表一中的数据
-
+                String msgId = "aa067239379945e1ae175bb2d3a7611d";
+                Message msg = new Message();
+                msg.setMsgId(msgId);
+                msg.setTime(System.currentTimeMillis());
+                msg.setSendState(1);
+                dbManager.updateMsg(msg,"msg_1");
                 break;
             case R.id.btn_23:
                 //删除消息表一中的数据

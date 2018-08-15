@@ -159,6 +159,20 @@ public class DBManager {
         return messages;
     }
 
+    public void updateMsg(Message message,String tableName){
+        db.beginTransaction();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("time",message.getTime());
+        contentValues.put("sendState",message.getSendState());
+        try{
+            int update = db.update(tableName, contentValues, "msgId=?", new String[]{message.getMsgId()});
+            LogUtil.i("update=  "+update);
+            db.setTransactionSuccessful();
+        }finally {
+            db.endTransaction();
+        }
+    }
+
     private Cursor queryTheCursor(String tableName) {
         Cursor c = db.rawQuery("select * from "+tableName,null);
         return c;
