@@ -1,8 +1,12 @@
 package test.cn.example.com.androidskill.sqlite;
 
+import android.content.Intent;
+import android.text.TextUtils;
 import android.util.TimeUtils;
 import android.view.View;
+import android.widget.EditText;
 
+import com.xywy.im.db.IMessage;
 import com.xywy.im.db.MessageSendState;
 
 import java.io.UnsupportedEncodingException;
@@ -17,6 +21,7 @@ import test.cn.example.com.androidskill.base.BaseActivity;
 import test.cn.example.com.androidskill.model.sqlite.Message;
 import test.cn.example.com.androidskill.model.sqlite.User;
 import test.cn.example.com.util.LogUtil;
+import test.cn.example.com.util.ToastUtils;
 
 /**
  * Created by xugan on 2018/8/10.
@@ -27,6 +32,8 @@ public class SqliteActivity extends BaseActivity implements View.OnClickListener
     private DBManager dbManager;
     private int index;
     private int page;
+    private EditText et_sender;
+    private EditText et_receiver;
 
     @Override
     public int getLayoutId() {
@@ -68,6 +75,10 @@ public class SqliteActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.btn_21).setOnClickListener(this);
         findViewById(R.id.btn_22).setOnClickListener(this);
         findViewById(R.id.btn_23).setOnClickListener(this);
+        findViewById(R.id.btn_24).setOnClickListener(this);
+        et_sender = (EditText) findViewById(R.id.et_sender);
+        et_receiver = (EditText) findViewById(R.id.et_receiver);
+        findViewById(R.id.btn_login).setOnClickListener(this);
         try{
             dbManager = new DBManager(this);
         }catch (Exception e){
@@ -286,7 +297,31 @@ public class SqliteActivity extends BaseActivity implements View.OnClickListener
                 msg2.setMsgId(msgId2);
                 dbManager.deleteMsg(msg2,"msg_1");
                 break;
+            case R.id.btn_24:
+                ArrayList<Message> messages1 = dbManager.queryAll("msg_1");
+                for (int i = 0; i < messages1.size(); i++) {
+                    LogUtil.i(messages1.get(i).getMsgId()+"  "+getDateTime(messages1.get(i).getTime())+"  "+messages1.get(i).getContent());
+                }
+                break;
+            case R.id.btn_login:
+                //登录
+                String sender = et_sender.getText().toString().trim();
+                String receiver = et_receiver.getText().toString().trim();
+                if(TextUtils.isEmpty(sender)){
+                    ToastUtils.shortToast(SqliteActivity.this,"发送用户id不能为空");
+                    return;
+                }
 
+                if(TextUtils.isEmpty(receiver)){
+                    ToastUtils.shortToast(SqliteActivity.this,"接受用户id不能为空");
+                    return;
+                }
+                dbManager.createUserTable("u_"+sender);//登录的时候创建用户信息表
+                Intent intent = new Intent(SqliteActivity.this, ChatActivity.class);
+                intent.putExtra("sender",sender);
+                intent.putExtra("receiver",receiver);
+                startActivity(intent);
+                break;
         }
     }
 

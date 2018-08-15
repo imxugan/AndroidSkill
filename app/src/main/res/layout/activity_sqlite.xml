@@ -12,7 +12,7 @@
     tools:context="test.cn.example.com.androidskill.LannchModeActivity">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:orientation="horizontal">
         <Button
             android:id="@+id/btn_1"
@@ -20,6 +20,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="10sp"
             android:text="创建表1"/>
         <Button
             android:id="@+id/btn_2"
@@ -27,11 +28,12 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="10sp"
             android:text="创建表2"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:orientation="horizontal">
         <Button
             android:id="@+id/btn_3"
@@ -39,6 +41,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="10sp"
             android:text="批量创建表"/>
         <Button
             android:id="@+id/btn_4"
@@ -46,11 +49,12 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="10sp"
             android:text="批量删除表"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:orientation="horizontal">
         <Button
             android:id="@+id/btn_5"
@@ -58,6 +62,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="10sp"
             android:text="查询所有的表"/>
         <Button
             android:id="@+id/btn_6"
@@ -65,6 +70,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="10sp"
             android:text="查询所有表中的数据"/>
     </LinearLayout>
     <LinearLayout
@@ -77,6 +83,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="10sp"
             android:text="向表1中添加数据"/>
         <Button
             android:id="@+id/btn_8"
@@ -84,6 +91,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="10sp"
             android:text="查询表1中的数据"/>
         <Button
             android:id="@+id/btn_9"
@@ -91,6 +99,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="10sp"
             android:text="更新表1中的数据"/>
         <Button
             android:id="@+id/btn_10"
@@ -98,6 +107,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="10sp"
             android:text="删除表1中的数据"/>
     </LinearLayout>
     <LinearLayout
@@ -110,6 +120,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="10sp"
             android:text="向表2中添加数据"/>
         <Button
             android:id="@+id/btn_12"
@@ -117,6 +128,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="10sp"
             android:text="查询表2中的数据"/>
         <Button
             android:id="@+id/btn_13"
@@ -124,6 +136,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="10sp"
             android:text="更新表2中的数据"/>
         <Button
             android:id="@+id/btn_14"
@@ -131,6 +144,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="10sp"
             android:text="删除表2中的数据"/>
     </LinearLayout>
     <LinearLayout
@@ -143,6 +157,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="10sp"
             android:text="同时向表1和表2中添加数据"/>
         <Button
             android:id="@+id/btn_16"
@@ -150,6 +165,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="10sp"
             android:text="异步向表1中添加数据"/>
         <Button
             android:id="@+id/btn_17"
@@ -157,6 +173,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="10sp"
             android:text="对表1进行分页查询"/>
         <Button
             android:id="@+id/btn_18"
@@ -164,6 +181,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="10sp"
             android:text="查询表一中的msgTableName"/>
     </LinearLayout>
     <LinearLayout
@@ -176,6 +194,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="10sp"
             android:text="创建消息表1和表2"/>
         <Button
             android:id="@+id/btn_20"
@@ -183,6 +202,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="10sp"
             android:text="异步向消息表1中添加数据"/>
         <Button
             android:id="@+id/btn_21"
@@ -190,6 +210,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="10sp"
             android:text="对消息表1进行分页查询"/>
         <Button
             android:id="@+id/btn_22"
@@ -197,6 +218,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="10sp"
             android:text="修改消息表一中的数据"/>
         <Button
             android:id="@+id/btn_23"
@@ -204,6 +226,54 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="10sp"
             android:text="删除消息表一中的数据"/>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_24"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="查询消息表1中的所有数据"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="发送用户id"/>
+        <EditText
+            android:id="@+id/et_sender"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="接受用户id"/>
+        <EditText
+            android:id="@+id/et_receiver"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="登录"/>
 </LinearLayout>

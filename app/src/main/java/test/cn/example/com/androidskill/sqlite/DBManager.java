@@ -132,6 +132,29 @@ public class DBManager {
 
     }
 
+    public ArrayList<Message> queryAll(String tableName){
+        ArrayList<Message> messages = new ArrayList<>();
+        if(helper.tableIsExist(tableName)){
+            Message message = null;
+            Cursor cursor = queryTheCursor(tableName);
+            if(null != cursor && cursor.getCount()>0){
+                while (cursor.moveToNext()){
+                    message = new Message();
+                    message.setMsgId(cursor.getString(cursor.getColumnIndex("msgId")));
+                    message.setSender(cursor.getLong(cursor.getColumnIndex("sender")));
+                    message.setReceiver(cursor.getLong(cursor.getColumnIndex("receiver")));
+                    message.setTime(cursor.getLong(cursor.getColumnIndex("time")));
+                    message.setContent(cursor.getString(cursor.getColumnIndex("content")));
+                    message.setMsgType(cursor.getInt(cursor.getColumnIndex("msgType")));
+                    message.setIsOutgoing(cursor.getInt(cursor.getColumnIndex("isOutgoing")));
+                    message.setSendState(cursor.getInt(cursor.getColumnIndex("sendState")));
+                    messages.add(message);
+                }
+            }
+        }
+        return messages;
+    }
+
     public ArrayList<Message> queryMsg(String tableName,int pageSize){
         ArrayList<Message> messages = new ArrayList<>();
         if(helper.tableIsExist(tableName)){
