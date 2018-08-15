@@ -173,6 +173,16 @@ public class DBManager {
         }
     }
 
+    public void deleteMsg(Message msg,String tableName){
+        db.beginTransaction();
+        try {
+            int delete = db.delete(tableName, "msgId=?", new String[]{msg.getMsgId()});
+            LogUtil.i("delete=  "+delete);
+            db.setTransactionSuccessful();
+        }finally {
+            db.endTransaction();
+        }
+    }
     private Cursor queryTheCursor(String tableName) {
         Cursor c = db.rawQuery("select * from "+tableName,null);
         return c;

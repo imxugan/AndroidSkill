@@ -281,7 +281,10 @@ public class SqliteActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.btn_23:
                 //删除消息表一中的数据
-
+                String msgId2 = "aa067239379945e1ae175bb2d3a7611d";
+                Message msg2 = new Message();
+                msg2.setMsgId(msgId2);
+                dbManager.deleteMsg(msg2,"msg_1");
                 break;
 
         }
