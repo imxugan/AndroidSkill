@@ -164,6 +164,46 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="查询表表一中的msgTableName"/>
+            android:text="查询表一中的msgTableName"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_19"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="创建消息表1和表2"/>
+        <Button
+            android:id="@+id/btn_20"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="异步向消息表1中添加数据"/>
+        <Button
+            android:id="@+id/btn_21"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="对消息表1进行分页查询"/>
+        <Button
+            android:id="@+id/btn_22"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="修改消息表一中的数据"/>
+        <Button
+            android:id="@+id/btn_23"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="删除消息表一中的数据"/>
     </LinearLayout>
 </LinearLayout>

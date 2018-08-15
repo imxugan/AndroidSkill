@@ -2,11 +2,16 @@ package test.cn.example.com.androidskill.sqlite;
 
 import android.view.View;
 
+import com.xywy.im.db.MessageSendState;
+
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.androidskill.base.BaseActivity;
+import test.cn.example.com.androidskill.model.sqlite.Message;
 import test.cn.example.com.androidskill.model.sqlite.User;
 import test.cn.example.com.util.LogUtil;
 
@@ -53,6 +58,11 @@ public class SqliteActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.btn_16).setOnClickListener(this);
         findViewById(R.id.btn_17).setOnClickListener(this);
         findViewById(R.id.btn_18).setOnClickListener(this);
+        findViewById(R.id.btn_19).setOnClickListener(this);
+        findViewById(R.id.btn_20).setOnClickListener(this);
+        findViewById(R.id.btn_21).setOnClickListener(this);
+        findViewById(R.id.btn_22).setOnClickListener(this);
+        findViewById(R.id.btn_23).setOnClickListener(this);
         try{
             dbManager = new DBManager(this);
         }catch (Exception e){
@@ -193,7 +203,7 @@ public class SqliteActivity extends BaseActivity implements View.OnClickListener
                             user.userId = finalI +10;
                             user.userName = "zhangsan   "+finalI;
                             user.msgTableName = finalI + 10;
-                            dbManager.add(user,"user_1");
+                            dbManager.addUser(user,"user_1");
                         }
                     }.start();
                 }
@@ -211,8 +221,55 @@ public class SqliteActivity extends BaseActivity implements View.OnClickListener
                 for (int i = 0; i < data_msgTableNaems.size(); i++) {
                     LogUtil.i(""+data_msgTableNaems.get(i));
                 }
+                break;
+            case R.id.btn_19:
+                //创建消息表1和表2
+                dbManager.createMessageTable("msg_1");
+                dbManager.createMessageTable("msg_2");
+                break;
+            case R.id.btn_20:
+                LogUtil.i("btn_20");
+                //异步向消息表1中添加数据
+                for (int i = 0; i < 10; i++) {
+                    final int finalI = i;
+                    new Thread(){
+                        @Override
+                        public void run() {
+                            Message msg = new Message();
+                            try {
+                                msg.setMsgId(new String(UUID.randomUUID().toString().replace("-", "").getBytes(),"utf-8"));
+                                msg.setSender(2L);
+                                msg.setReceiver(1L);
+                                msg.setTime(System.currentTimeMillis());
+                                msg.setContent(""+finalI);
+                                msg.setMsgType(MessageSendState.MESSAGE_SEND_LISTENED);
+                                msg.setIsOutgoing(1);
+                                msg.setSendState(MessageSendState.MESSAGE_SEND_LISTENED);
+                                dbManager.addMsg(msg,"msg_1");
+                            } catch (UnsupportedEncodingException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    }.start();
+                }
+                break;
+            case R.id.btn_21:
+                //对消息表1进行分页查询
+                ArrayList<Message> messages = dbManager.queryMsg("msg_1");
+                for (int i = 0; i < messages.size(); i++) {
+                    LogUtil.i(messages.get(i).getMsgId()+"      "+messages.get(i).getContent());
+                }
+                break;
+            case R.id.btn_22:
+                //修改消息表一中的数据
 
                 break;
+            case R.id.btn_23:
+                //删除消息表一中的数据
+
+                break;
+
         }
     }
 }

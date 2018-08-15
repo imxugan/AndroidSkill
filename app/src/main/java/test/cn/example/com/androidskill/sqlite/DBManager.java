@@ -5,9 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
+import test.cn.example.com.androidskill.model.sqlite.Message;
 import test.cn.example.com.androidskill.model.sqlite.User;
 import test.cn.example.com.util.LogUtil;
 
@@ -40,7 +42,7 @@ public class DBManager {
         }
     }
 
-    public void add(User user,String tableName){
+    public void addUser(User user,String tableName){
         if(helper.tableIsExist(tableName)){
             db.beginTransaction();
            try{
@@ -112,6 +114,45 @@ public class DBManager {
         }
         cursor.close();
         return data;
+    }
+
+    public void addMsg(Message msg, String tableName){
+        if(helper.tableIsExist(tableName)){
+            db.beginTransaction();
+            try {
+                db.execSQL("insert or ignore into "+tableName+" values(null,?,?,?,?,?,?,?,?)",new Object[]{msg.getMsgId(),msg.getSender()+"",msg.getReceiver()+""
+                        ,msg.getTime()+"",msg.getContent(),msg.getMsgType()+"",msg.getIsOutgoing()+"",msg.getSendState()+""});
+                db.setTransactionSuccessful();
+            }finally {
+                db.endTransaction();
+            }
+        }else {
+            LogUtil.i(tableName+" is not exist");
+        }
+
+    }
+
+    public ArrayList<Message> queryMsg(String tableName){
+        ArrayList<Message> messages = new ArrayList<>();
+        Message msg = null;
+        Cursor cursor = queryTheCursor(tableName);
+        if(null != cursor && cursor.getCount()>0){
+            LogUtil.i("cursor.getCount()=   "+cursor.getCount());
+            while (cursor.moveToNext()){
+                msg = new Message();
+                msg.setMsgId(cursor.getString(cursor.getColumnIndex("msgId")));
+                msg.setSender(cursor.getLong(cursor.getColumnIndex("sender")));
+                msg.setReceiver(cursor.getLong(cursor.getColumnIndex("receiver")));
+                msg.setTime(cursor.getLong(cursor.getColumnIndex("time")));
+                msg.setContent(cursor.getString(cursor.getColumnIndex("content")));
+                msg.setMsgType(cursor.getInt(cursor.getColumnIndex("msgType")));
+                msg.setIsOutgoing(cursor.getInt(cursor.getColumnIndex("isOutgoing")));
+                msg.setSendState(cursor.getInt(cursor.getColumnIndex("sendState")));
+                messages.add(msg);
+            }
+            cursor.close();
+        }
+        return messages;
     }
 
     private Cursor queryTheCursor(String tableName) {

@@ -33,7 +33,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void createMessageTable(SQLiteDatabase db ,String tableName){
         db.beginTransaction();
         try {
-            String message_table = "create table if not exists "+tableName+" (_id integer primary key autoincrement,msgId char(32) unique,sender integer ,receiver integer,time integer,content varchar(140),msgTpe char(2),isOutgoing char(1) ,sendState char(1))";
+            String message_table = "create table if not exists "+tableName+" (_id integer primary key autoincrement,msgId char(32) unique,sender integer ,receiver integer,time integer,content varchar(140),msgType integer,isOutgoing integer ,sendState integer)";
             db.execSQL(message_table);
             db.setTransactionSuccessful();
         }finally {
