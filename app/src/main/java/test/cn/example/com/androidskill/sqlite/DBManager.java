@@ -57,7 +57,7 @@ public class DBManager {
 
     }
 
-    public void update(User user,String tableName){
+    public void updateUser(User user,String tableName){
         db.beginTransaction();
         ContentValues cv = new ContentValues();
         cv.put("userName",user.userName);
@@ -70,7 +70,7 @@ public class DBManager {
         }
     }
 
-    public List<User> query(String tableName){
+    public List<User> queryAllUsers(String tableName){
         ArrayList<User> users = new ArrayList<>();
         Cursor c = queryTheCursor(tableName);
         if(null != c && c.getCount()>0){
@@ -86,7 +86,7 @@ public class DBManager {
         return users;
     }
 
-    public List<User> queryByPage(String tableName,int page){
+    public List<User> queryUsersByPage(String tableName,int page){
         ArrayList<User> users = new ArrayList<>();
         //offset代表从第几条记录“之后“开始查询，limit表明查询多少条结果
         Cursor cursor = db.rawQuery("select * from " + tableName + "  order by userId desc limit 10 offset " + page, null);
@@ -132,7 +132,7 @@ public class DBManager {
 
     }
 
-    public ArrayList<Message> queryAll(String tableName){
+    public ArrayList<Message> queryAllMessages(String tableName){
         ArrayList<Message> messages = new ArrayList<>();
         if(helper.tableIsExist(tableName)){
             Message message = null;
@@ -201,6 +201,16 @@ public class DBManager {
         try {
             int delete = db.delete(tableName, "msgId=?", new String[]{msg.getMsgId()});
             LogUtil.i("delete=  "+delete);
+            db.setTransactionSuccessful();
+        }finally {
+            db.endTransaction();
+        }
+    }
+
+    public void deleteAllMsg(String tableName){
+        db.beginTransaction();
+        try {
+            db.delete(tableName,null,null);//db.execSQL("delete from "+tableName);
             db.setTransactionSuccessful();
         }finally {
             db.endTransaction();

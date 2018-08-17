@@ -20,82 +20,77 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import test.cn.example.com.util.LogUtil;
+import test.cn.example.com.util.AppUtils;
+import test.cn.example.com.util.LogUtils;
 
 /**
- *	ClassName:	CrashHandler
- *	Function: 	UncaughtException,当程序发生异常时，该类来捕获异常信息
+ * 程序拦截异常
  */
-class CrashHandler implements UncaughtExceptionHandler {
-	
-	private static final String TAG = "CH";
-	/**
-	 * 	系统默认的UncaughtException处理类
-	 * 	Thread.UncaughtExceptionHandler			:		mDefaultHandler	
-	 */
-	private UncaughtExceptionHandler mDefaultHandler ;
-	/**
-	 * 	CrashHandler实例
-	 * 	CrashHandler:mInstance	
-	 */
-	private static CrashHandler mInstance = new CrashHandler() ;
-	/**
-	 * 	程序的Context对象
-	 * 	Context:mContext	
-	 */
-	private Context mContext ;
+public class CrashHandler implements UncaughtExceptionHandler {
+
+	public static final String TAG = "CrashHandler";
+	private static CrashHandler instance;
+	private UncaughtExceptionHandler mDefaultHandler;
+	private Context mContext;
 	private Map<String, String> infos = new HashMap<String, String>();
 	private DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss", Locale.CHINA);
-	
+
 	/**
-	 * 	Creates a new instance of CrashHandler.
+	 * 保证只有一个CrashHandler实例
 	 */
 	private CrashHandler() {
 	}
+
 	/**
-	 * 	getInstance:{获取CrashHandler实例，单例模式 }
-	 * 	@return 	CrashHandler   
-	 * 	@throws 
+	 * 获取CrashHandler实例 ,单例模式
 	 */
 	public static CrashHandler getInstance() {
-		return mInstance ;
+		if (instance == null) {
+			instance = new CrashHandler();
+		}
+		return instance;
 	}
+
 	/**
-	 * 	init:{初始化}
-	 * 	@param 		paramContext
-	 * 	@return 	void   
-	 * 	@throws 
+	 * 初始化
 	 */
-	public void init(Context paramContext) {
-		mContext = paramContext ;
-		mDefaultHandler = Thread.getDefaultUncaughtExceptionHandler() ;
-		Thread.setDefaultUncaughtExceptionHandler(this) ;
+	public void init(Context context) {
+		mContext = context;
+		mDefaultHandler = Thread.getDefaultUncaughtExceptionHandler();
+		Thread.setDefaultUncaughtExceptionHandler(this);
 	}
-	
+
 	/**
-	 * 	当UncaughtException发生时会转入该重写的方法处理
+	 * 当UncaughtException发生时会转入该函数来处理
 	 */
 	@Override
-	public void uncaughtException(Thread thread , Throwable ex) {
+	public void uncaughtException(Thread thread, Throwable ex) {
+		LogUtils.e(ex.toString());
+		if (AppUtils.isDebug(mContext)){
+			Log.e(TAG, Log.getStackTraceString(ex));
+		}
 		if (!handleException(ex) && mDefaultHandler != null) {
+
 			mDefaultHandler.uncaughtException(thread, ex);
+		} else {
+			AppUtils.restart(mContext);
 		}
 	}
-	
-	/** 
-     * 自定义错误处理，收集错误信息，发送错误报告等操作均在此完成 
-     *  
-     * @param ex 
-     * @return true：如果处理了该异常信息；否则返回 false 
-     */  
-    private boolean handleException(Throwable ex) {  
-        if (ex == null) {  
-            return false;  
-        }
+
+	/**
+	 * 自定义错误处理,收集错误信息 发送错误报告等操作均在此完成.
+	 *
+	 * @param ex
+	 * @return true:如果处理了该异常信息;否则返回false.
+	 */
+	private boolean handleException(final Throwable ex) {
+		if (ex == null) {
+			return false;
+		}
 		collectDeviceInfo(mContext);
 		saveCatchInfo2File(ex);
-        return true;  
-    }
+		return true;
+	}
 
 	/**
 	 * 收集设备参数信息
@@ -103,6 +98,8 @@ class CrashHandler implements UncaughtExceptionHandler {
 	 * @param ctx
 	 */
 	public void collectDeviceInfo(Context ctx) {
+		infos.put("versionName", BuildConfig.VERSION_NAME);
+		infos.put("versionCode", BuildConfig.VERSION_CODE+"");
 		Field[] fields = Build.class.getDeclaredFields();
 		for (Field field : fields) {
 			try {
@@ -114,7 +111,7 @@ class CrashHandler implements UncaughtExceptionHandler {
 			}
 		}
 	}
-	public static String fileDir = Environment.getExternalStorageDirectory()+"/AndroidSkillCrash/";
+	public static String fileDir = Environment.getExternalStorageDirectory()+"/crash_androidskill/";
 	/**
 	 * 保存错误信息到文件中
 	 *
@@ -140,12 +137,11 @@ class CrashHandler implements UncaughtExceptionHandler {
 		}
 		printWriter.close();
 		String result = writer.toString();
-		LogUtil.i(result);
 		sb.append(result);
 		try {
 			long timestamp = System.currentTimeMillis();
 			String time = formatter.format(new Date());
-			String fileName = "crash-" + time + "-" + timestamp + ".txt";
+			String fileName = "XYWYIMcrash-" + time + "-" + timestamp + ".txt";
 			if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
 //                String path = "/mnt/sdcard/crash/";
 				File dir = new File(fileDir);

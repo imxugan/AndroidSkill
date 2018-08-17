@@ -195,7 +195,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="10sp"
-            android:text="创建消息表1和表2"/>
+            android:text="创建消息表2"/>
         <Button
             android:id="@+id/btn_20"
             android:layout_width="0dp"
@@ -203,7 +203,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="10sp"
-            android:text="异步向消息表1中添加数据"/>
+            android:text="异步向消息表2中添加数据"/>
         <Button
             android:id="@+id/btn_21"
             android:layout_width="0dp"
@@ -211,7 +211,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="10sp"
-            android:text="对消息表1进行分页查询"/>
+            android:text="对消息表2进行分页查询"/>
         <Button
             android:id="@+id/btn_22"
             android:layout_width="0dp"
@@ -219,7 +219,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="10sp"
-            android:text="修改消息表一中的数据"/>
+            android:text="修改消息表二中的数据"/>
         <Button
             android:id="@+id/btn_23"
             android:layout_width="0dp"
@@ -227,7 +227,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="10sp"
-            android:text="删除消息表一中的数据"/>
+            android:text="删除消息表二中的数据"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -254,7 +254,8 @@
             android:id="@+id/et_sender"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="1"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

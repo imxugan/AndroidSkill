@@ -43,7 +43,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public void createUserTable(SQLiteDatabase db ,String tableName){
-        String user_table = "create table if not exists "+tableName+ "(_id integer primary key autoincrement,userId integer unique ,userName varchar(20),msgTableName integer unique)";
+        String user_table = "create table if not exists "+tableName+ "(_id integer primary key autoincrement,userId integer ,userName varchar(20),msgTableName integer unique)";
         db.execSQL(user_table);
     }
 
@@ -68,7 +68,7 @@ public class DBHelper extends SQLiteOpenHelper {
             cursor = readableDatabase.rawQuery(getTableNameSql, null);
             while(cursor.moveToNext()){
                 String tableName = cursor.getString(cursor.getColumnIndex("name"));
-                if(tableName.startsWith("user_")){
+                if(tableName.startsWith("user_") || tableName.startsWith("u_") || tableName.startsWith("msg_")){
                     stringNames.add(tableName);
                 }
             }

@@ -3,6 +3,9 @@
           xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- 联网权限 -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!--往sdcard中写入数据的权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+
     <application
         android:name="test.cn.example.com.androidskill.MyApplication"
         android:allowBackup="true"
@@ -327,6 +330,11 @@
         </activity>
 
         <activity android:name="test.cn.example.com.androidskill.sqlite.ChatActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+                  android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name="test.cn.example.com.androidskill.sqlite.ContactActivity"
                   android:screenOrientation="portrait">
         </activity>
 

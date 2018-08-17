@@ -1,7 +1,11 @@
 package test.cn.example.com.androidskill;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
@@ -13,12 +17,15 @@ import test.cn.example.com.androidskill.login.view.LoginActivity;
 import test.cn.example.com.androidskill.rxjavaTest.RxJavaTestActivity;
 import test.cn.example.com.androidskill.sqlite.SqliteActivity;
 import test.cn.example.com.androidskill.websocket.WebsocketActivity;
+import test.cn.example.com.util.ToastUtils;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        checkPermission();
         CrashHandler.getInstance().init(this);
         initView();
     }
@@ -153,6 +160,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(intent);
         if(isFinish){
             finish();
+        }
+    }
+
+    private void checkPermission(){
+        if(Build.VERSION.SDK_INT<Build.VERSION_CODES.M){
+            return;
+        }
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+            if(ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)){
+                ToastUtils.shortToast(this,"请开通相关权限，否则无法正常使用本应用!");
+            }
+        }else{
+            ToastUtils.shortToast(this,"授权成功");
         }
     }
 }

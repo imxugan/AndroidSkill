@@ -93,16 +93,16 @@ public class SqliteActivity extends BaseActivity implements View.OnClickListener
         switch (view.getId()){
             case R.id.btn_1:
                 //创建表1
-                dbManager.createUserTable("user_1");
+                dbManager.createUserTable("u_1");
                 break;
             case R.id.btn_2:
                 //创建表2
-                dbManager.createUserTable("user_2");
+                dbManager.createUserTable("u_2");
                 break;
             case R.id.btn_3:
                 //批量创建表
                 for (int i = 3; i < 10; i++) {
-                    dbManager.createUserTable("user_"+i);
+                    dbManager.createUserTable("u_"+i);
                 }
                 break;
             case R.id.btn_4:
@@ -137,11 +137,11 @@ public class SqliteActivity extends BaseActivity implements View.OnClickListener
                 u.userName = "zhangsan";
                 u.msgTableName = 123456;
                 users.add(u);
-                dbManager.addUsers(users,"user_1");
+                dbManager.addUsers(users,"u_1");
                 break;
             case R.id.btn_8:
                 //查询表一中的数据
-                List<User> query = dbManager.query("user_1");
+                List<User> query = dbManager.queryAllUsers("u_1");
                 for (User user : query) {
                     LogUtil.e("表一中的数据       "+user.userId+"      "+user.userName+"       "+user.msgTableName);
                 }
@@ -162,11 +162,11 @@ public class SqliteActivity extends BaseActivity implements View.OnClickListener
                 user2.userName = "lisi";
                 user2.msgTableName = 23456;
                 userList.add(user2);
-                dbManager.addUsers(userList,"user_2");
+                dbManager.addUsers(userList,"u_2");
                 break;
             case R.id.btn_12:
                 //查询表二中的数据
-                List<User> user_2 = dbManager.query("user_2");
+                List<User> user_2 = dbManager.queryAllUsers("u_2");
                 for (int i = 0; i < user_2.size(); i++) {
                     LogUtil.e("表二中的数据       "+user_2.get(i).userId+"        "+user_2.get(i).userName+"      "+user_2.get(i).msgTableName);
                 }
@@ -191,7 +191,7 @@ public class SqliteActivity extends BaseActivity implements View.OnClickListener
                             u.userName = "zhangsan  "+finalI;
                             u.msgTableName = finalI;
                             users.add(u);
-                            dbManager.addUsers(users,"user_1");
+                            dbManager.addUsers(users,"u_1");
                         }
                     }.start();
                     new Thread(){
@@ -203,7 +203,7 @@ public class SqliteActivity extends BaseActivity implements View.OnClickListener
                             user2.userName = "lisi  "+finalI;
                             user2.msgTableName = finalI;
                             userList.add(user2);
-                            dbManager.addUsers(userList,"user_2");
+                            dbManager.addUsers(userList,"u_2");
                         }
                     }.start();
                 }
@@ -219,21 +219,21 @@ public class SqliteActivity extends BaseActivity implements View.OnClickListener
                             user.userId = finalI +10;
                             user.userName = "zhangsan   "+finalI;
                             user.msgTableName = finalI + 10;
-                            dbManager.addUser(user,"user_1");
+                            dbManager.addUser(user,"u_1");
                         }
                     }.start();
                 }
                 break;
             case R.id.btn_17:
                 //对表一进行分页查询
-                List<User> users1 = dbManager.queryByPage("user_1", 0);
+                List<User> users1 = dbManager.queryUsersByPage("u_1", 0);
                 LogUtil.i("分页查询的数据集合："+users1.size());
                 for (int i = 0; i <users1.size(); i++) {
                     LogUtil.i("分页查询的表一中的数据是 "+users1.get(i).userId+"    "+users1.get(i).userName+"  "+users1.get(i).msgTableName);
                 }
                 break;
             case R.id.btn_18:
-                ArrayList<String> data_msgTableNaems = dbManager.queryMsgTableName("user_1");
+                ArrayList<String> data_msgTableNaems = dbManager.queryMsgTableName("u_1");
                 for (int i = 0; i < data_msgTableNaems.size(); i++) {
                     LogUtil.i(""+data_msgTableNaems.get(i));
                 }
@@ -245,7 +245,7 @@ public class SqliteActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.btn_20:
                 LogUtil.i("btn_20");
-                //异步向消息表1中添加数据
+                //异步向消息表2中添加数据
                 index +=10;
                 for (int i = 0; i < 10; i++) {
                     final int finalI = i;
@@ -262,7 +262,7 @@ public class SqliteActivity extends BaseActivity implements View.OnClickListener
                                 msg.setMsgType(MessageSendState.MESSAGE_SEND_LISTENED);
                                 msg.setIsOutgoing(1);
                                 msg.setSendState(MessageSendState.MESSAGE_SEND_LISTENED);
-                                dbManager.addMsg(msg,"msg_1");
+                                dbManager.addMsg(msg,"msg_2");
                             } catch (UnsupportedEncodingException e) {
                                 e.printStackTrace();
                             }
@@ -273,8 +273,8 @@ public class SqliteActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.btn_21:
                 LogUtil.i("btn_21");
-                //对消息表1进行分页查询
-                ArrayList<Message> messages = dbManager.queryMsg("msg_1",page);
+                //对消息表2进行分页查询
+                ArrayList<Message> messages = dbManager.queryMsg("msg_2",page);
                 for (int i = 0; i < messages.size(); i++) {
                     LogUtil.i(messages.get(i).getMsgId()+"   "+ getDateTime(messages.get(i).getTime())+"   "+messages.get(i).getContent());
 //                    LogUtil.i(messages.get(i).getMsgId()+"  "+ messages.get(i).getTime()+"   "+messages.get(i).getContent());
@@ -288,17 +288,14 @@ public class SqliteActivity extends BaseActivity implements View.OnClickListener
                 msg.setMsgId(msgId);
                 msg.setTime(System.currentTimeMillis());
                 msg.setSendState(1);
-                dbManager.updateMsg(msg,"msg_1");
+                dbManager.updateMsg(msg,"msg_2");
                 break;
             case R.id.btn_23:
-                //删除消息表一中的数据
-                String msgId2 = "aa067239379945e1ae175bb2d3a7611d";
-                Message msg2 = new Message();
-                msg2.setMsgId(msgId2);
-                dbManager.deleteMsg(msg2,"msg_1");
+                //删除消息表二中的数据
+                dbManager.deleteAllMsg("msg_2");
                 break;
             case R.id.btn_24:
-                ArrayList<Message> messages1 = dbManager.queryAll("msg_1");
+                ArrayList<Message> messages1 = dbManager.queryAllMessages("msg_2");
                 for (int i = 0; i < messages1.size(); i++) {
                     LogUtil.i(messages1.get(i).getMsgId()+"  "+getDateTime(messages1.get(i).getTime())+"  "+messages1.get(i).getContent());
                 }
@@ -311,15 +308,16 @@ public class SqliteActivity extends BaseActivity implements View.OnClickListener
                     ToastUtils.shortToast(SqliteActivity.this,"发送用户id不能为空");
                     return;
                 }
-
-                if(TextUtils.isEmpty(receiver)){
-                    ToastUtils.shortToast(SqliteActivity.this,"接受用户id不能为空");
-                    return;
-                }
                 dbManager.createUserTable("u_"+sender);//登录的时候创建用户信息表
-                Intent intent = new Intent(SqliteActivity.this, ChatActivity.class);
-                intent.putExtra("sender",sender);
-                intent.putExtra("receiver",receiver);
+                Intent intent = null;
+                if(TextUtils.isEmpty(receiver)){
+                    intent = new Intent(SqliteActivity.this,ContactActivity.class);
+                    intent.putExtra("sender",sender);
+                }else {
+                    intent = new Intent(SqliteActivity.this, ChatActivity.class);
+                    intent.putExtra("sender",sender);
+                    intent.putExtra("receiver",receiver);
+                }
                 startActivity(intent);
                 break;
         }

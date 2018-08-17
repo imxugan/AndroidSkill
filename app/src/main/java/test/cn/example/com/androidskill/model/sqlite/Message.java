@@ -19,9 +19,9 @@ public class Message {
 
     private String content;
 
-    private int msgType;
+    private int msgType;    // 0 表示 文字，1 表示图片
 
-    private int isOutgoing;
+    private int isOutgoing; //  0 表示接收到的消息，1 表示发送出去的消息
 
     private int sendState;//消息发送状态
 
