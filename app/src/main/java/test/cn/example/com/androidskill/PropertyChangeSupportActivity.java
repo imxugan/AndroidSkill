@@ -40,7 +40,8 @@ public class PropertyChangeSupportActivity extends BaseActivity implements Prope
         findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                someBean.setName("李不是");
+//                someBean.setName("李不是");
+                someBean.setAge(190);
             }
         });
     }

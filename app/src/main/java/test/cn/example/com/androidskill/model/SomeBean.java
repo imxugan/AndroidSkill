@@ -17,6 +17,12 @@ public class SomeBean {
         support.firePropertyChange("name",oldName,this.name);
     }
 
+    public void setAge(int age){
+        int oldAge = this.age;
+        this.age = age;
+        support.firePropertyChange("age",oldAge,this.age);
+    }
+
     private PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     public void addPropertyChangeListener(PropertyChangeListener listener){
