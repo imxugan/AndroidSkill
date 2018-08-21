@@ -14,12 +14,6 @@ android {
 
     }
 
-    //greendao配置
-    greendao {
-        //版本号，升级时可配置
-        schemaVersion 1
-    }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -49,7 +43,5 @@ dependencies {
     compile 'com.commit451:PhotoView:1.2.5'
     compile 'com.squareup.picasso:picasso:2.4.0'
 
-    compile 'org.greenrobot:greendao:3.2.2'
 
-    compile 'net.zetetic:android-database-sqlcipher:3.5.6' //数据库加密相关
 }

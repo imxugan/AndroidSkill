@@ -80,8 +80,8 @@ public class MessageRowViewNew extends FrameLayout implements PropertyChangeList
 
         this.contentView.setTag(this.messageNew);
 
-        if (msg.getIsOutgoing()) {
-            byte sendState = msg.getSendState();
+        if (msg.getIsOutgoing()==1) {
+            int sendState = msg.getSendState();
             switch (sendState){
                 case MessageSendState.MESSAGE_SEND_SUCCESS:
                     ImageView flagView = (ImageView) findViewById(R.id.flag);
@@ -129,7 +129,7 @@ public class MessageRowViewNew extends FrameLayout implements PropertyChangeList
         ImageView flagView = (ImageView) findViewById(R.id.flag);
         ProgressBar sendingProgressBar = (ProgressBar) findViewById(R.id.sending_progress_bar);
         if (event.getPropertyName().equals("sendState")) {
-            byte sendState = this.messageNew.getSendState();
+            int sendState = this.messageNew.getSendState();
             switch (sendState){
                 case MessageSendState.MESSAGE_SEND_SUCCESS:
                     Log.e("WebSocketApi","propertyChange            "+Thread.currentThread().getName());

@@ -437,7 +437,7 @@ public class MessageActivity extends BaseActivity implements
                 int msgType = msg.getMsgType();
                 switch (msgType) {
                     case 0:
-                        rowView = new MessageTextViewNew(MessageActivity.this, !msg.getIsOutgoing(), isShowUserName);
+                        rowView = new MessageTextViewNew(MessageActivity.this, 0==msg.getIsOutgoing(), isShowUserName);
                         break;
                     case 1:
 //                        rowView = new MessageImageViewNew(MessageActivity.this, !msg.getIsOutgoing(), isShowUserName);
@@ -457,7 +457,7 @@ public class MessageActivity extends BaseActivity implements
 //                        rowView = new MessageNotificationView(MessageActivity.this);
 //                        break;
                     default:
-                        rowView = new MessageTextViewNew(MessageActivity.this, !msg.getIsOutgoing(), isShowUserName);
+                        rowView = new MessageTextViewNew(MessageActivity.this, 0==msg.getIsOutgoing(), isShowUserName);
                         break;
                 }
 

@@ -14,9 +14,11 @@ import com.xywy.im.XywyIMService;
 import com.xywy.im.activity.PeerMessageActivity;
 import com.xywy.im.api.IMHttpAPI;
 import com.xywy.im.api.body.PostDeviceToken;
+import com.xywy.im.db.DBManager;
 import com.xywy.im.db.GroupMessageHandler;
 import com.xywy.im.db.PeerMessageHandler;
 import com.xywy.im.db.SyncKeyHandler;
+import com.xywy.im.db.User;
 
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
@@ -33,8 +35,10 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import test.cn.example.com.util.LogUtil;
 
 /**
  * LoginActivity
@@ -59,7 +63,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         btnLogin.setOnClickListener(this);
     }
 
-    private void go2Chat(long sender, long receiver) {
+    private void go2Chat(final long sender, final long receiver) {
         XywyIMService.getInstance().stop();
 
         PeerMessageHandler.getInstance().setUID(sender);
@@ -107,15 +111,38 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("current_uid", sender);
             startActivity(intent);
+            finish();
         } else {
-            Intent intent = new Intent(this, PeerMessageActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.putExtra("peer_uid", receiver);
-            intent.putExtra("peer_name", "测试"+sender);
-            intent.putExtra("current_uid", sender);
-            startActivity(intent);
+            DBManager.getInstance().createUserTable(sender);
+
+            User user = new User();
+            user.userId = sender;
+            user.userName = "sender_"+sender;
+            user.msgTableName = receiver;
+            DBManager.getInstance().getInsertUserRx(user).subscribe(new Subscriber<User>() {
+                @Override
+                public void onCompleted() {
+                    LogUtil.i("onCompleted");
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    LogUtil.i(""+e);
+                }
+
+                @Override
+                public void onNext(User user) {
+                    LogUtil.i("插入的用户Id  "+user.userId);
+                    Intent intent = new Intent(LoginActivity.this, PeerMessageActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("peer_uid", receiver);
+                    intent.putExtra("peer_name", "测试"+sender);
+                    intent.putExtra("current_uid", sender);
+                    startActivity(intent);
+                    finish();
+                }
+            });
         }
-        finish();
     }
 
 

@@ -1,9 +1,16 @@
-package com.xywy.im.db;
+package test.cn.example.com.androidskill.model.greendao;
 
 import com.xywy.im.BytePacket;
 import com.xywy.im.CommonUtils;
 import com.xywy.im.Constant;
 import com.xywy.im.WebSocketApi;
+
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Index;
+import org.greenrobot.greendao.annotation.NotNull;
+import org.greenrobot.greendao.annotation.Transient;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -14,27 +21,41 @@ import test.cn.example.com.util.LogUtil;
 import test.cn.example.com.util.LogUtils;
 
 /**
- * Created by xugan on 2018/8/14.
+ * Created by xugan on 2018/7/27.
  */
 
+@Entity(indexes = {
+        @Index(value = "msgId ,time DESC", unique = true)
+})
 public class Message {
+    @Id(autoincrement = true)
+    private Long id;
 
+    @NotNull
     private String msgId;
 
+    @NotNull
     private Long sender;
 
+    @NotNull
     private Long receiver;
 
+    @NotNull
     private Long time;
 
+    @NotNull
     private String content;
 
-    private int msgType;    // 0 表示 文字，1 表示图片
+    @NotNull
+    private Byte msgType;
 
-    private int isOutgoing; //  0 表示接收到的消息，1 表示发送出去的消息
+    @NotNull
+    private boolean isOutgoing;
 
-    private Integer sendState;//消息发送状态
+    @NotNull
+    private byte sendState;//消息发送状态
 
+    @Transient
     private int cmd;
 
 
@@ -144,12 +165,12 @@ public class Message {
                     //3: Username or password is error, 用户名或密码错误
                     return false;
                 default:
-                    return false;
+                   return false;
             }
         }  else if (cmd == 0x03) {
             //服务器端会推送消息到客户端
             this.cmd = Constant.PUBLISH;
-            this.isOutgoing = 1;
+            this.isOutgoing = false;
             byte[] msgIdByte = new byte[32];
             System.arraycopy(data,1,msgIdByte,0,32);
             try {
@@ -193,11 +214,29 @@ public class Message {
         return this.cmd;
     }
 
+    @Transient
     private PropertyChangeSupport changeSupport = new PropertyChangeSupport(
             this);
 
 
 
+    @Generated(hash = 1910132112)
+    public Message(Long id, @NotNull String msgId, @NotNull Long sender, @NotNull Long receiver, @NotNull Long time,
+                   @NotNull String content, @NotNull Byte msgType, boolean isOutgoing, byte sendState) {
+        this.id = id;
+        this.msgId = msgId;
+        this.sender = sender;
+        this.receiver = receiver;
+        this.time = time;
+        this.content = content;
+        this.msgType = msgType;
+        this.isOutgoing = isOutgoing;
+        this.sendState = sendState;
+    }
+
+    @Generated(hash = 637306882)
+    public Message() {
+    }
 
 
 
@@ -221,14 +260,22 @@ public class Message {
     }
 
 
-    public int getSendState() {
+    public byte getSendState() {
         return this.sendState;
     }
 
-    public void setSendState(Integer sendState) {
-        Integer oldSendState = this.sendState;
+    public void setSendState(byte sendState) {
+        byte oldSendState = this.sendState;
         this.sendState = sendState;
         changeSupport.firePropertyChange("sendState", oldSendState, this.sendState);
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getMsgId() {
@@ -263,19 +310,19 @@ public class Message {
         this.content = content;
     }
 
-    public int getMsgType() {
+    public Byte getMsgType() {
         return this.msgType;
     }
 
-    public void setMsgType(int msgType) {
+    public void setMsgType(Byte msgType) {
         this.msgType = msgType;
     }
 
-    public int getIsOutgoing() {
+    public boolean getIsOutgoing() {
         return this.isOutgoing;
     }
 
-    public void setIsOutgoing(int isOutgoing) {
+    public void setIsOutgoing(boolean isOutgoing) {
         this.isOutgoing = isOutgoing;
     }
 

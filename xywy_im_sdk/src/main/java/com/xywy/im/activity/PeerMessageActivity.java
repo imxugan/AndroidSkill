@@ -13,11 +13,9 @@ import com.xywy.im.IMServiceObserver;
 import com.xywy.im.PeerMessageObserver;
 import com.xywy.im.Timer;
 import com.xywy.im.XywyIMService;
-import com.xywy.im.db.DBUtils;
-import com.xywy.im.db.DaoSession;
+import com.xywy.im.db.DBManager;
 import com.xywy.im.db.IMessage;
 import com.xywy.im.db.Message;
-import com.xywy.im.db.MessageDao;
 import com.xywy.im.db.MessageIterator;
 import com.xywy.im.db.MessageSendState;
 import com.xywy.im.db.PeerMessageDB;
@@ -26,10 +24,6 @@ import com.xywy.im.tools.FileCache;
 import com.xywy.im.tools.Notification;
 import com.xywy.im.tools.NotificationCenter;
 import com.xywy.im.tools.PeerOutbox;
-
-import org.greenrobot.greendao.query.Query;
-import org.greenrobot.greendao.query.QueryBuilder;
-import org.greenrobot.greendao.rx.RxDao;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -86,7 +80,7 @@ public class PeerMessageActivity extends MessageActivity implements
             Log.e(TAG, "peer name is null");
             return;
         }
-
+        DBManager.getInstance().createMessageTable(peerUID);
         Log.i(TAG, "local id:" + currentUID +  "peer id:" + peerUID);
         String vhost = "com.xywy.default";
         String userName = "";
@@ -96,7 +90,7 @@ public class PeerMessageActivity extends MessageActivity implements
         this.receiver = peerUID;
 
 //        this.loadConversationData();
-        page = 1;
+        page = 0;
         loadData(page);
 
 
@@ -109,18 +103,19 @@ public class PeerMessageActivity extends MessageActivity implements
     }
 
     private void loadData(final int page) {
-        DBUtils.getInstance().getMessageByPageSize(page,new DBUtils.GetMessageListListener(){
+//        DBManager.getInstance().getAllMessage(receiver);
+        DBManager.getInstance().getMessageByPageSize(receiver,page,new DBManager.GetMessageListListener(){
 
             @Override
             public void getMessageList(List<Message> data) {
                 messagesNew.addAll(data);
-                DBUtils.getInstance().sort(messagesNew);
-                for (int i = 0; i < messagesNew.size(); i++) {
-                    LogUtil.i(""+messagesNew.get(i).getSendState()+"         "+messagesNew.get(i).getContent()+"     "+messagesNew.get(i).getCmd());
-                }
+                DBManager.getInstance().sort(messagesNew);
+//                for (int i = 0; i < messagesNew.size(); i++) {
+//                    LogUtil.i("sendState= "+messagesNew.get(i).getSendState()+"         content=  "+messagesNew.get(i).getContent()+"     "+messagesNew.get(i).getCmd());
+//                }
 
                 //显示最后一条消息
-                if (messagesNew.size() > 0 && page == 1) {
+                if (messagesNew.size() > 0 && page == 0) {
                     listview.setSelection(messagesNew.size() - 1);
                 }else {
                     adapterNew.notifyDataSetChanged();
@@ -136,7 +131,7 @@ public class PeerMessageActivity extends MessageActivity implements
             msg.setSender(this.sender);
             msg.setReceiver(this.receiver);
 
-            msg.setMsgType((byte)0);
+            msg.setMsgType(0);
             try {
                 msg.setContent(new String(content.getBytes(),"utf-8"));
                 msg.setMsgId(new String(UUID.randomUUID().toString().replace("-", "").getBytes(),"utf-8"));
@@ -144,11 +139,11 @@ public class PeerMessageActivity extends MessageActivity implements
                 e.printStackTrace();
             }
             msg.setTime(System.currentTimeMillis());
-            msg.setIsOutgoing(true);
+            msg.setIsOutgoing(1);
             msg.setSendState(MessageSendState.MESSAGE_SEND_LISTENED);
             msg.setCmd(3);
             //将数据存入数据库
-            DBUtils.getInstance().addMessage(msg, new DBUtils.AddMessageListener() {
+            DBManager.getInstance().addMessage(msg, new DBManager.AddMessageListener() {
                 @Override
                 public void addMessage(Message message) {
                     //        loadUserName(imsg);//暂时先省略
@@ -181,7 +176,7 @@ public class PeerMessageActivity extends MessageActivity implements
         XywyIMService.getInstance().removePeerObserver(this);
         AudioDownloader.getInstance().removeObserver(this);
         //退出后，添加关闭数据库的操作
-        DBUtils.getInstance().close();
+        DBManager.getInstance().close();
     }
 
     protected void loadConversationData() {
@@ -400,7 +395,7 @@ public class PeerMessageActivity extends MessageActivity implements
     public void onPeerMessageNew(Message msg) {
         LogUtil.e("onPeerMessageNew   msgLocalID    "+msg.getMsgId());
         //将将系统推送的数据存入数据库
-        DBUtils.getInstance().addMessage(msg, new DBUtils.AddMessageListener() {
+        DBManager.getInstance().addMessage(msg, new DBManager.AddMessageListener() {
             @Override
             public void addMessage(Message message) {
 
@@ -411,7 +406,7 @@ public class PeerMessageActivity extends MessageActivity implements
     @Override
     public void onPeerMessageACKNew(final String msgLocalID) {
         LogUtil.e("onPeerMessageACKNew   msgLocalID    "+msgLocalID+"        "+Thread.currentThread().getName());
-        DBUtils.getInstance().getMessageByMessageId(msgLocalID,new DBUtils.GetMessageListener(){
+        DBManager.getInstance().getMessageByMessageId(receiver,msgLocalID,new DBManager.GetMessageListener(){
 
             @Override
             public void getMessage(Message msg) {
@@ -421,7 +416,7 @@ public class PeerMessageActivity extends MessageActivity implements
                 }
                 msg.setSendState(MessageSendState.MESSAGE_SEND_SUCCESS);
                 msg.setTime(msg.getTime());
-                DBUtils.getInstance().upateMessage(msg);
+                DBManager.getInstance().upateMessage(msg);
                 updateMessage(msg);
             }
         });
@@ -432,7 +427,7 @@ public class PeerMessageActivity extends MessageActivity implements
     public void onPeerMessageFailureNew(final String msgLocalID) {
         Log.i(TAG, "message failure");
 
-        DBUtils.getInstance().getMessageByMessageId(msgLocalID, new DBUtils.GetMessageListener() {
+        DBManager.getInstance().getMessageByMessageId(receiver,msgLocalID, new DBManager.GetMessageListener() {
             @Override
             public void getMessage(Message msg) {
                 if (msg == null) {
@@ -440,7 +435,7 @@ public class PeerMessageActivity extends MessageActivity implements
                     return;
                 }
                 msg.setSendState(MessageSendState.MESSAGE_SEND_FAILED);
-                DBUtils.getInstance().upateMessage(msg);
+                DBManager.getInstance().upateMessage(msg);
             }
         });
     }

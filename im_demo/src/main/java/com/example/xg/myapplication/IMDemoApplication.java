@@ -14,9 +14,7 @@ import com.xywy.im.XywyIMService;
 import com.xywy.im.api.IMHttpAPI;
 import com.xywy.im.db.CustomerMessageDB;
 import com.xywy.im.db.CustomerMessageHandler;
-import com.xywy.im.db.DBUtils;
-import com.xywy.im.db.DaoMaster;
-import com.xywy.im.db.DaoSession;
+import com.xywy.im.db.DBManager;
 import com.xywy.im.db.GroupMessageDB;
 import com.xywy.im.db.GroupMessageHandler;
 import com.xywy.im.db.PeerMessageDB;
@@ -70,7 +68,7 @@ public class IMDemoApplication extends Application {
         CrashHandler crashHandler = CrashHandler.getInstance();
         crashHandler.init(this);
         sApplication = this;
-        DBUtils.init(this);
+        DBManager.init(this);
         XywyIMService mIMService = XywyIMService.getInstance();
         //app可以单独部署服务器，给予第三方应用更多的灵活性
         mIMService.setHost("imnode2.gobelieve.io");

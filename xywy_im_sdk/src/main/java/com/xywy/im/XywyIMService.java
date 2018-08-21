@@ -9,37 +9,27 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.xywy.im.activity.PeerMessageActivity;
-import com.xywy.im.db.DBUtils;
-import com.xywy.im.db.DaoMaster;
-import com.xywy.im.db.DaoSession;
-import com.xywy.im.db.IMessage;
-import com.xywy.im.db.MessageSendState;
-import com.xywy.im.tools.CrashHandler;
-import com.xywy.im.tools.CrashInfo;
+import com.xywy.im.db.DBManager;
 
-import org.greenrobot.greendao.database.Database;
-import org.greenrobot.greendao.rx.RxDao;
+import com.xywy.im.db.MessageSendState;
+
+
+
 
 import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicReferenceArray;
 
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
+import rx.Subscriber;
 import test.cn.example.com.util.LogUtil;
 import test.cn.example.com.util.LogUtils;
 
@@ -53,6 +43,7 @@ public class XywyIMService {
 
     private final String HOST = "imnode2.gobelieve.io";
     private final int PORT = 23000;
+    private long currentUserId;
 
     public enum ConnectState {
         STATE_UNCONNECTED,
@@ -365,7 +356,7 @@ public class XywyIMService {
     public void enterBackground() {
         Log.i(TAG, "im service enter background");
         this.isBackground = true;
-        if (!this.stopped) {
+         if (!this.stopped) {
             suspend();
         }
     }
@@ -764,6 +755,7 @@ public class XywyIMService {
 //        if (now() - timestamp > 5*60) {
 //            refreshHost();
 //        }
+        this.currentUserId = Long.parseLong(userName.substring(4));
         if(XywyIMService.this.connectState == ConnectState.STATE_CONNECTED){
             return;
         }
@@ -787,6 +779,7 @@ public class XywyIMService {
                         byte[] userNameBytes = userName.getBytes("utf-8");
                         byte[] pwdLengthBytes = CommonUtils.intToByteArray(pwd.length());
                         byte[] pwdBytes = pwd.getBytes("utf-8");
+//                        byte[] roleBytes = CommonUtils.int2Bytes(0,1);
                         byte[] connectBytes = CommonUtils.byteMergerAll(startBytes,vhostLengthBytes, vhostBytes,userNameLengthBytes,
                                 userNameBytes,pwdLengthBytes,pwdBytes);
                         XywyIMService.this.connectState = ConnectState.STATE_CONNECTING;
@@ -801,56 +794,6 @@ public class XywyIMService {
 
             @Override
             public void onMessage(ByteBuffer buf) {
-//                byte[] bytes = buf.array();
-//                int cmd = bytes[0] & 0xFF;
-//                LogUtils.i("cmd="+cmd);
-//                if (cmd == 0x02) {
-//                    int code = bytes[1] & 0xFF;
-//                    LogUtils.i("code="+code);
-//                    if(Constant.CONNECTION_ACCEPTED==code){
-//                        //表示连接成功
-//                        XywyIMService.this.onConnected();
-//                        XywyIMService.this.connectState = ConnectState.STATE_CONNECTED;
-//                    }else if(Constant.CONNECTION_DUP==code){
-//                        //重复建立连接
-//                    }else if(Constant.INVALID_VHOST==code){
-//                        XywyIMService.this.connectState = ConnectState.STATE_CONNECTFAIL;
-//                        //vhost非法
-//                        XywyIMService.this.connectFailCount++;
-//                        XywyIMService.this.connectState = ConnectState.STATE_CONNECTFAIL;
-//                        XywyIMService.this.publishConnectState();
-//                        XywyIMService.this.close();
-//                        XywyIMService.this.startConnectTimer();
-//                    }else if(Constant.USERNAME_OR_PASSWORD_IS_ERROR==code){
-//                        XywyIMService.this.connectState = ConnectState.STATE_CONNECTFAIL;
-//                        //用户名或密码错误
-//                        XywyIMService.this.connectFailCount++;
-//                        XywyIMService.this.connectState = ConnectState.STATE_CONNECTFAIL;
-//                        XywyIMService.this.publishConnectState();
-//                        XywyIMService.this.close();
-//                        XywyIMService.this.startConnectTimer();
-//                        LogUtil.i("用户名或密码错误");
-//                    }
-//                } else if (cmd == 0x07) {
-//                    //收到服务端的心跳的应道包,客户端发送心跳包保持长连接
-//                    WebSocketApi.getInStance().sendMsg(CommonUtils.int2Bytes(Constant.PING_RESP,1));
-//                }else if(cmd == 0x04){
-//                    if (bytes.length == 0) {
-//                        Log.i(TAG, "tcp read eof");
-//                        XywyIMService.this.connectState = ConnectState.STATE_UNCONNECTED;
-//                        XywyIMService.this.publishConnectState();
-//                        XywyIMService.this.handleClose();
-//                    } else {
-//                        XywyIMService.this.pingTimestamp = 0;
-//                        boolean b = XywyIMService.this.handleData(bytes);
-//                        if (!b) {
-//                            XywyIMService.this.connectState = ConnectState.STATE_UNCONNECTED;
-//                            XywyIMService.this.publishConnectState();
-//                            XywyIMService.this.handleClose();
-//                        }
-//                    }
-//                }
-
                 //z这个方法的回调是在子线程中，源码是在主线程中处理的
                 XywyIMService.this.connectState = ConnectState.STATE_CONNECTED;
                 boolean b = XywyIMService.this.handleData(buf.array());
@@ -860,20 +803,36 @@ public class XywyIMService {
                     XywyIMService.this.publishConnectState();
                     XywyIMService.this.handleClose();
                 }
-
             }
 
             @Override
             public void onClose(int code, String reason, boolean remote) {
                 // 当消息发送后，如果连接关闭，将消息发送状态的改成发送失败的状态
                 //需要将数据库中的数据进行查询，查看当前发送状态是正在发送中的消息，将这些消息的发送状态置为发送失败
-                DBUtils.getInstance().getSendingMessage(new DBUtils.GetMessageListListener(){
+//                DBManager.getInstance().getSendingMessage(new DBManager.GetMessageListListener(){
+//
+//                    @Override
+//                    public void getMessageList(List<com.xywy.im.db.Message> data) {
+//                        for (int i = 0; i < data.size(); i++) {
+//                            publishPeerMessageFailureNew(data.get(i).getMsgId());
+//                        }
+//                    }
+//                });
+
+                DBManager.getInstance().getAllReceiversRx("u_"+currentUserId).subscribe(new Subscriber<List<String>>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
 
                     @Override
-                    public void getMessageList(List<com.xywy.im.db.Message> data) {
-                        for (int i = 0; i < data.size(); i++) {
-                            publishPeerMessageFailureNew(data.get(i).getMsgId());
-                        }
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(List<String> strings) {
+                       getSendingMessage(strings);
                     }
                 });
                 if(remote){
@@ -919,9 +878,6 @@ public class XywyIMService {
                         reconnectCounts++;
                     }
                 });
-
-
-
             }
         });
 
@@ -972,6 +928,27 @@ public class XywyIMService {
 //            publishConnectState();
 //            startConnectTimer();
 //        }
+    }
+
+    private void getSendingMessage(List<String> strings) {
+        for (int i = 0; i < strings.size(); i++) {
+            DBManager.getInstance().getSendingMessageListRx(strings.get(i).substring(4)).subscribe(new Subscriber<List<com.xywy.im.db.Message>>() {
+                @Override
+                public void onCompleted() {
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                }
+
+                @Override
+                public void onNext(List<com.xywy.im.db.Message> messages) {
+                    for (int i = 0; i < messages.size(); i++) {
+                        publishPeerMessageFailureNew(messages.get(i).getMsgId());
+                    }
+                }
+            });
+        }
     }
 
 //    private void handleAuthStatus(Message msg) {

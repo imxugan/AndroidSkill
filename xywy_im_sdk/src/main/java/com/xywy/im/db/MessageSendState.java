@@ -6,7 +6,7 @@ package com.xywy.im.db;
  */
 
 public class MessageSendState {
-    public static final byte MESSAGE_SEND_SUCCESS = 1;//消息发送成功
-    public static final byte MESSAGE_SEND_FAILED = 2;//消息发送失败
-    public static final byte MESSAGE_SEND_LISTENED = 3;//消息发送中
+    public static final int MESSAGE_SEND_SUCCESS = 1;//消息发送成功
+    public static final int MESSAGE_SEND_FAILED = 2;//消息发送失败
+    public static final int MESSAGE_SEND_LISTENED = 3;//消息发送中
 }

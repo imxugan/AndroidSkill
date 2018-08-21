@@ -1,7 +1,8 @@
-package com.xywy.im.db;
+package test.cn.example.com.androidskill.util;
 
 import android.content.Context;
-import android.util.Log;
+
+
 
 import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.rx.RxDao;
@@ -14,6 +15,11 @@ import java.util.List;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
+import test.cn.example.com.androidskill.constant.MessageSendState;
+import test.cn.example.com.androidskill.model.greendao.DaoMaster;
+import test.cn.example.com.androidskill.model.greendao.DaoSession;
+import test.cn.example.com.androidskill.model.greendao.Message;
+import test.cn.example.com.androidskill.model.greendao.MessageDao;
 import test.cn.example.com.util.LogUtil;
 
 /**
@@ -30,7 +36,7 @@ public class DBUtils {
     private static Context context;
 
     private DBUtils(){
-        helper = new DaoMaster.DevOpenHelper(context,"xywy-im-db-encrypted");
+        helper = new DaoMaster.DevOpenHelper(context,"chat-db-encrypted");
         Database encryptedReadableDb = helper.getEncryptedReadableDb("super-secret");
         daoSession = new DaoMaster(encryptedReadableDb).newSession();
         messageDao = daoSession.getMessageDao().rx();
