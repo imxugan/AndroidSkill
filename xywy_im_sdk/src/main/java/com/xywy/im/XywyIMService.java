@@ -929,13 +929,14 @@ public class XywyIMService {
 
     private void getSendingMessage(List<String> strings) {
         for (int i = 0; i < strings.size(); i++) {
-            DBManager.getInstance().getSendingMessageListRx(strings.get(i).substring(4)).subscribe(new Subscriber<List<com.xywy.im.db.Message>>() {
+            DBManager.getInstance().getSendingMessageListRx("msg_"+strings.get(i)).subscribe(new Subscriber<List<com.xywy.im.db.Message>>() {
                 @Override
                 public void onCompleted() {
                 }
 
                 @Override
                 public void onError(Throwable e) {
+                    LogUtil.i(""+e.getMessage());
                 }
 
                 @Override

@@ -447,7 +447,12 @@ public class PeerMessageActivity extends MessageActivity implements
                     Log.i(TAG, "can't find msg:" + msgLocalID);
                     return;
                 }
-                msg.setSendState(MessageSendState.MESSAGE_SEND_FAILED);
+                for (int i = 0; i < messagesNew.size(); i++) {
+                    if(msg.getMsgId().equals(messagesNew.get(i).getMsgId())){
+                        messagesNew.get(i).setSendState(MessageSendState.MESSAGE_SEND_FAILED);
+                        break;
+                    }
+                }
                 DBManager.getInstance().upateMessage(msg);
             }
         });

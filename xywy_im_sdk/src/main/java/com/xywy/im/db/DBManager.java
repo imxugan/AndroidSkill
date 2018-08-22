@@ -283,7 +283,7 @@ public class DBManager implements IDBRxManager{
             @Override
             public void onNext(List<Message> messages) {
                 for (int i = 0; i < messages.size(); i++) {
-                    LogUtil.e("msgId=  "+messages.get(i).getMsgId()+"   content= "+messages.get(i).getContent());
+                    LogUtil.e("msgId=  "+messages.get(i).getMsgId()+"   content= "+messages.get(i).getContent()+"  sendState"+messages.get(i).getSendState());
                 }
             }
         });
@@ -559,7 +559,7 @@ public class DBManager implements IDBRxManager{
             public void call(Subscriber<? super List<Message>> subscriber) {
                 if(helper.tableIsExist(table)){
                     List<Message> messageList = new ArrayList<Message>();
-                    Cursor cursor = db.query(table, null, "sendState=?", new String[MessageSendState.MESSAGE_SEND_LISTENED], null, null, null);
+                    Cursor cursor = db.query(table, null, "sendState=?", new String[]{MessageSendState.MESSAGE_SEND_LISTENED+""}, null, null, null);
                     if(null != cursor && cursor.getCount()>0){
                         Message msg = null;
                         while (cursor.moveToNext()){
@@ -576,6 +576,7 @@ public class DBManager implements IDBRxManager{
                         }
                         cursor.close();
                     }
+//                    LogUtil.i("messageList.size()="+messageList.size());
                     subscriber.onNext(messageList);
                 }else {
                     subscriber.onNext(null);
