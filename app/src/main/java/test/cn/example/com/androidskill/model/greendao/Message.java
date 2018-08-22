@@ -75,14 +75,12 @@ public class Message {
     public byte[] pack(){
         if (cmd == 1) {
             byte[] startBytes = CommonUtils.int2Bytes(Constant.CONNECT,1);
-            byte[] vhostLengthBytes = CommonUtils.intToByteArray(WebSocketApi.getInStance().getVhost().length());
             byte[] userNameLengthBytes = CommonUtils.intToByteArray(WebSocketApi.getInStance().UserName().length());
             byte[] pwdLengthBytes = CommonUtils.intToByteArray(WebSocketApi.getInStance().Pwd().length());
             try {
-                byte[] vhostBytes  = WebSocketApi.getInStance().getVhost().getBytes("utf-8");
                 byte[] userNameBytes = WebSocketApi.getInStance().UserName().getBytes("utf-8");
                 byte[] pwdBytes = WebSocketApi.getInStance().Pwd().getBytes("utf-8");
-                byte[] connectBytes = CommonUtils.byteMergerAll(startBytes,vhostLengthBytes, vhostBytes,userNameLengthBytes,
+                byte[] connectBytes = CommonUtils.byteMergerAll(startBytes,userNameLengthBytes,
                         userNameBytes,pwdLengthBytes,pwdBytes);
                 return connectBytes;
             } catch (UnsupportedEncodingException e) {
@@ -157,9 +155,6 @@ public class Message {
                     return true;
                 case 1:
                     //1: Connection dup, 重复建立连接
-                    return false;
-                case 2:
-                    //2: Invalid vhost, vhost非法
                     return false;
                 case 3:
                     //3: Username or password is error, 用户名或密码错误

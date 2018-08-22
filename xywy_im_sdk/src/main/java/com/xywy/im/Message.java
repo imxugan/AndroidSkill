@@ -21,7 +21,6 @@ public class Message {
     public int cmd;
     public int seq;
     public Object body;
-    public String vhost;
     public String userName;
     public String pwd;
     public int msgId;
@@ -348,14 +347,12 @@ public class Message {
     public byte[] pack(){
         if (cmd == 1) {
             byte[] startBytes = CommonUtils.int2Bytes(Constant.CONNECT,1);
-            byte[] vhostLengthBytes = CommonUtils.intToByteArray(vhost.length());
             byte[] userNameLengthBytes = CommonUtils.intToByteArray(userName.length());
             byte[] pwdLengthBytes = CommonUtils.intToByteArray(pwd.length());
             try {
-                byte[] vhostBytes  = vhost.getBytes("utf-8");
                 byte[] userNameBytes = userName.getBytes("utf-8");
                 byte[] pwdBytes = pwd.getBytes("utf-8");
-                byte[] connectBytes = CommonUtils.byteMergerAll(startBytes,vhostLengthBytes, vhostBytes,userNameLengthBytes,
+                byte[] connectBytes = CommonUtils.byteMergerAll(startBytes,userNameLengthBytes,
                         userNameBytes,pwdLengthBytes,pwdBytes);
                 return connectBytes;
             } catch (UnsupportedEncodingException e) {
@@ -432,9 +429,6 @@ public class Message {
                     break;
                 case 1:
                     //1: Connection dup, 重复建立连接
-                    break;
-                case 2:
-                    //2: Invalid vhost, vhost非法
                     break;
                 case 3:
                     //3: Username or password is error, 用户名或密码错误

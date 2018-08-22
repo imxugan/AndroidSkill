@@ -26,7 +26,6 @@ import test.cn.example.com.util.LogUtils;
  */
 
 public class WebSocketApi {
-    private String vhost;
     private String userName;//用户名
     private String pwd; //密码
     private WebSocketClient webSocketClient;
@@ -42,13 +41,9 @@ public class WebSocketApi {
         return instance;
     }
 
-    public void start(String webSocketUrl, String vhost,String userName,String pwd) {
-        webSocketUrl = "ws://im.xywy.com:9095/ws";
+    public void start(String webSocketUrl, String userName,String pwd) {
         if(TextUtils.isEmpty(webSocketUrl)){
             throw new RuntimeException("webSocketUrl can not be null");
-        }
-        if(TextUtils.isEmpty(vhost)){
-            throw new RuntimeException("vhost can not be null");
         }
 
         if(TextUtils.isEmpty(userName)){
@@ -60,7 +55,6 @@ public class WebSocketApi {
         }
 
         this.webSocketUrl = webSocketUrl;
-        this.vhost = vhost;
         this.userName = userName;
         this.pwd = pwd;
         connectWebServer(webSocketUrl);
@@ -290,10 +284,6 @@ public class WebSocketApi {
         LogUtil.i(result);
     }
 
-    public String getVhost() {
-        return vhost;
-    }
-
     public String UserName() {
         return userName;
     }
@@ -317,28 +307,21 @@ public class WebSocketApi {
         int cmd = data[0];
         byte[] msgIdByte = new byte[32];
         if(cmd==Constant.CONNECT){
-            byte[] vhostLenByte = new byte[2];
-            System.arraycopy(data,1,vhostLenByte,0,2);
-            int vhostLen = BytePacket.readInt16(vhostLenByte,0);
-            byte[] vhostByte = new byte[vhostLen];
-            System.arraycopy(data,3,vhostByte,0,vhostLen);
-
             byte[] userNameLenByte = new byte[2];
-            System.arraycopy(data,3+vhostLen,userNameLenByte,0,2);
+            System.arraycopy(data,1,userNameLenByte,0,2);
             int userNameLen = BytePacket.readInt16(userNameLenByte,0);
             byte[] userNameByte = new byte[userNameLen];
-            System.arraycopy(data,3+vhostLen+2,userNameByte,0,userNameLen);
+            System.arraycopy(data,3,userNameByte,0,userNameLen);
 
             byte[] pwdLenByte = new byte[2];
-            System.arraycopy(data,3+vhostLen+2+userNameLen,pwdLenByte,0,2);
+            System.arraycopy(data,3+userNameLen,pwdLenByte,0,2);
             int pwdLen = BytePacket.readInt16(pwdLenByte,0);
             byte[] pwdByte = new byte[pwdLen];
-            System.arraycopy(data,3+vhostLen+2+userNameLen+2,pwdByte,0,pwdLen);
+            System.arraycopy(data,3+userNameLen+2,pwdByte,0,pwdLen);
             try {
-                String vhost = new String(vhostByte, "UTF-8");
                 String userName = new String(userNameByte, "UTF-8");
                 String pwd = new String(pwdByte, "UTF-8");
-                LogUtil.i("vhost "+vhost+"    userName "+userName+"     pwd "+pwd);
+                LogUtil.i("    userName "+userName+"     pwd "+pwd);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }

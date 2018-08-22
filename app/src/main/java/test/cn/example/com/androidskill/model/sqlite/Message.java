@@ -127,9 +127,6 @@ public class Message {
 //                case 1:
 //                    //1: Connection dup, 重复建立连接
 //                    return false;
-//                case 2:
-//                    //2: Invalid vhost, vhost非法
-//                    return false;
 //                case 3:
 //                    //3: Username or password is error, 用户名或密码错误
 //                    return false;

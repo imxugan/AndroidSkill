@@ -33,7 +33,7 @@ public class Message {
 
     private int isOutgoing; //  0 表示接收到的消息，1 表示发送出去的消息
 
-    private Integer sendState;//消息发送状态
+    private int sendState;//消息发送状态
 
     private int cmd;
 
@@ -54,14 +54,12 @@ public class Message {
     public byte[] pack(){
         if (cmd == 1) {
             byte[] startBytes = CommonUtils.int2Bytes(Constant.CONNECT,1);
-            byte[] vhostLengthBytes = CommonUtils.intToByteArray(WebSocketApi.getInStance().getVhost().length());
             byte[] userNameLengthBytes = CommonUtils.intToByteArray(WebSocketApi.getInStance().UserName().length());
             byte[] pwdLengthBytes = CommonUtils.intToByteArray(WebSocketApi.getInStance().Pwd().length());
             try {
-                byte[] vhostBytes  = WebSocketApi.getInStance().getVhost().getBytes("utf-8");
                 byte[] userNameBytes = WebSocketApi.getInStance().UserName().getBytes("utf-8");
                 byte[] pwdBytes = WebSocketApi.getInStance().Pwd().getBytes("utf-8");
-                byte[] connectBytes = CommonUtils.byteMergerAll(startBytes,vhostLengthBytes, vhostBytes,userNameLengthBytes,
+                byte[] connectBytes = CommonUtils.byteMergerAll(startBytes,userNameLengthBytes,
                         userNameBytes,pwdLengthBytes,pwdBytes);
                 return connectBytes;
             } catch (UnsupportedEncodingException e) {
@@ -137,9 +135,6 @@ public class Message {
                 case 1:
                     //1: Connection dup, 重复建立连接
                     return false;
-                case 2:
-                    //2: Invalid vhost, vhost非法
-                    return false;
                 case 3:
                     //3: Username or password is error, 用户名或密码错误
                     return false;
@@ -149,7 +144,7 @@ public class Message {
         }  else if (cmd == 0x03) {
             //服务器端会推送消息到客户端
             this.cmd = Constant.PUBLISH;
-            this.isOutgoing = 1;
+            this.isOutgoing = 0;
             byte[] msgIdByte = new byte[32];
             System.arraycopy(data,1,msgIdByte,0,32);
             try {
@@ -196,7 +191,9 @@ public class Message {
     private PropertyChangeSupport changeSupport = new PropertyChangeSupport(
             this);
 
-
+    public PropertyChangeSupport getPropertyChangeSupport(){
+        return changeSupport;
+    }
 
 
 
@@ -225,8 +222,8 @@ public class Message {
         return this.sendState;
     }
 
-    public void setSendState(Integer sendState) {
-        Integer oldSendState = this.sendState;
+    public void setSendState(int sendState) {
+        int oldSendState = this.sendState;
         this.sendState = sendState;
         changeSupport.firePropertyChange("sendState", oldSendState, this.sendState);
     }

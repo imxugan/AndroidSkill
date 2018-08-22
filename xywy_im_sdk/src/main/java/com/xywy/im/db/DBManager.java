@@ -5,9 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import rx.Observable;
@@ -181,6 +184,9 @@ public class DBManager implements IDBRxManager{
             public void onNext(List<Message> messages) {
                 if(null != messages){
 //                    sort(messages);
+                   for (int i = 0; i < messages.size(); i++) {
+                        LogUtil.i("sendState= "+messages.get(i).getSendState()+"   content=  "+messages.get(i).getContent()+"   "+getDateTime(messages.get(i).getTime()) );
+                    }
                     listener.getMessageList(messages);
                 }else {
                     LogUtil.i("查询的表不存");
@@ -634,5 +640,10 @@ public class DBManager implements IDBRxManager{
 
     public interface AddMessageListener{
         public void addMessage(Message message);
+    }
+
+    private String getDateTime(long timeStamp){
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss sss");
+        return sdf.format(new Date(timeStamp));
     }
 }

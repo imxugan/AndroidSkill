@@ -20,6 +20,7 @@ import com.xywy.im.db.MessageSendState;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import test.cn.example.com.util.LogUtil;
 import test.cn.example.com.util.ToastUtils;
 
 public class MessageRowViewNew extends FrameLayout implements PropertyChangeListener {
@@ -128,11 +129,12 @@ public class MessageRowViewNew extends FrameLayout implements PropertyChangeList
     public void propertyChange(PropertyChangeEvent event) {
         ImageView flagView = (ImageView) findViewById(R.id.flag);
         ProgressBar sendingProgressBar = (ProgressBar) findViewById(R.id.sending_progress_bar);
+//        LogUtil.i("msgId=   "+this.messageNew.getMsgId()+"   content=  "+this.messageNew.getContent()+"   propertyName"+event.getPropertyName());
         if (event.getPropertyName().equals("sendState")) {
             int sendState = this.messageNew.getSendState();
             switch (sendState){
                 case MessageSendState.MESSAGE_SEND_SUCCESS:
-                    Log.e("WebSocketApi","propertyChange            "+Thread.currentThread().getName());
+                    Log.e("WebSocketApi","propertyChange            "+Thread.currentThread().getName()+"   sendState=  "+this.messageNew.getSendState());
                     flagView.setVisibility(View.GONE);
                     sendingProgressBar.setVisibility(View.GONE);
                     break;

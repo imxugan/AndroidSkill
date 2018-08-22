@@ -121,7 +121,6 @@ public class XywyIMService {
     public static final boolean ENCRYPTED = false;
 //    private static DaoSession daoSession;
 
-    private String vhost = "";
     private String userName = "";
     private String pwd = "";
 
@@ -725,7 +724,7 @@ public class XywyIMService {
 //        this.webSocketClient.startRead();
     }
 
-    public void connect(final String vhost,final String userName,final String pwd) {
+    public void connect(final String userName,final String pwd) {
 //        if (this.webSocketClient != null) {
 //            return;
 //        }
@@ -773,14 +772,12 @@ public class XywyIMService {
                 if(XywyIMService.this.connectState == ConnectState.STATE_UNCONNECTED){
                     try {
                         byte[] startBytes = CommonUtils.int2Bytes(Constant.CONNECT,1);
-                        byte[] vhostLengthBytes = CommonUtils.intToByteArray(vhost.length());
-                        byte[] vhostBytes = vhost.getBytes("utf-8");
                         byte[] userNameLengthBytes = CommonUtils.intToByteArray(userName.length());
                         byte[] userNameBytes = userName.getBytes("utf-8");
                         byte[] pwdLengthBytes = CommonUtils.intToByteArray(pwd.length());
                         byte[] pwdBytes = pwd.getBytes("utf-8");
 //                        byte[] roleBytes = CommonUtils.int2Bytes(0,1);
-                        byte[] connectBytes = CommonUtils.byteMergerAll(startBytes,vhostLengthBytes, vhostBytes,userNameLengthBytes,
+                        byte[] connectBytes = CommonUtils.byteMergerAll(startBytes,userNameLengthBytes,
                                 userNameBytes,pwdLengthBytes,pwdBytes);
                         XywyIMService.this.connectState = ConnectState.STATE_CONNECTING;
                         WebSocketApi.getInStance().sendMsg(connectBytes);
@@ -871,7 +868,7 @@ public class XywyIMService {
                         try {
                             LogUtil.i("reconnectCounts      "+reconnectCounts);
                             Thread.sleep(reconnectCounts*30000);
-                            XywyIMService.this.connect(vhost,userName,pwd);
+                            XywyIMService.this.connect(userName,pwd);
                         } catch (InterruptedException e1) {
                             e1.printStackTrace();
                         }
@@ -881,7 +878,7 @@ public class XywyIMService {
             }
         });
 
-        WebSocketApi.getInStance().start("ws://im.xywy.com:9095/ws",vhost,userName,pwd);
+        WebSocketApi.getInStance().start("ws://im.xywy.com:9096/ws",userName,pwd);
 
 //        this.tcp.setConnectCallback(new TCPConnectCallback() {
 //            @Override

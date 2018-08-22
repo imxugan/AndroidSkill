@@ -9,11 +9,10 @@ import java.net.URISyntaxException;
 
 public class WebSocketManager {
     private XywyWebsocketClient xywyWebsocketClient;
-    private String vhost,userName,pwd;
+    private String userName,pwd;
     private static WebSocketManager instance = new WebSocketManager();
     private WebSocketManager(){}
-    public void init(String vhost,String userName,String pwd){
-        this.vhost = vhost;
+    public void init(String userName,String pwd){
         this.userName = userName;
         this.pwd = pwd;
     }

@@ -82,10 +82,9 @@ public class PeerMessageActivity extends MessageActivity implements
         }
         DBManager.getInstance().createMessageTable(peerUID);
         Log.i(TAG, "local id:" + currentUID +  "peer id:" + peerUID);
-        String vhost = "com.xywy.default";
         String userName = "";
         String pwd = "password1234";
-        XywyIMService.getInstance().connect(vhost,"test"+currentUID,pwd);
+        XywyIMService.getInstance().connect("test"+currentUID,pwd);
         this.sender = currentUID;
         this.receiver = peerUID;
 
@@ -414,10 +413,24 @@ public class PeerMessageActivity extends MessageActivity implements
                     LogUtil.i("can not find msg:"+msgLocalID);
                     return;
                 }
-                msg.setSendState(MessageSendState.MESSAGE_SEND_SUCCESS);
-                msg.setTime(msg.getTime());
-                DBManager.getInstance().upateMessage(msg);
-                updateMessage(msg);
+
+                for (int i = 0; i < messagesNew.size(); i++) {
+                    if(msg.getMsgId().equals(messagesNew.get(i).getMsgId())){
+//                        LogUtil.i("messagesNew.get(i).getSendState()="+messagesNew.get(i).getSendState());
+//                        LogUtil.i("tPropertyChangeListeners().length="+messagesNew.get(i).getPropertyChangeSupport().getPropertyChangeListeners().length);
+                        messagesNew.get(i).setSendState(MessageSendState.MESSAGE_SEND_SUCCESS);
+                        if(msg.getSendState()==MessageSendState.MESSAGE_SEND_FAILED){
+                            messagesNew.get(i).setTime(System.currentTimeMillis());
+                        }else {
+                            messagesNew.get(i).setTime(msg.getTime());
+                        }
+//                        LogUtil.i(""+messagesNew.get(i));
+                        DBManager.getInstance().upateMessage(messagesNew.get(i));
+                        updateMessage(messagesNew.get(i));
+                        break;
+                    }
+                }
+
             }
         });
 
@@ -475,7 +488,6 @@ public class PeerMessageActivity extends MessageActivity implements
 
     @Override
     protected void resendNew(Message msg){
-        msg.setTime(System.currentTimeMillis());
         msg.setCmd(3);//由于cmd这个字段未存入数据库，所以，这里需要将cmd重新赋值，否则cmd就是默认值0
         XywyIMService.getInstance().sendPeerMessage(msg);
     }
