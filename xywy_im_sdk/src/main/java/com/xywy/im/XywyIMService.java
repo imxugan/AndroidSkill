@@ -1341,7 +1341,7 @@ public class XywyIMService {
             //暂不处理
         } else if (msg.getCmd() == Constant.PING) {
             handleHeartbeatAck();
-        } else if (msg.getCmd() == Constant.PUBLISH) {
+        } else if (msg.getCmd() == Constant.PUBLISH) {      //服务端推送给客户端的消息中所带的cmd
             publishPeerMessageNew(msg);//通知聊天页面将收到的消息插入数据库
             handlePublishAck(msg);//发送应答消息给服务器
         }else {

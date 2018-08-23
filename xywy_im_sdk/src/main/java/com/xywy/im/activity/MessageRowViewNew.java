@@ -80,34 +80,47 @@ public class MessageRowViewNew extends FrameLayout implements PropertyChangeList
         this.messageNew.addPropertyChangeListener(this);
 
         this.contentView.setTag(this.messageNew);
-
+        LogUtil.i("content= "+msg.getContent().toString() +"   isOutgoing="+msg.getIsOutgoing());
         if (msg.getIsOutgoing()==1) {
             int sendState = msg.getSendState();
             switch (sendState){
                 case MessageSendState.MESSAGE_SEND_SUCCESS:
-                    ImageView flagView = (ImageView) findViewById(R.id.flag);
-                    flagView.setVisibility(View.GONE);
+                    flagView = (ImageView) findViewById(R.id.flag);
+                    if(null != flagView){
+                        flagView.setVisibility(View.GONE);
+                    }
                     ProgressBar sendingProgressBar = (ProgressBar) findViewById(R.id.sending_progress_bar);
-                    sendingProgressBar.setVisibility(View.GONE);
+                    if(null != sendingProgressBar){
+                        sendingProgressBar.setVisibility(View.GONE);
+                    }
                     break;
                 case MessageSendState.MESSAGE_SEND_FAILED:
                     flagView = (ImageView) findViewById(R.id.flag);
-                    flagView.setVisibility(View.VISIBLE);
+                    if(null != flagView){
+                        flagView.setVisibility(View.VISIBLE);
+                    }
                     sendingProgressBar = (ProgressBar) findViewById(R.id.sending_progress_bar);
-                    sendingProgressBar.setVisibility(View.GONE);
+                    if(null != sendingProgressBar){
+                        sendingProgressBar.setVisibility(View.GONE);
+                    }
                     break;
                 case MessageSendState.MESSAGE_SEND_LISTENED:
                     flagView = (ImageView) findViewById(R.id.flag);
-                    flagView.setVisibility(View.GONE);
+                    if(null != flagView){
+                        flagView.setVisibility(View.GONE);
+                    }
                     sendingProgressBar = (ProgressBar) findViewById(R.id.sending_progress_bar);
-                    sendingProgressBar.setVisibility(View.VISIBLE);
+                    if(null != sendingProgressBar){
+                        sendingProgressBar.setVisibility(View.VISIBLE);
+                    }
                     break;
                 default:
                     break;
             }
         } else {
             if (nameView != null) {
-                nameView.setText(msg.getSender().toString());
+//                nameView.setText(msg.getSender().toString());
+                nameView.setText(msg.getSender()+"");
             }
         }
 

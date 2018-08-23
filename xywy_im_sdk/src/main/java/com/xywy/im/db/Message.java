@@ -5,6 +5,9 @@ import com.xywy.im.CommonUtils;
 import com.xywy.im.Constant;
 import com.xywy.im.WebSocketApi;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.UnsupportedEncodingException;
@@ -147,13 +150,29 @@ public class Message {
             this.isOutgoing = 0;
             byte[] msgIdByte = new byte[32];
             System.arraycopy(data,1,msgIdByte,0,32);
+            byte[] payLoadLenByteArray = new byte[2];
+            System.arraycopy(data,33,payLoadLenByteArray,0,2);
+            short payLoadLen = BytePacket.readInt16(payLoadLenByteArray, 0);
+//            LogUtil.i("payLoadLen="+payLoadLen);
+            byte[] payLoadByteArray = new byte[payLoadLen];
+            System.arraycopy(data,35,payLoadByteArray,0,payLoadLen);
+//            LogUtil.i(Arrays.toString(data));
+//            LogUtil.i(Arrays.toString(payLoadByteArray));
             try {
                 String msg_id = new String(msgIdByte,"utf-8");
+                String content = new String(payLoadByteArray,"utf-8");
+                JSONObject body = new JSONObject(content);
+                this.content = content;
                 this.msgId = msg_id;
+                LogUtil.i("msg_id= "+msg_id+"   content= "+content);
+                this.receiver = Long.parseLong(body.getString("sender"));
                 return true;
             } catch (UnsupportedEncodingException e) {
+                LogUtil.i("UnsupportedEncodingException= "+e.getMessage());
                 e.printStackTrace();
                 return false;
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         } else if (cmd == 0x04) {
             //服务端单聊消息回复

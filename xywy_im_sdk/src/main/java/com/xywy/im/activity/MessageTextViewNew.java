@@ -9,6 +9,11 @@ import com.xywy.im.db.IMessage;
 import com.xywy.im.db.Message;
 import com.xywy.im.db.MessageDB;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import test.cn.example.com.util.LogUtil;
+
 
 public class MessageTextViewNew extends MessageRowViewNew {
     public MessageTextViewNew(Context context, boolean incomming, boolean isShowUserName) {
@@ -29,7 +34,14 @@ public class MessageTextViewNew extends MessageRowViewNew {
         if (mediaType == 0) {
             TextView content = (TextView) findViewById(R.id.text);
             String text = msg.getContent();
-            content.setText(text);
+            try {
+                JSONObject jsonObject = new JSONObject(text);
+                content.setText(jsonObject.getString("content"));
+            } catch (JSONException e) {
+                LogUtil.i(e.getMessage());
+                e.printStackTrace();
+            }
+
         } else {
             TextView content = (TextView) findViewById(R.id.text);
             content.setText("unknown");

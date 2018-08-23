@@ -25,6 +25,9 @@ import com.xywy.im.tools.Notification;
 import com.xywy.im.tools.NotificationCenter;
 import com.xywy.im.tools.PeerOutbox;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -81,8 +84,7 @@ public class PeerMessageActivity extends MessageActivity implements
             return;
         }
         DBManager.getInstance().createMessageTable(peerUID);
-        Log.i(TAG, "local id:" + currentUID +  "peer id:" + peerUID);
-        String userName = "";
+        LogUtil.i("local id:" + currentUID +  "   peer id:" + peerUID);
         String pwd = "password1234";
         XywyIMService.getInstance().connect("test"+currentUID,pwd);
         this.sender = currentUID;
@@ -132,9 +134,14 @@ public class PeerMessageActivity extends MessageActivity implements
 
             msg.setMsgType(0);
             try {
-                msg.setContent(new String(content.getBytes(),"utf-8"));
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("sender",this.sender);
+                jsonObject.put("content",new String(content.getBytes(),"utf-8"));
+                msg.setContent(jsonObject.toString());
                 msg.setMsgId(new String(UUID.randomUUID().toString().replace("-", "").getBytes(),"utf-8"));
             } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
             msg.setTime(System.currentTimeMillis());
@@ -397,7 +404,12 @@ public class PeerMessageActivity extends MessageActivity implements
         DBManager.getInstance().addMessage(msg, new DBManager.AddMessageListener() {
             @Override
             public void addMessage(Message message) {
-
+                if(messagesNew.size() == 0){
+                    messagesNew.add(message);
+                    adapterNew.notifyDataSetChanged();
+                }else {
+                    updateMessage(message);
+                }
             }
         });
     }
