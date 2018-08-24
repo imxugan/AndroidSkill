@@ -183,10 +183,9 @@ public class DBManager implements IDBRxManager{
             @Override
             public void onNext(List<Message> messages) {
                 if(null != messages){
-//                    sort(messages);
-                   for (int i = 0; i < messages.size(); i++) {
-                        LogUtil.i("sendState= "+messages.get(i).getSendState()+"   "+messages.get(i).getContent()+"   "+getDateTime(messages.get(i).getTime()) +" isOutgong= "+messages.get(i).getIsOutgoing());
-                    }
+//                   for (int i = 0; i < messages.size(); i++) {
+//                        LogUtil.i("sendState= "+messages.get(i).getSendState()+"   "+messages.get(i).getContent()+"   "+getDateTime(messages.get(i).getTime()) +" isOutgong= "+messages.get(i).getIsOutgoing());
+//                    }
                     listener.getMessageList(messages);
                 }else {
                     LogUtil.i("查询的表不存");
@@ -296,10 +295,16 @@ public class DBManager implements IDBRxManager{
     }
 
     public void createMessageTable(long receiver){
+        if(!db.isOpen()){
+            db  = SQLiteDatabase.openDatabase(db.getPath(), null, SQLiteDatabase.OPEN_READWRITE);
+        }
         helper.createMessageTable(db,"msg_"+receiver);
     }
 
     public void createUserTable(long sender){
+        if(!db.isOpen()){
+            db = SQLiteDatabase.openDatabase(db.getPath(), null, SQLiteDatabase.OPEN_READWRITE);
+        }
         helper.createUserTable(db,"u_"+sender);
     }
 
@@ -322,7 +327,7 @@ public class DBManager implements IDBRxManager{
         return Observable.create(new Observable.OnSubscribe<User>() {
             @Override
             public void call(Subscriber<? super User> subscriber) {
-                if(helper.tableIsExist("u_"+user.userId)){
+                if(helper.tableIsExist("u_"+user.userId) && db.isOpen()){
                     db.beginTransaction();
                     try{
                         ContentValues contentValues = new ContentValues();
@@ -456,7 +461,7 @@ public class DBManager implements IDBRxManager{
             @Override
             public void call(Subscriber<? super Message> subscriber) {
                 String table = "msg_"+message.getReceiver();
-                if(helper.tableIsExist(table)){
+                if(helper.tableIsExist(table) && db.isOpen()){
                     db.beginTransaction();
                     try{
                         ContentValues contentValues = new ContentValues();
@@ -493,7 +498,7 @@ public class DBManager implements IDBRxManager{
         return Observable.create(new Observable.OnSubscribe<List<Message>>() {
             @Override
             public void call(Subscriber<? super List<Message>> subscriber) {
-                if(helper.tableIsExist(table)){
+                if(helper.tableIsExist(table) && db.isOpen()){
                     List<Message> messageList = new ArrayList<Message>();
                     Cursor cursor = db.rawQuery("select * from "+table+" order by time desc limit 10 offset "+page,null);
                    if(null != cursor && cursor.getCount()>0){
@@ -526,7 +531,7 @@ public class DBManager implements IDBRxManager{
         return Observable.create(new Observable.OnSubscribe<Message>() {
             @Override
             public void call(Subscriber<? super Message> subscriber) {
-                if(helper.tableIsExist(table)){
+                if(helper.tableIsExist(table) && db.isOpen()){
                     Cursor cursor = db.query(table, null, "msgId=?", new String[]{msgId}, null, null, null);
                     if(null != cursor && cursor.getCount()>0){
                         Message msg = new Message();
@@ -558,7 +563,7 @@ public class DBManager implements IDBRxManager{
         return Observable.create(new Observable.OnSubscribe<List<Message>>() {
             @Override
             public void call(Subscriber<? super List<Message>> subscriber) {
-                if(helper.tableIsExist(table)){
+                if(helper.tableIsExist(table) && db.isOpen()){
                     List<Message> messageList = new ArrayList<Message>();
                     Cursor cursor = db.query(table, null, "sendState=?", new String[]{MessageSendState.MESSAGE_SEND_LISTENED+""}, null, null, null);
                     if(null != cursor && cursor.getCount()>0){
