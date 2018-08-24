@@ -420,7 +420,7 @@ public class MessageActivity extends BaseActivity implements
 
         @Override
         public int getItemViewType(int position) {
-            return messagesNew.get(position).getMsgType();
+            return messagesNew.get(position).getIsOutgoing();//后期加图片时，还要加类型，目前暂时这样处理
         }
 
 

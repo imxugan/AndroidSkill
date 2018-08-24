@@ -89,7 +89,7 @@ public class MessageRowViewNew extends FrameLayout implements PropertyChangeList
                     if(null != flagView){
                         flagView.setVisibility(View.GONE);
                     }
-                    ProgressBar sendingProgressBar = (ProgressBar) findViewById(R.id.sending_progress_bar);
+                    sendingProgressBar = (ProgressBar) findViewById(R.id.sending_progress_bar);
                     if(null != sendingProgressBar){
                         sendingProgressBar.setVisibility(View.GONE);
                     }
