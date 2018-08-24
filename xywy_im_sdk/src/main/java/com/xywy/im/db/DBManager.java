@@ -185,7 +185,7 @@ public class DBManager implements IDBRxManager{
                 if(null != messages){
 //                    sort(messages);
                    for (int i = 0; i < messages.size(); i++) {
-                        LogUtil.i("sendState= "+messages.get(i).getSendState()+"   content=  "+messages.get(i).getContent()+"   "+getDateTime(messages.get(i).getTime()) );
+                        LogUtil.i("sendState= "+messages.get(i).getSendState()+"   "+messages.get(i).getContent()+"   "+getDateTime(messages.get(i).getTime()) +" isOutgong= "+messages.get(i).getIsOutgoing());
                     }
                     listener.getMessageList(messages);
                 }else {
@@ -283,7 +283,8 @@ public class DBManager implements IDBRxManager{
             @Override
             public void onNext(List<Message> messages) {
                 for (int i = 0; i < messages.size(); i++) {
-                    LogUtil.e("msgId=  "+messages.get(i).getMsgId()+"   content= "+messages.get(i).getContent()+"  sendState"+messages.get(i).getSendState());
+//                    LogUtil.e("msgId= "+messages.get(i).getMsgId()+"  "+messages.get(i).getContent()+"  sendState= "+messages.get(i).getSendState()+" isOutgoing= "+messages.get(i).getIsOutgoing());
+                    LogUtil.e(messages.get(i).getContent()+"  "+getDateTime(messages.get(i).getTime())+"  sendState= "+messages.get(i).getSendState()+" outgoing= "+messages.get(i).getIsOutgoing());
                 }
             }
         });

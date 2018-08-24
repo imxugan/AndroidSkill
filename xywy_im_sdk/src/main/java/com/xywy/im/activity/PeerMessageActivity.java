@@ -399,7 +399,7 @@ public class PeerMessageActivity extends MessageActivity implements
 
     @Override
     public void onPeerMessageNew(Message msg) {
-        LogUtil.e("onPeerMessageNew   msgLocalID    "+msg.getMsgId());
+        LogUtil.e("onPeerMessageNew   msgLocalID    "+msg.getMsgId()+"   isOutgoing="+msg.getIsOutgoing());
         //将将系统推送的数据存入数据库
         DBManager.getInstance().addMessage(msg, new DBManager.AddMessageListener() {
             @Override

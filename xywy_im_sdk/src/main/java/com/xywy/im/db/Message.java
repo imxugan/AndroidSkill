@@ -147,7 +147,6 @@ public class Message {
         }  else if (cmd == 0x03) {
             //服务器端会推送消息到客户端
             this.cmd = Constant.PUBLISH;
-            this.isOutgoing = 0;
             byte[] msgIdByte = new byte[32];
             System.arraycopy(data,1,msgIdByte,0,32);
             byte[] payLoadLenByteArray = new byte[2];
@@ -166,6 +165,10 @@ public class Message {
                 this.msgId = msg_id;
                 LogUtil.i("msg_id= "+msg_id+"   content= "+content);
                 this.receiver = Long.parseLong(body.getString("sender"));
+                this.isOutgoing = 0;
+                this.time = System.currentTimeMillis();
+                this.sendState = MessageSendState.MESSAGE_SEND_SUCCESS;
+                //后期如果要接收图片，语音等吗，还要设置消息类型
                 return true;
             } catch (UnsupportedEncodingException e) {
                 LogUtil.i("UnsupportedEncodingException= "+e.getMessage());
