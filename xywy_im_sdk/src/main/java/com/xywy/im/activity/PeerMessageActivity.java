@@ -119,7 +119,10 @@ public class PeerMessageActivity extends MessageActivity implements
                 if (messagesNew.size() > 0 && page == 0) {
                     listview.setSelection(messagesNew.size() - 1);
                 }else {
-                    adapterNew.notifyDataSetChanged();
+                    if(data.size()>0){
+                        listview.setAdapter(adapterNew);
+                        listview.setSelection(data.size()-1);
+                    }
                 }
             }
         });
