@@ -420,14 +420,16 @@ public class MessageActivity extends BaseActivity implements
 
         @Override
         public int getItemViewType(int position) {
-            return messagesNew.get(position).getIsOutgoing()+messagesNew.get(position).getMsgType();//后期加图片时，还要加类型，目前暂时这样处理
+            int viewType = messagesNew.get(position).getIsOutgoing() + messagesNew.get(position).getMsgType();
+            LogUtil.i("viewType= "+viewType);
+            return viewType;//后期加图片时，还要加类型，目前暂时这样处理
         }
 
 
         @Override
         public int getViewTypeCount() {
-            return 4;
-        }//增加了消息类型，这里记得改变消息类型的数量
+            return 6;   // 增加了消息类型，这里记得改变消息类型的数量  getViewTypeCount() 的值必须大于 getItemViewType() 的值
+        }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
@@ -436,19 +438,19 @@ public class MessageActivity extends BaseActivity implements
             if (rowView == null) {
                 int msgType = msg.getMsgType();
                 switch (msgType) {
-                    case 0:
+                    case Message.MSGTYPE_TEXT:
                         rowView = new MessageTextViewNew(MessageActivity.this, Message.MSG_IN==msg.getIsOutgoing(), isShowUserName);
                         break;
-                    case 1:
-//                        rowView = new MessageImageViewNew(MessageActivity.this, !msg.getIsOutgoing(), isShowUserName);
+                    case Message.MSGTYPE_IMG:
+                        rowView = new MessageImageViewNew(MessageActivity.this, Message.MSG_IN==msg.getIsOutgoing(), isShowUserName);
                         break;
-                    case 2:
+                    case 6:
 //                        rowView = new MessageAudioView(MessageActivity.this, !msg.getIsOutgoing(), isShowUserName);
                         break;
-                    case 3:
+                    case 8:
 //                        rowView = new MessageLocationView(MessageActivity.this, !msg.getIsOutgoing(), isShowUserName);
                         break;
-                    case 4:
+                    case 10:
 //                        rowView = new MessageLinkView(MessageActivity.this, !msg.getIsOutgoing(), isShowUserName);
                         break;
 //                    case MESSAGE_GROUP_NOTIFICATION:

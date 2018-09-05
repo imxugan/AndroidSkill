@@ -21,12 +21,12 @@ import test.cn.example.com.util.LogUtils;
  */
 
 public class Message {
-    public static final int MSGTYPE_TEXT = 0;//消息类型是文字
-    public static final int MSGTYPE_IMG = 1;//消息类型是图片
+    public static final int MSGTYPE_TEXT = 2;//消息类型是文字
+    public static final int MSGTYPE_IMG = 4;//消息类型是图片
 
 
-    public static final int MSG_OUT = 2; //1 表示发送出去的消息
-    public static final int MSG_IN = 3;  //0 表示接受的消息
+    public static final int MSG_OUT = 1; //1 表示发送出去的消息
+    public static final int MSG_IN = 0;  //0 表示接受的消息
 
     private String msgId;
 

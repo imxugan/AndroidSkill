@@ -31,7 +31,7 @@ public class MessageTextViewNew extends MessageRowViewNew {
 
         int mediaType = msg.getMsgType();
 
-        if (mediaType == 0) {
+        if (mediaType == Message.MSGTYPE_TEXT) {
             TextView content = (TextView) findViewById(R.id.text);
             String text = msg.getContent();
             try {

@@ -27,7 +27,7 @@
         android:layout_above="@id/line_sender_underline"
         android:layout_alignBottom="@id/line_sender_underline"
         android:layout_toRightOf="@id/iv_sender"
-        android:text="123"
+        android:text="1"
         android:hint="@string/login_account" />
 
     <!--接收用户id-->

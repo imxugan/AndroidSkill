@@ -104,7 +104,7 @@ public class PeerMessageActivity extends MessageActivity implements
     }
 
     private void loadData(final int page) {
-//        DBManager.getInstance().getAllMessage(receiver);
+        DBManager.getInstance().getAllMessage(receiver);
         DBManager.getInstance().getMessageByPageSize(receiver,page,new DBManager.GetMessageListListener(){
 
             @Override
@@ -443,7 +443,6 @@ public class PeerMessageActivity extends MessageActivity implements
 //                        LogUtil.i(""+messagesNew.get(i));
                         DBManager.getInstance().upateMessage(messagesNew.get(i));
                         updateMessage(messagesNew.get(i));
-                        break;
                     }
                 }
 
