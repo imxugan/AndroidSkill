@@ -111,9 +111,9 @@ public class PeerMessageActivity extends MessageActivity implements
             public void getMessageList(List<Message> data) {
                 messagesNew.addAll(data);
                 DBManager.getInstance().sort(messagesNew);
-//                for (int i = 0; i < messagesNew.size(); i++) {
-//                    LogUtil.i("sendState= "+messagesNew.get(i).getSendState()+"         content=  "+messagesNew.get(i).getContent()+"     "+messagesNew.get(i).getCmd());
-//                }
+                for (int i = 0; i < messagesNew.size(); i++) {
+                    LogUtil.i("sendState= "+messagesNew.get(i).getSendState()+"         content=  "+messagesNew.get(i).getContent()+"     "+messagesNew.get(i).getCmd());
+                }
 
                 //显示最后一条消息
                 if (messagesNew.size() > 0 && page == 0) {
@@ -135,11 +135,12 @@ public class PeerMessageActivity extends MessageActivity implements
             msg.setSender(this.sender);
             msg.setReceiver(this.receiver);
 
-            msg.setMsgType(0);
+            msg.setMsgType(Message.MSGTYPE_TEXT);
             try {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("sender",this.sender);
                 jsonObject.put("content",new String(content.getBytes(),"utf-8"));
+                jsonObject.put("msgType",Message.MSGTYPE_TEXT);
                 msg.setContent(jsonObject.toString());
                 msg.setMsgId(new String(UUID.randomUUID().toString().replace("-", "").getBytes(),"utf-8"));
             } catch (UnsupportedEncodingException e) {
@@ -148,7 +149,7 @@ public class PeerMessageActivity extends MessageActivity implements
                 e.printStackTrace();
             }
             msg.setTime(System.currentTimeMillis());
-            msg.setIsOutgoing(1);
+            msg.setIsOutgoing(Message.MSG_OUT);
             msg.setSendState(MessageSendState.MESSAGE_SEND_LISTENED);
             msg.setCmd(3);
             //将数据存入数据库
@@ -684,6 +685,35 @@ public class PeerMessageActivity extends MessageActivity implements
         NotificationCenter nc = NotificationCenter.defaultCenter();
         Notification notification = new Notification(imsg, SEND_MESSAGE_NAME);
         nc.postNotification(notification);
+    }
+
+    protected void sendMessageContentNew(Message message){
+        message.setSender(this.sender);
+        message.setReceiver(this.receiver);
+        message.setMsgType(Message.MSGTYPE_IMG);
+        try {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("sender",this.sender);
+            jsonObject.put("content",message.getContent());
+            jsonObject.put("msgType",Message.MSGTYPE_IMG);
+            message.setContent(jsonObject.toString());
+            message.setMsgId(new String(UUID.randomUUID().toString().replace("-","").getBytes(),"utf-8"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }catch (UnsupportedEncodingException e){
+            e.printStackTrace();
+        }
+        message.setTime(System.currentTimeMillis());
+        message.setIsOutgoing(Message.MSG_OUT);
+        message.setSendState(MessageSendState.MESSAGE_SEND_LISTENED);
+        message.setCmd(3);
+        DBManager.getInstance().addMessage(message, new DBManager.AddMessageListener() {
+            @Override
+            public void addMessage(Message message) {
+                XywyIMService.getInstance().sendPeerMessage(message);
+                insertMessage(message);
+            }
+        });
     }
 
     private boolean isOnNet(Context context) {

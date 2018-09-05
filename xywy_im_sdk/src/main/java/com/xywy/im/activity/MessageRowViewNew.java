@@ -81,7 +81,7 @@ public class MessageRowViewNew extends FrameLayout implements PropertyChangeList
 
         this.contentView.setTag(this.messageNew);
         LogUtil.i("content= "+msg.getContent().toString() +"   isOutgoing="+msg.getIsOutgoing());
-        if (msg.getIsOutgoing()==1) {
+        if (msg.getIsOutgoing()==Message.MSG_OUT) {
             int sendState = msg.getSendState();
             switch (sendState){
                 case MessageSendState.MESSAGE_SEND_SUCCESS:

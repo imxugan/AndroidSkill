@@ -21,6 +21,12 @@ import test.cn.example.com.util.LogUtils;
  */
 
 public class Message {
+    public static final int MSGTYPE_TEXT = 0;//消息类型是文字
+    public static final int MSGTYPE_IMG = 1;//消息类型是图片
+
+
+    public static final int MSG_OUT = 2; //1 表示发送出去的消息
+    public static final int MSG_IN = 3;  //0 表示接受的消息
 
     private String msgId;
 
@@ -165,10 +171,12 @@ public class Message {
                 this.msgId = msg_id;
                 LogUtil.i("msg_id= "+msg_id+"   content= "+content);
                 this.receiver = Long.parseLong(body.getString("sender"));
-                this.isOutgoing = 0;
+                this.isOutgoing = Message.MSG_IN;
                 this.time = System.currentTimeMillis();
                 this.sendState = MessageSendState.MESSAGE_SEND_SUCCESS;
-                //后期如果要接收图片，语音等吗，还要设置消息类型
+                //后期如果要接收图片，语音等吗，还要设置消息类型,将消息类型存储到发送的数据的json体中
+                JSONObject jsonObject = new JSONObject(content);
+                this.msgType = jsonObject.getInt("msgType");
                 return true;
             } catch (UnsupportedEncodingException e) {
                 LogUtil.i("UnsupportedEncodingException= "+e.getMessage());

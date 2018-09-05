@@ -420,14 +420,14 @@ public class MessageActivity extends BaseActivity implements
 
         @Override
         public int getItemViewType(int position) {
-            return messagesNew.get(position).getIsOutgoing();//后期加图片时，还要加类型，目前暂时这样处理
+            return messagesNew.get(position).getIsOutgoing()+messagesNew.get(position).getMsgType();//后期加图片时，还要加类型，目前暂时这样处理
         }
 
 
         @Override
         public int getViewTypeCount() {
-            return 2;
-        }
+            return 4;
+        }//增加了消息类型，这里记得改变消息类型的数量
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
@@ -437,7 +437,7 @@ public class MessageActivity extends BaseActivity implements
                 int msgType = msg.getMsgType();
                 switch (msgType) {
                     case 0:
-                        rowView = new MessageTextViewNew(MessageActivity.this, 0==msg.getIsOutgoing(), isShowUserName);
+                        rowView = new MessageTextViewNew(MessageActivity.this, Message.MSG_IN==msg.getIsOutgoing(), isShowUserName);
                         break;
                     case 1:
 //                        rowView = new MessageImageViewNew(MessageActivity.this, !msg.getIsOutgoing(), isShowUserName);
@@ -457,7 +457,7 @@ public class MessageActivity extends BaseActivity implements
 //                        rowView = new MessageNotificationView(MessageActivity.this);
 //                        break;
                     default:
-                        rowView = new MessageTextViewNew(MessageActivity.this, 0==msg.getIsOutgoing(), isShowUserName);
+                        rowView = new MessageTextViewNew(MessageActivity.this, Message.MSG_IN==msg.getIsOutgoing(), isShowUserName);
                         break;
                 }
 
@@ -923,6 +923,10 @@ public class MessageActivity extends BaseActivity implements
         Log.i(TAG, "not implemented");
     }
 
+    protected void sendMessageContentNew(Message message){
+        Log.i(TAG, "not implemented");
+    }
+
     protected void sendMessage(String msg) {
         Log.i(TAG, "not implemented");
     }
@@ -1142,7 +1146,10 @@ public class MessageActivity extends BaseActivity implements
             File t = new File(tpath);
             f.renameTo(t);
 
-            sendMessageContent(IMessage.newImage("file:" + path, (int)newWidth, (int)newHeight));
+//            sendMessageContent(IMessage.newImage("file:" + path, (int)newWidth, (int)newHeight));
+            Message message = new Message();
+            message.setContent("file:"+path);
+            sendMessageContentNew(message);
         } catch (IOException e) {
             e.printStackTrace();
         }
