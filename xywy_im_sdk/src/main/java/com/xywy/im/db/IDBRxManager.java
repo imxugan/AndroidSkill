@@ -28,4 +28,6 @@ public interface IDBRxManager {
     Observable<List<Message>> getSendingMessageListRx(String table);
 
     Observable<List<Message>> getAllMessageListRx(String table);
+
+    Observable<Boolean> isTableExistsRx(String table);
 }

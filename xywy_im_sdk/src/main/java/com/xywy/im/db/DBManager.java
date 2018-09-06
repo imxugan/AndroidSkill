@@ -289,6 +289,26 @@ public class DBManager implements IDBRxManager{
         });
     }
 
+    public void isTableExists(User user,final TableExistsListener tableExistsListener){
+        long userId = user.userId;
+        String table = "u_"+userId;
+        isTableExistsRx(table).subscribe(new Subscriber<Boolean>() {
+            @Override
+            public void onCompleted() {
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(Boolean aBoolean) {
+                tableExistsListener.tableExists(aBoolean);
+            }
+        });
+    }
+
     private Cursor queryTheCursor(String tableName) {
         Cursor c = db.rawQuery("select * from "+tableName,null);
         return c;
@@ -337,7 +357,7 @@ public class DBManager implements IDBRxManager{
                         contentValues.put("userId",user.userId);
                         contentValues.put("userName",user.userName);
                         contentValues.put("msgTableName",user.msgTableName);
-                        if(-1 == db.insertWithOnConflict("u_"+user.userId, null, contentValues,SQLiteDatabase.CONFLICT_IGNORE)){
+                        if(-1 != db.insertWithOnConflict("u_"+user.userId, null, contentValues,SQLiteDatabase.CONFLICT_IGNORE)){
                             subscriber.onNext(user);
                         }else {
                             subscriber.onNext(null);
@@ -623,6 +643,18 @@ public class DBManager implements IDBRxManager{
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
+    @Override
+    public Observable<Boolean> isTableExistsRx(final String table) {
+        return Observable.create(new Observable.OnSubscribe<Boolean>() {
+            @Override
+            public void call(Subscriber<? super Boolean> subscriber) {
+                boolean exist = helper.tableIsExist(table);
+                subscriber.onNext(exist);
+                subscriber.onCompleted();
+            }
+        }).observeOn(Schedulers.io()).subscribeOn(AndroidSchedulers.mainThread());
+    }
+
 
     public void sort(List<Message> messages){
         Collections.sort(messages,cmp);
@@ -650,6 +682,10 @@ public class DBManager implements IDBRxManager{
 
     public interface AddMessageListener{
         public void addMessage(Message message);
+    }
+
+    public interface TableExistsListener{
+        public void tableExists(Boolean b);
     }
 
     private String getDateTime(long timeStamp){

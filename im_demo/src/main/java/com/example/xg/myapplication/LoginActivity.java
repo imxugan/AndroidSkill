@@ -50,6 +50,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private EditText mEtTargetAccount;
 
     AsyncTask mLoginTask;
+
     @Override
     protected void onBaseCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_login);
@@ -115,10 +116,21 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         } else {
             DBManager.getInstance().createUserTable(sender);
 
-            User user = new User();
+            final User user = new User();
             user.userId = sender;
             user.userName = "sender_"+sender;
             user.msgTableName = receiver;
+            DBManager.getInstance().isTableExists(user, new DBManager.TableExistsListener() {
+                @Override
+                public void tableExists(Boolean b) {
+                    handleResult(b,user,sender,receiver);
+                }
+            });
+        }
+    }
+
+    private void handleResult(Boolean b,User user,final long sender,final long receiver) {
+        if(!b){
             DBManager.getInstance().getInsertUserRx(user).subscribe(new Subscriber<User>() {
                 @Override
                 public void onCompleted() {
@@ -133,18 +145,23 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 @Override
                 public void onNext(User user) {
                     LogUtil.i("插入的用户Id  "+user.userId);
-                    Intent intent = new Intent(LoginActivity.this, PeerMessageActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra("peer_uid", receiver);
-                    intent.putExtra("peer_name", "测试"+sender);
-                    intent.putExtra("current_uid", sender);
-                    startActivity(intent);
-                    finish();
+                    go(sender, receiver);
                 }
             });
+        }else {
+            go(sender, receiver);
         }
     }
 
+    private void go(long sender, long receiver) {
+        Intent intent = new Intent(LoginActivity.this, PeerMessageActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("peer_uid", receiver);
+        intent.putExtra("peer_name", "测试"+sender);
+        intent.putExtra("current_uid", sender);
+        startActivity(intent);
+        finish();
+    }
 
 
     @Override
