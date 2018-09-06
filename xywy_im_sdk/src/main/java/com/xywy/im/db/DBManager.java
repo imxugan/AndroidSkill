@@ -327,7 +327,10 @@ public class DBManager implements IDBRxManager{
         return Observable.create(new Observable.OnSubscribe<User>() {
             @Override
             public void call(Subscriber<? super User> subscriber) {
-                if(helper.tableIsExist("u_"+user.userId) && db.isOpen()){
+                if(!helper.tableIsExist("u_"+user.userId)){
+                    createUserTable(user.userId);
+                }
+                if(db.isOpen()){
                     db.beginTransaction();
                     try{
                         ContentValues contentValues = new ContentValues();

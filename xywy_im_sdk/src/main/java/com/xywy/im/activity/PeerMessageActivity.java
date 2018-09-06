@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -24,6 +25,9 @@ import com.xywy.im.tools.FileCache;
 import com.xywy.im.tools.Notification;
 import com.xywy.im.tools.NotificationCenter;
 import com.xywy.im.tools.PeerOutbox;
+import com.xywy.im.tools.downImg.SDFileHelper;
+import com.xywy.im.tools.uploadImg.HttpMultipartPost;
+import com.xywy.im.tools.uploadImg.UploadImgInfo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -58,6 +62,60 @@ public class PeerMessageActivity extends MessageActivity implements
     protected long peerUID;
     protected String peerName;
     private int page;
+
+    private Handler handler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            switch (msg.what) {
+                case 200:
+                    UploadImgInfo upinfo = (UploadImgInfo) msg.obj;
+                    String code = upinfo.getCode();
+                    if (code != null && code.equals("0")) {
+                        for (int i = 0; i < upinfo.getData().size(); i++) {
+                            String url = upinfo.getData().get(i).getUrl().toString();
+                            Message message = new Message();
+                            message.setSender(PeerMessageActivity.this.sender);
+                            message.setReceiver(PeerMessageActivity.this.receiver);
+                            message.setMsgType(Message.MSGTYPE_IMG);
+                            try {
+                                JSONObject jsonObject = new JSONObject();
+                                jsonObject.put("sender",PeerMessageActivity.this.sender);
+                                jsonObject.put("content",new String(url.getBytes(),"utf-8"));
+                                jsonObject.put("msgType",Message.MSGTYPE_IMG);
+                                List<String> filePaths = upinfo.getFilePaths();
+                                if(null != filePaths){
+                                    for (int j = 0; j < filePaths.size(); j++) {
+                                        String filePath = filePaths.get(j);
+                                        jsonObject.put("filePath",filePath);
+                                    }
+                                }
+                                message.setContent(jsonObject.toString());
+                                message.setMsgId(new String(UUID.randomUUID().toString().replace("-","").getBytes(),"utf-8"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }catch (UnsupportedEncodingException e){
+                                e.printStackTrace();
+                            }
+                            message.setTime(System.currentTimeMillis());
+                            message.setIsOutgoing(Message.MSG_OUT);
+                            message.setSendState(MessageSendState.MESSAGE_SEND_LISTENED);
+                            message.setCmd(3);
+                            DBManager.getInstance().addMessage(message, new DBManager.AddMessageListener() {
+                                @Override
+                                public void addMessage(Message message) {
+                                    XywyIMService.getInstance().sendPeerMessage(message);
+                                    insertMessage(message);
+                                }
+                            });
+                        }
+
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -408,6 +466,25 @@ public class PeerMessageActivity extends MessageActivity implements
         DBManager.getInstance().addMessage(msg, new DBManager.AddMessageListener() {
             @Override
             public void addMessage(Message message) {
+                if(Message.MSGTYPE_IMG == message.getMsgType()){
+                    String content = message.getContent();
+                    final String fileName = message.getMsgId()+".png";
+                    try {
+                        JSONObject jsonObject = new JSONObject(content);
+                        final String img_url = jsonObject.getString("content");
+                        //下载图片资源
+                        SDFileHelper.getInstance(PeerMessageActivity.this).savePicture(fileName,img_url);
+                        String baseDir = SDFileHelper.getInstance(PeerMessageActivity.this).getBaseDir();
+                        if(null != baseDir){
+                            jsonObject.put("filePath",baseDir+fileName);
+                            message.setContent(jsonObject.toString());
+                            DBManager.getInstance().upateMessage(message);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
                 if(messagesNew.size() == 0){
                     messagesNew.add(message);
                     adapterNew.notifyDataSetChanged();
@@ -686,33 +763,14 @@ public class PeerMessageActivity extends MessageActivity implements
         nc.postNotification(notification);
     }
 
-    protected void sendMessageContentNew(Message message){
-        message.setSender(this.sender);
-        message.setReceiver(this.receiver);
-        message.setMsgType(Message.MSGTYPE_IMG);
-        try {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("sender",this.sender);
-            jsonObject.put("content",message.getContent());
-            jsonObject.put("msgType",Message.MSGTYPE_IMG);
-            message.setContent(jsonObject.toString());
-            message.setMsgId(new String(UUID.randomUUID().toString().replace("-","").getBytes(),"utf-8"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }catch (UnsupportedEncodingException e){
-            e.printStackTrace();
-        }
-        message.setTime(System.currentTimeMillis());
-        message.setIsOutgoing(Message.MSG_OUT);
-        message.setSendState(MessageSendState.MESSAGE_SEND_LISTENED);
-        message.setCmd(3);
-        DBManager.getInstance().addMessage(message, new DBManager.AddMessageListener() {
-            @Override
-            public void addMessage(Message message) {
-                XywyIMService.getInstance().sendPeerMessage(message);
-                insertMessage(message);
-            }
-        });
+    protected void sendMessageContentNew(String content){
+        ArrayList<String> filePaths = new ArrayList<>();
+        filePaths.add(content);
+        HttpMultipartPost post = new HttpMultipartPost(PeerMessageActivity.this, filePaths,
+                "http://api.club.xywy.com/doctorApp.interface.php",
+                handler, 200);
+        post.isYixian = false;
+        post.execute();
     }
 
     private boolean isOnNet(Context context) {

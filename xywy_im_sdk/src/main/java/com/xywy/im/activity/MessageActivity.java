@@ -925,7 +925,7 @@ public class MessageActivity extends BaseActivity implements
         Log.i(TAG, "not implemented");
     }
 
-    protected void sendMessageContentNew(Message message){
+    protected void sendMessageContentNew(String content){
         Log.i(TAG, "not implemented");
     }
 
@@ -1149,9 +1149,8 @@ public class MessageActivity extends BaseActivity implements
             f.renameTo(t);
 
 //            sendMessageContent(IMessage.newImage("file:" + path, (int)newWidth, (int)newHeight));
-            Message message = new Message();
-            message.setContent("file:"+path);
-            sendMessageContentNew(message);
+
+            sendMessageContentNew(path);
         } catch (IOException e) {
             e.printStackTrace();
         }

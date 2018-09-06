@@ -1,6 +1,7 @@
 package com.xywy.im.activity;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -15,6 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.beans.PropertyChangeEvent;
+import java.io.File;
 
 import test.cn.example.com.util.LogUtil;
 
@@ -48,13 +50,26 @@ public class MessageImageViewNew extends MessageRowViewNew {
         LogUtil.e(content);
         try {
             JSONObject jsonObject = new JSONObject(content);
+            String imgUrl = "";
+            if(jsonObject.has("filePath")){
+                String filePath = jsonObject.getString("filePath");
+                if(!TextUtils.isEmpty(filePath)){
+                    File file = new File(filePath);
+                    if(file.exists()){  //如果本地图片存在，则直接加载本地图片
+                        imgUrl = "file://"+filePath;
+                    }else {  //否则获取网络图片地址
+                        imgUrl = jsonObject.getString("content");
+                    }
+                }else {
+                    imgUrl = jsonObject.getString("content");
+                }
+            }else {
+                imgUrl = jsonObject.getString("content");
+            }
 
-            String url = jsonObject.getString("content");
-            LogUtil.i("url=     "+url);
-            url = url.substring(5);
-            LogUtil.i("url=     "+url);
+            LogUtil.i("url=     "+imgUrl);
             Picasso.with(context)
-                    .load("file://"+url)
+                    .load(imgUrl)
                     .placeholder(R.drawable.image_download_fail)
                     .into(imageView);
 
