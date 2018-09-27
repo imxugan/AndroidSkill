@@ -63,7 +63,7 @@ public class SDFileHelper {
 
     private String saveToSD(String fileName, Bitmap bitmap) {
         if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
-            String fileDir = Environment.getExternalStorageDirectory()+"/xywy_im/";
+            String fileDir = Environment.getExternalStorageDirectory().getPath()+"/xywy_im/";
             baseDir = fileDir;
             File dir = new File(fileDir);
             if(!dir.exists()){

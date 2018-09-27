@@ -16,9 +16,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.beans.PropertyChangeEvent;
-import java.io.File;
-
-import test.cn.example.com.util.LogUtil;
 
 /**
  * Created by xugan on 2018/9/5.
@@ -47,27 +44,20 @@ public class MessageImageViewNew extends MessageRowViewNew {
 
         ImageView imageView = (ImageView)findViewById(R.id.image);
         String content = msg.getContent();
-        LogUtil.e(content);
         try {
             JSONObject jsonObject = new JSONObject(content);
             String imgUrl = "";
             if(jsonObject.has("filePath")){
                 String filePath = jsonObject.getString("filePath");
                 if(!TextUtils.isEmpty(filePath)){
-                    File file = new File(filePath);
-                    if(file.exists()){  //如果本地图片存在，则直接加载本地图片
-                        imgUrl = "file://"+filePath;
-                    }else {  //否则获取网络图片地址
-                        imgUrl = jsonObject.getString("content");
-                    }
+                    //如果本地图片存在，则直接加载本地图片
+                    imgUrl = "file://"+filePath;
                 }else {
                     imgUrl = jsonObject.getString("content");
                 }
             }else {
                 imgUrl = jsonObject.getString("content");
             }
-
-            LogUtil.i("url=     "+imgUrl);
             Picasso.with(context)
                     .load(imgUrl)
                     .placeholder(R.drawable.image_download_fail)

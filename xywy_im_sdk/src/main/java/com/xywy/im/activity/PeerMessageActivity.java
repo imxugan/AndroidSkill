@@ -102,8 +102,16 @@ public class PeerMessageActivity extends MessageActivity implements
                             DBManager.getInstance().addMessage(message, new DBManager.AddMessageListener() {
                                 @Override
                                 public void addMessage(Message message) {
-                                    XywyIMService.getInstance().sendPeerMessage(message);
-                                    insertMessage(message);
+                                    String content = message.getContent();
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(content);
+                                        jsonObject.remove("filePath");
+                                        message.setContent(jsonObject.toString());
+                                        XywyIMService.getInstance().sendPeerMessage(message);
+                                        insertMessage(message);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
                             });
                         }

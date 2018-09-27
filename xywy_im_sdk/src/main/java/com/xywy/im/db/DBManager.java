@@ -283,7 +283,8 @@ public class DBManager implements IDBRxManager{
             public void onNext(List<Message> messages) {
                 for (int i = 0; i < messages.size(); i++) {
 //                    LogUtil.e("msgId= "+messages.get(i).getMsgId()+"  "+messages.get(i).getContent()+"  sendState= "+messages.get(i).getSendState()+" isOutgoing= "+messages.get(i).getIsOutgoing());
-                    LogUtil.e(messages.get(i).getContent()+"  "+getDateTime(messages.get(i).getTime())+"  sendState= "+messages.get(i).getSendState()+" outgoing= "+messages.get(i).getIsOutgoing());
+//                    LogUtil.e(messages.get(i).getContent()+"  "+getDateTime(messages.get(i).getTime())+"  sendState= "+messages.get(i).getSendState()+" outgoing= "+messages.get(i).getIsOutgoing());
+                    LogUtil.e(messages.get(i).getContent());
                 }
             }
         });
