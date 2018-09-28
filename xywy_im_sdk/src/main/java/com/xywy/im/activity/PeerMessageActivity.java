@@ -79,6 +79,7 @@ public class PeerMessageActivity extends MessageActivity implements
                             try {
                                 JSONObject jsonObject = new JSONObject();
                                 jsonObject.put("sender",PeerMessageActivity.this.sender);
+                                jsonObject.put("receiver",PeerMessageActivity.this.receiver);
                                 jsonObject.put("content",new String(url.getBytes(),"utf-8"));
                                 jsonObject.put("msgType",Message.MSGTYPE_IMG);
                                 List<String> filePaths = upinfo.getFilePaths();
@@ -205,6 +206,7 @@ public class PeerMessageActivity extends MessageActivity implements
             try {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("sender",this.sender);
+                jsonObject.put("receiver",this.receiver);
                 jsonObject.put("content",new String(content.getBytes(),"utf-8"));
                 jsonObject.put("msgType",Message.MSGTYPE_TEXT);
                 msg.setContent(jsonObject.toString());
@@ -475,23 +477,7 @@ public class PeerMessageActivity extends MessageActivity implements
             @Override
             public void addMessage(Message message) {
                 if(Message.MSGTYPE_IMG == message.getMsgType()){
-                    String content = message.getContent();
-                    final String fileName = message.getMsgId()+".png";
-                    try {
-                        JSONObject jsonObject = new JSONObject(content);
-                        final String img_url = jsonObject.getString("content");
-                        //下载图片资源
-                        SDFileHelper.getInstance(PeerMessageActivity.this).savePicture(fileName,img_url);
-                        String baseDir = SDFileHelper.getInstance(PeerMessageActivity.this).getBaseDir();
-                        if(null != baseDir){
-                            jsonObject.put("filePath",baseDir+fileName);
-                            message.setContent(jsonObject.toString());
-                            DBManager.getInstance().upateMessage(message);
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
+                    SDFileHelper.getInstance(PeerMessageActivity.this).savePicture(message);
                 }
                 if(messagesNew.size() == 0){
                     messagesNew.add(message);

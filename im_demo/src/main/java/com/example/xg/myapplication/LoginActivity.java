@@ -118,9 +118,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
             final User user = new User();
             user.userId = sender;
-            user.userName = "sender_"+sender;
+            user.userName = "测试"+sender;
             user.msgTableName = receiver;
-            DBManager.getInstance().isTableExists(user, new DBManager.TableExistsListener() {
+            String table = "msg_"+receiver;
+            //检测是否将接受者插入数据库
+            DBManager.getInstance().isTableExists(table, new DBManager.TableExistsListener() {
                 @Override
                 public void tableExists(Boolean b) {
                     handleResult(b,user,sender,receiver);

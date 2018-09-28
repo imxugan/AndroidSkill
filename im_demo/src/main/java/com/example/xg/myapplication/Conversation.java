@@ -2,6 +2,7 @@ package com.example.xg.myapplication;
 
 
 import com.xywy.im.db.IMessage;
+import com.xywy.im.db.Message;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -16,7 +17,8 @@ public class Conversation {
 
     public int type;
     public long cid;
-    public IMessage message;
+//    public IMessage message;
+    public Message message;
     private String name;
     private String avatar;
     private String detail;

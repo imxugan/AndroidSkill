@@ -170,7 +170,8 @@ public class Message {
                 this.content = content;
                 this.msgId = msg_id;
                 LogUtil.i("msg_id= "+msg_id+"   content= "+content);
-                this.receiver = Long.parseLong(body.getString("sender"));
+                this.sender = Long.parseLong(body.getString("sender"));
+                this.receiver = Long.parseLong(body.getString("receiver"));
                 this.isOutgoing = Message.MSG_IN;
                 this.time = System.currentTimeMillis();
                 this.sendState = MessageSendState.MESSAGE_SEND_SUCCESS;

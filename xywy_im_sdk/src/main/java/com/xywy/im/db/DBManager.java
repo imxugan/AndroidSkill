@@ -150,6 +150,7 @@ public class DBManager implements IDBRxManager{
     }
 
     public void upateMessage(Message msg){
+        LogUtil.i(""+msg.getContent());
         getUpdateMessageRx(msg).subscribe(new Subscriber<Message>() {
             @Override
             public void onCompleted() {
@@ -267,6 +268,10 @@ public class DBManager implements IDBRxManager{
         });
     }
 
+    public void getLastedMessage(long receiver){
+
+    }
+
     public void getAllMessage(long receiver){
         getAllMessageListRx("msg_"+receiver).subscribe(new Subscriber<List<Message>>() {
             @Override
@@ -284,15 +289,14 @@ public class DBManager implements IDBRxManager{
                 for (int i = 0; i < messages.size(); i++) {
 //                    LogUtil.e("msgId= "+messages.get(i).getMsgId()+"  "+messages.get(i).getContent()+"  sendState= "+messages.get(i).getSendState()+" isOutgoing= "+messages.get(i).getIsOutgoing());
 //                    LogUtil.e(messages.get(i).getContent()+"  "+getDateTime(messages.get(i).getTime())+"  sendState= "+messages.get(i).getSendState()+" outgoing= "+messages.get(i).getIsOutgoing());
-                    LogUtil.e(messages.get(i).getContent());
+//                    LogUtil.e(messages.get(i).getContent());
+                    LogUtil.e(getDateTime(messages.get(i).getTime())+"      "+messages.get(i).getContent()+"        "+messages.get(i).getSender()+"     "+messages.get(i).getReceiver());
                 }
             }
         });
     }
 
-    public void isTableExists(User user,final TableExistsListener tableExistsListener){
-        long userId = user.userId;
-        String table = "u_"+userId;
+    public void isTableExists(String table,final TableExistsListener tableExistsListener){
         isTableExistsRx(table).subscribe(new Subscriber<Boolean>() {
             @Override
             public void onCompleted() {
@@ -383,6 +387,7 @@ public class DBManager implements IDBRxManager{
                 if(helper.tableIsExist(table)){
                     List<String> receivers = new ArrayList<String>();
                     Cursor cursor = db.rawQuery("select msgTableName from " + table, null);
+//                    Cursor cursor = db.rawQuery("select * from " + table, null);
                     if(null != cursor && cursor.getCount()>0){
                         while (cursor.moveToNext()){
                             receivers.add(cursor.getString(cursor.getColumnIndex("msgTableName")));
@@ -403,7 +408,13 @@ public class DBManager implements IDBRxManager{
         return Observable.create(new Observable.OnSubscribe<Message>() {
             @Override
             public void call(Subscriber<? super Message> subscriber) {
-                if(helper.tableIsExist("msg_"+message.getReceiver())){
+                String table = "";
+                if(message.getIsOutgoing() == 1){
+                    table = "msg_"+message.getReceiver();
+                }else {
+                    table = "msg_"+message.getSender();
+                }
+                if(helper.tableIsExist(table)){
                     db.beginTransaction();
                     try{
                         ContentValues contentValues = new ContentValues();
@@ -415,7 +426,7 @@ public class DBManager implements IDBRxManager{
                         contentValues.put("msgType",message.getMsgType());
                         contentValues.put("isOutgoing",message.getIsOutgoing());
                         contentValues.put("sendState",message.getSendState());
-                        if(-1!= db.insertWithOnConflict("msg_" + message.getReceiver(), null, contentValues,SQLiteDatabase.CONFLICT_IGNORE)){
+                        if(-1!= db.insertWithOnConflict(table, null, contentValues,SQLiteDatabase.CONFLICT_IGNORE)){
                             subscriber.onNext(message);
                         }else {
                             subscriber.onNext(null);
@@ -438,7 +449,12 @@ public class DBManager implements IDBRxManager{
         return Observable.create(new Observable.OnSubscribe<Message>() {
             @Override
             public void call(Subscriber<? super Message> subscriber) {
-                String table = "msg_"+message.getReceiver();
+                String table = "";
+                if(message.getIsOutgoing() == 1){
+                    table = "msg_"+message.getReceiver();
+                }else {
+                    table = "msg_"+message.getSender();
+                }
                 if(helper.tableIsExist(table)){
                     db.beginTransaction();
                     try{
@@ -484,7 +500,12 @@ public class DBManager implements IDBRxManager{
         return Observable.create(new Observable.OnSubscribe<Message>() {
             @Override
             public void call(Subscriber<? super Message> subscriber) {
-                String table = "msg_"+message.getReceiver();
+                String table = "";
+                if(message.getIsOutgoing() == 1){
+                    table = "msg_"+message.getReceiver();
+                }else {
+                    table = "msg_"+message.getSender();
+                }
                 if(helper.tableIsExist(table) && db.isOpen()){
                     db.beginTransaction();
                     try{
@@ -498,7 +519,7 @@ public class DBManager implements IDBRxManager{
                         contentValues.put("isOutgoing",message.getIsOutgoing());
                         contentValues.put("sendState",message.getSendState());
                         int update = db.update(table, contentValues, "msgId=?", new String[]{message.getMsgId()});
-                        LogUtil.i("update="+update);
+                        LogUtil.i("-----------------------------------update="+update);
                         if(-1 != update){
                             subscriber.onNext(message);
                         }else {
@@ -656,6 +677,37 @@ public class DBManager implements IDBRxManager{
         }).observeOn(Schedulers.io()).subscribeOn(AndroidSchedulers.mainThread());
     }
 
+    @Override
+    public Observable<Message> getLastedMessageRx(final String table) {
+        return Observable.create(new Observable.OnSubscribe<Message>() {
+            @Override
+            public void call(Subscriber<? super Message> subscriber) {
+                if(helper.tableIsExist(table) && db.isOpen()){
+                    Cursor cursor = db.rawQuery("select * from " + table + " order by time desc limit 1 offset 0", null);
+                    Message msg = null;
+                    if(null != cursor && cursor.getCount()>0){
+                        while(cursor.moveToNext()){
+                            msg = new Message();
+                            msg.setMsgId(cursor.getString(cursor.getColumnIndex("msgId")));
+                            msg.setSender(cursor.getLong(cursor.getColumnIndex("sender")));
+                            msg.setReceiver(cursor.getLong(cursor.getColumnIndex("receiver")));
+                            msg.setTime(cursor.getLong(cursor.getColumnIndex("time")));
+                            msg.setContent(cursor.getString(cursor.getColumnIndex("content")));
+                            msg.setMsgType(cursor.getInt(cursor.getColumnIndex("msgType")));
+                            msg.setIsOutgoing(cursor.getInt(cursor.getColumnIndex("isOutgoing")));
+                            msg.setSendState(cursor.getInt(cursor.getColumnIndex("sendState")));
+                        }
+                        cursor.close();
+                    }
+                    subscriber.onNext(msg);
+                }else {
+                    subscriber.onNext(null);
+                }
+                subscriber.onCompleted();
+            }
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
 
     public void sort(List<Message> messages){
         Collections.sort(messages,cmp);
@@ -690,7 +742,7 @@ public class DBManager implements IDBRxManager{
     }
 
     private String getDateTime(long timeStamp){
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss sss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss sss");
         return sdf.format(new Date(timeStamp));
     }
 }

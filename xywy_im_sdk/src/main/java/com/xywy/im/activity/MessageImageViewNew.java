@@ -17,6 +17,8 @@ import org.json.JSONObject;
 
 import java.beans.PropertyChangeEvent;
 
+import test.cn.example.com.util.LogUtil;
+
 /**
  * Created by xugan on 2018/9/5.
  */
@@ -58,6 +60,7 @@ public class MessageImageViewNew extends MessageRowViewNew {
             }else {
                 imgUrl = jsonObject.getString("content");
             }
+            LogUtil.i("加载的url       "+imgUrl);
             Picasso.with(context)
                     .load(imgUrl)
                     .placeholder(R.drawable.image_download_fail)

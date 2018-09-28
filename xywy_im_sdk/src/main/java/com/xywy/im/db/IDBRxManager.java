@@ -30,4 +30,6 @@ public interface IDBRxManager {
     Observable<List<Message>> getAllMessageListRx(String table);
 
     Observable<Boolean> isTableExistsRx(String table);
+
+    Observable<Message> getLastedMessageRx(String table);
 }

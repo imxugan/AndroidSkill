@@ -7,7 +7,12 @@ import android.os.Environment;
 
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
+import com.xywy.im.activity.PeerMessageActivity;
 import com.xywy.im.db.DBManager;
+import com.xywy.im.db.Message;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,7 +28,6 @@ import test.cn.example.com.util.ToastUtils;
 
 public class SDFileHelper {
     private Context context;
-    private String baseDir;
 
     private SDFileHelper(Context context){
         this.context = context;
@@ -42,29 +46,66 @@ public class SDFileHelper {
         }
         return instance;
     }
-    public void savePicture(final String fileName,String url){
-        Picasso.with(context).load(url).into(new Target() {
-            @Override
-            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                saveToSD(fileName,bitmap);
-            }
+//    public void savePicture(final String fileName,String url){
+//        Picasso.with(context).load(url).into(new Target() {
+//            @Override
+//            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+//                saveToSD(fileName,bitmap);
+//            }
+//
+//            @Override
+//            public void onBitmapFailed(Drawable errorDrawable) {
+//                LogUtil.i("图片加载失败");
+//            }
+//
+//            @Override
+//            public void onPrepareLoad(Drawable placeHolderDrawable) {
+//
+//            }
+//        });
+//    }
 
-            @Override
-            public void onBitmapFailed(Drawable errorDrawable) {
-                LogUtil.i("图片加载失败");
-            }
 
-            @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) {
+    public void savePicture(final Message message){
+        String content = message.getContent();
+        final String fileName = message.getMsgId()+".png";
+        try {
+            final JSONObject jsonObject = new JSONObject(content);
+            final String img_url = jsonObject.getString("content");
+            Picasso.with(context).load(img_url).into(new Target() {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                    String absoluteFilePath = saveToSD(fileName, bitmap);
+                    try {
+                        jsonObject.put("filePath",absoluteFilePath);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    message.setContent(jsonObject.toString());
+                    DBManager.getInstance().upateMessage(message);
+                }
 
-            }
-        });
+                @Override
+                public void onBitmapFailed(Drawable errorDrawable) {
+                    LogUtil.i("图片加载失败");
+                }
+
+                @Override
+                public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                }
+            });
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+       
     }
 
     private String saveToSD(String fileName, Bitmap bitmap) {
         if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
-            String fileDir = Environment.getExternalStorageDirectory().getPath()+"/xywy_im/";
-            baseDir = fileDir;
+            String fileDir = Environment.getExternalStorageDirectory().getPath()+"/xywy_im_img/";
             File dir = new File(fileDir);
             if(!dir.exists()){
                 dir.mkdirs();
@@ -106,9 +147,5 @@ public class SDFileHelper {
                 dir.delete();
             }
         }
-    }
-
-    public String getBaseDir() {
-        return baseDir;
     }
 }
