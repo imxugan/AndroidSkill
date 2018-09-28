@@ -854,12 +854,13 @@ public class MessageListActivity extends BaseActivity implements IMServiceObserv
 
     protected void onPeerClickNew(Conversation conv) {
         Message message = conv.message;
-        Long sender = message.getSender();
+        Long sender = (message.getIsOutgoing() == 1)?message.getSender():message.getReceiver();
+        Long recevier = (message.getIsOutgoing() == 0)?message.getSender():message.getReceiver();
         User u = getUser(message.getSender(),"测试"+sender);
 
         Intent intent = new Intent(this, PeerMessageActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("peer_uid", message.getReceiver());
+        intent.putExtra("peer_uid", recevier);
         if (TextUtils.isEmpty(u.name)) {
             intent.putExtra("peer_name", u.identifier);
         } else {

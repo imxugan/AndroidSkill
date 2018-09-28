@@ -384,6 +384,9 @@ public class DBManager implements IDBRxManager{
         return Observable.create(new Observable.OnSubscribe<List<String>>() {
             @Override
             public void call(Subscriber<? super List<String>> subscriber) {
+                if(!db.isOpen()){
+                    db = SQLiteDatabase.openDatabase(db.getPath(), null, SQLiteDatabase.OPEN_READWRITE);
+                }
                 if(helper.tableIsExist(table)){
                     List<String> receivers = new ArrayList<String>();
                     Cursor cursor = db.rawQuery("select msgTableName from " + table, null);
