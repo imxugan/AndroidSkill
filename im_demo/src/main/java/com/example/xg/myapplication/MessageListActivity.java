@@ -317,10 +317,10 @@ public class MessageListActivity extends BaseActivity implements IMServiceObserv
 //    }
 
     void loadConversationsNew() {
-        List<String> allTableNames = DBManager.getInstance().getAllTableNames();
-        for (int i = 0; i <allTableNames.size(); i++) {
-            LogUtil.i("所有的表名  i="+i+"          "+allTableNames.get(i));
-        }
+//        List<String> allTableNames = DBManager.getInstance().getAllTableNames();
+//        for (int i = 0; i <allTableNames.size(); i++) {
+//            LogUtil.i("所有的表名  i="+i+"          "+allTableNames.get(i));
+//        }
         conversations = new ArrayList<Conversation>();
         DBManager.getInstance().getAllReceiversRx("u_"+currentUID).subscribe(new Subscriber<List<String>>() {
             @Override
@@ -856,16 +856,10 @@ public class MessageListActivity extends BaseActivity implements IMServiceObserv
         Message message = conv.message;
         Long sender = (message.getIsOutgoing() == 1)?message.getSender():message.getReceiver();
         Long recevier = (message.getIsOutgoing() == 0)?message.getSender():message.getReceiver();
-        User u = getUser(message.getSender(),"测试"+sender);
-
         Intent intent = new Intent(this, PeerMessageActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("peer_uid", recevier);
-        if (TextUtils.isEmpty(u.name)) {
-            intent.putExtra("peer_name", u.identifier);
-        } else {
-            intent.putExtra("peer_name", u.name);
-        }
+        intent.putExtra("peer_name", "测试"+recevier);
         intent.putExtra("current_uid", this.currentUID);
         startActivity(intent);
     }
