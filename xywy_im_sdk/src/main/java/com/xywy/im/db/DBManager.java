@@ -704,6 +704,7 @@ public class DBManager implements IDBRxManager{
                     }
                     subscriber.onNext(msg);
                 }else {
+                    LogUtil.i(table+"     is exists="+helper.tableIsExist(table)+"----db.isOpen()="+db.isOpen());
                     subscriber.onNext(null);
                 }
                 subscriber.onCompleted();

@@ -159,7 +159,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         Intent intent = new Intent(LoginActivity.this, PeerMessageActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("peer_uid", receiver);
-        intent.putExtra("peer_name", "测试"+sender);
+        intent.putExtra("peer_name", "测试"+receiver);
         intent.putExtra("current_uid", sender);
         startActivity(intent);
         finish();

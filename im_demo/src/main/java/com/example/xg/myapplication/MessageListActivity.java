@@ -181,6 +181,7 @@ public class MessageListActivity extends BaseActivity implements IMServiceObserv
 
     void updateConversationDetailNew(Conversation conv){
         String content = conv.message.getContent();
+        LogUtil.i(""+content);
         try {
             JSONObject jsonObject = new JSONObject(content);
             int msgType = jsonObject.getInt("msgType");
@@ -373,13 +374,16 @@ public class MessageListActivity extends BaseActivity implements IMServiceObserv
 
             @Override
             public void onNext(Message message) {
-                Conversation conv = new Conversation();
-                conv.type = Conversation.CONVERSATION_PEER;
-                conv.message = message;
-                conv.cid = (currentUID == message.getSender()) ? message.getReceiver() : message.getSender();
-                updatePeerConversationName(conv);
-                updateConversationDetailNew(conv);
-                conversations.add(conv);
+                LogUtil.i("message=         "+message);
+                if(null != message){
+                    Conversation conv = new Conversation();
+                    conv.type = Conversation.CONVERSATION_PEER;
+                    conv.message = message;
+                    conv.cid = (currentUID == message.getSender()) ? message.getReceiver() : message.getSender();
+                    updatePeerConversationName(conv);
+                    updateConversationDetailNew(conv);
+                    conversations.add(conv);
+                }
             }
         });
     }
