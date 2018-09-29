@@ -106,9 +106,13 @@ public class PeerMessageActivity extends MessageActivity implements
                                     String content = message.getContent();
                                     try {
                                         JSONObject jsonObject = new JSONObject(content);
+                                        String filePath = jsonObject.getString("filePath");
+                                        //发送消息之前去掉消息体中的本地图片的路径
                                         jsonObject.remove("filePath");
                                         message.setContent(jsonObject.toString());
                                         XywyIMService.getInstance().sendPeerMessage(message);
+                                        jsonObject.put("filePath",filePath);
+                                        message.setContent(jsonObject.toString());
                                         insertMessage(message);
                                     } catch (JSONException e) {
                                         e.printStackTrace();
@@ -500,23 +504,22 @@ public class PeerMessageActivity extends MessageActivity implements
                     LogUtil.i("can not find msg:"+msgLocalID);
                     return;
                 }
-
                 for (int i = 0; i < messagesNew.size(); i++) {
                     if(msg.getMsgId().equals(messagesNew.get(i).getMsgId())){
 //                        LogUtil.i("messagesNew.get(i).getSendState()="+messagesNew.get(i).getSendState());
 //                        LogUtil.i("tPropertyChangeListeners().length="+messagesNew.get(i).getPropertyChangeSupport().getPropertyChangeListeners().length);
                         messagesNew.get(i).setSendState(MessageSendState.MESSAGE_SEND_SUCCESS);
+
                         if(msg.getSendState()==MessageSendState.MESSAGE_SEND_FAILED){
                             messagesNew.get(i).setTime(System.currentTimeMillis());
                         }else {
                             messagesNew.get(i).setTime(msg.getTime());
                         }
-//                        LogUtil.i(""+messagesNew.get(i));
-                        DBManager.getInstance().upateMessage(messagesNew.get(i));
+//                        LogUtil.i(""+messagesNew.get(i).getContent());
+                        DBManager.getInstance().upateMessage( messagesNew.get(i));
                         updateMessage(messagesNew.get(i));
                     }
                 }
-
             }
         });
 

@@ -134,8 +134,12 @@ public class MessageListActivity extends BaseActivity implements IMServiceObserv
         im.addSystemObserver(this);
 
 //        loadConversations();
-        loadConversationsNew();
+//        initWidget();
+
+        conversations = new ArrayList<Conversation>();
         initWidget();
+        loadConversationsNew();
+
 
         NotificationCenter nc = NotificationCenter.defaultCenter();
         nc.addObserver(this, PeerMessageActivity.SEND_MESSAGE_NAME);
@@ -322,7 +326,6 @@ public class MessageListActivity extends BaseActivity implements IMServiceObserv
 //        for (int i = 0; i <allTableNames.size(); i++) {
 //            LogUtil.i("所有的表名  i="+i+"          "+allTableNames.get(i));
 //        }
-        conversations = new ArrayList<Conversation>();
         DBManager.getInstance().getAllReceiversRx("u_"+currentUID).subscribe(new Subscriber<List<String>>() {
             @Override
             public void onCompleted() {
@@ -344,19 +347,19 @@ public class MessageListActivity extends BaseActivity implements IMServiceObserv
         });
 
 
-        Comparator<Conversation> cmp = new Comparator<Conversation>() {
-            public int compare(Conversation c1, Conversation c2) {
-                if (c1.message.getTime() > c2.message.getTime()) {
-                    return -1;
-                } else if (c1.message.getTime() == c2.message.getTime()) {
-                    return 0;
-                } else {
-                    return 1;
-                }
-
-            }
-        };
-        Collections.sort(conversations, cmp);
+//        Comparator<Conversation> cmp = new Comparator<Conversation>() {
+//            public int compare(Conversation c1, Conversation c2) {
+//                if (c1.message.getTime() > c2.message.getTime()) {
+//                    return -1;
+//                } else if (c1.message.getTime() == c2.message.getTime()) {
+//                    return 0;
+//                } else {
+//                    return 1;
+//                }
+//
+//            }
+//        };
+//        Collections.sort(conversations, cmp);
     }
 
     private void getAllConversations(String s) {
@@ -383,6 +386,21 @@ public class MessageListActivity extends BaseActivity implements IMServiceObserv
                     updatePeerConversationName(conv);
                     updateConversationDetailNew(conv);
                     conversations.add(conv);
+                    LogUtil.i(""+conversations.size());
+                    Comparator<Conversation> cmp = new Comparator<Conversation>() {
+                        public int compare(Conversation c1, Conversation c2) {
+                            if (c1.message.getTime() > c2.message.getTime()) {
+                                return -1;
+                            } else if (c1.message.getTime() == c2.message.getTime()) {
+                                return 0;
+                            } else {
+                                return 1;
+                            }
+
+                        }
+                    };
+                    Collections.sort(conversations, cmp);
+                    adapter.notifyDataSetChanged();
                 }
             }
         });

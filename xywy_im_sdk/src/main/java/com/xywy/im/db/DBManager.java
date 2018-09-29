@@ -126,8 +126,8 @@ public class DBManager implements IDBRxManager{
 
             @Override
             public void onNext(Message message) {
-                listener.addMessage(message);
                 LogUtil.i("增加的消息id  "+message.getMsgId()+"  cmd= "+message.getCmd()+"   content= "+message.getContent());
+                listener.addMessage(message);
             }
         });
     }
