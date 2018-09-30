@@ -175,7 +175,7 @@ public class PeerMessageActivity extends MessageActivity implements
     }
 
     private void loadData(final int page) {
-        DBManager.getInstance().getAllMessage(receiver);
+//        DBManager.getInstance().getAllMessage(receiver);
         DBManager.getInstance().getMessageByPageSize(receiver,page,new DBManager.GetMessageListListener(){
 
             @Override
@@ -183,7 +183,8 @@ public class PeerMessageActivity extends MessageActivity implements
                 messagesNew.addAll(data);
                 DBManager.getInstance().sort(messagesNew);
                 for (int i = 0; i < messagesNew.size(); i++) {
-                    LogUtil.i("sendState= "+messagesNew.get(i).getSendState()+"         content=  "+messagesNew.get(i).getContent()+"     "+messagesNew.get(i).getCmd());
+//                    LogUtil.i("sendState= "+messagesNew.get(i).getSendState()+"         content=  "+messagesNew.get(i).getContent()+"     "+messagesNew.get(i).getCmd());
+                    LogUtil.i("         content=  "+messagesNew.get(i).getContent());
                 }
 
                 //显示最后一条消息

@@ -184,9 +184,10 @@ public class DBManager implements IDBRxManager{
             @Override
             public void onNext(List<Message> messages) {
                 if(null != messages){
-//                   for (int i = 0; i < messages.size(); i++) {
+                   for (int i = 0; i < messages.size(); i++) {
 //                        LogUtil.i("sendState= "+messages.get(i).getSendState()+"   "+messages.get(i).getContent()+"   "+getDateTime(messages.get(i).getTime()) +" isOutgong= "+messages.get(i).getIsOutgoing());
-//                    }
+                        LogUtil.i(messages.get(i).getContent()+"   "+getDateTime(messages.get(i).getTime()));
+                    }
                     listener.getMessageList(messages);
                 }else {
                     LogUtil.i("查询的表不存");

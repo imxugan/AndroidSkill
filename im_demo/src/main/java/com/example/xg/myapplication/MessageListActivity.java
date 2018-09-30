@@ -363,7 +363,7 @@ public class MessageListActivity extends BaseActivity implements IMServiceObserv
     }
 
     private void getAllConversations(String s) {
-        DBManager.getInstance().getAllMessage(Long.parseLong(s));
+//        DBManager.getInstance().getAllMessage(Long.parseLong(s));
         DBManager.getInstance().getLastedMessageRx("msg_"+s).subscribe(new Subscriber<Message>() {
             @Override
             public void onCompleted() {
