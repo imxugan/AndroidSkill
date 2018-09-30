@@ -479,7 +479,7 @@ public class MessageActivity extends BaseActivity implements
                             final Message im = (Message) v.getTag();
 
                             ArrayList<ChatItemQuickAction.ChatQuickAction> actions = new ArrayList<ChatItemQuickAction.ChatQuickAction>();
-
+                            actions.add(ChatItemQuickAction.ChatQuickAction.DELETE);
                             switch (im.getSendState()){
                                 case MessageSendState.MESSAGE_SEND_FAILED:
                                     actions.add(ChatItemQuickAction.ChatQuickAction.RESEND);
@@ -510,6 +510,9 @@ public class MessageActivity extends BaseActivity implements
                                                     break;
                                                 case RESEND:
                                                     MessageActivity.this.resendNew(im);
+                                                    break;
+                                                case DELETE:
+                                                    MessageActivity.this.deleteMessage(im);
                                                     break;
                                                 default:
                                                     break;
@@ -1104,7 +1107,15 @@ public class MessageActivity extends BaseActivity implements
         }
     }
 
-
+    protected void deleteMessage(Message msg){
+        for (int i = 0; i < messagesNew.size(); i++) {
+            if(messagesNew.get(i).getMsgId().equals(msg.getMsgId())){
+                messagesNew.remove(msg);
+                adapterNew.notifyDataSetChanged();
+                break;
+            }
+        }
+    }
     protected void sendTextMessage(String text) {
         if (text.length() == 0) {
             return;

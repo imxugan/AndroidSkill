@@ -246,6 +246,12 @@ public class PeerMessageActivity extends MessageActivity implements
     }
 
     @Override
+    protected void deleteMessage(Message message){
+        super.deleteMessage(message);
+        DBManager.getInstance().deleteMessage(message);
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         Log.i(TAG, "peer message activity destory");
