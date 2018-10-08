@@ -32,4 +32,6 @@ public interface IDBRxManager {
     Observable<Boolean> isTableExistsRx(String table);
 
     Observable<Message> getLastedMessageRx(String table);
+
+    Observable<Boolean> deletePictureRx(String filePath);
 }

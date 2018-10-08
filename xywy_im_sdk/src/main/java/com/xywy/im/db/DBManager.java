@@ -5,6 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.xywy.im.tools.FileCache;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,6 +24,8 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import test.cn.example.com.util.LogUtil;
+
+import static com.xywy.im.db.Message.MSGTYPE_IMG;
 
 
 /**
@@ -144,7 +152,36 @@ public class DBManager implements IDBRxManager{
 
             @Override
             public void onNext(Message message) {
-                LogUtil.i("删除的消息id  "+message.getMsgId());
+                LogUtil.i("删除的消息id  "+message.getMsgId()+"      msgType="+message.getMsgType()+"      content="+message.getContent());
+                if(MSGTYPE_IMG==message.getMsgType()){
+                    //如果是图片，还要删除图片
+                    String content = message.getContent();
+                    try {
+                        JSONObject jsonObject = new JSONObject(content);
+                        String filePath = jsonObject.getString("filePath");
+                        deletePicture(filePath);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
+
+    private void deletePicture(String filePath) {
+        deletePictureRx(filePath).subscribe(new Subscriber<Boolean>() {
+            @Override
+            public void onCompleted() {
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                LogUtil.i("文图片删除失败 "+e.getMessage());
+            }
+
+            @Override
+            public void onNext(Boolean aBoolean) {
+                LogUtil.i("filePath is delete "+aBoolean);
             }
         });
     }
@@ -711,6 +748,22 @@ public class DBManager implements IDBRxManager{
                 subscriber.onCompleted();
             }
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<Boolean> deletePictureRx(final String filePath) {
+        return Observable.create(new Observable.OnSubscribe<Boolean>() {
+            @Override
+            public void call(Subscriber<? super Boolean> subscriber) {
+                File file = new File(filePath);
+                if(file.exists() && file.isFile()){
+                    subscriber.onNext(file.delete());
+                }else {
+                    subscriber.onNext(false);
+                }
+                subscriber.onCompleted();
+            }
+        }).observeOn(Schedulers.io()).subscribeOn(AndroidSchedulers.mainThread());
     }
 
 

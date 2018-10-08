@@ -24,6 +24,10 @@ public class FileCache {
         this.dir = dir;
     }
 
+    public File getDir(){
+        return this.dir;
+    }
+
     public void storeFile(String key, InputStream inputStream) throws IOException {
         File file = new File(this.dir, getFileName(key));
         FileOutputStream fileOutputStream = new FileOutputStream(file);
