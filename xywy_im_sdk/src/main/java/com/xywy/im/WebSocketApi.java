@@ -221,7 +221,7 @@ public class WebSocketApi {
             // TODO: 2018/8/3 模拟消息发送失败后，抛出的异常
 //            if(socketMsg[0] == 3 && new Random().nextBoolean()){
 //                LogUtil.i("Thread.currentThread().getName()     "+ Thread.currentThread().getName());
-//                throw new NullPointerException("测试发送数据异常时，sendMessage是否有返回值");
+//                throw new NullPointerException("测试发送数据异常时，sendMessage是否有返回值,经过测试发现是有返回值的");
 //            }
             if (webSocketClient != null) {
                 unpackSendMessage(socketMsg);
