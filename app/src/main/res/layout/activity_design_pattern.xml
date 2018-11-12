@@ -23,6 +23,13 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="单例模式"/>
+
+            <Button
+                android:id="@+id/prototype"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="原型模式"/>
             <Button
                 android:id="@+id/observer"
                 android:layout_width="match_parent"

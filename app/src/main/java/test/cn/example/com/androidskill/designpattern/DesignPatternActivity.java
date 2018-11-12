@@ -24,6 +24,8 @@ public class DesignPatternActivity extends AppCompatActivity implements View.OnC
     private void initView() {
         Button single_instance = (Button) findViewById(R.id.single_instance);
         single_instance.setOnClickListener(this);
+        Button protoType = (Button) findViewById(R.id.prototype);
+        protoType.setOnClickListener(this);
         Button observer = (Button) findViewById(R.id.observer);
         observer.setOnClickListener(this);
         Button adapter = (Button) findViewById(R.id.adapter);
@@ -57,6 +59,9 @@ public class DesignPatternActivity extends AppCompatActivity implements View.OnC
         switch (v.getId()){
             case R.id.single_instance:
                 startActivity(new Intent(DesignPatternActivity.this,SingleInstancePatternActivity.class));
+                break;
+            case R.id.prototype:
+                startActivity(new Intent(DesignPatternActivity.this,ProtoTypeActivity.class));
                 break;
             case R.id.observer:
                 startActivity(new Intent(DesignPatternActivity.this,ObserverPatternActivity.class));

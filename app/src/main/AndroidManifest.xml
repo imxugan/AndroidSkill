@@ -103,6 +103,11 @@
                 <category android:name="android.intent.category.DEFAULT"></category>
             </intent-filter>
         </activity>
+
+        <activity android:name="test.cn.example.com.androidskill.designpattern.ProtoTypeActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
         <activity android:name="test.cn.example.com.androidskill.designpattern.FactoryPatternActivity"
                   android:screenOrientation="portrait">
         </activity>
