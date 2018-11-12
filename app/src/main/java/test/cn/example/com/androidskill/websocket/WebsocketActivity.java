@@ -26,10 +26,10 @@ public class WebsocketActivity extends BaseActivity {
 
     @Override
     public void initView(){
-        WebSocketManager.getInstance().init("com.xywy.default","test1","password1234");
+        WebSocketManager.getInstance().init("test1","password1234");
         XywyWebsocketClient c = WebSocketManager.getInstance().getWebsocketClient();
         LogUtil.i("         "+c);
-        WebSocketManager.getInstance().init("com.xywy.default","test1","password1234");
+        WebSocketManager.getInstance().init("test1","password1234");
         c = WebSocketManager.getInstance().getWebsocketClient();
         LogUtil.i("         "+c);
         //Connect to a server normally

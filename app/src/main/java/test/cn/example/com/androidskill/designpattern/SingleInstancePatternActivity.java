@@ -53,6 +53,11 @@ public class SingleInstancePatternActivity extends AppCompatActivity implements 
                 LogUtil.i(boss+"");
                 boss = SomeThing.INSTANCE.getInstance();
                 LogUtil.i(boss+"");
+                for (SomeThing s : SomeThing.values()) {
+                    LogUtil.i("s.toString()=  "+s.toString());
+                    LogUtil.i("s.name()=  "+s.name());
+                    LogUtil.i("s.ordinal()=  "+s.ordinal());
+                }
                 break;
         }
     }
