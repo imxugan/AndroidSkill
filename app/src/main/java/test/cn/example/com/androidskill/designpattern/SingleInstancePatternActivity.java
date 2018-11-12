@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.androidskill.model.Boss;
+import test.cn.example.com.androidskill.model.Person;
 import test.cn.example.com.androidskill.model.Test;
 import test.cn.example.com.androidskill.model.Test2;
 import test.cn.example.com.util.LogUtil;
@@ -31,6 +32,8 @@ public class SingleInstancePatternActivity extends AppCompatActivity implements 
         btn_2.setOnClickListener(this);
         Button btn_3 = (Button) findViewById(R.id.btn_3);
         btn_3.setOnClickListener(this);
+        Button btn_4 = (Button) findViewById(R.id.btn_4);
+        btn_4.setOnClickListener(this);
     }
 
     @Override
@@ -58,6 +61,12 @@ public class SingleInstancePatternActivity extends AppCompatActivity implements 
                     LogUtil.i("s.name()=  "+s.name());
                     LogUtil.i("s.ordinal()=  "+s.ordinal());
                 }
+                break;
+            case R.id.btn_4:
+                Person p = Person.getInstance();
+                Person instance = Person.getInstance();
+                LogUtil.i("p=       "+p);
+                LogUtil.i("instance="+instance);
                 break;
         }
     }
