@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.androidskill.view.defineView.hencoder.customview.CustomView0;
+import test.cn.example.com.androidskill.view.defineView.hencoder.customview.CustomView1;
 import test.cn.example.com.util.LogUtil;
 
 /**
@@ -17,20 +18,20 @@ import test.cn.example.com.util.LogUtil;
  */
 
 public class HencoderPracticeDrawOneFragment extends Fragment {
+    private int mIndex;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Bundle bundle = getArguments();
-        int index = bundle.getInt("index");
-        LogUtil.e("index="+index);
+        LogUtil.e("mIndex="+mIndex);
         LinearLayout root = (LinearLayout) inflater.inflate(R.layout.fragment_hencode_practice_one_draw_color,container,false);
-        switch (index){
+        switch (mIndex){
             case 0:
                 CustomView0 customView0 = new CustomView0(getActivity());
                 root.addView(customView0);
                 break;
             case 1:
-                CustomView0 customView1 = new CustomView0(getActivity());
+                CustomView1 customView1 = new CustomView1(getActivity());
                 root.addView(customView1);
                 break;
             case 2:
@@ -48,5 +49,9 @@ public class HencoderPracticeDrawOneFragment extends Fragment {
                 break;
         }
         return root;
+    }
+
+    public void setIndex(int index) {
+        this.mIndex = index;
     }
 }

@@ -45,21 +45,17 @@ public class HenCoderPracticeDrawOneActivity extends AppCompatActivity implement
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         fragments = new ArrayList<>();
         fragment_drawColor = new HencoderPracticeDrawOneFragment();
+        fragment_drawColor.setIndex(0);
         mLables.add("drawColor");
-        Bundle b = new Bundle();
-        b.putInt("index",0);
-        fragment_drawColor.setArguments(b);
         fragments.add(fragment_drawColor);
         fragment_drawCircle = new HencoderPracticeDrawOneFragment();
+        fragment_drawCircle.setIndex(1);
         mLables.add("drawCircle");
-        b.putInt("index",1);
-        fragment_drawCircle.setArguments(b);
         fragments.add(fragment_drawCircle);
 
         fragment_drawRect = new HencoderPracticeDrawOneFragment();
+        fragment_drawRect.setIndex(2);
         mLables.add("drawRect");
-        b.putInt("index",2);
-        fragment_drawRect.setArguments(b);
         fragments.add(fragment_drawRect);
 
         mTitleIndicator = new TitleIndicator(HenCoderPracticeDrawOneActivity.this, mLables);
@@ -76,6 +72,8 @@ public class HenCoderPracticeDrawOneActivity extends AppCompatActivity implement
             public void onPageSelected(int position) {
                 viewPager.setCurrentItem(position);
                 mTitleIndicator.setTabsDisplay(HenCoderPracticeDrawOneActivity.this, position);
+                currentFragment = (HencoderPracticeDrawOneFragment) fragments.get(position);
+                currentFragment.setIndex(position);
 
             }
 
@@ -96,5 +94,7 @@ public class HenCoderPracticeDrawOneActivity extends AppCompatActivity implement
     public void onIndicatorSelected(int index) {
         viewPager.setCurrentItem(index);
         mTitleIndicator.setTabsDisplay(HenCoderPracticeDrawOneActivity.this, index);
+        currentFragment = (HencoderPracticeDrawOneFragment) fragments.get(index);
+        currentFragment.setIndex(index);
     }
 }
