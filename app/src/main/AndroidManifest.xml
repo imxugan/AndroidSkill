@@ -343,7 +343,9 @@
                   android:screenOrientation="portrait">
         </activity>
 
-
+        <activity
+            android:name=".view.defineView.hencoder.HenCoderPracticeDrawOneActivity"
+            android:screenOrientation="portrait"></activity>
 
         <service android:name="test.cn.example.com.androidskill.service.MyService"
                  android:process=":remote">

@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import test.cn.example.com.androidskill.view.defineView.hencoder.HenCoderPracticeDrawOneActivity;
+
 /**
  * Created by xgxg on 2017/8/9.
  * view的工作原理
@@ -20,6 +22,8 @@ public class ChapterFourActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void initView() {
+        Button hencoder = (Button)findViewById(R.id.hencoder);
+        hencoder.setOnClickListener(this);
         Button circleView = (Button)findViewById(R.id.circleView);
         circleView.setOnClickListener(this);
         Button customTitleView01 = (Button)findViewById(R.id.customTitleView01);
@@ -61,6 +65,9 @@ public class ChapterFourActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.hencoder:
+                startActivity(new Intent(ChapterFourActivity.this,HenCoderPracticeDrawOneActivity.class));
+                break;
             case R.id.circleView:
                 startActivity(new Intent(ChapterFourActivity.this,CircleViewActivity.class));
                 break;

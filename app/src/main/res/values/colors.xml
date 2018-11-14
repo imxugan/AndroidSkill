@@ -7,4 +7,8 @@
     <color name="c_00c9ab">#00c9ab</color>
     <color name="c_fc5348">#fc5348</color>
     <color name="c_fea116">#fea116</color>
+    <color name="c_0dc3ce">#0dc3ce</color>
+    <!-- 分割线 边框颜色 -->
+    <color name="c_e8e8e8">#e8e8e8</color>
+    <color name="c_666">#666666</color>
 </resources>

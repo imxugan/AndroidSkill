@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="48dp">
+
+    <CheckedTextView
+        android:id="@+id/item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        tools:text="待回复"
+        android:textSize="14sp" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="28dp"
+        android:layout_centerVertical="true"
+        android:background="@color/c_e8e8e8"
+        android:gravity="right" />
+
+    <View
+        android:id="@+id/item_line"
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:layout_centerVertical="true"
+        android:background="@color/c_0dc3ce"
+        android:layout_alignParentBottom="true"
+        android:gravity="center" />
+</RelativeLayout>
