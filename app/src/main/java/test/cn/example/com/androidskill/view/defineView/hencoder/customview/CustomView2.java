@@ -4,7 +4,10 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.RectF;
+import android.os.Build;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -27,8 +30,11 @@ public class CustomView2 extends View {
         super(context, attrs, defStyleAttr);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onDraw(Canvas canvas) {
+//        在android中Rect和RextF都是用来创建一个矩形的，
+//        Rect的参数是  int型   ，  RectF的参数是float型，由此可以看出RectF比Rect的精确度更高
         super.onDraw(canvas);
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setColor(Color.BLUE);
@@ -42,5 +48,15 @@ public class CustomView2 extends View {
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(20);
         canvas.drawRect(700,700,1000,1000,mPaint);
+
+        mPaint.reset();
+        //paint重置后，如果需要再次设置抗锯齿效果，则setAntiAlias(true)
+        mPaint.setAntiAlias(true);
+        mPaint.setColor(Color.DKGRAY);
+        canvas.drawRoundRect(100,1100,400,1400,60,40,mPaint);
+
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeWidth(20);
+        canvas.drawRoundRect(700,1100,1000,1400,50,50,mPaint);
     }
 }
