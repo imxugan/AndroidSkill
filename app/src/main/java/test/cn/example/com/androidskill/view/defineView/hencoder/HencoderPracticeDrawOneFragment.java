@@ -9,11 +9,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import test.cn.example.com.androidskill.R;
+import test.cn.example.com.androidskill.view.defineView.CustomView;
 import test.cn.example.com.androidskill.view.defineView.hencoder.customview.CustomView0;
 import test.cn.example.com.androidskill.view.defineView.hencoder.customview.CustomView1;
 import test.cn.example.com.androidskill.view.defineView.hencoder.customview.CustomView2;
 import test.cn.example.com.androidskill.view.defineView.hencoder.customview.CustomView3;
 import test.cn.example.com.androidskill.view.defineView.hencoder.customview.CustomView4;
+import test.cn.example.com.androidskill.view.defineView.hencoder.customview.CustomView5;
 import test.cn.example.com.util.LogUtil;
 
 /**
@@ -50,7 +52,8 @@ public class HencoderPracticeDrawOneFragment extends Fragment {
                 root.addView(customView4);
                 break;
             case 5:
-
+                CustomView5 customview5 = new CustomView5(getActivity());
+                root.addView(customview5);
                 break;
         }
         return root;
