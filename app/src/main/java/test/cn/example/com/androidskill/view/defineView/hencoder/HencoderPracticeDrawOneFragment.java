@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.androidskill.view.defineView.hencoder.customview.CustomView0;
 import test.cn.example.com.androidskill.view.defineView.hencoder.customview.CustomView1;
+import test.cn.example.com.androidskill.view.defineView.hencoder.customview.CustomView2;
 import test.cn.example.com.util.LogUtil;
 
 /**
@@ -35,7 +36,7 @@ public class HencoderPracticeDrawOneFragment extends Fragment {
                 root.addView(customView1);
                 break;
             case 2:
-                CustomView0 customView2 = new CustomView0(getActivity());
+                CustomView2 customView2 = new CustomView2(getActivity());
                 root.addView(customView2);
                 break;
             case 3:
