@@ -10,11 +10,11 @@ import test.cn.example.com.util.DensityUtil;
  * Created by xugan on 2018/11/13.
  */
 
-public class CustomView0 extends View {
+public class DrawColorView extends View {
     private int mDefaultWidth = DensityUtil.dp2Px(150);
     private int mDefaultHeight = DensityUtil.dp2Px(150);
     private Context mContext;
-    public CustomView0(Context context) {
+    public DrawColorView(Context context) {
         super(context);
         this.mContext = context;
     }

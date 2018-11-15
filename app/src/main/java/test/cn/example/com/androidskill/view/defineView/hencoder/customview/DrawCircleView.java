@@ -10,9 +10,9 @@ import android.view.View;
  * Created by xugan on 2018/11/14.
  */
 
-public class CustomView1 extends View {
+public class DrawCircleView extends View {
     Paint mPaint;
-    public CustomView1(Context context) {
+    public DrawCircleView(Context context) {
         super(context);
         //设置抗锯齿
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);

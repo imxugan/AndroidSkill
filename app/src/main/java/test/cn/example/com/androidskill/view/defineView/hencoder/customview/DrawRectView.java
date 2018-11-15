@@ -15,18 +15,18 @@ import android.view.View;
  * Created by xugan on 2018/11/14.
  */
 
-public class CustomView2 extends View {
+public class DrawRectView extends View {
     Paint mPaint ;
-    public CustomView2(Context context) {
+    public DrawRectView(Context context) {
         super(context);
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     }
 
-    public CustomView2(Context context, @Nullable AttributeSet attrs) {
+    public DrawRectView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public CustomView2(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public DrawRectView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 

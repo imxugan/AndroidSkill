@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.RectF;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -15,19 +14,18 @@ import android.view.View;
  * Created by xugan on 2018/11/14.
  */
 
-public class CustomView4 extends View {
+public class DrawArcView extends View {
     Paint mPaint;
-    public CustomView4(Context context) {
+    public DrawArcView(Context context) {
         super(context);
-        //设置抗锯齿效果
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     }
 
-    public CustomView4(Context context, @Nullable AttributeSet attrs) {
+    public DrawArcView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public CustomView4(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public DrawArcView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -35,23 +33,25 @@ public class CustomView4 extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        //填充，不使用圆心
+        mPaint.setStyle(Paint.Style.FILL);
         mPaint.setColor(Color.BLUE);
-        canvas.drawOval(100,100,500,300,mPaint);
-        mPaint.setColor(Color.GREEN);
-        mPaint.setStyle(Paint.Style.STROKE);
-        canvas.drawOval(700,100,950,400,mPaint);
-        mPaint.setColor(Color.DKGRAY);
-        mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        canvas.drawOval(100,700,600,1200,mPaint);
-        mPaint.reset();
-        mPaint.setAntiAlias(true);
-        mPaint.setColor(Color.RED);
-        mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeWidth(20);
-        canvas.drawOval(700,700,1000,1500,mPaint);
+        canvas.drawArc(100,100,400,300,10,170,false,mPaint);
 
-        mPaint.setColor(Color.YELLOW);
-        RectF rectF = new RectF(700,1100,1000,1200);
-        canvas.drawOval(rectF,mPaint);
+        //填充，使用圆心
+        mPaint.setStyle(Paint.Style.FILL);
+        mPaint.setColor(Color.GREEN);
+        canvas.drawArc(100,100,400,300,240,60,true,mPaint);
+
+        //边线，不使用圆心
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setColor(Color.BLACK);
+        canvas.drawArc(100,100,400,300,-10,-40,false,mPaint);
+
+        //边线，使用圆心
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setColor(Color.RED);
+        canvas.drawArc(100,100,400,300,180,30,true,mPaint);
+
     }
 }

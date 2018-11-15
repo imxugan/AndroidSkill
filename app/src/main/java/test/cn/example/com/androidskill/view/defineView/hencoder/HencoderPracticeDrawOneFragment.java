@@ -9,14 +9,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import test.cn.example.com.androidskill.R;
-import test.cn.example.com.androidskill.view.defineView.CustomView;
-import test.cn.example.com.androidskill.view.defineView.hencoder.customview.CustomView0;
-import test.cn.example.com.androidskill.view.defineView.hencoder.customview.CustomView1;
-import test.cn.example.com.androidskill.view.defineView.hencoder.customview.CustomView2;
-import test.cn.example.com.androidskill.view.defineView.hencoder.customview.CustomView3;
-import test.cn.example.com.androidskill.view.defineView.hencoder.customview.CustomView4;
-import test.cn.example.com.androidskill.view.defineView.hencoder.customview.CustomView5;
-import test.cn.example.com.androidskill.view.defineView.hencoder.customview.CustomView6;
+import test.cn.example.com.androidskill.view.defineView.hencoder.customview.DrawColorView;
+import test.cn.example.com.androidskill.view.defineView.hencoder.customview.DrawCircleView;
+import test.cn.example.com.androidskill.view.defineView.hencoder.customview.DrawRectView;
+import test.cn.example.com.androidskill.view.defineView.hencoder.customview.DrawPointView;
+import test.cn.example.com.androidskill.view.defineView.hencoder.customview.DrawOvalView;
+import test.cn.example.com.androidskill.view.defineView.hencoder.customview.DrawLineView;
+import test.cn.example.com.androidskill.view.defineView.hencoder.customview.DrawArcView;
 import test.cn.example.com.androidskill.view.defineView.hencoder.customview.DrawHistoryView;
 import test.cn.example.com.androidskill.view.defineView.hencoder.customview.DrawPathView;
 import test.cn.example.com.androidskill.view.defineView.hencoder.customview.DrawPieView;
@@ -36,32 +35,32 @@ public class HencoderPracticeDrawOneFragment extends Fragment {
         LinearLayout root = (LinearLayout) inflater.inflate(R.layout.fragment_hencode_practice_one_draw_color,container,false);
         switch (mIndex){
             case 0:
-                CustomView0 customView0 = new CustomView0(getActivity());
-                root.addView(customView0);
+                DrawColorView drawColorView = new DrawColorView(getActivity());
+                root.addView(drawColorView);
                 break;
             case 1:
-                CustomView1 customView1 = new CustomView1(getActivity());
-                root.addView(customView1);
+                DrawCircleView drawCircleView = new DrawCircleView(getActivity());
+                root.addView(drawCircleView);
                 break;
             case 2:
-                CustomView2 customView2 = new CustomView2(getActivity());
-                root.addView(customView2);
+                DrawRectView drawRectView = new DrawRectView(getActivity());
+                root.addView(drawRectView);
                 break;
             case 3:
-                CustomView3 customView3 = new CustomView3(getActivity());
-                root.addView(customView3);
+                DrawPointView drawPointView = new DrawPointView(getActivity());
+                root.addView(drawPointView);
                 break;
             case 4:
-                CustomView4 customView4 = new CustomView4(getActivity());
-                root.addView(customView4);
+                DrawOvalView drawOvalView = new DrawOvalView(getActivity());
+                root.addView(drawOvalView);
                 break;
             case 5:
-                CustomView5 customview5 = new CustomView5(getActivity());
-                root.addView(customview5);
+                DrawLineView customview = new DrawLineView(getActivity());
+                root.addView(customview);
                 break;
             case 6:
-                CustomView6 customView6 = new CustomView6(getActivity());
-                root.addView(customView6);
+                DrawArcView drawArcView = new DrawArcView(getActivity());
+                root.addView(drawArcView);
                 break;
             case 7:
                 DrawPathView drawPathView = new DrawPathView(getActivity());

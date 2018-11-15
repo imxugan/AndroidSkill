@@ -14,19 +14,19 @@ import test.cn.example.com.util.LogUtil;
  * Created by xugan on 2018/11/14.
  */
 
-public class CustomView3 extends View {
+public class DrawPointView extends View {
     Paint mPaint;
-    public CustomView3(Context context) {
+    public DrawPointView(Context context) {
         super(context);
         //设置抗拒次效果
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     }
 
-    public CustomView3(Context context, @Nullable AttributeSet attrs) {
+    public DrawPointView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public CustomView3(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public DrawPointView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 

@@ -12,18 +12,18 @@ import android.view.View;
  * Created by xugan on 2018/11/14.
  */
 
-public class CustomView5 extends View {
+public class DrawLineView extends View {
     Paint mPaint;
-    public CustomView5(Context context) {
+    public DrawLineView(Context context) {
         super(context);
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     }
 
-    public CustomView5(Context context, @Nullable AttributeSet attrs) {
+    public DrawLineView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public CustomView5(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public DrawLineView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
