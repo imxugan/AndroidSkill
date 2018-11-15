@@ -17,6 +17,7 @@ import test.cn.example.com.androidskill.view.defineView.hencoder.customview.Cust
 import test.cn.example.com.androidskill.view.defineView.hencoder.customview.CustomView4;
 import test.cn.example.com.androidskill.view.defineView.hencoder.customview.CustomView5;
 import test.cn.example.com.androidskill.view.defineView.hencoder.customview.CustomView6;
+import test.cn.example.com.androidskill.view.defineView.hencoder.customview.DrawPathView;
 import test.cn.example.com.util.LogUtil;
 
 /**
@@ -59,6 +60,10 @@ public class HencoderPracticeDrawOneFragment extends Fragment {
             case 6:
                 CustomView6 customView6 = new CustomView6(getActivity());
                 root.addView(customView6);
+                break;
+            case 7:
+                DrawPathView drawPathView = new DrawPathView(getActivity());
+                root.addView(drawPathView);
                 break;
         }
         return root;

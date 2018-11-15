@@ -78,6 +78,11 @@ public class HenCoderPracticeDrawOneActivity extends AppCompatActivity implement
         mLables.add("drawArc");
         fragments.add(fragment_arc);
 
+        fragment_drawPath = new HencoderPracticeDrawOneFragment();
+        fragment_drawPath.setIndex(7);
+        mLables.add("drawPath");
+        fragments.add(fragment_drawPath);
+
         mTitleIndicator = new TitleIndicator(HenCoderPracticeDrawOneActivity.this, mLables);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
