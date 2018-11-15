@@ -22,7 +22,7 @@ public class HenCoderPracticeDrawOneActivity extends AppCompatActivity implement
     private ViewPager viewPager;
     private TitleIndicator mTitleIndicator;
     private HencoderPracticeDrawOneFragment fragment_drawColor,fragment_drawCircle,fragment_drawRect;
-    private HencoderPracticeDrawOneFragment fragment_drawPoint,fragment_drawLine,fragment_drawPath,fragment_rect_squre,fragment_oval;
+    private HencoderPracticeDrawOneFragment fragment_drawPoint,fragment_drawLine,fragment_drawPath,fragment_arc,fragment_oval;
 
     /**
      * fragments: fragment集合
@@ -72,6 +72,11 @@ public class HenCoderPracticeDrawOneActivity extends AppCompatActivity implement
         fragment_drawLine.setIndex(5);
         mLables.add("drawLine");
         fragments.add(fragment_drawLine);
+
+        fragment_arc = new HencoderPracticeDrawOneFragment();
+        fragment_arc.setIndex(6);
+        mLables.add("drawArc");
+        fragments.add(fragment_arc);
 
         mTitleIndicator = new TitleIndicator(HenCoderPracticeDrawOneActivity.this, mLables);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
