@@ -35,8 +35,15 @@ public class SetShaderView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        mPaint.setTextSize(20);
+        canvas.drawText("Shader.TileMode.CLAMP",100,50,mPaint);
         Shader shader = new LinearGradient(100,100,300,300, Color.RED,Color.YELLOW, Shader.TileMode.CLAMP);
         mPaint.setShader(shader);
         canvas.drawRect(100,100,300,300,mPaint);
+
+        canvas.drawText("Shader.TileMode.MIRROR",400,50,mPaint);
+        shader = new LinearGradient(400,100,600,300,Color.RED,Color.YELLOW, Shader.TileMode.MIRROR);
+        mPaint.setShader(shader);
+        canvas.drawRect(400,100,600,300,mPaint);
     }
 }
