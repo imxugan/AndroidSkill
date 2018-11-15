@@ -1,4 +1,4 @@
-package test.cn.example.com.androidskill.view.defineView.hencoder;
+package test.cn.example.com.androidskill.view.defineView.hencoder.practice_one;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import test.cn.example.com.androidskill.R;
+import test.cn.example.com.androidskill.view.defineView.hencoder.TitleIndicator;
+import test.cn.example.com.androidskill.view.defineView.hencoder.ViewPagerAdapter;
 import test.cn.example.com.util.LogUtils;
 
 /**

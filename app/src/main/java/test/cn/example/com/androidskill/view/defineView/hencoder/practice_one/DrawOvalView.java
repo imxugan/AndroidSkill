@@ -1,4 +1,4 @@
-package test.cn.example.com.androidskill.view.defineView.hencoder.customview;
+package test.cn.example.com.androidskill.view.defineView.hencoder.practice_one;
 
 import android.content.Context;
 import android.graphics.Canvas;

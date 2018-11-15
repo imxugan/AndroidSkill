@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import test.cn.example.com.androidskill.view.defineView.hencoder.HenCoderPracticeDrawOneActivity;
+import test.cn.example.com.androidskill.view.defineView.hencoder.practice_one.HenCoderPracticeDrawOneActivity;
 
 /**
  * Created by xgxg on 2017/8/9.

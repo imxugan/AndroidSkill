@@ -1,4 +1,4 @@
-package test.cn.example.com.androidskill.view.defineView.hencoder;
+package test.cn.example.com.androidskill.view.defineView.hencoder.practice_one;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,16 +9,16 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import test.cn.example.com.androidskill.R;
-import test.cn.example.com.androidskill.view.defineView.hencoder.customview.DrawColorView;
-import test.cn.example.com.androidskill.view.defineView.hencoder.customview.DrawCircleView;
-import test.cn.example.com.androidskill.view.defineView.hencoder.customview.DrawRectView;
-import test.cn.example.com.androidskill.view.defineView.hencoder.customview.DrawPointView;
-import test.cn.example.com.androidskill.view.defineView.hencoder.customview.DrawOvalView;
-import test.cn.example.com.androidskill.view.defineView.hencoder.customview.DrawLineView;
-import test.cn.example.com.androidskill.view.defineView.hencoder.customview.DrawArcView;
-import test.cn.example.com.androidskill.view.defineView.hencoder.customview.DrawHistoryView;
-import test.cn.example.com.androidskill.view.defineView.hencoder.customview.DrawPathView;
-import test.cn.example.com.androidskill.view.defineView.hencoder.customview.DrawPieView;
+import test.cn.example.com.androidskill.view.defineView.hencoder.practice_one.DrawColorView;
+import test.cn.example.com.androidskill.view.defineView.hencoder.practice_one.DrawCircleView;
+import test.cn.example.com.androidskill.view.defineView.hencoder.practice_one.DrawRectView;
+import test.cn.example.com.androidskill.view.defineView.hencoder.practice_one.DrawPointView;
+import test.cn.example.com.androidskill.view.defineView.hencoder.practice_one.DrawOvalView;
+import test.cn.example.com.androidskill.view.defineView.hencoder.practice_one.DrawLineView;
+import test.cn.example.com.androidskill.view.defineView.hencoder.practice_one.DrawArcView;
+import test.cn.example.com.androidskill.view.defineView.hencoder.practice_one.DrawHistoryView;
+import test.cn.example.com.androidskill.view.defineView.hencoder.practice_one.DrawPathView;
+import test.cn.example.com.androidskill.view.defineView.hencoder.practice_one.DrawPieView;
 import test.cn.example.com.util.LogUtil;
 
 /**

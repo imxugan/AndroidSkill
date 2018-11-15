@@ -344,7 +344,7 @@
         </activity>
 
         <activity
-            android:name=".view.defineView.hencoder.HenCoderPracticeDrawOneActivity"
+            android:name=".view.defineView.hencoder.practice_one.HenCoderPracticeDrawOneActivity"
             android:screenOrientation="portrait"></activity>
 
         <service android:name="test.cn.example.com.androidskill.service.MyService"
