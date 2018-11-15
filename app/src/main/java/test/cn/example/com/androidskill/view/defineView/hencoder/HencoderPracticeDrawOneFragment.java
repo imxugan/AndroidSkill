@@ -19,6 +19,7 @@ import test.cn.example.com.androidskill.view.defineView.hencoder.customview.Cust
 import test.cn.example.com.androidskill.view.defineView.hencoder.customview.CustomView6;
 import test.cn.example.com.androidskill.view.defineView.hencoder.customview.DrawHistoryView;
 import test.cn.example.com.androidskill.view.defineView.hencoder.customview.DrawPathView;
+import test.cn.example.com.androidskill.view.defineView.hencoder.customview.DrawPieView;
 import test.cn.example.com.util.LogUtil;
 
 /**
@@ -69,6 +70,10 @@ public class HencoderPracticeDrawOneFragment extends Fragment {
             case 8:
                 DrawHistoryView drawHistoryView = new DrawHistoryView(getActivity());
                 root.addView(drawHistoryView);
+                break;
+            case 9:
+                DrawPieView drawPieView = new DrawPieView(getActivity());
+                root.addView(drawPieView);
                 break;
         }
         return root;

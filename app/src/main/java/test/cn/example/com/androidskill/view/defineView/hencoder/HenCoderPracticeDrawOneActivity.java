@@ -89,6 +89,11 @@ public class HenCoderPracticeDrawOneActivity extends AppCompatActivity implement
         mLables.add("drawHistory");
         fragments.add(fragment_drawHistory);
 
+        fragment_pie = new HencoderPracticeDrawOneFragment();
+        fragment_pie.setIndex(9);
+        mLables.add("drawPie");
+        fragments.add(fragment_pie);
+
         mTitleIndicator = new TitleIndicator(HenCoderPracticeDrawOneActivity.this, mLables);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
