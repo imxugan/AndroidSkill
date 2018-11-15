@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import test.cn.example.com.androidskill.view.defineView.hencoder.HenCoderPracticeActivity;
 import test.cn.example.com.androidskill.view.defineView.hencoder.practice_one.HenCoderPracticeDrawOneActivity;
 
 /**
@@ -66,7 +67,7 @@ public class ChapterFourActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.hencoder:
-                startActivity(new Intent(ChapterFourActivity.this,HenCoderPracticeDrawOneActivity.class));
+                startActivity(new Intent(ChapterFourActivity.this,HenCoderPracticeActivity.class));
                 break;
             case R.id.circleView:
                 startActivity(new Intent(ChapterFourActivity.this,CircleViewActivity.class));

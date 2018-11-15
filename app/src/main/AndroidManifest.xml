@@ -343,9 +343,23 @@
                   android:screenOrientation="portrait">
         </activity>
 
+        <!--hencoder  start-->
+        <activity
+            android:name="test.cn.example.com.androidskill.view.defineView.hencoder.HenCoderPracticeActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
         <activity
             android:name=".view.defineView.hencoder.practice_one.HenCoderPracticeDrawOneActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".view.defineView.hencoder.practice_two.HenCoderPracticeDrawTwoActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <!--hencoder end-->
 
         <service android:name="test.cn.example.com.androidskill.service.MyService"
                  android:process=":remote">
