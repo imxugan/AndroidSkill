@@ -33,6 +33,13 @@ public class DrawCircleView extends View {
         mPaint.setStrokeWidth(20);
         mPaint.setColor(Color.BLACK);
         canvas.drawCircle(600,600,100,mPaint);
+        //画圆 边线一个颜色，里面一个颜色
+        mPaint.setStyle(Paint.Style.FILL);
+        mPaint.setColor(Color.RED);
+        canvas.drawCircle(200,1000,100,mPaint);
+        mPaint.setColor(Color.YELLOW);
+        canvas.drawCircle(200,1000,80,mPaint);
+
 
     }
 }
