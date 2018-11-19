@@ -1,14 +1,21 @@
 package test.cn.example.com.androidskill.view.defineView.hencoder.practice_two;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
+import android.graphics.RadialGradient;
 import android.graphics.Shader;
+import android.graphics.SweepGradient;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
+
+import test.cn.example.com.androidskill.R;
 
 /**
  * Created by xugan on 2018/11/15.
@@ -16,8 +23,10 @@ import android.view.View;
 
 public class SetShaderView extends View {
     Paint mPaint;
+    Context mContext;
     public SetShaderView(Context context) {
         super(context);
+        mContext = context;
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
     }
@@ -53,5 +62,31 @@ public class SetShaderView extends View {
         shader = new LinearGradient(700,100,700,160,Color.RED, Color.YELLOW, Shader.TileMode.MIRROR);
         mPaint.setShader(shader);
         canvas.drawRect(700,100,900,400,mPaint);
+
+        RadialGradient radialGradient = new RadialGradient(200, 600, 50, Color.RED, Color.YELLOW, Shader.TileMode.CLAMP);
+        mPaint.setShader(radialGradient);
+        canvas.drawCircle(200,600,100,mPaint);
+
+        radialGradient = new RadialGradient(500,600,50,Color.RED,Color.YELLOW, Shader.TileMode.REPEAT);
+        mPaint.setShader(radialGradient);
+        canvas.drawCircle(500,600,100,mPaint);
+
+        radialGradient = new RadialGradient(800,600,50,Color.RED,Color.YELLOW,Shader.TileMode.MIRROR);
+        mPaint.setShader(radialGradient);
+        canvas.drawCircle(800,600,100,mPaint);
+
+        canvas.drawText("sweepGradient不存在Shader.TileMode",100,750,mPaint);
+        SweepGradient sweepGradient = new SweepGradient(200, 900, Color.RED, Color.YELLOW);
+        mPaint.setShader(sweepGradient);
+        canvas.drawCircle(200,900,100,mPaint);
+
+        sweepGradient = new SweepGradient(500,900,Color.RED,Color.YELLOW);
+        mPaint.setShader(sweepGradient);
+        canvas.drawCircle(500,900,100,mPaint);
+
+        sweepGradient = new SweepGradient(800,900,Color.RED,Color.YELLOW);
+        mPaint.setShader(sweepGradient);
+        canvas.drawCircle(800,900,100,mPaint);
+
     }
 }
