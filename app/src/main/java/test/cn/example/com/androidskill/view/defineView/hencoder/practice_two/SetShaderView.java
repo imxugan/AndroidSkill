@@ -10,8 +10,6 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import test.cn.example.com.androidskill.R;
-
 /**
  * Created by xugan on 2018/11/15.
  */
@@ -35,15 +33,25 @@ public class SetShaderView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+//        这里我们的重复模式没有起作用，是因为渐变的区域正好等于画布绘制的区域，
+//        填充模式使用的前题是，填充的区域小于绘制的区域。就和用图片做桌面一样，
+//        如果图片大小大于等于桌面的大小，自然就不会出现平铺拉伸的效果了，如果是用小图做桌面，
+//        那么就要看看是怎么一个拉伸法。
         mPaint.setTextSize(20);
         canvas.drawText("Shader.TileMode.CLAMP",100,50,mPaint);
-        Shader shader = new LinearGradient(100,100,300,300, Color.RED,Color.YELLOW, Shader.TileMode.CLAMP);
+        Shader shader = new LinearGradient(100,100,100,160, Color.RED, Color.YELLOW, Shader.TileMode.CLAMP);
         mPaint.setShader(shader);
-        canvas.drawRect(100,100,300,300,mPaint);
+        canvas.drawRect(100,100,300,400,mPaint);
 
-        canvas.drawText("Shader.TileMode.MIRROR",400,50,mPaint);
-        shader = new LinearGradient(400,100,600,300,Color.RED,Color.YELLOW, Shader.TileMode.MIRROR);
+        canvas.drawText("Shader.TileMode.REPEAT",400,50,mPaint);
+        shader = new LinearGradient(400,100,400,160,Color.RED, Color.YELLOW, Shader.TileMode.REPEAT);
         mPaint.setShader(shader);
-        canvas.drawRect(400,100,600,300,mPaint);
+        canvas.drawRect(400,100,600,400,mPaint);
+
+        mPaint.setTextSize(20);
+        canvas.drawText("Shader.TileMode.MIRROR",700,50,mPaint);
+        shader = new LinearGradient(700,100,700,160,Color.RED, Color.YELLOW, Shader.TileMode.MIRROR);
+        mPaint.setShader(shader);
+        canvas.drawRect(700,100,900,400,mPaint);
     }
 }
