@@ -26,7 +26,7 @@ public class HenCoderPracticeDrawTwoActivity extends AppCompatActivity implement
     private ViewPager viewPager;
     private TitleIndicator mTitleIndicator;
     private HencoderPracticeDrawTwoFragment fragment_setColor,fragment_setShader,fragment_setShader_2;
-    private HencoderPracticeDrawTwoFragment fragment_composeShader,fragment_drawLine,fragment_arc,fragment_oval;
+    private HencoderPracticeDrawTwoFragment fragment_composeShader,fragment_colorFilter,fragment_arc,fragment_oval;
     private HencoderPracticeDrawTwoFragment fragment_drawPath,fragment_drawHistory,fragment_pie;
 
     /**
@@ -70,11 +70,11 @@ public class HenCoderPracticeDrawTwoActivity extends AppCompatActivity implement
         fragment_composeShader.setIndex(3);
         mLables.add("composeShader");
         fragments.add(fragment_composeShader);
-//
-//        fragment_oval = new HencoderPracticeDrawTwoFragment();
-//        fragment_oval.setIndex(4);
-//        mLables.add("drawOval");
-//        fragments.add(fragment_oval);
+
+        fragment_colorFilter = new HencoderPracticeDrawTwoFragment();
+        fragment_colorFilter.setIndex(4);
+        mLables.add("colorFilter");
+        fragments.add(fragment_colorFilter);
 //
 //        fragment_drawLine = new HencoderPracticeDrawTwoFragment();
 //        fragment_drawLine.setIndex(5);

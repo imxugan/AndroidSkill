@@ -51,6 +51,8 @@ public class HencoderPracticeDrawTwoFragment extends Fragment {
                 root.addView(composeShaderView);
                 break;
             case 4:
+                ColorFilterView colorFilterView = new ColorFilterView(getActivity());
+                root.addView(colorFilterView);
                 break;
             case 5:
                 break;
