@@ -47,6 +47,8 @@ public class HencoderPracticeDrawTwoFragment extends Fragment {
                 root.addView(setShaderView2);
                 break;
             case 3:
+                ComposeShaderView composeShaderView = new ComposeShaderView(getActivity());
+                root.addView(composeShaderView);
                 break;
             case 4:
                 break;
