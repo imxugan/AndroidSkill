@@ -43,36 +43,22 @@ public class HencoderPracticeDrawTwoFragment extends Fragment {
                 root.addView(setShaderView);
                 break;
             case 2:
-                DrawRectView drawRectView = new DrawRectView(getActivity());
-                root.addView(drawRectView);
+                SetShaderView2 setShaderView2 = new SetShaderView2(getActivity());
+                root.addView(setShaderView2);
                 break;
             case 3:
-                DrawPointView drawPointView = new DrawPointView(getActivity());
-                root.addView(drawPointView);
                 break;
             case 4:
-                DrawOvalView drawOvalView = new DrawOvalView(getActivity());
-                root.addView(drawOvalView);
                 break;
             case 5:
-                DrawLineView customview = new DrawLineView(getActivity());
-                root.addView(customview);
                 break;
             case 6:
-                DrawArcView drawArcView = new DrawArcView(getActivity());
-                root.addView(drawArcView);
                 break;
             case 7:
-                DrawPathView drawPathView = new DrawPathView(getActivity());
-                root.addView(drawPathView);
                 break;
             case 8:
-                DrawHistoryView drawHistoryView = new DrawHistoryView(getActivity());
-                root.addView(drawHistoryView);
                 break;
             case 9:
-                DrawPieView drawPieView = new DrawPieView(getActivity());
-                root.addView(drawPieView);
                 break;
         }
         return root;

@@ -1,9 +1,6 @@
 package test.cn.example.com.androidskill.view.defineView.hencoder.practice_two;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
@@ -15,18 +12,14 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import test.cn.example.com.androidskill.R;
-
 /**
  * Created by xugan on 2018/11/15.
  */
 
 public class SetShaderView extends View {
     Paint mPaint;
-    Context mContext;
     public SetShaderView(Context context) {
         super(context);
-        mContext = context;
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
     }

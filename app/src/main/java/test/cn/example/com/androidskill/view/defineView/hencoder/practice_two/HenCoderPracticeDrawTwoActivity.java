@@ -25,7 +25,7 @@ import test.cn.example.com.util.LogUtils;
 public class HenCoderPracticeDrawTwoActivity extends AppCompatActivity implements TitleIndicator.OnTitleIndicatorListener {
     private ViewPager viewPager;
     private TitleIndicator mTitleIndicator;
-    private HencoderPracticeDrawTwoFragment fragment_setColor,fragment_setShader,fragment_drawRect;
+    private HencoderPracticeDrawTwoFragment fragment_setColor,fragment_setShader,fragment_setShader_2;
     private HencoderPracticeDrawTwoFragment fragment_drawPoint,fragment_drawLine,fragment_arc,fragment_oval;
     private HencoderPracticeDrawTwoFragment fragment_drawPath,fragment_drawHistory,fragment_pie;
 
@@ -55,10 +55,16 @@ public class HenCoderPracticeDrawTwoActivity extends AppCompatActivity implement
         fragment_setColor.setIndex(0);
         mLables.add("setColor");
         fragments.add(fragment_setColor);
+
         fragment_setShader = new HencoderPracticeDrawTwoFragment();
         fragment_setShader.setIndex(1);
         mLables.add("setShader");
         fragments.add(fragment_setShader);
+
+        fragment_setShader_2 = new HencoderPracticeDrawTwoFragment();
+        fragment_setShader_2.setIndex(2);
+        mLables.add("setShader2");
+        fragments.add(fragment_setShader_2);
 //
 //        fragment_drawRect = new HencoderPracticeDrawTwoFragment();
 //        fragment_drawRect.setIndex(2);
