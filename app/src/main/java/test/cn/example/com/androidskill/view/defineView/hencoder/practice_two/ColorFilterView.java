@@ -8,6 +8,8 @@ import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -54,6 +56,12 @@ public class ColorFilterView extends View {
         colorFilter = new LightingColorFilter(0x00ffff,0x0000aa);
         mPaint.setColorFilter(colorFilter);
         canvas.drawBitmap(bitmap,3*bitmap.getWidth(),bitmap.getHeight(),mPaint);
+        mPaint.setTextSize(40);
+        canvas.drawText("ProterDuffColoFilter    DST_OVER",0,2*bitmap.getHeight()+40,mPaint);
+        colorFilter = new PorterDuffColorFilter(Color.RED, PorterDuff.Mode.DST_OVER);
+        mPaint.setColorFilter(colorFilter);
+        canvas.drawBitmap(bitmap,0,2*bitmap.getHeight()+60,mPaint);
+
     }
 
     private void initPaint(){
