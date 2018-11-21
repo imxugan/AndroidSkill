@@ -55,6 +55,8 @@ public class HencoderPracticeDrawTwoFragment extends Fragment {
                 root.addView(colorFilterView);
                 break;
             case 5:
+                XfermodeView xfermodeView = new XfermodeView(getActivity());
+                root.addView(xfermodeView);
                 break;
             case 6:
                 break;
