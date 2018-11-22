@@ -59,6 +59,8 @@ public class HencoderPracticeDrawTwoFragment extends Fragment {
                 root.addView(xfermodeView);
                 break;
             case 6:
+                SetStokeXXView setStokeXXView = new SetStokeXXView(getActivity());
+                root.addView(setStokeXXView);
                 break;
             case 7:
                 break;
