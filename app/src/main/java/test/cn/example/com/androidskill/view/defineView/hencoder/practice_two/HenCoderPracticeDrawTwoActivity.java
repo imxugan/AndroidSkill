@@ -27,7 +27,7 @@ public class HenCoderPracticeDrawTwoActivity extends AppCompatActivity implement
     private TitleIndicator mTitleIndicator;
     private HencoderPracticeDrawTwoFragment fragment_setColor,fragment_setShader,fragment_setShader_2;
     private HencoderPracticeDrawTwoFragment fragment_composeShader,fragment_colorFilter,fragment_xfermode;
-    private HencoderPracticeDrawTwoFragment fragment_setStrokeXX,fragment_drawHistory,fragment_pie;
+    private HencoderPracticeDrawTwoFragment fragment_setStrokeXX,fragment_pathEffect,fragment_pie;
 
     /**
      * fragments: fragment集合
@@ -85,11 +85,11 @@ public class HenCoderPracticeDrawTwoActivity extends AppCompatActivity implement
         fragment_setStrokeXX.setIndex(6);
         mLables.add("setStrokeXX");
         fragments.add(fragment_setStrokeXX);
-//
-//        fragment_drawPath = new HencoderPracticeDrawTwoFragment();
-//        fragment_drawPath.setIndex(7);
-//        mLables.add("drawPath");
-//        fragments.add(fragment_drawPath);
+
+        fragment_pathEffect = new HencoderPracticeDrawTwoFragment();
+        fragment_pathEffect.setIndex(7);
+        mLables.add("drawPathEffect");
+        fragments.add(fragment_pathEffect);
 //
 //        fragment_drawHistory = new HencoderPracticeDrawTwoFragment();
 //        fragment_drawHistory.setIndex(8);

@@ -9,16 +9,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import test.cn.example.com.androidskill.R;
-import test.cn.example.com.androidskill.view.defineView.hencoder.practice_one.DrawArcView;
-import test.cn.example.com.androidskill.view.defineView.hencoder.practice_one.DrawCircleView;
-import test.cn.example.com.androidskill.view.defineView.hencoder.practice_one.DrawColorView;
-import test.cn.example.com.androidskill.view.defineView.hencoder.practice_one.DrawHistoryView;
-import test.cn.example.com.androidskill.view.defineView.hencoder.practice_one.DrawLineView;
-import test.cn.example.com.androidskill.view.defineView.hencoder.practice_one.DrawOvalView;
-import test.cn.example.com.androidskill.view.defineView.hencoder.practice_one.DrawPathView;
-import test.cn.example.com.androidskill.view.defineView.hencoder.practice_one.DrawPieView;
-import test.cn.example.com.androidskill.view.defineView.hencoder.practice_one.DrawPointView;
-import test.cn.example.com.androidskill.view.defineView.hencoder.practice_one.DrawRectView;
 import test.cn.example.com.util.LogUtil;
 
 /**
@@ -63,6 +53,8 @@ public class HencoderPracticeDrawTwoFragment extends Fragment {
                 root.addView(setStokeXXView);
                 break;
             case 7:
+                PathEffectView pathEffectView = new PathEffectView(getActivity());
+                root.addView(pathEffectView);
                 break;
             case 8:
                 break;
