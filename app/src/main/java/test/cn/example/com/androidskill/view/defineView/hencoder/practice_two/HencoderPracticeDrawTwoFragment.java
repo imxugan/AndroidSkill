@@ -61,6 +61,8 @@ public class HencoderPracticeDrawTwoFragment extends Fragment {
                 root.addView(pathEffectView2);
                 break;
             case 9:
+                PathEffectView3 pathEffectView3 = new PathEffectView3(getActivity());
+                root.addView(pathEffectView3);
                 break;
         }
         return root;

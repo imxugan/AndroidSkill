@@ -3,10 +3,14 @@ package test.cn.example.com.androidskill.view.defineView.hencoder.practice_two;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ComposePathEffect;
+import android.graphics.DashPathEffect;
+import android.graphics.DiscretePathEffect;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PathDashPathEffect;
 import android.graphics.RectF;
+import android.graphics.SumPathEffect;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -113,6 +117,34 @@ public class PathEffectView2 extends View {
         mPaint.setPathEffect(pathDashPathEffect);
         canvas.drawRect(810,280,1010,430,mPaint);
         //PathDashPathEffect.Style.MORPH效果未演示出来
+
+
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setColor(Color.GREEN);
+        DashPathEffect dashPathEffect = new DashPathEffect(new float[]{20, 10, 15, 5}, 0);
+        DiscretePathEffect discretePathEffect = new DiscretePathEffect(20, 5);
+//        SumPathEffect 就是分别按照两种 PathEffect 分别对目标进行绘制
+        SumPathEffect sumPathEffect = new SumPathEffect(dashPathEffect, discretePathEffect);
+        mPaint.setPathEffect(sumPathEffect);
+        Path path = new Path();
+        path.moveTo(100,500);
+        path.lineTo(150,450);
+        path.lineTo(200,550);
+        path.lineTo(280,510);
+        path.lineTo(320,460);
+        path.lineTo(380,520);
+        canvas.drawPath(path,mPaint);
+        ComposePathEffect composePathEffect = new ComposePathEffect(dashPathEffect, discretePathEffect);
+        mPaint.setPathEffect(composePathEffect);
+        path.reset();
+        mPaint.setColor(Color.RED);
+        path.moveTo(100,700);
+        path.lineTo(150,650);
+        path.lineTo(200,750);
+        path.lineTo(280,710);
+        path.lineTo(320,660);
+        path.lineTo(380,720);
+        canvas.drawPath(path,mPaint);
     }
 
     private void initPaint(){
