@@ -9,6 +9,7 @@ import android.view.View;
 
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.androidskill.view.defineView.hencoder.practice_one.HenCoderPracticeDrawOneActivity;
+import test.cn.example.com.androidskill.view.defineView.hencoder.practice_three.HenCoderPracticeDrawThreeActivity;
 import test.cn.example.com.androidskill.view.defineView.hencoder.practice_two.HenCoderPracticeDrawTwoActivity;
 
 /**
@@ -39,7 +40,7 @@ public class HenCoderPracticeActivity extends AppCompatActivity implements View.
                 startActivity(new Intent(HenCoderPracticeActivity.this, HenCoderPracticeDrawTwoActivity.class));
                 break;
             case R.id.hencoder_text:
-
+                startActivity(new Intent(HenCoderPracticeActivity.this, HenCoderPracticeDrawThreeActivity.class));
                 break;
         }
     }
