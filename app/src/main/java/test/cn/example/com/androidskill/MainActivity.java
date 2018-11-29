@@ -11,22 +11,24 @@ import android.view.View;
 import android.widget.TextView;
 import com.xywy.im.WebSocketApi;
 
+import java.util.ArrayList;
+
 import test.cn.example.com.androidskill.callback.CallBackActivity;
 import test.cn.example.com.androidskill.designpattern.DesignPatternActivity;
 import test.cn.example.com.androidskill.login.view.LoginActivity;
 import test.cn.example.com.androidskill.rxjavaTest.RxJavaTestActivity;
 import test.cn.example.com.androidskill.sqlite.SqliteActivity;
 import test.cn.example.com.androidskill.websocket.WebsocketActivity;
+import test.cn.example.com.util.LogUtils;
 import test.cn.example.com.util.ToastUtils;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+    private static final int PERMISSIONS_REQUEST = 2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-//        checkPermission();
-        CrashHandler.getInstance().init(this);
+        requestPermission();
         initView();
     }
 
@@ -163,16 +165,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void checkPermission(){
-        if(Build.VERSION.SDK_INT<Build.VERSION_CODES.M){
-            return;
-        }
-        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
-            if(ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)){
-                ToastUtils.shortToast(this,"请开通相关权限，否则无法正常使用本应用!");
-            }
-        }else{
-            ToastUtils.shortToast(this,"授权成功");
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSIONS_REQUEST) {
+            LogUtils.i("granted permission:" + grantResults);
         }
     }
+
+    private void requestPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            int readExternalPermission = (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE));
+
+            ArrayList<String> permissions = new ArrayList<String>();
+
+            if (readExternalPermission != PackageManager.PERMISSION_GRANTED) {
+                permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+            }
+
+            if (permissions.size() > 0) {
+                String[] array = new String[permissions.size()];
+                permissions.toArray(array);
+                this.requestPermissions(array, PERMISSIONS_REQUEST);
+            }
+        }
+    }
+
 }

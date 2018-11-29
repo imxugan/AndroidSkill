@@ -24,6 +24,7 @@ import test.cn.example.com.util.AppUtils;
 import test.cn.example.com.util.LogUtils;
 
 /**
+ *  6.0手机上(包括6.0版本)需要动态授权
  * 程序拦截异常
  */
 public class CrashHandler implements UncaughtExceptionHandler {
@@ -111,6 +112,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
 			}
 		}
 	}
+	//6.0手机上(包括6.0版本)需要动态授权
 	public static String fileDir = Environment.getExternalStorageDirectory()+"/crash_androidskill/";
 	/**
 	 * 保存错误信息到文件中
