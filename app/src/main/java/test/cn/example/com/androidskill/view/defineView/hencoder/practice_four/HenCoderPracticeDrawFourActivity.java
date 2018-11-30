@@ -24,7 +24,7 @@ import test.cn.example.com.util.LogUtils;
 public class HenCoderPracticeDrawFourActivity extends AppCompatActivity implements TitleIndicator.OnTitleIndicatorListener {
     private ViewPager viewPager;
     private TitleIndicator mTitleIndicator;
-    private HencoderPracticeDrawFourFragment fragment_clicpRect,fragment_clipPath;
+    private HencoderPracticeDrawFourFragment fragment_clicpRect,fragment_clipPath,fragment_canvasView3;
 
     /**
      * fragments: fragment集合
@@ -57,6 +57,11 @@ public class HenCoderPracticeDrawFourActivity extends AppCompatActivity implemen
         fragment_clipPath.setIndex(1);
         mLables.add("clicpPath");
         fragments.add(fragment_clipPath);
+
+        fragment_canvasView3 = new HencoderPracticeDrawFourFragment();
+        fragment_canvasView3.setIndex(2);
+        mLables.add("canvas.translate");
+        fragments.add(fragment_canvasView3);
 
         mTitleIndicator = new TitleIndicator(HenCoderPracticeDrawFourActivity.this, mLables);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
