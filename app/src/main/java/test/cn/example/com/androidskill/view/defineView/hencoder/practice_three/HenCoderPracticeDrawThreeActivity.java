@@ -24,9 +24,7 @@ import test.cn.example.com.util.LogUtils;
 public class HenCoderPracticeDrawThreeActivity extends AppCompatActivity implements TitleIndicator.OnTitleIndicatorListener {
     private ViewPager viewPager;
     private TitleIndicator mTitleIndicator;
-    private HencoderPracticeDrawThreeFragment fragment_drawTextVew,fragment_drawTextView2,fragment_setShader_2;
-    private HencoderPracticeDrawThreeFragment fragment_composeShader,fragment_colorFilter,fragment_xfermode;
-    private HencoderPracticeDrawThreeFragment fragment_setStrokeXX,fragment_pathEffect,fragment_pathEffect2;
+    private HencoderPracticeDrawThreeFragment fragment_drawTextVew,fragment_drawTextView2;
 
     /**
      * fragments: fragment集合
