@@ -25,6 +25,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="hencoder自定义view的文字的绘制学习"/>
+        <Button
+            android:id="@+id/hencoder_canvas_assistant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="hencoder自定义view的canvas辅助绘制"/>
 
 
 
