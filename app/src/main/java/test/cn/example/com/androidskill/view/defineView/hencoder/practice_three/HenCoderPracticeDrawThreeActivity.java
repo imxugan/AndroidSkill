@@ -24,7 +24,7 @@ import test.cn.example.com.util.LogUtils;
 public class HenCoderPracticeDrawThreeActivity extends AppCompatActivity implements TitleIndicator.OnTitleIndicatorListener {
     private ViewPager viewPager;
     private TitleIndicator mTitleIndicator;
-    private HencoderPracticeDrawThreeFragment fragment_drawTextVew,fragment_setShader,fragment_setShader_2;
+    private HencoderPracticeDrawThreeFragment fragment_drawTextVew,fragment_drawTextView2,fragment_setShader_2;
     private HencoderPracticeDrawThreeFragment fragment_composeShader,fragment_colorFilter,fragment_xfermode;
     private HencoderPracticeDrawThreeFragment fragment_setStrokeXX,fragment_pathEffect,fragment_pathEffect2;
 
@@ -55,45 +55,10 @@ public class HenCoderPracticeDrawThreeActivity extends AppCompatActivity impleme
         mLables.add("drawTextVew");
         fragments.add(fragment_drawTextVew);
 
-        fragment_setShader = new HencoderPracticeDrawThreeFragment();
-        fragment_setShader.setIndex(1);
-        mLables.add("setShader");
-        fragments.add(fragment_setShader);
-
-//        fragment_setShader_2 = new HencoderPracticeDrawThreeFragment();
-//        fragment_setShader_2.setIndex(2);
-//        mLables.add("setShader2");
-//        fragments.add(fragment_setShader_2);
-//
-//        fragment_composeShader = new HencoderPracticeDrawThreeFragment();
-//        fragment_composeShader.setIndex(3);
-//        mLables.add("composeShader");
-//        fragments.add(fragment_composeShader);
-//
-//        fragment_colorFilter = new HencoderPracticeDrawThreeFragment();
-//        fragment_colorFilter.setIndex(4);
-//        mLables.add("colorFilter");
-//        fragments.add(fragment_colorFilter);
-//
-//        fragment_xfermode = new HencoderPracticeDrawThreeFragment();
-//        fragment_xfermode.setIndex(5);
-//        mLables.add("xfermode");
-//        fragments.add(fragment_xfermode);
-//
-//        fragment_setStrokeXX = new HencoderPracticeDrawThreeFragment();
-//        fragment_setStrokeXX.setIndex(6);
-//        mLables.add("setStrokeXX");
-//        fragments.add(fragment_setStrokeXX);
-//
-//        fragment_pathEffect = new HencoderPracticeDrawThreeFragment();
-//        fragment_pathEffect.setIndex(7);
-//        mLables.add("drawPathEffect");
-//        fragments.add(fragment_pathEffect);
-//
-//        fragment_pathEffect2 = new HencoderPracticeDrawThreeFragment();
-//        fragment_pathEffect2.setIndex(8);
-//        mLables.add("drawPathEffect2");
-//        fragments.add(fragment_pathEffect2);
+        fragment_drawTextView2 = new HencoderPracticeDrawThreeFragment();
+        fragment_drawTextView2.setIndex(1);
+        mLables.add("drawTextView2");
+        fragments.add(fragment_drawTextView2);
 
         mTitleIndicator = new TitleIndicator(HenCoderPracticeDrawThreeActivity.this, mLables);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(

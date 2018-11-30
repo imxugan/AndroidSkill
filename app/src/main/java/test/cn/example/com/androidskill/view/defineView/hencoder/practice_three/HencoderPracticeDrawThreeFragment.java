@@ -9,15 +9,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import test.cn.example.com.androidskill.R;
-import test.cn.example.com.androidskill.view.defineView.hencoder.practice_two.ColorFilterView;
-import test.cn.example.com.androidskill.view.defineView.hencoder.practice_two.ComposeShaderView;
-import test.cn.example.com.androidskill.view.defineView.hencoder.practice_two.PathEffectView;
-import test.cn.example.com.androidskill.view.defineView.hencoder.practice_two.PathEffectView2;
-import test.cn.example.com.androidskill.view.defineView.hencoder.practice_two.SetColorView;
-import test.cn.example.com.androidskill.view.defineView.hencoder.practice_two.SetShaderView;
-import test.cn.example.com.androidskill.view.defineView.hencoder.practice_two.SetShaderView2;
-import test.cn.example.com.androidskill.view.defineView.hencoder.practice_two.SetStokeXXView;
-import test.cn.example.com.androidskill.view.defineView.hencoder.practice_two.XfermodeView;
 import test.cn.example.com.util.LogUtil;
 
 /**
@@ -38,28 +29,8 @@ public class HencoderPracticeDrawThreeFragment extends Fragment {
                 root.addView(drawTextVew);
                 break;
             case 1:
-
-                break;
-            case 2:
-
-                break;
-            case 3:
-
-                break;
-            case 4:
-
-                break;
-            case 5:
-
-                break;
-            case 6:
-
-                break;
-            case 7:
-
-                break;
-            case 8:
-
+                DrawTextView2 drawTextView2 = new DrawTextView2(getActivity());
+                root.addView(drawTextView2);
                 break;
         }
         return root;
