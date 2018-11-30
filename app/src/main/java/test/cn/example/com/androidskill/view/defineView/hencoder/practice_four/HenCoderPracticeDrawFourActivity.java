@@ -24,7 +24,7 @@ import test.cn.example.com.util.LogUtils;
 public class HenCoderPracticeDrawFourActivity extends AppCompatActivity implements TitleIndicator.OnTitleIndicatorListener {
     private ViewPager viewPager;
     private TitleIndicator mTitleIndicator;
-    private HencoderPracticeDrawFourFragment fragment_canvasAssistant,fragment_drawTextView2;
+    private HencoderPracticeDrawFourFragment fragment_clicpRect,fragment_clipPath;
 
     /**
      * fragments: fragment集合
@@ -48,11 +48,15 @@ public class HenCoderPracticeDrawFourActivity extends AppCompatActivity implemen
         viewPager = (ViewPager) findViewById(R.id.pager);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         fragments = new ArrayList<>();
-        fragment_canvasAssistant = new HencoderPracticeDrawFourFragment();
-        fragment_canvasAssistant.setIndex(0);
-        mLables.add("canvasAssistant");
-        fragments.add(fragment_canvasAssistant);
+        fragment_clicpRect = new HencoderPracticeDrawFourFragment();
+        fragment_clicpRect.setIndex(0);
+        mLables.add("clicpRect");
+        fragments.add(fragment_clicpRect);
 
+        fragment_clipPath = new HencoderPracticeDrawFourFragment();
+        fragment_clipPath.setIndex(1);
+        mLables.add("clicpPath");
+        fragments.add(fragment_clipPath);
 
         mTitleIndicator = new TitleIndicator(HenCoderPracticeDrawFourActivity.this, mLables);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
