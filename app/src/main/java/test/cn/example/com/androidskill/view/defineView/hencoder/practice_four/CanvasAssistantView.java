@@ -41,8 +41,8 @@ public class CanvasAssistantView extends View {
     }
 
     @Override
-    public void draw(Canvas canvas) {
-        super.draw(canvas);
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
         Rect clipBounds = canvas.getClipBounds();
         LogUtil.e("最开始的 clipBounds "+clipBounds.toString());
         canvas.drawBitmap(bitmap,left,top,mPaint);
