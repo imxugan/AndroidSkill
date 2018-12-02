@@ -25,6 +25,7 @@ public class HenCoderPracticeDrawFourActivity extends AppCompatActivity implemen
     private ViewPager viewPager;
     private TitleIndicator mTitleIndicator;
     private HencoderPracticeDrawFourFragment fragment_clicpRect,fragment_clipPath,fragment_canvasView3;
+    private HencoderPracticeDrawFourFragment fragment_canvasView4;
 
     /**
      * fragments: fragment集合
@@ -62,6 +63,12 @@ public class HenCoderPracticeDrawFourActivity extends AppCompatActivity implemen
         fragment_canvasView3.setIndex(2);
         mLables.add("canvas.translate");
         fragments.add(fragment_canvasView3);
+
+
+        fragment_canvasView4 = new HencoderPracticeDrawFourFragment();
+        fragment_canvasView4.setIndex(3);
+        mLables.add("matrix");
+        fragments.add(fragment_canvasView4);
 
         mTitleIndicator = new TitleIndicator(HenCoderPracticeDrawFourActivity.this, mLables);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(

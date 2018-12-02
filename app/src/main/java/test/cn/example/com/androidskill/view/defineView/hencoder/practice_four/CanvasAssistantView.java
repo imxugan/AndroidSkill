@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
@@ -11,6 +12,8 @@ import android.os.Build;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
+
+import java.util.Arrays;
 
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.util.LogUtil;
@@ -43,6 +46,21 @@ public class CanvasAssistantView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        float[] values = new float[9];
+        int[] location1 = new int[2];
+
+        Matrix matrix = canvas.getMatrix();
+        matrix.getValues(values);
+
+        location1[0] = (int) values[2];
+        location1[1] = (int) values[5];
+        LogUtil.i("location1 = " + Arrays.toString(location1));
+
+        int[] location2 = new int[2];
+        this.getLocationOnScreen(location2);
+        LogUtil.i("location2 = " + Arrays.toString(location2));
+
+
         Rect clipBounds = canvas.getClipBounds();
         LogUtil.e("最开始的 clipBounds "+clipBounds.toString());
         canvas.drawBitmap(bitmap,left,top,mPaint);

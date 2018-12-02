@@ -10,6 +10,8 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
+import java.util.Arrays;
+
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.util.LogUtil;
 
@@ -39,6 +41,20 @@ public class CanvasAssistantView3 extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        float[] values = new float[9];
+        int[] location1 = new int[2];
+
+        Matrix matrix = canvas.getMatrix();
+        matrix.getValues(values);
+
+        location1[0] = (int) values[2];
+        location1[1] = (int) values[5];
+        LogUtil.i("location1 = " + Arrays.toString(location1));
+
+        int[] location2 = new int[2];
+        this.getLocationOnScreen(location2);
+        LogUtil.i("location2 = " + Arrays.toString(location2));
+
         canvas.drawBitmap(bitmap,10,10,mPaint);
         int bitmapWidth = bitmap.getWidth();
         int bitmapHeight = bitmap.getHeight();
@@ -66,8 +82,8 @@ public class CanvasAssistantView3 extends View {
         canvas.scale(2f,1f,10+bitmapWidth/2,650);
         canvas.drawBitmap(bitmap,10,550,mPaint);
         canvas.restore();
-        Matrix matrix = canvas.getMatrix();
-        LogUtil.i(""+matrix.toString());
+        Matrix matrix2 = canvas.getMatrix();
+        LogUtil.i(""+matrix2.toString());
         canvas.save();
         canvas.skew(0,-0.2f);
         canvas.drawBitmap(bitmap,10,800,mPaint);

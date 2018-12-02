@@ -38,6 +38,10 @@ public class HencoderPracticeDrawFourFragment extends Fragment {
                 CanvasAssistantView3 canvasAssistantView3 = new CanvasAssistantView3(getActivity());
                 root.addView(canvasAssistantView3);
                 break;
+            case 3:
+                CanvasAssistantView4 canvasAssistantView4 = new CanvasAssistantView4(getActivity());
+                root.addView(canvasAssistantView4);
+                break;
         }
         return root;
     }
