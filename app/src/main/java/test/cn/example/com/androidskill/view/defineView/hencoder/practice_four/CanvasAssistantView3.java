@@ -4,12 +4,14 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
 import test.cn.example.com.androidskill.R;
+import test.cn.example.com.util.LogUtil;
 
 /**
  * Created by xugan on 2018/11/30.
@@ -58,6 +60,23 @@ public class CanvasAssistantView3 extends View {
         //sx 表示 横向的缩放，sy 表示纵向的缩放
         //px，表示缩放的水平位置的基点，py 表示纵向的位置的基点，表示画布以px,py为中心缩放
         canvas.scale(2f,1f,300,300);
+        canvas.restore();
+        canvas.save();
+        //以10+bitmapWidth/2，650 为中心点进行缩放
+        canvas.scale(2f,1f,10+bitmapWidth/2,650);
+        canvas.drawBitmap(bitmap,10,550,mPaint);
+        canvas.restore();
+        Matrix matrix = canvas.getMatrix();
+        LogUtil.i(""+matrix.toString());
+        canvas.save();
+        canvas.skew(0,-0.2f);
+        canvas.drawBitmap(bitmap,10,800,mPaint);
+        canvas.restore();
+        canvas.save();
+        canvas.skew(0.2f,0f);
+        canvas.drawBitmap(bitmap,0,1000,mPaint);
+        canvas.drawBitmap(bitmap,300,1000,mPaint);
+
 
 
     }
