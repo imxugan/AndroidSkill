@@ -106,6 +106,7 @@ public class CanvasAssistantView4 extends View {
         LogUtil.e("canvas.getWidth()="+canvas.getWidth()+"    canvas.getHeight()="+canvas.getHeight());
 
         canvas.restore();
+        canvas.save();
         Matrix scaleMatrix = new Matrix();
         scaleMatrix.setScale(2f,1f);
         Matrix translateMatrix = new Matrix();
@@ -118,6 +119,26 @@ public class CanvasAssistantView4 extends View {
         LogUtil.e("postConcat  scaleMatrix后的  "+matrix.toString());
         canvas.setMatrix(matrix);
         canvas.drawBitmap(bitmap,0,0,mPaint);
+        canvas.restore();
+        canvas.save();
+        Matrix matrix1 = new Matrix();
+        matrix1.reset();
+        float left = bitmapWidth;
+        float top = bitmapHeight;
+        float right = bitmapWidth*2;
+        float bottom = bitmapHeight*2;
+        float pointsSrc[] = {left, top, right, top, left, bottom, right, bottom};
+        float pointsDst[] = {left - 10, top + 50, right + 120, top - 90, left + 20, bottom + 30, right + 20, bottom + 60};
+
+        matrix1.setPolyToPoly(pointsSrc,0,pointsDst,0,4);
+        //matrix1.setPolyToPoly后的  Matrix{[0.22049858, 0.5850427, 80.9256][-0.7393609, 1.5373745, 139.66388][-0.0019718239, 0.0015236624, 1.2214755]}
+        LogUtil.e("matrix1.setPolyToPoly后的  "+matrix1.toString());
+        canvas.concat(matrix1);
+        canvas.drawBitmap(bitmap,0,bitmapHeight,mPaint);
+        canvas.drawBitmap(bitmap,bitmapWidth,bitmapHeight,mPaint);
+        canvas.drawBitmap(bitmap,bitmapWidth,bitmapHeight,mPaint);
+        canvas.drawBitmap(bitmap,bitmapWidth,bitmapHeight*2,mPaint);
+        canvas.drawBitmap(bitmap,bitmapWidth,bitmapHeight*3,mPaint);
 
 
     }
