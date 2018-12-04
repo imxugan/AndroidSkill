@@ -51,7 +51,8 @@ public class CanvasAssistantView5 extends View {
         float pointsDst[] = {left, top , right , top + 30, right, bottom - 30, left, bottom};
 
         matrix1.setPolyToPoly(pointsSrc,0,pointsDst,0,4);
-        canvas.drawBitmap(bitmap,matrix1,mPaint);
+        canvas.concat(matrix1);
+        canvas.drawBitmap(bitmap,0,0,mPaint);
 
     }
 
