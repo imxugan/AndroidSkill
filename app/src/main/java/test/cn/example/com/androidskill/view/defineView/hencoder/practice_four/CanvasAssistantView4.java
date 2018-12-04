@@ -96,6 +96,7 @@ public class CanvasAssistantView4 extends View {
         y = y * mscale_y + 1 * mtrans_y;
         LogUtil.i("matrix.setTranslate后的    x= "+x+"   y= "+y);
 //        LogUtil.i("matrix.toString()= "+matrix.toString());
+        canvas.save();
         canvas.setMatrix(matrix);
 
 //        关于Canvas.getMatrix()的一些问题收集
@@ -104,6 +105,19 @@ public class CanvasAssistantView4 extends View {
         canvas.drawBitmap(bitmap,0,0,mPaint);
         LogUtil.e("canvas.getWidth()="+canvas.getWidth()+"    canvas.getHeight()="+canvas.getHeight());
 
+        canvas.restore();
+        Matrix scaleMatrix = new Matrix();
+        scaleMatrix.setScale(2f,1f);
+        Matrix translateMatrix = new Matrix();
+        translateMatrix.setTranslate(20,bitmapHeight);
+        matrix.postConcat(translateMatrix);
+        //postConcat  translateMatrix后的  Matrix{[1.0, 0.0, 283.0][0.0, 1.0, 195.0][0.0, 0.0, 1.0]}
+        LogUtil.e("postConcat  translateMatrix后的  "+matrix.toString());
+        matrix.postConcat(scaleMatrix);
+        //postConcat  scaleMatrix后的  Matrix{[2.0, 0.0, 566.0][0.0, 1.0, 195.0][0.0, 0.0, 1.0]}
+        LogUtil.e("postConcat  scaleMatrix后的  "+matrix.toString());
+        canvas.setMatrix(matrix);
+        canvas.drawBitmap(bitmap,0,0,mPaint);
 
 
     }
