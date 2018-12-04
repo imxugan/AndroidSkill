@@ -50,6 +50,7 @@ public class CanvasAssistantView5 extends View {
         float pointsSrc[] = {left, top, right, top, right, bottom, left, bottom, };
         float pointsDst[] = {left, top , right , top + 30, right, bottom - 30, left, bottom};
 
+//        pointCount 是采集的点的个数（个数不能大于 4，因为大于 4 个点就无法计算变换了）。
         matrix1.setPolyToPoly(pointsSrc,0,pointsDst,0,4);
         canvas.concat(matrix1);
         canvas.drawBitmap(bitmap,0,0,mPaint);
