@@ -24,7 +24,7 @@ import test.cn.example.com.util.LogUtils;
 public class HenCoderPracticeDrawFiveActivity extends AppCompatActivity implements TitleIndicator.OnTitleIndicatorListener {
     private ViewPager viewPager;
     private TitleIndicator mTitleIndicator;
-    private HencoderPracticeDrawFiveFragment fragment_draw_after,fragment_draw_before,fragment_canvasView3;
+    private HencoderPracticeDrawFiveFragment fragment_draw_after,fragment_draw_before,fragment_dispatchDraw_after;
     private HencoderPracticeDrawFiveFragment fragment_canvasView4,fragment_canvasView5,fragment_canvasView6;
 
     /**
@@ -59,12 +59,12 @@ public class HenCoderPracticeDrawFiveActivity extends AppCompatActivity implemen
         mLables.add("ondraw之前调用");
         fragments.add(fragment_draw_before);
 
-//        fragment_canvasView3 = new HencoderPracticeDrawFiveFragment();
-//        fragment_canvasView3.setIndex(2);
-//        mLables.add("canvas.translate");
-//        fragments.add(fragment_canvasView3);
-//
-//
+        fragment_dispatchDraw_after = new HencoderPracticeDrawFiveFragment();
+        fragment_dispatchDraw_after.setIndex(2);
+        mLables.add("dispatchDraw_after");
+        fragments.add(fragment_dispatchDraw_after);
+
+
 //        fragment_canvasView4 = new HencoderPracticeDrawFiveFragment();
 //        fragment_canvasView4.setIndex(3);
 //        mLables.add("matrix");

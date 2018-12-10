@@ -6,7 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.androidskill.view.defineView.hencoder.practice_four.CanvasAssistantView;
@@ -41,8 +44,8 @@ public class HencoderPracticeDrawFiveFragment extends Fragment {
                 root.addView(myTextView);
                 break;
             case 2:
-                CanvasAssistantView3 canvasAssistantView3 = new CanvasAssistantView3(getActivity());
-                root.addView(canvasAssistantView3);
+                SpottedLinearLayout spottedLinearLayout = (SpottedLinearLayout) inflater.inflate(R.layout.fragment_hencode_practice_five_draw,container,false);
+                root.addView(spottedLinearLayout);
                 break;
             case 3:
                 CanvasAssistantView4 canvasAssistantView4 = new CanvasAssistantView4(getActivity());
