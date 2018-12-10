@@ -93,6 +93,21 @@ public class CanvasAssistantView6 extends View {
         canvas.drawLine(20,400,20,700,mPaint);
         canvas.drawLine(200,400,200,700,mPaint);
         canvas.drawLine(400,400,400,700,mPaint);
+        canvas.save();
+        canvas.drawBitmap(bitmap,10,800,mPaint);
+        canvas.restore();
+        canvas.save();
+        Camera camera1 = new Camera();
+        camera1.save();
+        camera1.setLocation(0,0,180.0f);
+//        camera1.rotate(0,30,0);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            LogUtil.i("camera1.getLocationZ()="+camera1.getLocationZ());
+        }
+        camera1.applyToCanvas(canvas);
+        camera1.restore();
+        canvas.drawBitmap(bitmap,10+bitmap.getWidth()+20,800,mPaint);
+        canvas.restore();
 
     }
 
