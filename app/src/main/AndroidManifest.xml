@@ -370,6 +370,10 @@
             android:screenOrientation="portrait">
         </activity>
 
+        <activity
+            android:name=".view.defineView.hencoder.practice_five.HenCoderPracticeDrawFiveActivity"
+            android:screenOrientation="portrait">
+        </activity>
 
         <!--hencoder end-->
 

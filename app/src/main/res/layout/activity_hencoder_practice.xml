@@ -31,7 +31,11 @@
             android:layout_height="wrap_content"
             android:text="hencoder自定义view的canvas辅助绘制"/>
 
-
+        <Button
+            android:id="@+id/hencoder_view_draw_sequence"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="hencoder自定义view的绘制顺序"/>
 
     </LinearLayout>
 </ScrollView>
