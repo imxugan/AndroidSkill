@@ -24,7 +24,7 @@ import test.cn.example.com.util.LogUtils;
 public class HenCoderPracticeDrawFiveActivity extends AppCompatActivity implements TitleIndicator.OnTitleIndicatorListener {
     private ViewPager viewPager;
     private TitleIndicator mTitleIndicator;
-    private HencoderPracticeDrawFiveFragment fragment_clicpRect,fragment_clipPath,fragment_canvasView3;
+    private HencoderPracticeDrawFiveFragment fragment_draw_after,fragment_draw_before,fragment_canvasView3;
     private HencoderPracticeDrawFiveFragment fragment_canvasView4,fragment_canvasView5,fragment_canvasView6;
 
     /**
@@ -49,16 +49,16 @@ public class HenCoderPracticeDrawFiveActivity extends AppCompatActivity implemen
         viewPager = (ViewPager) findViewById(R.id.pager);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         fragments = new ArrayList<>();
-        fragment_clicpRect = new HencoderPracticeDrawFiveFragment();
-        fragment_clicpRect.setIndex(0);
+        fragment_draw_after = new HencoderPracticeDrawFiveFragment();
+        fragment_draw_after.setIndex(0);
         mLables.add("ondraw之后调用");
-        fragments.add(fragment_clicpRect);
+        fragments.add(fragment_draw_after);
 
-//        fragment_clipPath = new HencoderPracticeDrawFiveFragment();
-//        fragment_clipPath.setIndex(1);
-//        mLables.add("clicpPath");
-//        fragments.add(fragment_clipPath);
-//
+        fragment_draw_before = new HencoderPracticeDrawFiveFragment();
+        fragment_draw_before.setIndex(1);
+        mLables.add("ondraw之前调用");
+        fragments.add(fragment_draw_before);
+
 //        fragment_canvasView3 = new HencoderPracticeDrawFiveFragment();
 //        fragment_canvasView3.setIndex(2);
 //        mLables.add("canvas.translate");

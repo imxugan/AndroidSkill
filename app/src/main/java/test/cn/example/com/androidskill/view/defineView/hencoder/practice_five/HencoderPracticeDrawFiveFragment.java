@@ -36,8 +36,9 @@ public class HencoderPracticeDrawFiveFragment extends Fragment {
                 root.addView(myImageView);
                 break;
             case 1:
-                CanvasAssistantView2 canvasAssistantView2 = new CanvasAssistantView2(getActivity());
-                root.addView(canvasAssistantView2);
+                MyTextView myTextView = new MyTextView(getActivity());
+                myTextView.setText("adbcefghijklimopqrstuvwxyz");
+                root.addView(myTextView);
                 break;
             case 2:
                 CanvasAssistantView3 canvasAssistantView3 = new CanvasAssistantView3(getActivity());
