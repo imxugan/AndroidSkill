@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="reset"/>
-<LinearLayout
+    <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
@@ -30,11 +30,23 @@
         android:text="translationXBy"/>
 </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_translationX_interpolator"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="translationX_Lineral"/>
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_translationZ"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="translationZ"/>
+        <Button
+            android:id="@+id/btn_translationZBy"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="translationZBy"/>
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -50,5 +62,9 @@
             android:layout_height="wrap_content"
             android:text="translationYBy"/>
     </LinearLayout>
-
+    <Button
+        android:id="@+id/btn_translationX_interpolator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="translationX_Lineral"/>
 </LinearLayout>
