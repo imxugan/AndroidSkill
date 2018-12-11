@@ -1,6 +1,7 @@
 package test.cn.example.com.androidskill.view.defineView.hencoder.practice_six;
 
 import android.animation.Animator;
+import android.animation.TimeInterpolator;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewPropertyAnimator;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.LinearLayout;
 
 import test.cn.example.com.androidskill.R;
@@ -24,7 +28,7 @@ import test.cn.example.com.util.LogUtil;
 
 public class HencoderPracticeSixFragment extends Fragment implements View.OnClickListener {
     private int mIndex;
-    private View iv;
+    private View iv,iv2;
 
     @Nullable
     @Override
@@ -35,14 +39,19 @@ public class HencoderPracticeSixFragment extends Fragment implements View.OnClic
             case 0:
                 LinearLayout ll = (LinearLayout) inflater.inflate(R.layout.fragment_hencode_practice_six_animation_translate,container,false);
                 iv = ll.findViewById(R.id.iv);
+                iv2 = ll.findViewById(R.id.iv2);
                 ll.findViewById(R.id.btn_reset).setOnClickListener(this);
                 ll.findViewById(R.id.btn_translationX).setOnClickListener(this);
                 ll.findViewById(R.id.btn_translationXBy).setOnClickListener(this);
+
                 ll.findViewById(R.id.btn_translationZ).setOnClickListener(this);
                 ll.findViewById(R.id.btn_translationZBy).setOnClickListener(this);
-                ll.findViewById(R.id.btn_translationX_interpolator).setOnClickListener(this);
+
                 ll.findViewById(R.id.btn_translationY).setOnClickListener(this);
                 ll.findViewById(R.id.btn_translationYBy).setOnClickListener(this);
+
+                ll.findViewById(R.id.btn_LinearInterpolator).setOnClickListener(this);
+                ll.findViewById(R.id.btn_AccelerateInterpolator).setOnClickListener(this);
                 root.addView(ll);
                 break;
             case 1:
@@ -77,10 +86,12 @@ public class HencoderPracticeSixFragment extends Fragment implements View.OnClic
     @Override
     public void onClick(final View view) {
         final ViewPropertyAnimator viewPropertyAnimator = iv.animate();
+        final ViewPropertyAnimator viewPropertyAnimator2 = iv2.animate();
         switch (view.getId()){
             case R.id.btn_reset:
                 //将iv这个view移动到起始点
                 viewPropertyAnimator.translationX(0).translationY(0);
+                viewPropertyAnimator2.translationX(0).translationY(0);
                 break;
             case R.id.btn_translationX:
                 final boolean[] isEndX = {false};
@@ -181,8 +192,15 @@ public class HencoderPracticeSixFragment extends Fragment implements View.OnClic
                     viewPropertyAnimator.translationZBy(300);
                 }
                 break;
-            case R.id.btn_translationX_interpolator:
-
+            case R.id.btn_LinearInterpolator:
+                viewPropertyAnimator.setInterpolator(new LinearInterpolator());
+                viewPropertyAnimator.translationX(300);
+                break;
+            case R.id.btn_AccelerateInterpolator:
+                viewPropertyAnimator.setInterpolator(new LinearInterpolator());
+                viewPropertyAnimator.translationX(300);
+                viewPropertyAnimator2.setInterpolator(new AccelerateInterpolator(10));
+                viewPropertyAnimator2.translationX(300);
                 break;
         }
     }
