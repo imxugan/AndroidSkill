@@ -17,7 +17,9 @@ import android.view.animation.AnticipateOvershootInterpolator;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.CycleInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.widget.LinearLayout;
 
 import test.cn.example.com.androidskill.R;
@@ -63,6 +65,8 @@ public class HencoderPracticeSixFragment extends Fragment implements View.OnClic
                 ll.findViewById(R.id.btn_CycleInterpolator).setOnClickListener(this);
                 ll.findViewById(R.id.btn_AnticipateInterpolator).setOnClickListener(this);
                 ll.findViewById(R.id.btn_AnticipateOvershootInterpolator).setOnClickListener(this);
+                ll.findViewById(R.id.btn_OvershootInterpolator).setOnClickListener(this);
+                ll.findViewById(R.id.btn_Interpolator).setOnClickListener(this);
                 root.addView(ll);
                 break;
             case 1:
@@ -247,6 +251,24 @@ public class HencoderPracticeSixFragment extends Fragment implements View.OnClic
                 viewPropertyAnimator.setInterpolator(new LinearInterpolator());
                 viewPropertyAnimator.translationX(300);
                 viewPropertyAnimator2.setInterpolator(new AnticipateOvershootInterpolator(10));
+                viewPropertyAnimator2.translationX(300);
+                break;
+            case R.id.btn_OvershootInterpolator:
+                viewPropertyAnimator.setInterpolator(new LinearInterpolator());
+                viewPropertyAnimator.translationX(300);
+                viewPropertyAnimator2.setInterpolator(new OvershootInterpolator(10));
+                viewPropertyAnimator2.translationX(300);
+                break;
+            case R.id.btn_Interpolator:
+                viewPropertyAnimator.setInterpolator(new LinearInterpolator());
+                viewPropertyAnimator.translationX(300);
+                viewPropertyAnimator2.setInterpolator(new Interpolator() {
+                    @Override
+                    public float getInterpolation(float v) {
+                        LogUtil.i(""+v);
+                        return v;
+                    }
+                });
                 viewPropertyAnimator2.translationX(300);
                 break;
         }

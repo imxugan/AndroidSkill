@@ -10,30 +10,33 @@
         android:src="@drawable/avatar_contact"/>
     <ImageView
         android:id="@+id/iv2"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/avatar_contact"/>
-    <Button
-        android:id="@+id/btn_reset"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="reset"/>
     <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-    <Button
-        android:id="@+id/btn_translationX"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="translationX"/>
-    <Button
-        android:id="@+id/btn_translationXBy"
-        android:layout_marginLeft="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="translationXBy"/>
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="reset"/>
+        <Button
+            android:id="@+id/btn_translationX"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:textSize="10sp"
+            android:text="translationX"/>
+        <Button
+            android:id="@+id/btn_translationXBy"
+            android:layout_marginLeft="10dp"
+            android:textSize="10sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="translationXBy"/>
 </LinearLayout>
 
     <LinearLayout
@@ -44,12 +47,14 @@
             android:id="@+id/btn_translationZ"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="10sp"
             android:text="translationZ"/>
         <Button
             android:id="@+id/btn_translationZBy"
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="10sp"
             android:text="translationZBy"/>
     </LinearLayout>
 
@@ -61,11 +66,13 @@
             android:id="@+id/btn_translationY"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="10sp"
             android:text="translationY"/>
         <Button
             android:id="@+id/btn_translationYBy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="10sp"
             android:text="translationYBy"/>
     </LinearLayout>
     <LinearLayout
@@ -76,12 +83,13 @@
             android:id="@+id/btn_LinearInterpolator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="10sp"
             android:text="LinearInterpolator"/>
         <Button
             android:id="@+id/btn_AccelerateInterpolator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="13sp"
+            android:textSize="10sp"
             android:text="AccelerateInterpolator"/>
     </LinearLayout>
 
@@ -137,5 +145,22 @@
             android:layout_height="wrap_content"
             android:textSize="10sp"
             android:text="AnticipateOvershootInterpolator"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_OvershootInterpolator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:text="OvershootInterpolator"/>
+        <Button
+            android:id="@+id/btn_Interpolator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:text="Interpolator"/>
     </LinearLayout>
 </LinearLayout>
