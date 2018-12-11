@@ -375,6 +375,11 @@
             android:screenOrientation="portrait">
         </activity>
 
+        <activity
+            android:name=".view.defineView.hencoder.practice_six.HenCoderPracticeSixActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
         <!--hencoder end-->
 
         <service android:name="test.cn.example.com.androidskill.service.MyService"
