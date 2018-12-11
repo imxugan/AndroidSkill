@@ -85,4 +85,21 @@
             android:text="AccelerateInterpolator"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_AccelerateDecelerateInterpolator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:text="AccelerateDecelerateInterpolator"/>
+        <Button
+            android:id="@+id/btn_DecelerateInterpolator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:text="DecelerateInterpolator"/>
+    </LinearLayout>
 </LinearLayout>
