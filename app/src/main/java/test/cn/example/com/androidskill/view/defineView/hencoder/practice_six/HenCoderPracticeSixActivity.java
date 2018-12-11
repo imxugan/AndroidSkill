@@ -51,7 +51,7 @@ public class HenCoderPracticeSixActivity extends AppCompatActivity implements Ti
         fragments = new ArrayList<>();
         fragment_transleteX = new HencoderPracticeSixFragment();
         fragment_transleteX.setIndex(0);
-        mLables.add("transleteX");
+        mLables.add("translation");
         fragments.add(fragment_transleteX);
 
 //        fragment_draw_before = new HencoderPracticeSixFragment();

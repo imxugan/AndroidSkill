@@ -8,12 +8,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/avatar_contact"/>
-
+    <Button
+        android:id="@+id/btn_reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="reset"/>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
     <Button
         android:id="@+id/btn_translationX"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="translationX"/>
+    <Button
+        android:id="@+id/btn_translationByX"
+        android:layout_marginLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="translationByX"/>
+</LinearLayout>
+
     <Button
         android:id="@+id/btn_translationX_interpolator"
         android:layout_width="wrap_content"

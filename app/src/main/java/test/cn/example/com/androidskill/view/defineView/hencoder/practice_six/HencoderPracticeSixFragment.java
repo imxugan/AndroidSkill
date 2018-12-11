@@ -34,7 +34,9 @@ public class HencoderPracticeSixFragment extends Fragment implements View.OnClic
             case 0:
                 LinearLayout ll = (LinearLayout) inflater.inflate(R.layout.fragment_hencode_practice_six_animation_translate,container,false);
                 iv = ll.findViewById(R.id.iv);
+                ll.findViewById(R.id.btn_reset).setOnClickListener(this);
                 ll.findViewById(R.id.btn_translationX).setOnClickListener(this);
+                ll.findViewById(R.id.btn_translationByX).setOnClickListener(this);
                 ll.findViewById(R.id.btn_translationX_interpolator).setOnClickListener(this);
                 ll.findViewById(R.id.btn_translationY).setOnClickListener(this);
                 root.addView(ll);
@@ -72,6 +74,10 @@ public class HencoderPracticeSixFragment extends Fragment implements View.OnClic
     public void onClick(final View view) {
         final ViewPropertyAnimator viewPropertyAnimator = iv.animate();
         switch (view.getId()){
+            case R.id.btn_reset:
+                //将iv这个view移动到起始点
+                viewPropertyAnimator.translationX(0).translationY(0);
+                break;
             case R.id.btn_translationX:
                 final boolean[] isEndX = {false};
                 viewPropertyAnimator.translationX(300);
@@ -95,6 +101,30 @@ public class HencoderPracticeSixFragment extends Fragment implements View.OnClic
                     @Override
                     public void onAnimationCancel(Animator animator) {
                         LogUtil.i("onAnimationCancel");
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animator) {
+
+                    }
+                });
+                break;
+            case R.id.btn_translationByX:
+                viewPropertyAnimator.translationXBy(300);
+                viewPropertyAnimator.setListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animator) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animator) {
+
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animator) {
+
                     }
 
                     @Override
