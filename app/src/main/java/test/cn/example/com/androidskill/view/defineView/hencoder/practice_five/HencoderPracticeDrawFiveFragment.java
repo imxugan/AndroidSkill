@@ -48,8 +48,8 @@ public class HencoderPracticeDrawFiveFragment extends Fragment {
                 root.addView(spottedLinearLayout);
                 break;
             case 3:
-                CanvasAssistantView4 canvasAssistantView4 = new CanvasAssistantView4(getActivity());
-                root.addView(canvasAssistantView4);
+                LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.fragment_hencode_practice_five_draw_foreground,container,false);
+                root.addView(linearLayout);
                 break;
             case 4:
                 CanvasAssistantView5 canvasAssistantView5 = new CanvasAssistantView5(getActivity());

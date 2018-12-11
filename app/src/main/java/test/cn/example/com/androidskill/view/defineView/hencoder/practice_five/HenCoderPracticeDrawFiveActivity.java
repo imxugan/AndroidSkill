@@ -25,7 +25,7 @@ public class HenCoderPracticeDrawFiveActivity extends AppCompatActivity implemen
     private ViewPager viewPager;
     private TitleIndicator mTitleIndicator;
     private HencoderPracticeDrawFiveFragment fragment_draw_after,fragment_draw_before,fragment_dispatchDraw_after;
-    private HencoderPracticeDrawFiveFragment fragment_canvasView4,fragment_canvasView5,fragment_canvasView6;
+    private HencoderPracticeDrawFiveFragment fragment_draw_foreground,fragment_canvasView5,fragment_canvasView6;
 
     /**
      * fragments: fragment集合
@@ -65,10 +65,10 @@ public class HenCoderPracticeDrawFiveActivity extends AppCompatActivity implemen
         fragments.add(fragment_dispatchDraw_after);
 
 
-//        fragment_canvasView4 = new HencoderPracticeDrawFiveFragment();
-//        fragment_canvasView4.setIndex(3);
-//        mLables.add("matrix");
-//        fragments.add(fragment_canvasView4);
+        fragment_draw_foreground = new HencoderPracticeDrawFiveFragment();
+        fragment_draw_foreground.setIndex(3);
+        mLables.add("draw_foreground");
+        fragments.add(fragment_draw_foreground);
 //
 //        fragment_canvasView5 = new HencoderPracticeDrawFiveFragment();
 //        fragment_canvasView5.setIndex(4);
