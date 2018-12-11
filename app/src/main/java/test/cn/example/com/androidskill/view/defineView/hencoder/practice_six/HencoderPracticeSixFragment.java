@@ -36,9 +36,10 @@ public class HencoderPracticeSixFragment extends Fragment implements View.OnClic
                 iv = ll.findViewById(R.id.iv);
                 ll.findViewById(R.id.btn_reset).setOnClickListener(this);
                 ll.findViewById(R.id.btn_translationX).setOnClickListener(this);
-                ll.findViewById(R.id.btn_translationByX).setOnClickListener(this);
+                ll.findViewById(R.id.btn_translationXBy).setOnClickListener(this);
                 ll.findViewById(R.id.btn_translationX_interpolator).setOnClickListener(this);
                 ll.findViewById(R.id.btn_translationY).setOnClickListener(this);
+                ll.findViewById(R.id.btn_translationYBy).setOnClickListener(this);
                 root.addView(ll);
                 break;
             case 1:
@@ -109,7 +110,7 @@ public class HencoderPracticeSixFragment extends Fragment implements View.OnClic
                     }
                 });
                 break;
-            case R.id.btn_translationByX:
+            case R.id.btn_translationXBy:
                 viewPropertyAnimator.translationXBy(300);
                 viewPropertyAnimator.setListener(new Animator.AnimatorListener() {
                     @Override
@@ -166,6 +167,9 @@ public class HencoderPracticeSixFragment extends Fragment implements View.OnClic
 
                     }
                 });
+                break;
+            case R.id.btn_translationYBy:
+                viewPropertyAnimator.translationYBy(300);
                 break;
 
         }
