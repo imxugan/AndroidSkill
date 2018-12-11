@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.view.ViewPropertyAnimator;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AnticipateInterpolator;
+import android.view.animation.AnticipateOvershootInterpolator;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.CycleInterpolator;
 import android.view.animation.DecelerateInterpolator;
@@ -59,6 +61,8 @@ public class HencoderPracticeSixFragment extends Fragment implements View.OnClic
                 ll.findViewById(R.id.btn_DecelerateInterpolator).setOnClickListener(this);
                 ll.findViewById(R.id.btn_BounceInterpolator).setOnClickListener(this);
                 ll.findViewById(R.id.btn_CycleInterpolator).setOnClickListener(this);
+                ll.findViewById(R.id.btn_AnticipateInterpolator).setOnClickListener(this);
+                ll.findViewById(R.id.btn_AnticipateOvershootInterpolator).setOnClickListener(this);
                 root.addView(ll);
                 break;
             case 1:
@@ -231,6 +235,18 @@ public class HencoderPracticeSixFragment extends Fragment implements View.OnClic
                 viewPropertyAnimator.setInterpolator(new LinearInterpolator());
                 viewPropertyAnimator.translationX(300);
                 viewPropertyAnimator2.setInterpolator(new CycleInterpolator(2));
+                viewPropertyAnimator2.translationX(300);
+                break;
+            case R.id.btn_AnticipateInterpolator:
+                viewPropertyAnimator.setInterpolator(new LinearInterpolator());
+                viewPropertyAnimator.translationX(300);
+                viewPropertyAnimator2.setInterpolator(new AnticipateInterpolator(10));
+                viewPropertyAnimator2.translationX(300);
+                break;
+            case R.id.btn_AnticipateOvershootInterpolator:
+                viewPropertyAnimator.setInterpolator(new LinearInterpolator());
+                viewPropertyAnimator.translationX(300);
+                viewPropertyAnimator2.setInterpolator(new AnticipateOvershootInterpolator(10));
                 viewPropertyAnimator2.translationX(300);
                 break;
         }

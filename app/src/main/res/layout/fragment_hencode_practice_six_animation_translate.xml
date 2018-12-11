@@ -120,4 +120,22 @@
             android:textSize="10sp"
             android:text="CycleInterpolator"/>
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_AnticipateInterpolator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:text="AnticipateInterpolator"/>
+        <Button
+            android:id="@+id/btn_AnticipateOvershootInterpolator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:text="AnticipateOvershootInterpolator"/>
+    </LinearLayout>
 </LinearLayout>
