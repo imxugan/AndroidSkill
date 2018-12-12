@@ -27,6 +27,7 @@ public class HenCoderPracticeSixActivity extends AppCompatActivity implements Ti
     private HencoderPracticeSixFragment fragment_transleteX;
     private HencoderPracticeSix_SacleFragment fragment_scale;
     private HencoderPracticeSix_RotationFragment fragment_rotation;
+    private HencoderPracticeSix_AlphaFragment fragment_alpha;
 
     /**
      * fragments: fragment集合
@@ -64,12 +65,11 @@ public class HenCoderPracticeSixActivity extends AppCompatActivity implements Ti
         fragment_rotation.setIndex(2);
         mLables.add("rotation");
         fragments.add(fragment_rotation);
-//
-//
-//        fragment_draw_foreground = new HencoderPracticeSixFragment();
-//        fragment_draw_foreground.setIndex(3);
-//        mLables.add("draw_foreground");
-//        fragments.add(fragment_draw_foreground);
+
+        fragment_alpha = new HencoderPracticeSix_AlphaFragment();
+        fragment_alpha.setIndex(3);
+        mLables.add("alpha");
+        fragments.add(fragment_alpha);
 //
 //        fragment_canvasView5 = new HencoderPracticeDrawFiveFragment();
 //        fragment_canvasView5.setIndex(4);
