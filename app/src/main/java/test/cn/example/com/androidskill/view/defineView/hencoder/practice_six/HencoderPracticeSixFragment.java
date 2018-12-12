@@ -27,10 +27,6 @@ import android.view.animation.PathInterpolator;
 import android.widget.LinearLayout;
 
 import test.cn.example.com.androidskill.R;
-import test.cn.example.com.androidskill.view.defineView.hencoder.practice_five.MyTextView;
-import test.cn.example.com.androidskill.view.defineView.hencoder.practice_five.SpottedLinearLayout;
-import test.cn.example.com.androidskill.view.defineView.hencoder.practice_four.CanvasAssistantView5;
-import test.cn.example.com.androidskill.view.defineView.hencoder.practice_four.CanvasAssistantView6;
 import test.cn.example.com.util.LogUtil;
 
 /**
@@ -89,27 +85,6 @@ public class HencoderPracticeSixFragment extends Fragment implements View.OnClic
                 ll.findViewById(R.id.btn_FastOutSlowInInterpolator).setOnClickListener(this);
                 ll.findViewById(R.id.btn_LinearOutSlowInInterpolator).setOnClickListener(this);
                 root.addView(ll);
-                break;
-            case 1:
-                MyTextView myTextView = new MyTextView(getActivity());
-                myTextView.setText("adbcefghijklimopqrstuvwxyz");
-                root.addView(myTextView);
-                break;
-            case 2:
-                SpottedLinearLayout spottedLinearLayout = (SpottedLinearLayout) inflater.inflate(R.layout.fragment_hencode_practice_five_draw,container,false);
-                root.addView(spottedLinearLayout);
-                break;
-            case 3:
-                LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.fragment_hencode_practice_five_draw_foreground,container,false);
-                root.addView(linearLayout);
-                break;
-            case 4:
-                CanvasAssistantView5 canvasAssistantView5 = new CanvasAssistantView5(getActivity());
-                root.addView(canvasAssistantView5);
-                break;
-            case 5:
-                CanvasAssistantView6 canvasAssistantView6 = new CanvasAssistantView6(getActivity());
-                root.addView(canvasAssistantView6);
                 break;
         }
         return root;
