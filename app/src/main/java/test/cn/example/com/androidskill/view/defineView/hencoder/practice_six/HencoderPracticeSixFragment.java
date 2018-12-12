@@ -6,6 +6,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.animation.FastOutLinearInInterpolator;
+import android.support.v4.view.animation.FastOutSlowInInterpolator;
+import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,6 +85,9 @@ public class HencoderPracticeSixFragment extends Fragment implements View.OnClic
                 ll.findViewById(R.id.btn_OvershootInterpolator).setOnClickListener(this);
                 ll.findViewById(R.id.btn_Interpolator).setOnClickListener(this);
                 ll.findViewById(R.id.btn_PathInterpolator).setOnClickListener(this);
+                ll.findViewById(R.id.btn_FastOutLinearInInterpolator).setOnClickListener(this);
+                ll.findViewById(R.id.btn_FastOutSlowInInterpolator).setOnClickListener(this);
+                ll.findViewById(R.id.btn_LinearOutSlowInInterpolator).setOnClickListener(this);
                 root.addView(ll);
                 break;
             case 1:
@@ -313,6 +319,27 @@ public class HencoderPracticeSixFragment extends Fragment implements View.OnClic
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     viewPropertyAnimator2.setInterpolator(new PathInterpolator(path));
                 }
+                viewPropertyAnimator2.translationX(300);
+                break;
+            case R.id.btn_FastOutLinearInInterpolator:
+                viewPropertyAnimator.setInterpolator(new LinearInterpolator());
+                viewPropertyAnimator.translationX(300);
+                //基于贝塞尔曲线的插补器 效果：依次 慢慢快
+                viewPropertyAnimator2.setInterpolator(new FastOutLinearInInterpolator());
+                viewPropertyAnimator2.translationX(300);
+                break;
+            case R.id.btn_FastOutSlowInInterpolator:
+                viewPropertyAnimator.setInterpolator(new LinearInterpolator());
+                viewPropertyAnimator.translationX(300);
+                //基于贝塞尔曲线的插补器 效果：依次 慢快慢
+                viewPropertyAnimator2.setInterpolator(new FastOutSlowInInterpolator());
+                viewPropertyAnimator2.translationX(300);
+                break;
+            case R.id.btn_LinearOutSlowInInterpolator:
+                viewPropertyAnimator.setInterpolator(new LinearInterpolator());
+                viewPropertyAnimator.translationX(300);
+                //基于贝塞尔曲线的插补器 效果：依次 快慢慢
+                viewPropertyAnimator2.setInterpolator(new LinearOutSlowInInterpolator());
                 viewPropertyAnimator2.translationX(300);
                 break;
         }

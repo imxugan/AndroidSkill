@@ -28,34 +28,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
-            android:textSize="10sp"
+            android:textSize="8sp"
             android:text="translationX"/>
         <Button
             android:id="@+id/btn_translationXBy"
             android:layout_marginLeft="10dp"
-            android:textSize="10sp"
+            android:textSize="8sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="translationXBy"/>
-</LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/btn_translationZ"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="10sp"
-            android:text="translationZ"/>
-        <Button
-            android:id="@+id/btn_translationZBy"
-            android:layout_marginLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="10sp"
-            android:text="translationZBy"/>
     </LinearLayout>
 
     <LinearLayout
@@ -66,14 +47,28 @@
             android:id="@+id/btn_translationY"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
+            android:textSize="8sp"
             android:text="translationY"/>
         <Button
             android:id="@+id/btn_translationYBy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
+            android:textSize="8sp"
             android:text="translationYBy"/>
+
+        <Button
+            android:id="@+id/btn_translationZ"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="8sp"
+            android:text="translationZ"/>
+        <Button
+            android:id="@+id/btn_translationZBy"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="8sp"
+            android:text="translationZBy"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -83,14 +78,20 @@
             android:id="@+id/btn_LinearInterpolator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
+            android:textSize="8sp"
             android:text="LinearInterpolator"/>
         <Button
             android:id="@+id/btn_AccelerateInterpolator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
+            android:textSize="8sp"
             android:text="AccelerateInterpolator"/>
+        <Button
+            android:id="@+id/btn_DecelerateInterpolator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="8sp"
+            android:text="DecelerateInterpolator"/>
     </LinearLayout>
 
     <LinearLayout
@@ -101,14 +102,14 @@
             android:id="@+id/btn_AccelerateDecelerateInterpolator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
+            android:textSize="8sp"
             android:text="AccelerateDecelerateInterpolator"/>
         <Button
-            android:id="@+id/btn_DecelerateInterpolator"
+            android:id="@+id/btn_LinearOutSlowInInterpolator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
-            android:text="DecelerateInterpolator"/>
+            android:textSize="8sp"
+            android:text="LinearOutSlowInInterpolator"/>
     </LinearLayout>
 
     <LinearLayout
@@ -119,13 +120,13 @@
             android:id="@+id/btn_BounceInterpolator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
+            android:textSize="8sp"
             android:text="BounceInterpolator"/>
         <Button
             android:id="@+id/btn_CycleInterpolator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
+            android:textSize="8sp"
             android:text="CycleInterpolator"/>
     </LinearLayout>
 
@@ -137,13 +138,13 @@
             android:id="@+id/btn_AnticipateInterpolator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
+            android:textSize="8sp"
             android:text="AnticipateInterpolator"/>
         <Button
             android:id="@+id/btn_AnticipateOvershootInterpolator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
+            android:textSize="8sp"
             android:text="AnticipateOvershootInterpolator"/>
     </LinearLayout>
     <LinearLayout
@@ -154,20 +155,38 @@
             android:id="@+id/btn_OvershootInterpolator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
+            android:textSize="8sp"
             android:text="OvershootInterpolator"/>
         <Button
             android:id="@+id/btn_Interpolator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
+            android:textSize="8sp"
             android:text="Interpolator"/>
 
         <Button
             android:id="@+id/btn_PathInterpolator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
+            android:textSize="8sp"
             android:text="PathInterpolator"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_FastOutLinearInInterpolator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="8sp"
+            android:text="FastOutLinearInInterpolator"/>
+        <Button
+            android:id="@+id/btn_FastOutSlowInInterpolator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="8sp"
+            android:text="FastOutSlowInInterpolator"/>
     </LinearLayout>
 </LinearLayout>
