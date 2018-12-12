@@ -24,8 +24,8 @@ import test.cn.example.com.util.LogUtils;
 public class HenCoderPracticeSixActivity extends AppCompatActivity implements TitleIndicator.OnTitleIndicatorListener {
     private ViewPager viewPager;
     private TitleIndicator mTitleIndicator;
-    private HencoderPracticeSixFragment fragment_transleteX,fragment_draw_before,fragment_dispatchDraw_after;
-    private HencoderPracticeSixFragment fragment_draw_foreground,fragment_canvasView5,fragment_canvasView6;
+    private HencoderPracticeSixFragment fragment_transleteX;
+    private HencoderPracticeSix_SacleFragment fragment_scale;
 
     /**
      * fragments: fragment集合
@@ -54,10 +54,10 @@ public class HenCoderPracticeSixActivity extends AppCompatActivity implements Ti
         mLables.add("translation");
         fragments.add(fragment_transleteX);
 
-//        fragment_draw_before = new HencoderPracticeSixFragment();
-//        fragment_draw_before.setIndex(1);
-//        mLables.add("ondraw之前调用");
-//        fragments.add(fragment_draw_before);
+        fragment_scale = new HencoderPracticeSix_SacleFragment();
+        fragment_scale.setIndex(1);
+        mLables.add("scale");
+        fragments.add(fragment_scale);
 //
 //        fragment_dispatchDraw_after = new HencoderPracticeSixFragment();
 //        fragment_dispatchDraw_after.setIndex(2);
@@ -94,9 +94,6 @@ public class HenCoderPracticeSixActivity extends AppCompatActivity implements Ti
             public void onPageSelected(int position) {
                 viewPager.setCurrentItem(position);
                 mTitleIndicator.setTabsDisplay(HenCoderPracticeSixActivity.this, position);
-                currentFragment = (HencoderPracticeSixFragment) fragments.get(position);
-                currentFragment.setIndex(position);
-
             }
 
             @Override
@@ -116,7 +113,5 @@ public class HenCoderPracticeSixActivity extends AppCompatActivity implements Ti
     public void onIndicatorSelected(int index) {
         viewPager.setCurrentItem(index);
         mTitleIndicator.setTabsDisplay(HenCoderPracticeSixActivity.this, index);
-        currentFragment = (HencoderPracticeSixFragment) fragments.get(index);
-        currentFragment.setIndex(index);
     }
 }
