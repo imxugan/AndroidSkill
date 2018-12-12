@@ -63,6 +63,7 @@ public class HencoderPracticeSix_RotationFragment extends Fragment implements Vi
 
         ll.findViewById(R.id.btn_rotationY).setOnClickListener(this);
         ll.findViewById(R.id.btn_rotationYBy).setOnClickListener(this);
+        ll.findViewById(R.id.btn_rotation).setOnClickListener(this);
 
         ll.findViewById(R.id.btn_LinearInterpolator).setOnClickListener(this);
         ll.findViewById(R.id.btn_AccelerateInterpolator).setOnClickListener(this);
@@ -97,6 +98,8 @@ public class HencoderPracticeSix_RotationFragment extends Fragment implements Vi
                 viewPropertyAnimator2.rotationX(0);
                 viewPropertyAnimator.rotationY(0);
                 viewPropertyAnimator2.rotationY(0);
+                viewPropertyAnimator.rotation(0);
+                viewPropertyAnimator2.rotation(0);
                 break;
             case R.id.btn_rotationX:
                 viewPropertyAnimator.rotationX(30);
@@ -111,6 +114,10 @@ public class HencoderPracticeSix_RotationFragment extends Fragment implements Vi
             case R.id.btn_rotationYBy:
                 viewPropertyAnimator.rotationY(30);
                 viewPropertyAnimator2.rotationYBy(30);
+                break;
+            case R.id.btn_rotation:
+                viewPropertyAnimator.rotationX(30).rotationY(30);
+                viewPropertyAnimator2.rotation(30);
                 break;
             case R.id.btn_LinearInterpolator:
                 //LinearInterpolator  动画匀速改变
