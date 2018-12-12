@@ -1,7 +1,6 @@
 package test.cn.example.com.androidskill.view.defineView.hencoder.practice_six;
 
 import android.animation.Animator;
-import android.animation.TimeInterpolator;
 import android.graphics.Path;
 import android.os.Build;
 import android.os.Bundle;
@@ -262,6 +261,8 @@ public class HencoderPracticeSixFragment extends Fragment implements View.OnClic
                 // 再按指定的轨迹的相反反向走1/2的时间，再按指定的路径方向走完剩余的1/4的时间，最后回到原点。
                 // 假如：默认是让a从原点往东跑100米。它会先往东跑100米，然后往西跑200米，再往东跑100米回到原点。
                 // 可在代码中指定循环的次数）
+                //出入的值影响差值器的返回值，计算公式：sin（2pi*cycle*factor），其中factor的取值为0到1
+                //cycle为构造方法传入的float值
                 viewPropertyAnimator.setInterpolator(new LinearInterpolator());
                 viewPropertyAnimator.translationX(300);
                 viewPropertyAnimator2.setInterpolator(new CycleInterpolator(2));
@@ -275,16 +276,17 @@ public class HencoderPracticeSixFragment extends Fragment implements View.OnClic
                 viewPropertyAnimator2.translationX(300);
                 break;
             case R.id.btn_AnticipateOvershootInterpolator:
-                //AnticipateOvershootInterpolator  向前向后插补器（先往回跑一点，再向后跑一点，再回到终点）
                 viewPropertyAnimator.setInterpolator(new LinearInterpolator());
                 viewPropertyAnimator.translationX(300);
+                //AnticipateOvershootInterpolator  向前向后插补器（先往回跑一点，再向后跑一点，再回到终点）
                 viewPropertyAnimator2.setInterpolator(new AnticipateOvershootInterpolator(10));
                 viewPropertyAnimator2.translationX(300);
                 break;
             case R.id.btn_OvershootInterpolator:
-                //OvershootInterpolator  超出插补器（向前跑直到越界一点后，再往回跑）
                 viewPropertyAnimator.setInterpolator(new LinearInterpolator());
                 viewPropertyAnimator.translationX(300);
+                //OvershootInterpolator  超出插补器（向前跑直到越界一点后，再往回跑）
+                //使用无参构造方法，默认mTension的值会设置为2.0f
                 viewPropertyAnimator2.setInterpolator(new OvershootInterpolator(10));
                 viewPropertyAnimator2.translationX(300);
                 break;
@@ -305,11 +307,13 @@ public class HencoderPracticeSixFragment extends Fragment implements View.OnClic
                 viewPropertyAnimator.setInterpolator(new LinearInterpolator());
                 viewPropertyAnimator.translationX(300);
                 Path path = new Path();
-                path.cubicTo(0.2f,0f,0.1f,1f,0.5f,1f);
-                path.lineTo(1f,1f);
+                path.lineTo(0.25f, 0.25f);
+                path.moveTo(0.25f, 0.5f);
+                path.lineTo(1f, 1f);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     viewPropertyAnimator2.setInterpolator(new PathInterpolator(path));
                 }
+                viewPropertyAnimator2.translationX(300);
                 break;
         }
     }
