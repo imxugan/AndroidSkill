@@ -29,6 +29,7 @@ public class HenCoderPracticeSixActivity extends AppCompatActivity implements Ti
     private HencoderPracticeSix_RotationFragment fragment_rotation;
     private HencoderPracticeSix_AlphaFragment fragment_alpha;
     private HencoderPracticeSix_MultiPropertiesFragment fragment_muliti;
+    private HencoderPracticeSix_DurationFragment fragment_duration;
 
     /**
      * fragments: fragment集合
@@ -76,11 +77,10 @@ public class HenCoderPracticeSixActivity extends AppCompatActivity implements Ti
         fragment_muliti.setIndex(4);
         mLables.add("multi");
         fragments.add(fragment_muliti);
-//
-//        fragment_canvasView6 = new HencoderPracticeDrawFiveFragment();
-//        fragment_canvasView6.setIndex(5);
-//        mLables.add("camera");
-//        fragments.add(fragment_canvasView6);
+
+        fragment_duration = new HencoderPracticeSix_DurationFragment();
+        mLables.add("duration");
+        fragments.add(fragment_duration);
 
         mTitleIndicator = new TitleIndicator(HenCoderPracticeSixActivity.this, mLables);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
