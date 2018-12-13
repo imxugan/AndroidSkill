@@ -60,6 +60,7 @@ public class HencoderPracticeSix_ObjectAnimatorFragment extends Fragment impleme
         iv = (CustomProgressView) ll.findViewById(R.id.iv);
         ll.findViewById(R.id.btn_reset).setOnClickListener(this);
         ll.findViewById(R.id.btn_start).setOnClickListener(this);
+        ll.findViewById(R.id.btn_flipboard).setOnClickListener(this);
         root.addView(ll);
         return root;
     }
