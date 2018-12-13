@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 
 import test.cn.example.com.androidskill.R;
+import test.cn.example.com.util.LogUtil;
 
 /**
  * Created by xugan on 2018/12/12.
@@ -35,6 +36,9 @@ public class CustomFlipBoardView extends View {
     private boolean is_objectAnimator_Y_left_end;
     private boolean is_objectAnimator_X_bottom_end;
     private int duration = 500;
+    private ObjectAnimator objectAnimatorX_bottom;
+    private ObjectAnimator objectAnimatorY_left;
+    private ObjectAnimator objectAnimatorX_top;
 
     public int getDegree_X_bottom() {
         return degree_X_bottom;
@@ -190,7 +194,21 @@ public class CustomFlipBoardView extends View {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        objectAnimator_Y_right.end();
+        if(objectAnimator_Y_right.isRunning()){
+            objectAnimator_Y_right.end();
+        }
+
+        if(objectAnimatorX_top.isRunning()){
+            objectAnimatorX_top.end();
+        }
+
+        if(objectAnimatorY_left.isRunning()){
+            objectAnimatorY_left.end();
+        }
+
+        if(objectAnimatorX_bottom.isRunning()){
+            objectAnimatorX_bottom.end();
+        }
     }
 
     private void initPaint(){
@@ -200,7 +218,7 @@ public class CustomFlipBoardView extends View {
         bitmapWidth = bitmap.getWidth();
         bitmapHeight = bitmap.getHeight();
         animatorSet = new AnimatorSet();
-        final ObjectAnimator objectAnimatorX_bottom = ObjectAnimator.ofInt(this, "degree_X_bottom", 0, 45, 0);
+        objectAnimatorX_bottom = ObjectAnimator.ofInt(this, "degree_X_bottom", 0, 45, 0);
         objectAnimatorX_bottom.setDuration(duration);
         objectAnimatorX_bottom.setInterpolator(new LinearInterpolator());
         objectAnimatorX_bottom.setRepeatCount(ValueAnimator.INFINITE);
@@ -226,7 +244,7 @@ public class CustomFlipBoardView extends View {
             }
         });
 
-        final ObjectAnimator objectAnimatorY_left = ObjectAnimator.ofInt(this, "degree_Y_left", 0, 45, 0);
+        objectAnimatorY_left = ObjectAnimator.ofInt(this, "degree_Y_left", 0, 45, 0);
         objectAnimatorY_left.setDuration(duration);
         objectAnimatorY_left.setInterpolator(new LinearInterpolator());
         objectAnimatorY_left.setRepeatCount(ValueAnimator.INFINITE);
@@ -246,7 +264,7 @@ public class CustomFlipBoardView extends View {
             }
         });
 
-        final ObjectAnimator objectAnimatorX_top = ObjectAnimator.ofInt(this, "degree_X_top", 0, 45, 0);
+        objectAnimatorX_top = ObjectAnimator.ofInt(this, "degree_X_top", 0, 45, 0);
         objectAnimatorX_top.setDuration(duration);
         objectAnimatorX_top.setInterpolator(new LinearInterpolator());
         objectAnimatorX_top.setRepeatCount(ValueAnimator.INFINITE);
