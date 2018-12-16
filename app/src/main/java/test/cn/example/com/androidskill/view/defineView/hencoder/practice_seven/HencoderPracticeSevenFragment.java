@@ -1,5 +1,6 @@
 package test.cn.example.com.androidskill.view.defineView.hencoder.practice_seven;
 
+import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ public class HencoderPracticeSevenFragment extends Fragment implements View.OnCl
                 circleView = (CircleView) ll.findViewById(R.id.circleView);
                 ll.findViewById(R.id.btn_reset).setOnClickListener(this);
                 ll.findViewById(R.id.btn_start).setOnClickListener(this);
+                ll.findViewById(R.id.btn_start2).setOnClickListener(this);
                 root.addView(ll);
                 break;
         }
@@ -57,6 +59,12 @@ public class HencoderPracticeSevenFragment extends Fragment implements View.OnCl
                     objectAnimator.setInterpolator(new LinearInterpolator());
                     objectAnimator.start();
                 }
+            case R.id.btn_start2:
+                ObjectAnimator objectAnimator = ObjectAnimator.ofInt(circleView, "color", 0xffff0000, 0xff00ff00);
+                objectAnimator.setEvaluator(new ArgbEvaluator());
+                objectAnimator.setDuration(3000);
+                objectAnimator.setInterpolator(new LinearInterpolator());
+                objectAnimator.start();
                 break;
         }
     }
