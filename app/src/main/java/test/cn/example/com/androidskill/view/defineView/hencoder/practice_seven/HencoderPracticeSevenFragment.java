@@ -35,6 +35,7 @@ public class HencoderPracticeSevenFragment extends Fragment implements View.OnCl
                 ll.findViewById(R.id.btn_reset).setOnClickListener(this);
                 ll.findViewById(R.id.btn_start).setOnClickListener(this);
                 ll.findViewById(R.id.btn_start2).setOnClickListener(this);
+                ll.findViewById(R.id.btn_start3).setOnClickListener(this);
                 root.addView(ll);
                 break;
         }
@@ -65,6 +66,12 @@ public class HencoderPracticeSevenFragment extends Fragment implements View.OnCl
                 objectAnimator.setDuration(3000);
                 objectAnimator.setInterpolator(new LinearInterpolator());
                 objectAnimator.start();
+                break;
+            case R.id.btn_start3:
+                ObjectAnimator objectAnimator_hsvEvaluator = ObjectAnimator.ofObject(circleView, "color", new HsvTypeEvaluator(), 0xffff0000, 0xff00ff00);
+                objectAnimator_hsvEvaluator.setDuration(3000);
+                objectAnimator_hsvEvaluator.setInterpolator(new LinearInterpolator());
+                objectAnimator_hsvEvaluator.start();
                 break;
         }
     }
