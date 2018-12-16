@@ -2,6 +2,7 @@ package test.cn.example.com.androidskill.view.defineView.hencoder.practice_seven
 
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -44,6 +45,7 @@ public class HencoderPracticeSevenFragment extends Fragment implements View.OnCl
                 ll.findViewById(R.id.btn_start2).setOnClickListener(this);
                 ll.findViewById(R.id.btn_start3).setOnClickListener(this);
                 ll.findViewById(R.id.btn_start4).setOnClickListener(this);
+                ll.findViewById(R.id.btn_start5).setOnClickListener(this);
                 root.addView(ll);
                 break;
         }
@@ -93,6 +95,19 @@ public class HencoderPracticeSevenFragment extends Fragment implements View.OnCl
                 objectAnimator_pointEvaluator.setDuration(3000);
                 objectAnimator_pointEvaluator.setInterpolator(new LinearInterpolator());
                 objectAnimator_pointEvaluator.start();
+                break;
+            case R.id.btn_start5:
+                int circleViewWidth = circleView.getWidth();
+                int circleViewHeight = circleView.getHeight();
+                LogUtil.i(""+circleViewWidth+"    "+circleViewHeight);
+                int circleRidus = 100;
+                PropertyValuesHolder color_holder = PropertyValuesHolder.ofObject("color",new HsvTypeEvaluator(),0xffff0000,0xff00ff00);
+                PropertyValuesHolder point_holder = PropertyValuesHolder.ofObject("point", new PointEvaluator(), new float[]{100, 100}, new float[]{circleViewWidth - circleRidus, circleViewHeight - circleRidus});
+                ObjectAnimator objectAnimator_propertyValuesHolder = ObjectAnimator.ofPropertyValuesHolder(circleView, color_holder, point_holder);
+                objectAnimator_propertyValuesHolder.setDuration(3000);
+                objectAnimator_propertyValuesHolder.setInterpolator(new LinearInterpolator());
+                objectAnimator_propertyValuesHolder.start();
+
                 break;
         }
     }
