@@ -49,6 +49,8 @@ public class HencoderPracticeSevenFragment extends Fragment implements View.OnCl
                 ll.findViewById(R.id.btn_start5).setOnClickListener(this);
                 ll.findViewById(R.id.btn_start6).setOnClickListener(this);
                 ll.findViewById(R.id.btn_start7).setOnClickListener(this);
+                ll.findViewById(R.id.btn_start8).setOnClickListener(this);
+                ll.findViewById(R.id.btn_start9).setOnClickListener(this);
                 root.addView(ll);
                 break;
         }
@@ -134,6 +136,26 @@ public class HencoderPracticeSevenFragment extends Fragment implements View.OnCl
                 animatorSet1.setDuration(3000);
                 animatorSet1.setInterpolator(new LinearInterpolator());
                 animatorSet1.start();
+                break;
+            case R.id.btn_start8:
+                AnimatorSet animatorSet2 = new AnimatorSet();
+                ObjectAnimator scaleX2 = ObjectAnimator.ofFloat(circleView, "scaleX", 1, 0.5f, 1);
+                ObjectAnimator scaleY2 = ObjectAnimator.ofFloat(circleView, "scaleY", 1, 0.5f, 1);
+                ObjectAnimator rotationX2 = ObjectAnimator.ofFloat(circleView, "rotationX", 60);
+                animatorSet2.playSequentially(scaleX2,scaleY2,rotationX2);
+                animatorSet2.setDuration(3000);
+                animatorSet2.setInterpolator(new LinearInterpolator());
+                animatorSet2.start();
+                break;
+            case R.id.btn_start9:
+                AnimatorSet animatorSet3 = new AnimatorSet();
+                ObjectAnimator scaleX3 = ObjectAnimator.ofFloat(circleView, "scaleX", 1, 0.5f, 1);
+                ObjectAnimator scaleY3 = ObjectAnimator.ofFloat(circleView, "scaleY", 1, 0.5f, 1);
+                ObjectAnimator rotationX3 = ObjectAnimator.ofFloat(circleView, "rotationX", 60);
+                animatorSet3.playTogether(scaleX3,scaleY3,rotationX3);
+                animatorSet3.setDuration(3000);
+                animatorSet3.setInterpolator(new LinearInterpolator());
+                animatorSet3.start();
                 break;
         }
     }
