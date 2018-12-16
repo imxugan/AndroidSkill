@@ -1,8 +1,10 @@
 package test.cn.example.com.androidskill.view.defineView.hencoder.practice_seven;
 
+import android.animation.AnimatorListenerAdapter;
 import android.animation.Keyframe;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
+import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import test.cn.example.com.androidskill.R;
@@ -21,6 +24,7 @@ import test.cn.example.com.util.LogUtil;
 public class HencoderPracticeSeven_KeyFrame_Fragment extends Fragment implements View.OnClickListener {
     private int mIndex;
     private CustomProgressView customProgressView;
+    private Button btn_start2;
 
     @Nullable
     @Override
@@ -31,7 +35,8 @@ public class HencoderPracticeSeven_KeyFrame_Fragment extends Fragment implements
         customProgressView = (CustomProgressView) ll.findViewById(R.id.progressView);
         ll.findViewById(R.id.btn_reset).setOnClickListener(this);
         ll.findViewById(R.id.btn_start).setOnClickListener(this);
-        ll.findViewById(R.id.btn_start2).setOnClickListener(this);
+        btn_start2 = (Button) ll.findViewById(R.id.btn_start2);
+        btn_start2.setOnClickListener(this);
         root.addView(ll);
         return root;
     }
@@ -56,6 +61,28 @@ public class HencoderPracticeSeven_KeyFrame_Fragment extends Fragment implements
                 objectAnimator.setDuration(3000);
                 objectAnimator.setInterpolator(new LinearInterpolator());
                 objectAnimator.start();
+                break;
+            case R.id.btn_start2:
+                ValueAnimator valueAnimator = ValueAnimator.ofInt(0,100);
+                valueAnimator.setDuration(1000);
+                valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                        /**
+                         * 通过这样一个监听事件，我们就可以获取
+                         * 到ValueAnimator每一步所产生的值。
+                         *
+                         * 通过调用getAnimatedValue()获取到每个时间因子所产生的Value。
+                         * */
+                        Integer animatedValue = (Integer) valueAnimator.getAnimatedValue();
+                        float fraction = valueAnimator.getAnimatedFraction();
+                        LogUtil.i(Thread.currentThread().getId()+"   animatedValue  "+animatedValue+"   fraction  "+fraction);
+                        //这里btn_start2.setText(animatiedValue+"");这里animatedValue后面一定要带上""，否则会报错，
+                        //毕竟animatedValue是Integer类型不是String类型
+                        btn_start2.setText(animatedValue+"");
+                    }
+                });
+                valueAnimator.start();
                 break;
         }
     }
