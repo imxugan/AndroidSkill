@@ -43,5 +43,10 @@
             android:layout_height="wrap_content"
             android:text="属性动画基础"/>
 
+        <Button
+            android:id="@+id/hencoder_view_property_animation_plus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="属性动画进阶"/>
     </LinearLayout>
 </ScrollView>
