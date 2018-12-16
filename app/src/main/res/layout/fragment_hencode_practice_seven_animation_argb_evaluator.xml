@@ -73,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="8sp"
-            android:text="start3"/>
+            android:text="start6"/>
 
         <Button
             android:id="@+id/btn_start7"
@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:textSize="8sp"
-            android:text="start4"/>
+            android:text="start7"/>
 
         <Button
             android:id="@+id/btn_start8"
@@ -89,7 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:textSize="8sp"
-            android:text="start5"/>
+            android:text="start8"/>
 
         <Button
             android:id="@+id/btn_start9"
@@ -97,7 +97,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:textSize="8sp"
-            android:text="start6"/>
+            android:text="start9"/>
     </LinearLayout>
 
 

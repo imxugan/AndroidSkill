@@ -48,6 +48,7 @@ public class HencoderPracticeSevenFragment extends Fragment implements View.OnCl
                 ll.findViewById(R.id.btn_start4).setOnClickListener(this);
                 ll.findViewById(R.id.btn_start5).setOnClickListener(this);
                 ll.findViewById(R.id.btn_start6).setOnClickListener(this);
+                ll.findViewById(R.id.btn_start7).setOnClickListener(this);
                 root.addView(ll);
                 break;
         }
@@ -66,6 +67,10 @@ public class HencoderPracticeSevenFragment extends Fragment implements View.OnCl
                 circleView.setColor(Color.RED);
                 //将位置重置
                 circleView.setPoint(new float[]{100,100});
+
+                circleView.setScaleX(1);
+                circleView.setScaleY(1);
+                circleView.setRotationX(0);
                 break;
             case R.id.btn_start:
                 LogUtil.i("(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP)="+(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP));
@@ -119,6 +124,16 @@ public class HencoderPracticeSevenFragment extends Fragment implements View.OnCl
                 animatorSet.setDuration(3000);
                 animatorSet.setInterpolator(new LinearInterpolator());
                 animatorSet.start();
+                break;
+            case R.id.btn_start7:
+                AnimatorSet animatorSet1 = new AnimatorSet();
+                ObjectAnimator scaleX1 = ObjectAnimator.ofFloat(circleView, "scaleX", 1,0.5f,1);
+                ObjectAnimator scaleY1 = ObjectAnimator.ofFloat(circleView, "scaleY", 1, 0.5f, 1);
+                ObjectAnimator rotationX1 = ObjectAnimator.ofFloat(circleView, "rotationX", 60);
+                animatorSet1.play(scaleX1).after(scaleY1).after(rotationX1);
+                animatorSet1.setDuration(3000);
+                animatorSet1.setInterpolator(new LinearInterpolator());
+                animatorSet1.start();
                 break;
         }
     }
