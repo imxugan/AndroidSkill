@@ -41,7 +41,7 @@ public class CircleView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         LogUtil.i(""+color);
-        canvas.drawCircle(getWidth()/2,getHeight()/2,100,mPaint);
+        canvas.drawCircle(100,100,100,mPaint);
     }
 
     public int getColor() {
