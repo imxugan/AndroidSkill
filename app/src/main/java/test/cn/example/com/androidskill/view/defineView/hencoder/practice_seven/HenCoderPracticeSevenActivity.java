@@ -31,12 +31,7 @@ public class HenCoderPracticeSevenActivity extends AppCompatActivity implements 
     private ViewPager viewPager;
     private TitleIndicator mTitleIndicator;
     private HencoderPracticeSevenFragment fragment_argbEvaluator;
-    private HencoderPracticeSix_SacleFragment fragment_scale;
-    private HencoderPracticeSix_RotationFragment fragment_rotation;
-    private HencoderPracticeSix_AlphaFragment fragment_alpha;
-    private HencoderPracticeSix_MultiPropertiesFragment fragment_muliti;
-    private HencoderPracticeSix_DurationFragment fragment_duration;
-    private HencoderPracticeSix_ObjectAnimatorFragment fragment_object;
+    private HencoderPracticeSeven_KeyFrame_Fragment fragment_key_frame;
 
     /**
      * fragments: fragment集合
@@ -65,34 +60,10 @@ public class HenCoderPracticeSevenActivity extends AppCompatActivity implements 
         mLables.add("argbEvaluator");
         fragments.add(fragment_argbEvaluator);
 
-//        fragment_scale = new HencoderPracticeSix_SacleFragment();
-//        fragment_scale.setIndex(1);
-//        mLables.add("scale");
-//        fragments.add(fragment_scale);
-//
-//        fragment_rotation = new HencoderPracticeSix_RotationFragment();
-//        fragment_rotation.setIndex(2);
-//        mLables.add("rotation");
-//        fragments.add(fragment_rotation);
-//
-//        fragment_alpha = new HencoderPracticeSix_AlphaFragment();
-//        fragment_alpha.setIndex(3);
-//        mLables.add("alpha");
-//        fragments.add(fragment_alpha);
-//
-//        fragment_muliti = new HencoderPracticeSix_MultiPropertiesFragment();
-//        fragment_muliti.setIndex(4);
-//        mLables.add("multi");
-//        fragments.add(fragment_muliti);
-//
-//        fragment_duration = new HencoderPracticeSix_DurationFragment();
-//        mLables.add("duration");
-//        fragments.add(fragment_duration);
-//
-//
-//        fragment_object = new HencoderPracticeSix_ObjectAnimatorFragment();
-//        mLables.add("objectAnimator");
-//        fragments.add(fragment_object);
+        fragment_key_frame = new HencoderPracticeSeven_KeyFrame_Fragment();
+        fragment_key_frame.setIndex(1);
+        mLables.add("keyframe");
+        fragments.add(fragment_key_frame);
 
         mTitleIndicator = new TitleIndicator(HenCoderPracticeSevenActivity.this, mLables);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
