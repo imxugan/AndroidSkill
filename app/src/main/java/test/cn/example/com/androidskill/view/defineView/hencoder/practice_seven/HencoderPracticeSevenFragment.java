@@ -30,7 +30,14 @@ public class HencoderPracticeSevenFragment extends Fragment implements View.OnCl
         LinearLayout root = (LinearLayout) inflater.inflate(R.layout.fragment_hencode_practice_one_draw_color,container,false);
         switch (mIndex){
             case 0:
-                View ll = inflater.inflate(R.layout.fragment_hencode_practice_seven_animation_argb_evaluator, container, false);
+                final View ll = inflater.inflate(R.layout.fragment_hencode_practice_seven_animation_argb_evaluator, container, false);
+                LogUtil.i("ll.getWidth()="+ll.getWidth()+"     ll.getMeasuredWidth()="+ll.getMeasuredWidth());
+                ll.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        LogUtil.e("ll.getWidth()="+ll.getWidth()+"     ll.getMeasuredWidth()="+ll.getMeasuredWidth());
+                    }
+                });
                 circleView = (CircleView) ll.findViewById(R.id.circleView);
                 ll.findViewById(R.id.btn_reset).setOnClickListener(this);
                 ll.findViewById(R.id.btn_start).setOnClickListener(this);
