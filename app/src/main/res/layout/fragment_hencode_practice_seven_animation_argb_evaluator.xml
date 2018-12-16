@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
     <test.cn.example.com.androidskill.view.defineView.hencoder.practice_seven.CircleView
         android:id="@+id/circleView"
-        android:layout_width="160dp"
+        android:layout_width="match_parent"
         android:layout_height="160dp"
         android:src="@drawable/wb"/>
     <LinearLayout
@@ -45,6 +45,13 @@
             android:layout_height="wrap_content"
             android:textSize="8sp"
             android:text="start3"/>
+
+        <Button
+            android:id="@+id/btn_start4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="8sp"
+            android:text="start4"/>
 
     </LinearLayout>
 

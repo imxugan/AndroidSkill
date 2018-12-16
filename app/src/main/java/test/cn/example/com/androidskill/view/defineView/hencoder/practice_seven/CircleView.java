@@ -17,6 +17,7 @@ import test.cn.example.com.util.LogUtil;
 public class CircleView extends View {
     private Paint mPaint;
     private int color;
+    private float[] point;
     public CircleView(Context context) {
         super(context);
         inPaint();
@@ -35,13 +36,15 @@ public class CircleView extends View {
     private void inPaint() {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setColor(Color.RED);
+        point = new float[]{100,100};
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        LogUtil.i(""+color);
-        canvas.drawCircle(100,100,100,mPaint);
+//        LogUtil.i(""+color);
+        LogUtil.i(""+point[0]+"     "+point[1]);
+        canvas.drawCircle(point[0],point[1],100,mPaint);
     }
 
     public int getColor() {
@@ -51,6 +54,15 @@ public class CircleView extends View {
     public void setColor(int color) {
         this.color = color;
         mPaint.setColor(color);
+        invalidate();
+    }
+
+    public float[] getPoint() {
+        return point;
+    }
+
+    public void setPoint(float[] point) {
+        this.point = point;
         invalidate();
     }
 }

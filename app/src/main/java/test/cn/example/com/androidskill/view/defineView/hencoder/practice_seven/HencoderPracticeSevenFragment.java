@@ -36,6 +36,7 @@ public class HencoderPracticeSevenFragment extends Fragment implements View.OnCl
                 ll.findViewById(R.id.btn_start).setOnClickListener(this);
                 ll.findViewById(R.id.btn_start2).setOnClickListener(this);
                 ll.findViewById(R.id.btn_start3).setOnClickListener(this);
+                ll.findViewById(R.id.btn_start4).setOnClickListener(this);
                 root.addView(ll);
                 break;
         }
@@ -50,7 +51,10 @@ public class HencoderPracticeSevenFragment extends Fragment implements View.OnCl
     public void onClick(final View view) {
         switch (view.getId()){
             case R.id.btn_reset:
+                //将颜色重置
                 circleView.setColor(Color.RED);
+                //将位置重置
+                circleView.setPoint(new float[]{100,100});
                 break;
             case R.id.btn_start:
                 LogUtil.i("(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP)="+(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP));
@@ -72,6 +76,16 @@ public class HencoderPracticeSevenFragment extends Fragment implements View.OnCl
                 objectAnimator_hsvEvaluator.setDuration(3000);
                 objectAnimator_hsvEvaluator.setInterpolator(new LinearInterpolator());
                 objectAnimator_hsvEvaluator.start();
+                break;
+            case R.id.btn_start4:
+                int width = circleView.getWidth();
+                int height = circleView.getHeight();
+                LogUtil.i(""+width+"    "+height);
+                int radius = 100;
+                ObjectAnimator objectAnimator_pointEvaluator = ObjectAnimator.ofObject(circleView, "point", new PointEvaluator(), new float[]{100, 100}, new float[]{width - radius, height - radius});
+                objectAnimator_pointEvaluator.setDuration(3000);
+                objectAnimator_pointEvaluator.setInterpolator(new LinearInterpolator());
+                objectAnimator_pointEvaluator.start();
                 break;
         }
     }
