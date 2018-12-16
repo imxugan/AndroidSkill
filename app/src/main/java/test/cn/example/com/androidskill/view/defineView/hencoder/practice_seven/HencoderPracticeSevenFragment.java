@@ -1,5 +1,6 @@
 package test.cn.example.com.androidskill.view.defineView.hencoder.practice_seven;
 
+import android.animation.AnimatorSet;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
@@ -46,6 +47,7 @@ public class HencoderPracticeSevenFragment extends Fragment implements View.OnCl
                 ll.findViewById(R.id.btn_start3).setOnClickListener(this);
                 ll.findViewById(R.id.btn_start4).setOnClickListener(this);
                 ll.findViewById(R.id.btn_start5).setOnClickListener(this);
+                ll.findViewById(R.id.btn_start6).setOnClickListener(this);
                 root.addView(ll);
                 break;
         }
@@ -107,7 +109,16 @@ public class HencoderPracticeSevenFragment extends Fragment implements View.OnCl
                 objectAnimator_propertyValuesHolder.setDuration(3000);
                 objectAnimator_propertyValuesHolder.setInterpolator(new LinearInterpolator());
                 objectAnimator_propertyValuesHolder.start();
-
+                break;
+            case R.id.btn_start6:
+                AnimatorSet animatorSet = new AnimatorSet();
+                ObjectAnimator scaleX = ObjectAnimator.ofFloat(circleView, "scaleX", 1,0.5f,1);
+                ObjectAnimator scaleY = ObjectAnimator.ofFloat(circleView, "scaleY", 1, 0.5f, 1);
+                ObjectAnimator rotationX = ObjectAnimator.ofFloat(circleView, "rotationX", 60);
+                animatorSet.play(scaleX).before(scaleY).before(rotationX);
+                animatorSet.setDuration(3000);
+                animatorSet.setInterpolator(new LinearInterpolator());
+                animatorSet.start();
                 break;
         }
     }
