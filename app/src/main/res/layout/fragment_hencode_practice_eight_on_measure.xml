@@ -3,15 +3,27 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:background="@color/accent">
+        android:background="@color/accent"
+        android:orientation="vertical">
+
         <test.cn.example.com.androidskill.view.defineView.hencoder.practice_eight.SquareImageView
             android:id="@+id/squreImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/wb"/>
+            android:background="@color/colorPrimary"
+            android:src="@drawable/wb" />
+
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorAccent"
+            android:src="@drawable/test_ic_img_user_default" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,5 +37,4 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
-
 </LinearLayout>

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 
@@ -29,6 +30,7 @@ import test.cn.example.com.util.LogUtil;
 public class HencoderPracticeEightFragment extends Fragment implements SeekBar.OnSeekBarChangeListener {
     private int mIndex;
     private SquareImageView squreImageView;
+    private ImageView iv;
 
     @Nullable
     @Override
@@ -39,6 +41,7 @@ public class HencoderPracticeEightFragment extends Fragment implements SeekBar.O
             case 0:
                 final View ll = inflater.inflate(R.layout.fragment_hencode_practice_eight_on_measure, container, false);
                 squreImageView = (SquareImageView) ll.findViewById(R.id.squreImageView);
+                iv = (ImageView) ll.findViewById(R.id.iv);
                 SeekBar seekBar = (SeekBar) ll.findViewById(R.id.seekBar);
                 seekBar.setOnSeekBarChangeListener(this);
                 root.addView(ll);
@@ -54,13 +57,16 @@ public class HencoderPracticeEightFragment extends Fragment implements SeekBar.O
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) squreImageView.getLayoutParams();
+        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) iv.getLayoutParams();
         switch (seekBar.getId()){
             case R.id.seekBar:
                 LogUtil.e(""+progress);
                 layoutParams.width = DensityUtil.dp2px(getActivity(),progress);
+                lp.width = DensityUtil.dp2px(getActivity(),progress);
                 break;
         }
         squreImageView.setLayoutParams(layoutParams);
+        iv.setLayoutParams(lp);
 
     }
 

@@ -33,7 +33,6 @@ public class SquareImageView extends ImageView {
         int measuredHeight = getMeasuredHeight();
         LogUtil.e("measuredWidth= "+measuredWidth+"       measuredHeight= "+measuredHeight);
         //由于是正方形的ImageView，所以，按照自己的算法，将自定义view的宽和高设置的相同
-//        如果注销掉以下代码,则SqureImageView则不会等比的放大或缩小，而是在屏幕中移动，很奇葩?????
         if(measuredWidth>measuredHeight){
             measuredHeight = measuredWidth;
         }else {
