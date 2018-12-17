@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import test.cn.example.com.androidskill.R;
+import test.cn.example.com.androidskill.view.defineView.hencoder.practice_eight.HenCoderPracticeEightActivity;
 import test.cn.example.com.androidskill.view.defineView.hencoder.practice_five.HenCoderPracticeDrawFiveActivity;
 import test.cn.example.com.androidskill.view.defineView.hencoder.practice_four.HenCoderPracticeDrawFourActivity;
 import test.cn.example.com.androidskill.view.defineView.hencoder.practice_one.HenCoderPracticeDrawOneActivity;
@@ -36,6 +37,7 @@ public class HenCoderPracticeActivity extends AppCompatActivity implements View.
         findViewById(R.id.hencoder_view_draw_sequence).setOnClickListener(this);
         findViewById(R.id.hencoder_view_property_animation).setOnClickListener(this);
         findViewById(R.id.hencoder_view_property_animation_plus).setOnClickListener(this);
+        findViewById(R.id.hencoder_view_onMeasure).setOnClickListener(this);
     }
 
     @Override
@@ -61,6 +63,9 @@ public class HenCoderPracticeActivity extends AppCompatActivity implements View.
                 break;
             case R.id.hencoder_view_property_animation_plus:
                 startActivity(new Intent(HenCoderPracticeActivity.this, HenCoderPracticeSevenActivity.class));
+                break;
+            case R.id.hencoder_view_onMeasure:
+                startActivity(new Intent(HenCoderPracticeActivity.this,HenCoderPracticeEightActivity.class));
                 break;
 
         }

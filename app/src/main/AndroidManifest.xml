@@ -382,7 +382,10 @@
 
         <activity android:name=".view.defineView.hencoder.practice_seven.HenCoderPracticeSevenActivity"
             android:screenOrientation="portrait">
+        </activity>
 
+        <activity android:name=".view.defineView.hencoder.practice_eight.HenCoderPracticeEightActivity"
+            android:screenOrientation="portrait">
         </activity>
         <!--hencoder end-->
 

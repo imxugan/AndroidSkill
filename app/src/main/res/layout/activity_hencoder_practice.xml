@@ -48,5 +48,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="属性动画进阶"/>
+
+        <Button
+            android:id="@+id/hencoder_view_onMeasure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="自定义view测量"/>
     </LinearLayout>
 </ScrollView>
