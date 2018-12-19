@@ -15,7 +15,6 @@ import java.util.List;
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.androidskill.view.defineView.hencoder.TitleIndicator;
 import test.cn.example.com.androidskill.view.defineView.hencoder.ViewPagerAdapter;
-import test.cn.example.com.androidskill.view.defineView.hencoder.practice_seven.HencoderPracticeSeven_KeyFrame_Fragment;
 import test.cn.example.com.util.LogUtils;
 
 /**
@@ -26,7 +25,7 @@ public class HenCoderPracticeEightActivity extends AppCompatActivity implements 
     private ViewPager viewPager;
     private TitleIndicator mTitleIndicator;
     private HencoderPracticeEightFragment fragment_onMeasure;
-    private HencoderPracticeSeven_KeyFrame_Fragment fragment_key_frame;
+    private HencoderPractice_onmeasure2_Fragment fragment_extend_view;
 
     /**
      * fragments: fragment集合
@@ -55,10 +54,10 @@ public class HenCoderPracticeEightActivity extends AppCompatActivity implements 
         mLables.add("onMeasure");
         fragments.add(fragment_onMeasure);
 
-//        fragment_key_frame = new HencoderPracticeSeven_KeyFrame_Fragment();
-//        fragment_key_frame.setIndex(1);
-//        mLables.add("keyframe");
-//        fragments.add(fragment_key_frame);
+        fragment_extend_view = new HencoderPractice_onmeasure2_Fragment();
+        fragment_extend_view.setIndex(1);
+        mLables.add("extend_view");
+        fragments.add(fragment_extend_view);
 
         mTitleIndicator = new TitleIndicator(HenCoderPracticeEightActivity.this, mLables);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
