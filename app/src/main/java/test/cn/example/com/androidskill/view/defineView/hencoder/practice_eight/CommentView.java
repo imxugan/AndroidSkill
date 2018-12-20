@@ -124,6 +124,15 @@ public class CommentView extends View {
                 break;
         }
         mPaint.getTextBounds(sb_holder.toString(),0,sb_holder.toString().length(),rect);
+
+        //获取字符串中每个字符的宽度，并把结果填入参数 widths
+        String s = sb_holder.toString();
+        float[] widths = new float[s.length()];
+        mPaint.getTextWidths(sb_holder.toString(),widths);
+        for (int i = 0; i < widths.length; i++) {
+            LogUtil.e("第"+i+"个字符的宽度  "+widths[i]);
+        }
+
         xOffset = mPaint.measureText(sb_holder.toString());
         LogUtil.e("xOffset="+xOffset+"  "+sb_holder.toString()+"   "+sb_change.toString());
         return sb_change.toString();

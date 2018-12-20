@@ -1,20 +1,14 @@
 package test.cn.example.com.androidskill.view.defineView.hencoder.practice_eight;
 
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewPropertyAnimator;
-import android.view.animation.LinearInterpolator;
 import android.widget.LinearLayout;
 
 import test.cn.example.com.androidskill.R;
-import test.cn.example.com.util.LogUtil;
 
 /**
  * Created by xugan on 2018/12/19.
@@ -23,7 +17,7 @@ import test.cn.example.com.util.LogUtil;
 public class HencoderPractice_eight_comment_Fragment extends Fragment implements View.OnClickListener {
     private int mIndex;
     private CommentView commentView;
-    private int count = 999;
+    private int count = 0;
 
     @Nullable
     @Override
@@ -47,7 +41,6 @@ public class HencoderPractice_eight_comment_Fragment extends Fragment implements
         switch (view.getId()){
             case R.id.btn_add:
                 count++;
-//                ObjectAnimator.ofInt(commentView, "number", count).start();
                 commentView.setNumber(count);
                 break;
             case R.id.btn_decrease:
@@ -56,7 +49,6 @@ public class HencoderPractice_eight_comment_Fragment extends Fragment implements
                 }else {
                     count--;
                 }
-//                ObjectAnimator.ofInt(commentView, "number", count).start();
                 commentView.setNumber(count);
                 break;
         }
