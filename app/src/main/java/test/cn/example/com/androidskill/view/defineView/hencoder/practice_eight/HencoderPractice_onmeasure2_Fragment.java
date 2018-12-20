@@ -6,16 +6,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.SeekBar;
 
 import test.cn.example.com.androidskill.R;
-import test.cn.example.com.androidskill.util.DensityUtil;
 import test.cn.example.com.util.LogUtil;
 
 /**
- * Created by xugan on 2018/12/17.
+ * Created by xugan on 2018/12/19.
  */
 
 public class HencoderPractice_onmeasure2_Fragment extends Fragment{

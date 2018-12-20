@@ -26,6 +26,7 @@ public class HenCoderPracticeEightActivity extends AppCompatActivity implements 
     private TitleIndicator mTitleIndicator;
     private HencoderPracticeEightFragment fragment_onMeasure;
     private HencoderPractice_onmeasure2_Fragment fragment_extend_view;
+    private HencoderPractice_eight_comment_Fragment fragment_comment_view;
 
     /**
      * fragments: fragment集合
@@ -58,6 +59,11 @@ public class HenCoderPracticeEightActivity extends AppCompatActivity implements 
         fragment_extend_view.setIndex(1);
         mLables.add("extend_view");
         fragments.add(fragment_extend_view);
+
+        fragment_comment_view = new HencoderPractice_eight_comment_Fragment();
+        fragment_comment_view.setIndex(1);
+        mLables.add("commentView");
+        fragments.add(fragment_comment_view);
 
         mTitleIndicator = new TitleIndicator(HenCoderPracticeEightActivity.this, mLables);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
