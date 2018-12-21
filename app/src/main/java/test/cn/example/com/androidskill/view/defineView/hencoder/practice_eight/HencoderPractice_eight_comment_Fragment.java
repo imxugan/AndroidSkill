@@ -17,6 +17,7 @@ import test.cn.example.com.androidskill.R;
 public class HencoderPractice_eight_comment_Fragment extends Fragment implements View.OnClickListener {
     private int mIndex;
     private CommentView commentView;
+    private CommentView2 commentView2;
     private int count = 0;
 
     @Nullable
@@ -26,6 +27,7 @@ public class HencoderPractice_eight_comment_Fragment extends Fragment implements
 
         LinearLayout ll = (LinearLayout) inflater.inflate(R.layout.fragment_hencode_practice_eight_comment,container,false);
         commentView = (CommentView) ll.findViewById(R.id.commentView);
+        commentView2 = (CommentView2) ll.findViewById(R.id.commentView2);
         ll.findViewById(R.id.btn_add).setOnClickListener(this);
         ll.findViewById(R.id.btn_decrease).setOnClickListener(this);
         root.addView(ll);
@@ -42,6 +44,7 @@ public class HencoderPractice_eight_comment_Fragment extends Fragment implements
             case R.id.btn_add:
                 count++;
                 commentView.setNumber(count);
+                commentView2.setNumber(count);
                 break;
             case R.id.btn_decrease:
                 if(count<=0){
@@ -50,6 +53,7 @@ public class HencoderPractice_eight_comment_Fragment extends Fragment implements
                     count--;
                 }
                 commentView.setNumber(count);
+                commentView2.setNumber(count);
                 break;
         }
     }
