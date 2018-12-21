@@ -9,9 +9,12 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.support.annotation.Nullable;
+import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
+
+import java.util.Random;
 
 import test.cn.example.com.util.LogUtil;
 
@@ -32,6 +35,8 @@ public class CommentView2 extends View {
     private int animatedValue;
     private boolean isEnd = false;
     private float xOffset;
+    private Random random = new Random();
+    private TextPaint textPaint;
 
     public int getNumber() {
         return number;
@@ -131,8 +136,6 @@ public class CommentView2 extends View {
                 }
                 break;
         }
-        mPaint.getTextBounds(sb_holder.toString(),0,sb_holder.toString().length(),rect);
-
         //获取字符串中每个字符的宽度，并把结果填入参数 widths
         String s = sb_holder.toString();
         float[] widths = new float[s.length()];
@@ -165,9 +168,14 @@ public class CommentView2 extends View {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setColor(Color.DKGRAY);
         mPaint.setTextSize(50);
+        textPaint = new TextPaint();
+        textPaint.setAntiAlias(true);
+        textPaint.setStyle(Paint.Style.STROKE);
+        textPaint.setColor(Color.GRAY);
+        textPaint.setStrokeWidth(5);
         sb_holder.append(oldNumber+"");
         valueAnimator = new ValueAnimator();
-        valueAnimator.setDuration(50);
+        valueAnimator.setDuration(100);
         valueAnimator.setInterpolator(new LinearInterpolator());
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -209,6 +217,15 @@ public class CommentView2 extends View {
 
         text = sb_change.toString();
         canvas.drawText(sb_holder.toString(),100,100,mPaint);
+        if(rect.height()!=0 && animatedValue<rect.height()/2){
+            if(random.nextBoolean()){
+                canvas.drawCircle(100+random.nextInt(rect.width()),100-random.nextInt(rect.height()),50,textPaint);
+            }else {
+                canvas.drawCircle(100+random.nextInt(rect.width()),100+random.nextInt(rect.height()),50,textPaint);
+            }
+
+        }
+
         canvas.save();
         if(number>=oldNumber){
 //            canvas.translate(100+xOffset,100-rect.height()+animatedValue);
