@@ -52,6 +52,27 @@ public class AnnotationActivity extends AppCompatActivity implements View.OnClic
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
+        Week monday = Week.MONDAY;
+        LogUtil.i("name= "+monday.name()+"    ordinal=  "+monday.ordinal());
+        Color red = Color.RED;
+        LogUtil.i(""+red+"   "+red.getColorName());
+        LogUtil.i("colorName=  "+red.colorName+"     ordinal=  "+ red.ordinal());
+    }
+
+    private enum  Week{
+        MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY,SUNDAY
+    }
+
+    private enum Color{
+        RED("红色"),GREEN("绿色");
+        private String colorName;
+        Color(String colorName){
+            this.colorName = colorName;
+        }
+
+        private String getColorName() {
+            return colorName;
+        }
     }
 
     @Override

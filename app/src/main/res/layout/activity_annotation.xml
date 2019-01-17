@@ -27,4 +27,11 @@
         android:layout_height="wrap_content"
         android:text="模拟BufferKnife通过注解获取当前view的实例，替换findviewById()方法"
         android:id="@+id/btn_1"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="演示枚举使用,看log日志"/>
 </LinearLayout>
