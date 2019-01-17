@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <!--<activity android:name=".MainActivity">-->
-        <activity android:name="test.cn.example.com.androidskill.view.defineView.hencoder.HenCoderPracticeActivity">
+        <activity android:name="test.cn.example.com.androidskill.AnnotationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -82,9 +82,9 @@
         <activity android:name="test.cn.example.com.androidskill.HttpTestActivity"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name="test.cn.example.com.androidskill.AnnotationActivity"
-            android:screenOrientation="portrait">
-        </activity>
+        <!--<activity android:name="test.cn.example.com.androidskill.AnnotationActivity"-->
+            <!--android:screenOrientation="portrait">-->
+        <!--</activity>-->
         <activity android:name="test.cn.example.com.androidskill.designpattern.DesignPatternActivity"
             android:screenOrientation="portrait">
         </activity>
@@ -345,10 +345,10 @@
         </activity>
 
         <!--hencoder  start-->
-        <!--<activity-->
-            <!--android:name="test.cn.example.com.androidskill.view.defineView.hencoder.HenCoderPracticeActivity"-->
-            <!--android:screenOrientation="portrait">-->
-        <!--</activity>-->
+        <activity
+            android:name="test.cn.example.com.androidskill.view.defineView.hencoder.HenCoderPracticeActivity"
+            android:screenOrientation="portrait">
+        </activity>
 
         <activity
             android:name=".view.defineView.hencoder.practice_one.HenCoderPracticeDrawOneActivity"

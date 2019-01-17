@@ -15,4 +15,16 @@
     android:layout_height="wrap_content"
     android:gravity="center"
     android:text="演示注解使用,看log日志"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="start"
+        android:id="@+id/btn_start"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="模拟BufferKnife通过注解获取当前view的实例，替换findviewById()方法"
+        android:id="@+id/btn_1"/>
 </LinearLayout>
