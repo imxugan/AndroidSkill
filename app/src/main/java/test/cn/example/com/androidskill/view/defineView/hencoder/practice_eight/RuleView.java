@@ -23,6 +23,7 @@ public class RuleView extends View {
     private int shortMark,longMark;
     private float startX,startY;
     private TextPaint textPaint;
+    private String currentMark;
 
     public int getOffset() {
         return offset;
@@ -68,20 +69,23 @@ public class RuleView extends View {
         longMark = 30;
         startX = 10;
         startY = 10;
+        currentMark = "";
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.save();
+        currentMark  = (0+offset+60+offset)/2+"";
         LogUtil.i("cursorPaint.getStrokeWidth()/2=   "+cursorPaint.getStrokeWidth()/2);
-        canvas.drawLine(300+startX-cursorPaint.getStrokeWidth()/2,startY,300+startX-cursorPaint.getStrokeWidth()/2,startY+longMark,cursorPaint);
+        canvas.drawText(currentMark,300+startX-textPaint.measureText(currentMark)/2,startY+15,textPaint);
+        canvas.drawLine(300+startX-cursorPaint.getStrokeWidth()/2,startY+30,300+startX-cursorPaint.getStrokeWidth()/2,startY+30+longMark,cursorPaint);
         for (int i = 0; i <=60; i++) {
             if((i+offset)%10==0){
-                canvas.drawLine(i*10+startX,startY,i*10+startX,longMark+startY,mPaint);
-                canvas.drawText(""+(i+offset),(i*10+startX)-textPaint.measureText(""+i)/2,longMark+50,textPaint);
+                canvas.drawLine(i*10+startX,startY+30,i*10+startX,longMark+startY+30,mPaint);
+                canvas.drawText(""+(i+offset),(i*10+startX)-textPaint.measureText(""+i)/2,startY+30+longMark+50,textPaint);
             }else {
-                canvas.drawLine(i*10+startX,startY,i*10+startX,shortMark+startY,mPaint);
+                canvas.drawLine(i*10+startX,startY+30,i*10+startX,shortMark+startY+30,mPaint);
             }
         }
     }
