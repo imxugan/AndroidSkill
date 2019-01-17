@@ -36,6 +36,7 @@ public class HenCoderPracticeEightActivity extends AppCompatActivity implements 
     private List<String> mLables;
     private RelativeLayout layout;
     private HencoderPractice_eight_rule_Fragment hencoderPractice_eight_rule_fragment;
+    private HenCoderPractice_eight_mi_sport_Fragment henCoderPractice_eight_mi_sport_fragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,6 +71,11 @@ public class HenCoderPracticeEightActivity extends AppCompatActivity implements 
         hencoderPractice_eight_rule_fragment.setIndex(1);
         mLables.add("rule");
         fragments.add(hencoderPractice_eight_rule_fragment);
+
+        henCoderPractice_eight_mi_sport_fragment = new HenCoderPractice_eight_mi_sport_Fragment();
+        mLables.add("mi sport");
+        fragments.add(henCoderPractice_eight_mi_sport_fragment);
+
 
         mTitleIndicator = new TitleIndicator(HenCoderPracticeEightActivity.this, mLables);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
