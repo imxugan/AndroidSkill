@@ -39,6 +39,8 @@ public class AnnotationActivity extends AppCompatActivity implements View.OnClic
             }
         }
         try {
+//            getFields()：获得某个类的所有的公共（public）的字段，包括父类中的字段。
+//            getDeclaredFields()：获得某个类的所有声明的字段，即包括public、private和proteced，但是不包括父类的申明字段
             Field field_btn_1 = AnnotationActivity.class.getDeclaredField("btn_1");
             field_btn_1.setAccessible(true);
             MyBindViewAnnotation myBindViewAnnotation = field_btn_1.getAnnotation(MyBindViewAnnotation.class);
