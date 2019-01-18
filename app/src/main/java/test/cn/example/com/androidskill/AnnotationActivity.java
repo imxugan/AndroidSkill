@@ -3,16 +3,19 @@ package test.cn.example.com.androidskill;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 import test.cn.example.com.androidskill.annotation.AnnotationTest;
 import test.cn.example.com.androidskill.annotation.MyBindViewAnnotation;
 import test.cn.example.com.androidskill.annotation.TestMethodAnnotation;
 import test.cn.example.com.androidskill.annotation.Todo;
+import test.cn.example.com.androidskill.model.Boss;
 import test.cn.example.com.util.LogUtil;
 import test.cn.example.com.util.ToastUtils;
 
@@ -57,6 +60,255 @@ public class AnnotationActivity extends AppCompatActivity implements View.OnClic
         Color red = Color.RED;
         LogUtil.i(""+red+"   "+red.getColorName());
         LogUtil.i("colorName=  "+red.colorName+"     ordinal=  "+ red.ordinal());
+        Week[] weeks = new Week[]{Week.MONDAY,Week.TUESDAY,Week.WEDNESDAY,Week.THURSDAY,
+                Week.FRIDAY,Week.SATURDAY, Week.SUNDAY};
+        LogUtil.e("枚举的ordinal()方法和name()方法演示");
+        for (int i = 0; i < weeks.length; i++) {
+            LogUtil.i("weeks["+i+"].ordinal()="+weeks[i].ordinal()+"     weeks["+i+"].name()="+weeks[i].name());
+        }
+        LogUtil.e("枚举的toString()方法演示");
+        LogUtil.i("week[0].toString()="+weeks[0].toString());
+
+        LogUtil.e("枚举的equals方法演示");
+        LogUtil.i("weeks[0].equals(weeks[1])="+weeks[0].equals(weeks[1]));
+        LogUtil.i("weeks[0].equals(Week.MONDAY)="+weeks[0].equals(Week.MONDAY));
+        LogUtil.e("枚举的compareTo()方法演示");
+        LogUtil.i("Week.MONDAY.compareTo(Week.FRIDAY)="+Week.MONDAY.compareTo(Week.FRIDAY));
+        LogUtil.i("Week.FRIDAY.compareTo(Week.MONDAY)="+Week.FRIDAY.compareTo(Week.MONDAY));
+        LogUtil.i("Week.MONDAY.compareTo(Week.TUESDAY)="+Week.MONDAY.compareTo(Week.TUESDAY));
+        LogUtil.e("枚举的getDeclaringClass()方法演示");
+        LogUtil.i("weeks[0].getDeclaringClass()= "+weeks[0].getDeclaringClass());
+        LogUtil.e("valueOf(String name)演示");
+        LogUtil.i("Week.valueOf('MONDAY')="+Week.valueOf("MONDAY"));
+        LogUtil.i("Enum.valueOf(weeks[0].getDeclaringClass(),weeks[0].name())="+Enum.valueOf(weeks[0].getDeclaringClass(),weeks[0].name()));
+        LogUtil.i("valueOf(Class clazz,String name)方法演示");
+        LogUtil.i("Week.valueOf(weeks[0].getDeclaringClass(),weeks[0].name())="+Week.valueOf(weeks[0].getDeclaringClass(),weeks[0].name()));
+        LogUtil.e("values()方法演示");
+        Week[] values = Week.values();
+        LogUtil.i("Arrays.toString(values)="+ Arrays.toString(values));
+        Week[] values1 = Week.MONDAY.values();
+        LogUtil.i("Arrays.toString(values1)="+Arrays.toString(values1));
+        Enum euum = Week.MONDAY;
+//        euum.values(); //没有values()方法
+        LogUtil.e("getDeclaringClass()方法演示");
+        Class<Week> declaringClass = Week.MONDAY.getDeclaringClass();
+        LogUtil.e("isEnum()方法演示,此方法是Class 类型的对象的方法");
+        LogUtil.i("declaringClass.isEnum()="+declaringClass.isEnum());
+        LogUtil.e("getEnumConstants()方法演示，此方法是Class 类型的对象的方法");
+        Week[] enumConstants = declaringClass.getEnumConstants();
+        LogUtil.i(""+enumConstants);
+        if(null != enumConstants){
+            LogUtil.i("Arrays.toString(enumConstants)="+Arrays.toString(enumConstants));
+        }
+        LogUtil.e("------------------枚举的进阶用法--------------------'");
+        LogUtil.e("向枚举中添加方法和自定义的构造函数");
+        Season.main(null);
+        String cn_desc = Season.SPRING.getCn_desc();
+        LogUtil.i(""+cn_desc);
+
+        LogUtil.e("覆写Enum类中的toString()方法的枚举");
+        for (Sex sex:Sex.values()){
+            LogUtil.i("sex.name()="+sex.name()+"     sex.gender="+sex.gender+"    sex.toString()="+sex.toString());
+        }
+
+        LogUtil.e("在enum类中定义抽象方法");
+        MobileSystem.ANDRIOD.getSystemInfo();
+
+        LogUtil.e("让enum类实现接口");
+        Fruit.APPLE.price();
+        Fruit.JUICE.price();
+        Fruit.ORANGE.price();
+
+        Food appetizerFood = Food.Appetizer.SPRING_ROLLS;
+        Food mainCourse = Food.MainCourse.BURRITO;
+        Food dessert = Food.Dessert.GELATO;
+        Food coffee = Food.Coffee.LATTE;
+        LogUtil.i(appetizerFood.toString()+"       "+appetizerFood.getClass().getEnumConstants()[2]);
+        LogUtil.i(mainCourse.toString());
+        LogUtil.i(dessert.toString());
+        LogUtil.i(coffee.toString());
+        Food[] enumConstants1 = appetizerFood.getClass().getEnumConstants();
+        LogUtil.i(""+Arrays.toString(enumConstants1));
+
+        Meal appetizer = Meal.APPETIZER;
+        LogUtil.i(""+appetizer.foodValues);
+        LogUtil.i(""+Arrays.toString(appetizer.foodValues));
+        LogUtil.i(""+Arrays.toString(Meal.MAINCOURSE.foodValues));
+        LogUtil.i(""+Arrays.toString(Meal.DESSERT.foodValues));
+        LogUtil.i(""+Arrays.toString(Meal.COFFEE.foodValues));
+
+        printName(Color.RED);
+
+        LogUtil.e("枚举的单例演示");
+        LogUtil.i(""+SingleInstance.INSTANCE.getBoss());
+        LogUtil.i(""+SingleInstance.INSTANCE.getBoss());
+
+    }
+
+    private enum SingleInstance{
+        INSTANCE;
+        private Boss boss;
+        SingleInstance(){
+            this.boss = new Boss("张三");
+        }
+
+        public Boss getBoss() {
+            return boss;
+        }
+    }
+
+    private void printName(Color color){
+        switch (color){
+            case RED://无需使用Color进行引用
+                LogUtil.i("红色");
+                break;
+            case GREEN:
+                LogUtil.i("绿色");
+                break;
+        }
+    }
+
+    public enum Meal{
+        APPETIZER(Food.Appetizer.class),MAINCOURSE(Food.MainCourse.class),
+        DESSERT(Food.Dessert.class),COFFEE(Food.Coffee.class);
+
+        private final Food[] foodValues;
+
+        Meal(Class<? extends Food> kind){
+            foodValues = kind.getEnumConstants();
+        }
+    }
+
+    interface Food{
+        enum Appetizer implements Food{
+            SALAD("色拉"),SOUP("汤"),SPRING_ROLLS("春卷");
+            private String appetizerFoodName;
+            Appetizer(String appetizerFoodName){
+                this.appetizerFoodName = appetizerFoodName;
+            }
+
+            public String getAppetizerFoodName() {
+                return appetizerFoodName;
+            }
+
+            @Override
+            public String toString() {
+                return appetizerFoodName;
+            }
+        }
+
+        enum MainCourse implements Food{
+            LASAGNE("烤宽面条"),BURRITO("墨西哥玉米煎饼"),PAD_THAI("泰式炒面"),
+            LENTILS("小扁豆"),HUMMOUS("鹰嘴豆芝麻酱"),VINDALOO("咖喱肉");
+            private String mainCourseFoodName;
+            MainCourse(String mainCourseFoodName){
+                this.mainCourseFoodName = mainCourseFoodName;
+            }
+
+            public String getMainCourseFoodName() {
+                return mainCourseFoodName;
+            }
+        }
+
+        enum Dessert implements Food{
+            TIRAMISU("提拉米苏"),GELATO("冰淇淋"),BLACK_FOREST_CAKE("魔法森林蛋糕"),
+            FRUIT("水果"),CREMA_CARAMEL("卡仕达布丁");
+            private String dessertFoodName;
+            Dessert(String dessertFoodName){
+                this.dessertFoodName = dessertFoodName;
+            }
+
+            public String getDessertFoodName() {
+                return dessertFoodName;
+            }
+        }
+
+        enum Coffee implements Food{
+            BLACK_COFFEE("黑咖啡"),DECAF_COFFEE("无咖啡因咖啡"),ESPRESSO("浓咖啡"),
+            LATTE("拿铁"),CAPPUCCINO("卡布奇诺"),TEA("茶"),HERB_TEA("凉茶");
+            private String coffeeName;
+            Coffee(String coffeeName){
+                this.coffeeName = coffeeName;
+            }
+
+            public String getCoffeeName() {
+                return coffeeName;
+            }
+        }
+
+    }
+
+    private enum Fruit implements Sale{
+        APPLE,JUICE,ORANGE;
+
+        @Override
+        public void price() {
+            if("APPLE".equals(name())){
+                LogUtil.i(name()+"  8元/斤");
+            }else if("JUICE".equals(name())){
+                LogUtil.i(name()+"  5元/斤");
+            }else {
+                LogUtil.i(name()+"  1元/斤，促销");
+            }
+
+        }
+
+    }
+
+    interface Sale{
+        void price();
+    }
+
+    private enum MobileSystem{
+        ANDRIOD {
+            @Override
+            void getSystemInfo() {
+                LogUtil.i("安卓系统");
+            }
+        },MAC{
+            @Override
+            void getSystemInfo(){
+                LogUtil.i("苹果系统");
+            }
+        },WINPHONE{
+            @Override
+            void getSystemInfo(){
+                LogUtil.i("微软的移动操作系统");
+            }
+        };
+
+        abstract void getSystemInfo();
+    }
+
+    private enum Sex{
+        MAN("男"),WOMEN("女");
+        private String gender;
+        Sex(String gender){
+            this.gender = gender;
+        }
+
+        @Override
+        public String toString() {
+            return gender;
+        }
+    }
+
+    private enum Season{
+        SPRING("春"),SUMMER("夏"),AUTUMN("秋"),WINTER("冬");
+        String cn_desc;
+        Season(String cn_desc){
+            this.cn_desc = cn_desc;
+        }
+
+        public String getCn_desc() {
+            return cn_desc;
+        }
+
+        public static void main(String[] args){
+            for (Season season:Season.values()){
+                LogUtil.i("ordinal()="+season.ordinal()+"    name()="+season.name());
+            }
+        }
     }
 
     private enum  Week{
