@@ -9,7 +9,12 @@ import android.widget.Button;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EnumMap;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Map;
 
 import test.cn.example.com.androidskill.annotation.AnnotationTest;
 import test.cn.example.com.androidskill.annotation.MyBindViewAnnotation;
@@ -143,6 +148,73 @@ public class AnnotationActivity extends AppCompatActivity implements View.OnClic
         LogUtil.i(""+SingleInstance.INSTANCE.getBoss());
         LogUtil.i(""+SingleInstance.INSTANCE.getBoss());
 
+        LogUtil.i("EnumMap的使用演示");
+        List<Clothes> list = new ArrayList<Clothes>();
+        list.add(new Clothes("c001",Color.RED));
+        list.add(new Clothes("c002",Color.GREEN));
+        list.add(new Clothes("c003",Color.GREEN));
+        list.add(new Clothes("c004",Color.RED));
+        list.add(new Clothes("c005",Color.YELLOW));
+        list.add(new Clothes("c006",Color.RED));
+        list.add(new Clothes("c007",Color.YELLOW));
+        Map<Color,Integer> enumMap = new EnumMap(Color.class);
+        for (int i = 0; i < list.size(); i++) {
+            Integer integer = enumMap.get(list.get(i).color);
+            if(null != integer){
+                enumMap.put(list.get(i).color,integer+1);
+            }else {
+                enumMap.put(list.get(i).color,1);
+            }
+        }
+
+        LogUtil.i(enumMap.toString());
+        LogUtil.e("enumSet使用演示");
+        //EnumSet 使用还未完成
+        EnumSet enumSet = EnumSet.noneOf(Color.class);
+        enumSet.add(Color.RED);
+        enumSet.add(Color.GREEN);
+        enumSet.add(Color.YELLOW);
+        enumSet.add(Color.GREEN);
+        LogUtil.i(""+enumSet.toString());
+        LogUtil.e("使用allOf方法初始化EnumSet");
+        EnumSet enumSet_allOf = EnumSet.allOf(Color.class);
+        LogUtil.i(""+enumSet_allOf.toString());
+
+        LogUtil.e("EnumSet.range()方法使用演示");
+        //range方法中的参数是start 和 end,就是说指定一个范围，从枚举的哪个实例开始，到哪个实例结束，
+        //如果将Color.YELLOW写在前面，Color.RED写在后面，则会报错 end before start的错误
+        EnumSet<Color> enumSet_range = EnumSet.range(Color.RED,Color.GREEN);
+        LogUtil.i(enumSet_range.toString());
+        LogUtil.e("complementOf方法，取补集");
+        EnumSet enumSet_complementOf = EnumSet.complementOf(enumSet_range);
+        LogUtil.i(""+enumSet_complementOf.toString());//[YELLOW]
+
+        LogUtil.e("enumSetOf方法使用演示");
+        EnumSet<Color> enumSetOf = EnumSet.of(Color.GREEN);
+        LogUtil.i(""+enumSetOf.toString());
+
+        LogUtil.e("enumSetCopy使用演示");
+        EnumSet enumSetCopy = EnumSet.copyOf(enumSet_allOf);
+        LogUtil.i(""+enumSetCopy.toString());
+
+        List<Color> list1 = new ArrayList<>();
+        list1.add(Color.GREEN);
+        list1.add(Color.RED);
+        list1.add(Color.GREEN);
+        list1.add(Color.YELLOW);
+        LogUtil.i(""+list1.toString());
+        enumSetCopy = EnumSet.copyOf(list1);
+        LogUtil.i(""+enumSetCopy.toString());
+    }
+
+    private class Clothes{
+        public final String name;
+        public Color color;
+
+        public Clothes(String name, Color color){
+            this.name = name;
+            this.color = color;
+        }
     }
 
     private enum SingleInstance{
@@ -316,7 +388,7 @@ public class AnnotationActivity extends AppCompatActivity implements View.OnClic
     }
 
     private enum Color{
-        RED("红色"),GREEN("绿色");
+        RED("红色"),GREEN("绿色"),YELLOW("黄色");
         private String colorName;
         Color(String colorName){
             this.colorName = colorName;
