@@ -2,8 +2,10 @@ package com.xywy.test.myretrofit;
 
 import java.util.Map;
 
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -47,4 +49,7 @@ public interface CommonApi {
     //post 请求，参数字段名称是 reason 在请求体body中
     Call<BaseData> postBaiduEEEData(@Field("reason") String reason);
 
+    @POST("fff")
+    //post 请求，post的body部分是一个json串
+    Call<BaseData> postBaiduFFFData(@Body RequestBody requestBody);
 }

@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.google.gson.Gson;
 import com.xywy.test.util.MyRetrofit;
 
 import java.io.IOException;
@@ -22,7 +23,10 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
+import okio.BufferedSink;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_retrofit2_test4).setOnClickListener(this);
         findViewById(R.id.btn_retrofit2_test5).setOnClickListener(this);
         findViewById(R.id.btn_retrofit2_test6).setOnClickListener(this);
+        findViewById(R.id.btn_retrofit2_test7).setOnClickListener(this);
         retrofit = MyRetrofit.getInstance().getRetrofit();
     }
 
@@ -133,6 +138,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_retrofit2_test6:
                 MyRetrofit.getInstance().getRetrofit().create(CommonApi.class).postBaiduEEEData("my reason is what why").enqueue(new Callback<BaseData>() {
+                    @Override
+                    public void onResponse(Call<BaseData> call, Response<BaseData> response) {
+                        LogUtils.i(""+response.body().message);
+                    }
+
+                    @Override
+                    public void onFailure(Call<BaseData> call, Throwable t) {
+
+                    }
+                });
+                break;
+            case R.id.btn_retrofit2_test7:
+                User u = new User();
+                u.age = 20;
+                u.sex =1;
+                u.userId = 123457;
+                u.userName = "张三";
+                String postInfo = new Gson().toJson(u);
+//                final RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"),postInfo);
+                final RequestBody requestBody = RequestBody.create(MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),postInfo);
+                MyRetrofit.getInstance().getRetrofit().create(CommonApi.class).postBaiduFFFData(requestBody).enqueue(new Callback<BaseData>() {
                     @Override
                     public void onResponse(Call<BaseData> call, Response<BaseData> response) {
                         LogUtils.i(""+response.body().message);

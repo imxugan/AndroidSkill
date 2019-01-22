@@ -48,4 +48,10 @@
         android:layout_height="wrap_content"
         android:text="@string/post_params_converter_factory"/>
 
+    <Button
+        android:id="@+id/btn_retrofit2_test7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/post_params_converter_factory_request_body_params"/>
+
 </LinearLayout>
