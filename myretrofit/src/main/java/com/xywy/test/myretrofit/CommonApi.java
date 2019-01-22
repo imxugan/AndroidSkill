@@ -69,4 +69,9 @@ public interface CommonApi {
     @POST("iii")
     //用不同注解post一个实体
     Call<BaseData> postBaiduIIIData(@Part("entity") RequestBody requestBody);
+
+    @POST("jjj")
+    @Multipart
+    //这个post请求和上面的 iii的请求是一样的，只是写法不同而已
+    Call<BaseData> postBaiduJJJData(@Part("entity") User user);
 }

@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_retrofit2_test8).setOnClickListener(this);
         findViewById(R.id.btn_retrofit2_test9).setOnClickListener(this);
         findViewById(R.id.btn_retrofit2_test10).setOnClickListener(this);
+        findViewById(R.id.btn_retrofit2_test11).setOnClickListener(this);
         retrofit = MyRetrofit.getInstance().getRetrofit();
     }
 
@@ -227,6 +228,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 });
 
+                break;
+            case R.id.btn_retrofit2_test11:
+                User user2 = new User();
+                user2.age = 11;
+                user2.sex = 0;
+                user2.userName = "pony ma";
+                user2.userId = 111111;
+                MyRetrofit.getInstance().getRetrofit().create(CommonApi.class).postBaiduJJJData(user2).enqueue(new Callback<BaseData>() {
+                    @Override
+                    public void onResponse(Call<BaseData> call, Response<BaseData> response) {
+                        LogUtils.i(""+response.body().message);
+                    }
+
+                    @Override
+                    public void onFailure(Call<BaseData> call, Throwable t) {
+
+                    }
+                });
                 break;
         }
     }
