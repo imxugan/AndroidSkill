@@ -16,12 +16,18 @@
         android:id="@+id/btn_retrofit2_test1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="retrofit2 的使用演示"/>
+        android:text="@string/get_no_params_no_converter_factory"/>
 
     <Button
         android:id="@+id/btn_retrofit2_test2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="retrofit2 的使用演示2"/>
+        android:text="@string/get_no_params_converer_factory"/>
+
+    <Button
+        android:id="@+id/btn_retrofit2_test3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/get_params_converter_factory"/>
 
 </LinearLayout>
