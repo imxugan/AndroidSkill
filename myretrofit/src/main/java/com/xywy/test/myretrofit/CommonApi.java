@@ -7,6 +7,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -48,6 +49,10 @@ public interface CommonApi {
     @FormUrlEncoded
     //post 请求，参数字段名称是 reason 在请求体body中
     Call<BaseData> postBaiduEEEData(@Field("reason") String reason);
+
+    @POST("ggg")
+    @FormUrlEncoded
+    Call<BaseData> psotBaiduGGGData(@FieldMap Map<String,String> map);
 
     @POST("fff")
     //post 请求，post的body部分是一个json串
