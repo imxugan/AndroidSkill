@@ -39,7 +39,79 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_retrofit2_test1).setOnClickListener(this);
         findViewById(R.id.btn_retrofit2_test2).setOnClickListener(this);
         findViewById(R.id.btn_retrofit2_test3).setOnClickListener(this);
+        findViewById(R.id.btn_retrofit2_test4).setOnClickListener(this);
         retrofit = MyRetrofit.getInstance().getRetrofit();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btn_retrofit2_test1:
+                CommonApi commonApi = retrofit.create(CommonApi.class);
+                Call<ResponseBody> baiduData = commonApi.getBaiduData();
+                baiduData.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        Log.i("MainActivity",response.code()+"  "+response.message());
+                        ResponseBody responseBody = response.body();
+                        LogUtils.i(""+responseBody.toString());
+                        InputStream inputStream = responseBody.byteStream();//获取输入流
+                        try {
+                            byte[] bytes = responseBody.bytes();//获取字节数组
+                            String str = responseBody.string();//获取字符串数据
+                            LogUtils.i(""+str);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.i("MainActivity",t.getMessage());
+                    }
+                });
+                break;
+            case R.id.btn_retrofit2_test2:
+                MyRetrofit.getInstance().getRetrofit().create(CommonApi.class).getBaiduAAAData().enqueue(new Callback<BaseData>() {
+                    @Override
+                    public void onResponse(Call<BaseData> call, Response<BaseData> response) {
+                        LogUtils.i(""+response.body().code+"     "+response.body().message);
+                    }
+
+                    @Override
+                    public void onFailure(Call<BaseData> call, Throwable t) {
+
+                    }
+                });
+                break;
+            case R.id.btn_retrofit2_test3:
+                MyRetrofit.getInstance().getRetrofit().create(CommonApi.class).getBaiduBBBData("jack").enqueue(new Callback<BaseData>() {
+                    @Override
+                    public void onResponse(Call<BaseData> call, Response<BaseData> response) {
+                        LogUtils.i(""+response.body().message+"     "+response.body().code);
+                    }
+
+                    @Override
+                    public void onFailure(Call<BaseData> call, Throwable t) {
+
+                    }
+                });
+                break;
+            case R.id.btn_retrofit2_test4:
+                MyRetrofit.getInstance().getRetrofit().create(CommonApi.class).getBaiduCCCData("12345").enqueue(new Callback<BaseData>() {
+                    @Override
+                    public void onResponse(Call<BaseData> call, Response<BaseData> response) {
+                        LogUtils.i(""+response.body().code+"    "+response.body().message);
+                    }
+
+                    @Override
+                    public void onFailure(Call<BaseData> call, Throwable t) {
+
+                    }
+                });
+                break;
+        }
     }
 
     private void requestPermission() {
@@ -106,63 +178,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         return true;
 
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.btn_retrofit2_test1:
-                CommonApi commonApi = retrofit.create(CommonApi.class);
-                Call<ResponseBody> baiduData = commonApi.getBaiduData();
-                baiduData.enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        Log.i("MainActivity",response.code()+"  "+response.message());
-                        ResponseBody responseBody = response.body();
-                        LogUtils.i(""+responseBody.toString());
-                        InputStream inputStream = responseBody.byteStream();//获取输入流
-                        try {
-                            byte[] bytes = responseBody.bytes();//获取字节数组
-                            String str = responseBody.string();//获取字符串数据
-                            LogUtils.i(""+str);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Log.i("MainActivity",t.getMessage());
-                    }
-                });
-                break;
-            case R.id.btn_retrofit2_test2:
-                MyRetrofit.getInstance().getRetrofit().create(CommonApi.class).getBaiduAAAData().enqueue(new Callback<BaseData>() {
-                    @Override
-                    public void onResponse(Call<BaseData> call, Response<BaseData> response) {
-                        LogUtils.i(""+response.body().code+"     "+response.body().message);
-                    }
-
-                    @Override
-                    public void onFailure(Call<BaseData> call, Throwable t) {
-
-                    }
-                });
-                break;
-            case R.id.btn_retrofit2_test3:
-                MyRetrofit.getInstance().getRetrofit().create(CommonApi.class).getBaiduBBBData("jack").enqueue(new Callback<BaseData>() {
-                    @Override
-                    public void onResponse(Call<BaseData> call, Response<BaseData> response) {
-                        LogUtils.i(""+response.body().message+"     "+response.body().code);
-                    }
-
-                    @Override
-                    public void onFailure(Call<BaseData> call, Throwable t) {
-
-                    }
-                });
-                break;
-        }
     }
 }

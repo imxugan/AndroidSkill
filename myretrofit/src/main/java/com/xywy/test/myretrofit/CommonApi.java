@@ -4,6 +4,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by xugan on 2019/1/22.
@@ -24,4 +25,7 @@ public interface CommonApi {
     // 这种方式类似   http://www.baidu.com/bbb/{ussername}
     //如果ussername传值为jack 则这个请求的url   http://www.baidu.com/bbb/jack
     Call<BaseData> getBaiduBBBData(@Path("username") String name);
+
+    @GET("ccc")
+    Call<BaseData> getBaiduCCCData(@Query("userId") String userId);
 }
