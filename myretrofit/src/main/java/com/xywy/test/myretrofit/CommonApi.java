@@ -1,10 +1,13 @@
 package com.xywy.test.myretrofit;
 
+import java.util.Map;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
  * Created by xugan on 2019/1/22.
@@ -27,5 +30,10 @@ public interface CommonApi {
     Call<BaseData> getBaiduBBBData(@Path("username") String name);
 
     @GET("ccc")
+    //get请求，参数在url问号之后
+    //这种请求类似   http://www.baidu.com/ccc?userId={userId}
     Call<BaseData> getBaiduCCCData(@Query("userId") String userId);
+
+    @GET("ddd")
+    Call<BaseData> getBaiduDDDData(@QueryMap Map<String,String> map);
 }

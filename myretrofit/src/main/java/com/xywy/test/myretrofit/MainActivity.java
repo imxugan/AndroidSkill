@@ -19,6 +19,8 @@ import com.xywy.test.util.MyRetrofit;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_retrofit2_test2).setOnClickListener(this);
         findViewById(R.id.btn_retrofit2_test3).setOnClickListener(this);
         findViewById(R.id.btn_retrofit2_test4).setOnClickListener(this);
+        findViewById(R.id.btn_retrofit2_test5).setOnClickListener(this);
         retrofit = MyRetrofit.getInstance().getRetrofit();
     }
 
@@ -107,6 +110,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     @Override
                     public void onFailure(Call<BaseData> call, Throwable t) {
+
+                    }
+                });
+                break;
+            case R.id.btn_retrofit2_test5:
+                Map map = new HashMap<String,String>();
+                map.put("age",20+"");
+                map.put("sex",1+"");
+                MyRetrofit.getInstance().getRetrofit().create(CommonApi.class).getBaiduDDDData(map).enqueue(new Callback<BaseData>() {
+                    @Override
+                    public void onResponse(Call<BaseData> call, Response<BaseData> response) {
+                        LogUtils.i(""+response.body().message);
+                    }
+
+                    @Override
+                    public void onFailure(Call call, Throwable t) {
 
                     }
                 });

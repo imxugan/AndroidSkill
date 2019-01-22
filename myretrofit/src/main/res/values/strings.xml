@@ -4,4 +4,5 @@
     <string name="get_no_params_converer_factory">get方法，url未带请求参数的,但是使用了GsonConverterFactory.create()解析器 使用演示</string>
     <string name="get_params_converter_factory">get方法，url?之前带了请求参数的 使用演示</string>
     <string name="get_params_converter_factory_after">get方法，url?之后带了请求参数的 使用演示</string>
+    <string name="get_params_converter_factory_after_more_params">get方法，url?之后带了多个请求参数的 使用演示</string>
 </resources>
