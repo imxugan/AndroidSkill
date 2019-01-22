@@ -26,7 +26,6 @@ import java.util.Map;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
-import okio.BufferedSink;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -51,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_retrofit2_test7).setOnClickListener(this);
         findViewById(R.id.btn_retrofit2_test8).setOnClickListener(this);
         findViewById(R.id.btn_retrofit2_test9).setOnClickListener(this);
+        findViewById(R.id.btn_retrofit2_test10).setOnClickListener(this);
         retrofit = MyRetrofit.getInstance().getRetrofit();
     }
 
@@ -207,6 +207,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     }
                 });
+                break;
+            case R.id.btn_retrofit2_test10:
+                User user1 = new User();
+                user1.age = 11;
+                user1.sex = 0;
+                user1.userName = "pony ma";
+                user1.userId = 111111;
+                RequestBody requestBody1 = RequestBody.create(MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),new Gson().toJson(user1));
+                MyRetrofit.getInstance().getRetrofit().create(CommonApi.class).postBaiduIIIData(requestBody1).enqueue(new Callback<BaseData>() {
+                    @Override
+                    public void onResponse(Call<BaseData> call, Response<BaseData> response) {
+                        LogUtils.i(""+response.body().message);
+                    }
+
+                    @Override
+                    public void onFailure(Call<BaseData> call, Throwable t) {
+
+                    }
+                });
+
                 break;
         }
     }

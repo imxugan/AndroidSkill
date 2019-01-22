@@ -10,7 +10,9 @@ import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
@@ -60,5 +62,11 @@ public interface CommonApi {
 
     @POST("hhh")
     //post 请求，post的body部分是个User对象
+    //底层其实还是将User对象转换成了json字符串
     Call<BaseData> postBaiduHHHData(@Body User user);
+
+    @Multipart
+    @POST("iii")
+    //用不同注解post一个实体
+    Call<BaseData> postBaiduIIIData(@Part("entity") RequestBody requestBody);
 }
