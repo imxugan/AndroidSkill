@@ -8,4 +8,5 @@
     <string name="post_params_converter_factory">post方法，带了一个请求参数的 使用演示</string>
     <string name="post_params_converter_factory_more_params">post方法，带了多个请求参数的 使用演示</string>
     <string name="post_params_converter_factory_request_body_params">post方法，请求参数是个json字符串 使用演示</string>
+    <string name="post_params_converter_factory_Object_params">post方法，请求参数是个User对象 使用演示</string>
 </resources>

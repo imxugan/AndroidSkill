@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_retrofit2_test6).setOnClickListener(this);
         findViewById(R.id.btn_retrofit2_test7).setOnClickListener(this);
         findViewById(R.id.btn_retrofit2_test8).setOnClickListener(this);
+        findViewById(R.id.btn_retrofit2_test9).setOnClickListener(this);
         retrofit = MyRetrofit.getInstance().getRetrofit();
     }
 
@@ -177,6 +178,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                final RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"),postInfo);
                 final RequestBody requestBody = RequestBody.create(MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),postInfo);
                 MyRetrofit.getInstance().getRetrofit().create(CommonApi.class).postBaiduFFFData(requestBody).enqueue(new Callback<BaseData>() {
+                    @Override
+                    public void onResponse(Call<BaseData> call, Response<BaseData> response) {
+                        LogUtils.i(""+response.body().message);
+                    }
+
+                    @Override
+                    public void onFailure(Call<BaseData> call, Throwable t) {
+
+                    }
+                });
+                break;
+            case R.id.btn_retrofit2_test9:
+                //post请求参数是对象时，底层其实还是将对象转换成了json字符串进行传递
+                User user = new User();
+                user.userId = 123345;
+                user.userName = "Jack ma";
+                user.age = 48;
+                user.sex = 0;
+                MyRetrofit.getInstance().getRetrofit().create(CommonApi.class).postBaiduHHHData(user).enqueue(new Callback<BaseData>() {
                     @Override
                     public void onResponse(Call<BaseData> call, Response<BaseData> response) {
                         LogUtils.i(""+response.body().message);

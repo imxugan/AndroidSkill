@@ -57,4 +57,8 @@ public interface CommonApi {
     @POST("fff")
     //post 请求，post的body部分是一个json串
     Call<BaseData> postBaiduFFFData(@Body RequestBody requestBody);
+
+    @POST("hhh")
+    //post 请求，post的body部分是个User对象
+    Call<BaseData> postBaiduHHHData(@Body User user);
 }
