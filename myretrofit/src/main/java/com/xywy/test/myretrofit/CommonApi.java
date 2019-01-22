@@ -4,7 +4,10 @@ import java.util.Map;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
@@ -35,5 +38,13 @@ public interface CommonApi {
     Call<BaseData> getBaiduCCCData(@Query("userId") String userId);
 
     @GET("ddd")
+    // get 请求，参数在url问号之后，并且是多个参数
+    // 这种情况类似 http://www.baidu.com/ddd?userId={userId}&age={age}
     Call<BaseData> getBaiduDDDData(@QueryMap Map<String,String> map);
+
+    @POST("eee")
+    @FormUrlEncoded
+    //post 请求，参数字段名称是 reason 在请求体body中
+    Call<BaseData> postBaiduEEEData(@Field("reason") String reason);
+
 }

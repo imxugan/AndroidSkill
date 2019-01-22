@@ -5,4 +5,5 @@
     <string name="get_params_converter_factory">get方法，url?之前带了请求参数的 使用演示</string>
     <string name="get_params_converter_factory_after">get方法，url?之后带了请求参数的 使用演示</string>
     <string name="get_params_converter_factory_after_more_params">get方法，url?之后带了多个请求参数的 使用演示</string>
+    <string name="post_params_converter_factory">post方法，带了一个请求参数的 使用演示</string>
 </resources>

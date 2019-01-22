@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_retrofit2_test3).setOnClickListener(this);
         findViewById(R.id.btn_retrofit2_test4).setOnClickListener(this);
         findViewById(R.id.btn_retrofit2_test5).setOnClickListener(this);
+        findViewById(R.id.btn_retrofit2_test6).setOnClickListener(this);
         retrofit = MyRetrofit.getInstance().getRetrofit();
     }
 
@@ -126,6 +127,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     @Override
                     public void onFailure(Call call, Throwable t) {
+
+                    }
+                });
+                break;
+            case R.id.btn_retrofit2_test6:
+                MyRetrofit.getInstance().getRetrofit().create(CommonApi.class).postBaiduEEEData("my reason is what why").enqueue(new Callback<BaseData>() {
+                    @Override
+                    public void onResponse(Call<BaseData> call, Response<BaseData> response) {
+                        LogUtils.i(""+response.body().message);
+                    }
+
+                    @Override
+                    public void onFailure(Call<BaseData> call, Throwable t) {
 
                     }
                 });
