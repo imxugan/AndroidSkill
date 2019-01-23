@@ -84,6 +84,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/post_params_converter_factory_Object_params3"/>
+
+            <Button
+                android:id="@+id/btn_retrofit2_test12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/post_params_converter_factory_upload_files_1"/>
+
+            <Button
+                android:id="@+id/btn_retrofit2_test13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/post_params_converter_factory_upload_files_2"/>
         </LinearLayout>
     </ScrollView>
 

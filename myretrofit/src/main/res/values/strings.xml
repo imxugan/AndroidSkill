@@ -11,4 +11,6 @@
     <string name="post_params_converter_factory_Object_params">post方法，请求参数是个User对象 使用演示</string>
     <string name="post_params_converter_factory_Object_params2">post方法，请求参数是个User对象,采用multipar方式进行封装， 使用演示</string>
     <string name="post_params_converter_factory_Object_params3">post方法，请求参数是个User对象,采用multipar方式进行封装的另外一种方式， 使用演示</string>
+    <string name="post_params_converter_factory_upload_files_1">post方法，文件上传，采用MultiparBody.Part方式封装文件 使用演示</string>
+    <string name="post_params_converter_factory_upload_files_2">post方法，文件上传，采用MultiparBody方式封装文件 使用演示</string>
 </resources>

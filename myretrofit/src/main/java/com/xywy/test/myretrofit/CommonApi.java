@@ -1,7 +1,9 @@
 package com.xywy.test.myretrofit;
 
+import java.util.List;
 import java.util.Map;
 
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -68,10 +70,25 @@ public interface CommonApi {
     @Multipart
     @POST("iii")
     //用不同注解post一个实体
+    //@Multipart表示支持文件上传的表单，Content-Type: multipart/form-data
     Call<BaseData> postBaiduIIIData(@Part("entity") RequestBody requestBody);
 
     @POST("jjj")
+    //@Multipart表示支持文件上传的表单，Content-Type: multipart/form-data
     @Multipart
     //这个post请求和上面的 iii的请求是一样的，只是写法不同而已
     Call<BaseData> postBaiduJJJData(@Part("entity") User user);
+
+    /**
+     * 通过 List<MultipartBody.Part> 传入多个part实现多文件上传
+     * @param parts 每个part代表一个
+     * @return 状态信息
+     */
+    @Multipart
+    @POST("kkk")
+    Call<BaseData> upLoadFilesWithParts(@Part List<MultipartBody.Part> parts);
+
+
+    @POST("lll")
+    Call<BaseData> upLoadFilesWithMultipartBody(@Body MultipartBody multipartBody);
 }

@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -18,12 +19,19 @@ import android.view.View;
 import com.google.gson.Gson;
 import com.xywy.test.util.MyRetrofit;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -52,6 +60,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_retrofit2_test9).setOnClickListener(this);
         findViewById(R.id.btn_retrofit2_test10).setOnClickListener(this);
         findViewById(R.id.btn_retrofit2_test11).setOnClickListener(this);
+        findViewById(R.id.btn_retrofit2_test12).setOnClickListener(this);
+        findViewById(R.id.btn_retrofit2_test13).setOnClickListener(this);
         retrofit = MyRetrofit.getInstance().getRetrofit();
     }
 
@@ -239,6 +249,106 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onResponse(Call<BaseData> call, Response<BaseData> response) {
                         LogUtils.i(""+response.body().message);
+                    }
+
+                    @Override
+                    public void onFailure(Call<BaseData> call, Throwable t) {
+
+                    }
+                });
+                break;
+            case R.id.btn_retrofit2_test12:
+                LogUtils.i("btn_retrofit2_test12");
+                //准备要上传的文件集合
+                List<File> fileList = new ArrayList<>();
+                //MainActivity
+                String fileDir = Environment.getExternalStorageDirectory()+"/crash_androidskill/";
+                String fileName = "target.png";
+                File targetFile = null;
+                if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+//                String path = "/mnt/sdcard/crash/";
+                    File dir = new File(fileDir);
+                    if (!dir.exists()) {
+                        dir.mkdirs();
+                    }
+                    try {
+                        InputStream inputStream = getAssets().open("pic.png");
+                        OutputStream outStream = new FileOutputStream(fileDir + fileName);
+                        byte[] buffer = new byte[8 * 1024];
+                        int bytesRead;
+                        while ((bytesRead = inputStream.read(buffer)) != -1) {
+                            outStream.write(buffer, 0, bytesRead);
+                        }
+                        targetFile = new File(fileDir + fileName);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                LogUtils.i("targetFile.exists()=   "+targetFile.exists());
+                fileList.add(targetFile);
+                List<MultipartBody.Part> multiPartList = new ArrayList();
+                for (File file:fileList) {
+                    RequestBody requBody = RequestBody.create(MediaType.parse("image/png"),file);
+                    MultipartBody.Part p = MultipartBody.Part.createFormData("file",file.getName(),requBody);
+                    multiPartList.add(p);
+                }
+                MyRetrofit.getInstance().getRetrofit().create(CommonApi.class).upLoadFilesWithParts(multiPartList).enqueue(new Callback<BaseData>() {
+                    @Override
+                    public void onResponse(Call<BaseData> call, Response<BaseData> response) {
+                        LogUtils.i(""+response.body().message);
+                    }
+
+                    @Override
+                    public void onFailure(Call<BaseData> call, Throwable t) {
+                        LogUtils.i(""+t.getMessage());
+                    }
+                });
+                break;
+            case R.id.btn_retrofit2_test13:
+                //上传多张图片
+                //准备要上传的文件集合
+                List<File> fileList1 = new ArrayList<>();
+                //MainActivity
+                String fileDir1 = Environment.getExternalStorageDirectory()+"/crash_androidskill/";
+                String fileName1 = "target1.png";
+                File targetFile1 = null;
+                if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+//                String path = "/mnt/sdcard/crash/";
+                    File dir = new File(fileDir1);
+                    if (!dir.exists()) {
+                        dir.mkdirs();
+                    }
+                    try {
+                        InputStream inputStream = getAssets().open("pic.png");
+                        OutputStream outStream = new FileOutputStream(fileDir1 + fileName1);
+                        byte[] buffer = new byte[8 * 1024];
+                        int bytesRead;
+                        while ((bytesRead = inputStream.read(buffer)) != -1) {
+                            outStream.write(buffer, 0, bytesRead);
+                        }
+                        targetFile1 = new File(fileDir1 + fileName1);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                LogUtils.i("targetFile1.exists()=   "+targetFile1.exists());
+                fileList1.add(targetFile1);
+                fileList1.add(new File(fileDir1+"target.png"));
+                MultipartBody.Builder builder = new MultipartBody.Builder();
+                for (File file:fileList1) {
+                    RequestBody requestBody2 = RequestBody.create(MediaType.parse("image/png"),file);
+                    builder.addFormDataPart("file",file.getName(),requestBody2);
+                }
+                builder.setType(MultipartBody.FORM);
+                MultipartBody multipartBody = builder.build();
+                MyRetrofit.getInstance().getRetrofit().create(CommonApi.class).upLoadFilesWithMultipartBody(multipartBody).enqueue(new Callback<BaseData>() {
+                    @Override
+                    public void onResponse(Call<BaseData> call, Response<BaseData> response) {
+                        LogUtils.i(response.body().message);
                     }
 
                     @Override
