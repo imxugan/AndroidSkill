@@ -5,22 +5,21 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
-import com.xywy.im.WebSocketApi;
 
 import java.util.ArrayList;
 
 import test.cn.example.com.androidskill.callback.CallBackActivity;
+import test.cn.example.com.androidskill.changeSkin.ChangeSkinActivity;
 import test.cn.example.com.androidskill.designpattern.DesignPatternActivity;
 import test.cn.example.com.androidskill.login.view.LoginActivity;
 import test.cn.example.com.androidskill.rxjavaTest.RxJavaTestActivity;
 import test.cn.example.com.androidskill.sqlite.SqliteActivity;
+import test.cn.example.com.androidskill.test.TestEditDetailsActivity2;
 import test.cn.example.com.androidskill.websocket.WebsocketActivity;
 import test.cn.example.com.util.LogUtils;
-import test.cn.example.com.util.ToastUtils;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private static final int PERMISSIONS_REQUEST = 2;
@@ -33,6 +32,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initView() {
+        TextView change_skin = (TextView) findViewById(R.id.change_skin);
+        change_skin.setOnClickListener(this);
+        TextView test = (TextView) findViewById(R.id.test);
+        test.setOnClickListener(this);
         TextView debug = (TextView) findViewById(R.id.debug);
         debug.setOnClickListener(this);
         TextView classLoader = (TextView) findViewById(R.id.classLoader);
@@ -82,6 +85,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.change_skin:
+                myStartActivity(ChangeSkinActivity.class,false);
+                break;
+            case R.id.test:
+                myStartActivity(TestEditDetailsActivity2.class,false);
+                break;
             case R.id.debug:
                 myStartActivity(DebugActivity.class,false);
                 break;

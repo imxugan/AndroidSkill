@@ -3,4 +3,18 @@
     <string name="empty">暂时没有任何数据</string>
     <string name="error">网络请求错误</string>
     <string name="try_again">请重试</string>
+
+
+
+    <string name="friend_delete">删除好友</string>
+    <string name="app_cancel">取消</string>
+    <string name="save_draft">保存草稿</string>
+    <string name="toast_length_max_30">最多输入30个字</string>
+
+    <string name="answer_a">选项A</string>
+    <string name="answer_b">选项B</string>
+    <string name="answer_c">选项C</string>
+    <string name="answer_d">选项D</string>
+    <string name="title_edit_test_content">测试题目:</string>
+    <string name="clean_content">清空内容</string>
 </resources>

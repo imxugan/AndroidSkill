@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimary">#f00</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="c_00c8aa">#00c8aa</color>
@@ -11,4 +11,14 @@
     <!-- 分割线 边框颜色 -->
     <color name="c_e8e8e8">#e8e8e8</color>
     <color name="c_666">#666666</color>
+
+
+
+
+
+
+
+    <color name="color_333333">#333333</color>
+    <color name="color_E8E8E8">#E8E8E8</color>
+    <color name="color_F2F2F2">#F2F2F2</color>
 </resources>

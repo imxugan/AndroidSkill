@@ -20,6 +20,24 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/change_skin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:background="@color/colorAccent"
+                android:text="换肤"/>
+
+            <TextView
+                android:id="@+id/test"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:background="@color/colorAccent"
+                android:text="test"/>
+
+            <TextView
                 android:id="@+id/sqlite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
