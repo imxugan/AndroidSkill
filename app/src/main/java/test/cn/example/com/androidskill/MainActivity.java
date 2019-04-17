@@ -15,6 +15,7 @@ import test.cn.example.com.androidskill.callback.CallBackActivity;
 import test.cn.example.com.androidskill.changeSkin.ChangeSkinActivity;
 import test.cn.example.com.androidskill.designpattern.DesignPatternActivity;
 import test.cn.example.com.androidskill.login.view.LoginActivity;
+import test.cn.example.com.androidskill.my_eventbus.MyEventBusTestActivity;
 import test.cn.example.com.androidskill.rxjavaTest.RxJavaTestActivity;
 import test.cn.example.com.androidskill.sqlite.SqliteActivity;
 import test.cn.example.com.androidskill.test.TestEditDetailsActivity2;
@@ -32,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initView() {
+        TextView simple_eventbus = (TextView) findViewById(R.id.simple_eventbus);
+        simple_eventbus.setOnClickListener(this);
         TextView change_skin = (TextView) findViewById(R.id.change_skin);
         change_skin.setOnClickListener(this);
         TextView test = (TextView) findViewById(R.id.test);
@@ -85,6 +88,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.simple_eventbus:
+                myStartActivity(MyEventBusTestActivity.class,false);
+                break;
             case R.id.change_skin:
                 myStartActivity(ChangeSkinActivity.class,false);
                 break;

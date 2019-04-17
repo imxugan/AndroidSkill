@@ -404,6 +404,12 @@
             android:screenOrientation="portrait">
         </activity>
 
+        <activity
+            android:name="test.cn.example.com.androidskill.my_eventbus.MyEventBusTestActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+
         <service android:name="test.cn.example.com.androidskill.service.MyService"
                  android:process=":remote">
         </service>
