@@ -93,4 +93,6 @@ dependencies {
     compile 'net.zetetic:android-database-sqlcipher:3.5.6' //数据库加密相关
 
     compile 'com.jakewharton.rxbinding:rxbinding:1.0.1'
+
+    compile project(':mybus');
 }
