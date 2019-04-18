@@ -146,4 +146,10 @@ public class MyBus {
             e.printStackTrace();
         }
     }
+
+    public void unRegister(Object object){
+        if(map.containsKey(object)){
+            map.remove(object);
+        }
+    }
 }

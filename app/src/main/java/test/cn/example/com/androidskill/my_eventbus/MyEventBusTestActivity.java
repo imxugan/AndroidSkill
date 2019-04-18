@@ -56,5 +56,6 @@ public class MyEventBusTestActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        MyBus.getInstance().unRegister(this);
     }
 }
