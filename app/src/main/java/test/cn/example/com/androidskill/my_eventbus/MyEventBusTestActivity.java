@@ -8,8 +8,10 @@ import android.view.View;
 
 import com.xg.mybus.MyBus;
 import com.xg.mybus.Subscribe;
+import com.xg.mybus.ThreadMode;
 
 import test.cn.example.com.androidskill.R;
+import test.cn.example.com.util.LogUtil;
 import test.cn.example.com.util.ToastUtils;
 
 /**
@@ -51,6 +53,17 @@ public class MyEventBusTestActivity extends Activity {
     @Subscribe
     public void getMyBusEvent(String eventData){
         ToastUtils.shortToast(MyEventBusTestActivity.this,eventData+"       "+Thread.currentThread().getName());
+        LogUtil.i(eventData+"       "+Thread.currentThread().getName());
+    }
+
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void getMyBusEvent2(String eventData){
+        LogUtil.i(eventData+"       "+Thread.currentThread().getName());
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getMyBusEvent3(String eventData){
+        LogUtil.i(eventData+"       "+Thread.currentThread().getName());
     }
 
     @Override
