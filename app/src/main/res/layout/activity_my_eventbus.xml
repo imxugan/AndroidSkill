@@ -9,6 +9,10 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="目前的mybus，还不支持跨进程的消息传递,如果给MyEventBusTestActivity2指定一个进程，则消息就无法传递了"/>
     <Button
         android:id="@+id/btn_go"
         android:layout_width="match_parent"
