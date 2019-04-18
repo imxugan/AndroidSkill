@@ -95,4 +95,30 @@ dependencies {
     compile 'com.jakewharton.rxbinding:rxbinding:1.0.1'
 
     compile project(':mybus');
+
+    //引入aspectj
+    compile 'org.aspectj:aspectjrt:1.9.3'
+
+}
+import org.aspectj.tools.ajc.Main
+project.android.applicationVariants.all{
+    org.gradle.api.tasks.compile.JavaCompile javaCompile = it.javaCompile
+    //可以定义好编译规划，后进行执行
+    javaCompile.doLast{
+        String[] args = ["-showWeaveInfo",
+                         //使用java18
+                         "-1.8",
+                         //aspectj处理源文件的输入目录
+                         "-inpath",javaCompile.destinationDir.toString(),
+                         //生成后的文件的输出目录
+                         "-d",javaCompile.destinationDir.toString(),
+                         //aspectJ编译器的classpath
+                         "-aspectpath",javaCompile.classpath.asPath,
+                         //java程序中的类查找路径
+                         "-classpath",javaCompile.classpath.asPath,
+                         //覆盖引导类的位置，android中使用android.jar,而不是JDK
+                         "-bootclasspath",project.android.bootClasspath.join(File.pathSeparator)]
+        new Main().runMain(args,false)
+    }
+
 }
