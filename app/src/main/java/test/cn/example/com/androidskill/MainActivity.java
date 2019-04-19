@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import test.cn.example.com.androidskill.aop.AspectJTestActivity;
 import test.cn.example.com.androidskill.callback.CallBackActivity;
 import test.cn.example.com.androidskill.changeSkin.ChangeSkinActivity;
 import test.cn.example.com.androidskill.designpattern.DesignPatternActivity;
@@ -33,6 +34,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initView() {
+        TextView aspectj = (TextView) findViewById(R.id.aspectj);
+        aspectj.setOnClickListener(this);
         TextView simple_eventbus = (TextView) findViewById(R.id.simple_eventbus);
         simple_eventbus.setOnClickListener(this);
         TextView change_skin = (TextView) findViewById(R.id.change_skin);
@@ -88,6 +91,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.aspectj:
+                myStartActivity(AspectJTestActivity.class,false);
+                break;
             case R.id.simple_eventbus:
                 myStartActivity(MyEventBusTestActivity.class,false);
                 break;
