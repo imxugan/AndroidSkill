@@ -9,7 +9,10 @@ import android.view.View;
 import java.util.Random;
 
 import test.cn.example.com.androidskill.R;
+import test.cn.example.com.androidskill.aop.annotation.AsyncThread;
+import test.cn.example.com.androidskill.aop.annotation.MainThread;
 import test.cn.example.com.androidskill.aop.annotation.Monitored;
+import test.cn.example.com.util.LogUtil;
 
 /**
  * Created by xugan on 2019/4/19.
@@ -35,8 +38,10 @@ public class AspectJTestActivity extends Activity{
         });
     }
 
+    @AsyncThread
     @Monitored("摇一摇")
     public void shake(){
+        LogUtil.i(Thread.currentThread().getName());
         try{
             SystemClock.sleep(new Random().nextInt(2000));
         }catch (Exception e){
@@ -44,8 +49,10 @@ public class AspectJTestActivity extends Activity{
         }
     }
 
+    @MainThread
     @Monitored("聊天")
     public void chat(){
+        LogUtil.i(Thread.currentThread().getName());
         try{
             SystemClock.sleep(new Random().nextInt(2000));
         }catch (Exception e){
