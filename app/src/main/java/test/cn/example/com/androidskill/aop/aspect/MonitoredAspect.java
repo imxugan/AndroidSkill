@@ -1,10 +1,13 @@
 package test.cn.example.com.androidskill.aop.aspect;
 
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
 
+import test.cn.example.com.androidskill.aop.annotation.Monitored;
 import test.cn.example.com.util.LogUtil;
 
 /**
@@ -29,6 +32,10 @@ public class MonitoredAspect {
      */
     @Around("methodAnnotationsMonitored()")
     public Object doMonitoredMethod(ProceedingJoinPoint joinPoint){
+        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+        String methodName = signature.getMethod().getName();
+        String funName = signature.getMethod().getAnnotation(Monitored.class).value();
+
         long startTime = System.currentTimeMillis();
         Object object = null;
         try {
@@ -37,7 +44,7 @@ public class MonitoredAspect {
             throwable.printStackTrace();
         }
         long endTime = System.currentTimeMillis();
-        LogUtil.i("功能的执行时间 "+(endTime-startTime)+"");
+        LogUtil.i(funName+"功能的执行"+methodName+"的时间 "+(endTime-startTime)+"");
         return object;
     }
 }

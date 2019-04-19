@@ -35,7 +35,7 @@ public class AspectJTestActivity extends Activity{
         });
     }
 
-    @Monitored
+    @Monitored("摇一摇")
     public void shake(){
         try{
             SystemClock.sleep(new Random().nextInt(2000));
@@ -44,7 +44,7 @@ public class AspectJTestActivity extends Activity{
         }
     }
 
-    @Monitored
+    @Monitored("聊天")
     public void chat(){
         try{
             SystemClock.sleep(new Random().nextInt(2000));
