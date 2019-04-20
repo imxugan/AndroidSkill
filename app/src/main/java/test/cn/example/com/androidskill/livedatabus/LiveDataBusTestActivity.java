@@ -2,6 +2,7 @@ package test.cn.example.com.androidskill.livedatabus;
 
 import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.Observer;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,7 @@ public class LiveDataBusTestActivity extends AppCompatActivity implements View.O
             }
         });
         findViewById(R.id.btn_send).setOnClickListener(this);
+        findViewById(R.id.btn_go).setOnClickListener(this);
     }
 
 
@@ -36,6 +38,9 @@ public class LiveDataBusTestActivity extends AppCompatActivity implements View.O
         switch (view.getId()){
             case R.id.btn_send:
                 LiveDataBus.getInstance().with("apple",String.class).postValue("test");
+                break;
+            case R.id.btn_go:
+                startActivity(new Intent(LiveDataBusTestActivity.this,LiveDataBusTestActivity2.class));
                 break;
         }
     }
