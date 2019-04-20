@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.antfortune.freeline'
 apply plugin: 'org.greenrobot.greendao' // apply plugin
-apply plugin: 'android-aspectjx'
+//apply plugin: 'android-aspectjx'
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.androidBuildToolsVersion
