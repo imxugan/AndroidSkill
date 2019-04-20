@@ -15,6 +15,7 @@ import test.cn.example.com.androidskill.aop.AspectJTestActivity;
 import test.cn.example.com.androidskill.callback.CallBackActivity;
 import test.cn.example.com.androidskill.changeSkin.ChangeSkinActivity;
 import test.cn.example.com.androidskill.designpattern.DesignPatternActivity;
+import test.cn.example.com.androidskill.livedatabus.LiveDataBusTestActivity;
 import test.cn.example.com.androidskill.login.view.LoginActivity;
 import test.cn.example.com.androidskill.my_eventbus.MyEventBusTestActivity;
 import test.cn.example.com.androidskill.rxjavaTest.RxJavaTestActivity;
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initView() {
+        TextView livedatabus = (TextView) findViewById(R.id.livedatabus);
+        livedatabus.setOnClickListener(this);
         TextView aspectj = (TextView) findViewById(R.id.aspectj);
         aspectj.setOnClickListener(this);
         TextView simple_eventbus = (TextView) findViewById(R.id.simple_eventbus);
@@ -91,6 +94,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.livedatabus:
+                myStartActivity(LiveDataBusTestActivity.class,false);
+                break;
             case R.id.aspectj:
                 myStartActivity(AspectJTestActivity.class,false);
                 break;
