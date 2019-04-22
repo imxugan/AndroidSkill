@@ -29,7 +29,9 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import rx.Subscriber;
+import io.reactivex.Observer;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
 import test.cn.example.com.util.LogUtil;
 import test.cn.example.com.util.LogUtils;
 
@@ -816,14 +818,19 @@ public class XywyIMService {
 //                    }
 //                });
 
-                DBManager.getInstance().getAllReceiversRx("u_"+currentUserId).subscribe(new Subscriber<List<String>>() {
+                DBManager.getInstance().getAllReceiversRx("u_"+currentUserId).subscribe(new Observer<List<String>>() {
                     @Override
-                    public void onCompleted() {
+                    public void onError(Throwable e) {
 
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onComplete() {
+
+                    }
+
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
@@ -929,14 +936,20 @@ public class XywyIMService {
 
     private void getSendingMessage(List<String> strings) {
         for (int i = 0; i < strings.size(); i++) {
-            DBManager.getInstance().getSendingMessageListRx("msg_"+strings.get(i)).subscribe(new Subscriber<List<com.xywy.im.db.Message>>() {
-                @Override
-                public void onCompleted() {
-                }
-
+            DBManager.getInstance().getSendingMessageListRx("msg_"+strings.get(i)).subscribe(new Observer<List<com.xywy.im.db.Message>>() {
                 @Override
                 public void onError(Throwable e) {
                     LogUtil.i(""+e.getMessage());
+                }
+
+                @Override
+                public void onComplete() {
+
+                }
+
+                @Override
+                public void onSubscribe(@NonNull Disposable d) {
+
                 }
 
                 @Override

@@ -6,6 +6,7 @@ import com.xywy.im.api.body.PostDeviceToken;
 import com.xywy.im.api.types.Audio;
 import com.xywy.im.api.types.Image;
 
+import io.reactivex.Observable;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 import retrofit.converter.GsonConverter;
@@ -13,7 +14,6 @@ import retrofit.http.Body;
 import retrofit.http.Header;
 import retrofit.http.POST;
 import retrofit.mime.TypedFile;
-import rx.Observable;
 
 /**
  * Created by tsung on 10/10/14.

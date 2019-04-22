@@ -9,9 +9,9 @@ import com.xywy.im.db.IMessage;
 import java.io.File;
 import java.util.ArrayList;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import retrofit.mime.TypedFile;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 
 /**
  * Created by houxh on 16/1/18.
@@ -65,16 +65,16 @@ public class Outbox {
         imHttp.postImages(type
                 , typedFile)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<Image>() {
+                .subscribe(new Consumer<Image>() {
                     @Override
-                    public void call(Image image) {
+                    public void accept(Image image) throws Exception {
                         Outbox.this.sendImageMessage(msg, image.srcUrl);
                         onUploadImageSuccess(msg, image.srcUrl);
                         messages.remove(msg);
                     }
-                }, new Action1<Throwable>() {
+                }, new Consumer<Throwable>() {
                     @Override
-                    public void call(Throwable throwable) {
+                    public void accept(Throwable throwable) throws Exception {
                         Outbox.this.markMessageFailure(msg);
                         onUploadImageFail(msg);
                         messages.remove(msg);
@@ -90,16 +90,17 @@ public class Outbox {
         IMHttpAPI.IMHttp imHttp = IMHttpAPI.Singleton();
         imHttp.postAudios(type, typedFile)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<Audio>() {
+                .subscribe(new Consumer<Audio>() {
                     @Override
-                    public void call(Audio audio) {
+                    public void accept(Audio audio) throws Exception {
                         Outbox.this.sendAudioMessage(msg, audio.srcUrl);
                         onUploadAudioSuccess(msg, audio.srcUrl);
                         messages.remove(msg);
                     }
-                }, new Action1<Throwable>() {
+
+                }, new Consumer<Throwable>() {
                     @Override
-                    public void call(Throwable throwable) {
+                    public void accept(Throwable throwable) throws Exception {
                         Outbox.this.markMessageFailure(msg);
                         onUploadAudioFail(msg);
                         messages.remove(msg);

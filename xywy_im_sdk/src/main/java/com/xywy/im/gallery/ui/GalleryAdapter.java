@@ -21,10 +21,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import uk.co.senab.photoview.PhotoView;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
@@ -99,31 +103,37 @@ public class GalleryAdapter extends PagerAdapter {
     }
 
     private void saveImageToPhone(final PhotoView photoView, final String path) {
-        Observable.create(new Observable.OnSubscribe<String>() {
+        Observable.create(new ObservableOnSubscribe<String>() {
             @Override
-            public void call(Subscriber<? super String> subscriber) {
+            public void subscribe(@NonNull ObservableEmitter<String> emitter) throws Exception {
                 Bitmap bitmap = ((BitmapDrawable) photoView.getDrawable()).getBitmap();
                 try {
                     String desImagePath = ImageUtils.savePNGImage(context, path, bitmap);
-                    subscriber.onNext(desImagePath);
-                    subscriber.onCompleted();
+                    emitter.onNext(desImagePath);
+                    emitter.onComplete();
                 } catch (IOException e) {
-                    subscriber.onError(e);
+                    emitter.onError(e);
                 }
             }
+
         })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<String>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
+                .subscribe(new Observer<String>() {
                     @Override
                     public void onError(Throwable e) {
                         e.printStackTrace();
                         Toast.makeText(context, R.string.gallery_image_save_failed, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
                     }
 
                     @Override

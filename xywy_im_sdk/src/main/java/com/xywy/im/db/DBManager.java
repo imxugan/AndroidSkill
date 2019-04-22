@@ -5,13 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.xywy.im.tools.FileCache;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,10 +16,14 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import test.cn.example.com.util.LogUtil;
 
 import static com.xywy.im.db.Message.MSGTYPE_IMG;
@@ -60,14 +61,19 @@ public class DBManager implements IDBRxManager{
     }
 
     public void addUser(User user){
-        getInsertUserRx(user).subscribe(new Subscriber<User>() {
+        getInsertUserRx(user).subscribe(new Observer<User>() {
             @Override
-            public void onCompleted() {
+            public void onError(Throwable e) {
 
             }
 
             @Override
-            public void onError(Throwable e) {
+            public void onComplete() {
+
+            }
+
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
 
             }
 
@@ -123,13 +129,19 @@ public class DBManager implements IDBRxManager{
     }
 
     public void addMessage(Message msg, final AddMessageListener listener){
-        getInsertMessageRx(msg).subscribe(new Subscriber<Message>() {
+        getInsertMessageRx(msg).subscribe(new Observer<Message>() {
             @Override
-            public void onCompleted() {
+            public void onError(Throwable e) {
             }
 
             @Override
-            public void onError(Throwable e) {
+            public void onComplete() {
+
+            }
+
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
             }
 
             @Override
@@ -141,13 +153,19 @@ public class DBManager implements IDBRxManager{
     }
 
     public void deleteMessage(Message message){
-        getDeleteMessageRx(message).subscribe(new Subscriber<Message>() {
+        getDeleteMessageRx(message).subscribe(new Observer<Message>() {
             @Override
-            public void onCompleted() {
+            public void onError(Throwable e) {
             }
 
             @Override
-            public void onError(Throwable e) {
+            public void onComplete() {
+
+            }
+
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
             }
 
             @Override
@@ -169,14 +187,20 @@ public class DBManager implements IDBRxManager{
     }
 
     private void deletePicture(String filePath) {
-        deletePictureRx(filePath).subscribe(new Subscriber<Boolean>() {
-            @Override
-            public void onCompleted() {
-            }
-
+        deletePictureRx(filePath).subscribe(new Observer<Boolean>() {
             @Override
             public void onError(Throwable e) {
                 LogUtil.i("文图片删除失败 "+e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
             }
 
             @Override
@@ -188,15 +212,20 @@ public class DBManager implements IDBRxManager{
 
     public void upateMessage(Message msg){
         LogUtil.i(""+msg.getContent());
-        getUpdateMessageRx(msg).subscribe(new Subscriber<Message>() {
+        getUpdateMessageRx(msg).subscribe(new Observer<Message>() {
             @Override
-            public void onCompleted() {
+            public void onError(Throwable e) {
+                LogUtil.i(""+e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
 
             }
 
             @Override
-            public void onError(Throwable e) {
-                LogUtil.i(""+e.getMessage());
+            public void onSubscribe(@NonNull Disposable d) {
+
             }
 
             @Override
@@ -207,14 +236,19 @@ public class DBManager implements IDBRxManager{
     }
 
     public void getMessageByPageSize(long receiver,final int page, final GetMessageListListener listener){
-        getQueryMessageListByPageRx("msg_"+receiver,page).subscribe(new Subscriber<List<Message>>() {
+        getQueryMessageListByPageRx("msg_"+receiver,page).subscribe(new Observer<List<Message>>() {
             @Override
-            public void onCompleted() {
+            public void onError(Throwable e) {
 
             }
 
             @Override
-            public void onError(Throwable e) {
+            public void onComplete() {
+
+            }
+
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
 
             }
 
@@ -235,14 +269,19 @@ public class DBManager implements IDBRxManager{
 
     public void getMessageByMessageId(long receiver,String msgId,final GetMessageListener listener){
         //        LogUtil.i("getMessageByMessageId()      msgId=      "+msgId);
-        getQueryMessageByMessageId("msg_"+receiver,msgId).subscribe(new Subscriber<Message>() {
+        getQueryMessageByMessageId("msg_"+receiver,msgId).subscribe(new Observer<Message>() {
             @Override
-            public void onCompleted() {
+            public void onError(Throwable e) {
 
             }
 
             @Override
-            public void onError(Throwable e) {
+            public void onComplete() {
+
+            }
+
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
 
             }
 
@@ -260,14 +299,19 @@ public class DBManager implements IDBRxManager{
 
     public void getSendingMessage(int receiver,final GetMessageListListener listener){
 //        LogUtil.i("getSendingMessage());
-        getSendingMessageListRx("msg_"+receiver).subscribe(new Subscriber<List<Message>>() {
+        getSendingMessageListRx("msg_"+receiver).subscribe(new Observer<List<Message>>() {
             @Override
-            public void onCompleted() {
+            public void onError(Throwable e) {
 
             }
 
             @Override
-            public void onError(Throwable e) {
+            public void onComplete() {
+
+            }
+
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
 
             }
 
@@ -284,14 +328,19 @@ public class DBManager implements IDBRxManager{
     }
 
     public void deleteAllMessage(int sender,int receiver){
-        getDeleteAllMessagesRx("u_"+sender,"msg_"+receiver).subscribe(new Subscriber<Boolean>() {
+        getDeleteAllMessagesRx("u_"+sender,"msg_"+receiver).subscribe(new Observer<Boolean>() {
             @Override
-            public void onCompleted() {
+            public void onError(Throwable e) {
 
             }
 
             @Override
-            public void onError(Throwable e) {
+            public void onComplete() {
+
+            }
+
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
 
             }
 
@@ -311,14 +360,19 @@ public class DBManager implements IDBRxManager{
     }
 
     public void getAllMessage(long receiver){
-        getAllMessageListRx("msg_"+receiver).subscribe(new Subscriber<List<Message>>() {
+        getAllMessageListRx("msg_"+receiver).subscribe(new Observer<List<Message>>() {
             @Override
-            public void onCompleted() {
+            public void onError(Throwable e) {
 
             }
 
             @Override
-            public void onError(Throwable e) {
+            public void onComplete() {
+
+            }
+
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
 
             }
 
@@ -335,13 +389,19 @@ public class DBManager implements IDBRxManager{
     }
 
     public void isTableExists(String table,final TableExistsListener tableExistsListener){
-        isTableExistsRx(table).subscribe(new Subscriber<Boolean>() {
+        isTableExistsRx(table).subscribe(new Observer<Boolean>() {
             @Override
-            public void onCompleted() {
+            public void onError(Throwable e) {
+
             }
 
             @Override
-            public void onError(Throwable e) {
+            public void onComplete() {
+
+            }
+
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
 
             }
 
@@ -387,9 +447,9 @@ public class DBManager implements IDBRxManager{
 
     @Override
     public synchronized Observable<User> getInsertUserRx(final User user) {
-        return Observable.create(new Observable.OnSubscribe<User>() {
+        return Observable.create(new ObservableOnSubscribe<User>() {
             @Override
-            public void call(Subscriber<? super User> subscriber) {
+            public void subscribe(@NonNull ObservableEmitter<User> emitter) throws Exception {
                 if(!helper.tableIsExist("u_"+user.userId)){
                     createUserTable(user.userId);
                 }
@@ -401,27 +461,27 @@ public class DBManager implements IDBRxManager{
                         contentValues.put("userName",user.userName);
                         contentValues.put("msgTableName",user.msgTableName);
                         if(-1 != db.insertWithOnConflict("u_"+user.userId, null, contentValues,SQLiteDatabase.CONFLICT_IGNORE)){
-                            subscriber.onNext(user);
+                            emitter.onNext(user);
                         }else {
-                            subscriber.onNext(null);
+                            emitter.onNext(null);
                         }
                         db.setTransactionSuccessful();
                     }finally {
                         db.endTransaction();
                     }
                 }else {
-                    subscriber.onNext(null);
+                    emitter.onNext(null);
                 }
-                subscriber.onCompleted();
+                emitter.onComplete();
             }
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
     public Observable<List<String>> getAllReceiversRx(final String table) {
-        return Observable.create(new Observable.OnSubscribe<List<String>>() {
+        return Observable.create(new ObservableOnSubscribe<List<String>>() {
             @Override
-            public void call(Subscriber<? super List<String>> subscriber) {
+            public void subscribe(@NonNull ObservableEmitter<List<String>> emitter) throws Exception {
                 if(!db.isOpen()){
                     db = SQLiteDatabase.openDatabase(db.getPath(), null, SQLiteDatabase.OPEN_READWRITE);
                 }
@@ -435,20 +495,20 @@ public class DBManager implements IDBRxManager{
                         }
                         cursor.close();
                     }
-                    subscriber.onNext(receivers);
+                    emitter.onNext(receivers);
                 }else {
-                    subscriber.onNext(null);
+                    emitter.onNext(null);
                 }
-                subscriber.onCompleted();
+                emitter.onComplete();
             }
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
     public synchronized Observable<Message> getInsertMessageRx(final Message message) {
-        return Observable.create(new Observable.OnSubscribe<Message>() {
+        return Observable.create(new ObservableOnSubscribe<Message>() {
             @Override
-            public void call(Subscriber<? super Message> subscriber) {
+            public void subscribe(@NonNull ObservableEmitter<Message> emitter) throws Exception {
                 String table = "";
                 if(message.getIsOutgoing() == 1){
                     table = "msg_"+message.getReceiver();
@@ -468,28 +528,28 @@ public class DBManager implements IDBRxManager{
                         contentValues.put("isOutgoing",message.getIsOutgoing());
                         contentValues.put("sendState",message.getSendState());
                         if(-1!= db.insertWithOnConflict(table, null, contentValues,SQLiteDatabase.CONFLICT_IGNORE)){
-                            subscriber.onNext(message);
+                            emitter.onNext(message);
                         }else {
-                            subscriber.onNext(null);
+                            emitter.onNext(null);
                         }
                         db.setTransactionSuccessful();
                     }finally {
                         db.endTransaction();
                     }
                 }else {
-                    subscriber.onNext(null);
+                    emitter.onNext(null);
                 }
                 LogUtil.i("异常后，这里会执行吗？");
-                subscriber.onCompleted();
+                emitter.onComplete();
             }
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
     public synchronized Observable<Message> getDeleteMessageRx(final Message message) {
-        return Observable.create(new Observable.OnSubscribe<Message>() {
+        return Observable.create(new ObservableOnSubscribe<Message>() {
             @Override
-            public void call(Subscriber<? super Message> subscriber) {
+            public void subscribe(@NonNull ObservableEmitter<Message> emitter) throws Exception {
                 String table = "";
                 if(message.getIsOutgoing() == 1){
                     table = "msg_"+message.getReceiver();
@@ -500,47 +560,47 @@ public class DBManager implements IDBRxManager{
                     db.beginTransaction();
                     try{
                         if(-1!= db.delete(table, "msgId=?", new String[]{message.getMsgId()})){
-                            subscriber.onNext(message);
+                            emitter.onNext(message);
                         }else {
-                            subscriber.onNext(null);
+                            emitter.onNext(null);
                         }
                         db.setTransactionSuccessful();
                     }finally {
                         db.endTransaction();
                     }
                 }else {
-                    subscriber.onNext(null);
+                    emitter.onNext(null);
                 }
-                subscriber.onCompleted();
+                emitter.onComplete();
             }
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
     public synchronized Observable<Boolean> getDeleteAllMessagesRx(final String userTable,final String messageTable) {
-        return Observable.create(new Observable.OnSubscribe<Boolean>() {
+        return Observable.create(new ObservableOnSubscribe<Boolean>() {
             @Override
-            public void call(Subscriber<? super Boolean> subscriber) {
+            public void subscribe(@NonNull ObservableEmitter<Boolean> emitter) throws Exception {
                 if(helper.tableIsExist(messageTable)){
                     helper.dropTable(db,messageTable);
                     if(helper.tableIsExist(userTable)){
-                        subscriber.onNext((-1 != db.delete(userTable, "msgTableName=?", new String[]{messageTable})));
+                        emitter.onNext((-1 != db.delete(userTable, "msgTableName=?", new String[]{messageTable})));
                     }else {
-                        subscriber.onNext(false);
+                        emitter.onNext(false);
                     }
                 }else {
-                    subscriber.onNext(false);
+                    emitter.onNext(false);
                 }
-                subscriber.onCompleted();
+                emitter.onComplete();
             }
         }).subscribeOn(Schedulers.io()).subscribeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
     public synchronized Observable<Message> getUpdateMessageRx(final Message message) {
-        return Observable.create(new Observable.OnSubscribe<Message>() {
+        return Observable.create(new ObservableOnSubscribe<Message>() {
             @Override
-            public void call(Subscriber<? super Message> subscriber) {
+            public void subscribe(@NonNull ObservableEmitter<Message> emitter) throws Exception {
                 String table = "";
                 if(message.getIsOutgoing() == 1){
                     table = "msg_"+message.getReceiver();
@@ -562,9 +622,9 @@ public class DBManager implements IDBRxManager{
                         int update = db.update(table, contentValues, "msgId=?", new String[]{message.getMsgId()});
                         LogUtil.i("-----------------------------------update="+update);
                         if(-1 != update){
-                            subscriber.onNext(message);
+                            emitter.onNext(message);
                         }else {
-                            subscriber.onNext(null);
+                            emitter.onNext(null);
                         }
                         db.setTransactionSuccessful();
 
@@ -572,51 +632,51 @@ public class DBManager implements IDBRxManager{
                         db.endTransaction();
                     }
                 }else {
-                    subscriber.onNext(null);
+                    emitter.onNext(null);
                 }
-                subscriber.onCompleted();
+                emitter.onComplete();
             }
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
     public Observable<List<Message>> getQueryMessageListByPageRx(final String table, final int page) {
-        return Observable.create(new Observable.OnSubscribe<List<Message>>() {
+        return Observable.create(new ObservableOnSubscribe<List<Message>>() {
             @Override
-            public void call(Subscriber<? super List<Message>> subscriber) {
+            public void subscribe(@NonNull ObservableEmitter<List<Message>> emitter) throws Exception {
                 if(helper.tableIsExist(table) && db.isOpen()){
                     List<Message> messageList = new ArrayList<Message>();
                     Cursor cursor = db.rawQuery("select * from "+table+" order by time desc limit 10 offset "+page,null);
-                   if(null != cursor && cursor.getCount()>0){
-                       Message msg = null;
-                       while (cursor.moveToNext()){
-                           msg = new Message();
-                           msg.setMsgId(cursor.getString(cursor.getColumnIndex("msgId")));
-                           msg.setSender(cursor.getLong(cursor.getColumnIndex("sender")));
-                           msg.setReceiver(cursor.getLong(cursor.getColumnIndex("receiver")));
-                           msg.setTime(cursor.getLong(cursor.getColumnIndex("time")));
-                           msg.setContent(cursor.getString(cursor.getColumnIndex("content")));
-                           msg.setMsgType(cursor.getInt(cursor.getColumnIndex("msgType")));
-                           msg.setIsOutgoing(cursor.getInt(cursor.getColumnIndex("isOutgoing")));
-                           msg.setSendState(cursor.getInt(cursor.getColumnIndex("sendState")));
-                           messageList.add(msg);
-                       }
-                       cursor.close();
-                   }
-                   subscriber.onNext(messageList);
+                    if(null != cursor && cursor.getCount()>0){
+                        Message msg = null;
+                        while (cursor.moveToNext()){
+                            msg = new Message();
+                            msg.setMsgId(cursor.getString(cursor.getColumnIndex("msgId")));
+                            msg.setSender(cursor.getLong(cursor.getColumnIndex("sender")));
+                            msg.setReceiver(cursor.getLong(cursor.getColumnIndex("receiver")));
+                            msg.setTime(cursor.getLong(cursor.getColumnIndex("time")));
+                            msg.setContent(cursor.getString(cursor.getColumnIndex("content")));
+                            msg.setMsgType(cursor.getInt(cursor.getColumnIndex("msgType")));
+                            msg.setIsOutgoing(cursor.getInt(cursor.getColumnIndex("isOutgoing")));
+                            msg.setSendState(cursor.getInt(cursor.getColumnIndex("sendState")));
+                            messageList.add(msg);
+                        }
+                        cursor.close();
+                    }
+                    emitter.onNext(messageList);
                 }else {
-                    subscriber.onNext(null);
+                    emitter.onNext(null);
                 }
-                subscriber.onCompleted();
+                emitter.onComplete();
             }
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
     public Observable<Message> getQueryMessageByMessageId(final String table, final String msgId) {
-        return Observable.create(new Observable.OnSubscribe<Message>() {
+        return Observable.create(new ObservableOnSubscribe<Message>() {
             @Override
-            public void call(Subscriber<? super Message> subscriber) {
+            public void subscribe(@NonNull ObservableEmitter<Message> emitter) throws Exception {
                 if(helper.tableIsExist(table) && db.isOpen()){
                     Cursor cursor = db.query(table, null, "msgId=?", new String[]{msgId}, null, null, null);
                     if(null != cursor && cursor.getCount()>0){
@@ -632,23 +692,23 @@ public class DBManager implements IDBRxManager{
                             msg.setSendState(cursor.getInt(cursor.getColumnIndex("sendState")));
                         }
                         cursor.close();
-                        subscriber.onNext(msg);
+                        emitter.onNext(msg);
                     }else {
-                        subscriber.onNext(null);
+                        emitter.onNext(null);
                     }
                 }else {
-                    subscriber.onNext(null);
+                    emitter.onNext(null);
                 }
-                subscriber.onCompleted();
+                emitter.onComplete();
             }
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
     public Observable<List<Message>> getSendingMessageListRx(final String table) {
-        return Observable.create(new Observable.OnSubscribe<List<Message>>() {
+        return Observable.create(new ObservableOnSubscribe<List<Message>>() {
             @Override
-            public void call(Subscriber<? super List<Message>> subscriber) {
+            public void subscribe(@NonNull ObservableEmitter<List<Message>> emitter) throws Exception {
                 if(helper.tableIsExist(table) && db.isOpen()){
                     List<Message> messageList = new ArrayList<Message>();
                     Cursor cursor = db.query(table, null, "sendState=?", new String[]{MessageSendState.MESSAGE_SEND_LISTENED+""}, null, null, null);
@@ -669,20 +729,20 @@ public class DBManager implements IDBRxManager{
                         cursor.close();
                     }
 //                    LogUtil.i("messageList.size()="+messageList.size());
-                    subscriber.onNext(messageList);
+                    emitter.onNext(messageList);
                 }else {
-                    subscriber.onNext(null);
+                    emitter.onNext(null);
                 }
-                subscriber.onCompleted();
+                emitter.onComplete();
             }
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
     public Observable<List<Message>> getAllMessageListRx(final String table) {
-        return Observable.create(new Observable.OnSubscribe<List<Message>>() {
+        return Observable.create(new ObservableOnSubscribe<List<Message>>() {
             @Override
-            public void call(Subscriber<? super List<Message>> subscriber) {
+            public void subscribe(@NonNull ObservableEmitter<List<Message>> emitter) throws Exception {
                 Cursor cursor = db.rawQuery("select * from " + table, null);
                 List<Message> messageList = new ArrayList<Message>();
                 if(null != cursor && cursor.getCount()>0){
@@ -700,29 +760,29 @@ public class DBManager implements IDBRxManager{
                         messageList.add(msg);
                     }
                 }
-                subscriber.onNext(messageList);
-                subscriber.onCompleted();
+                emitter.onNext(messageList);
+                emitter.onComplete();
             }
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
     public Observable<Boolean> isTableExistsRx(final String table) {
-        return Observable.create(new Observable.OnSubscribe<Boolean>() {
+        return Observable.create(new ObservableOnSubscribe<Boolean>() {
             @Override
-            public void call(Subscriber<? super Boolean> subscriber) {
+            public void subscribe(@NonNull ObservableEmitter<Boolean> emitter) throws Exception {
                 boolean exist = helper.tableIsExist(table);
-                subscriber.onNext(exist);
-                subscriber.onCompleted();
+                emitter.onNext(exist);
+                emitter.onComplete();
             }
         }).observeOn(Schedulers.io()).subscribeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
     public Observable<Message> getLastedMessageRx(final String table) {
-        return Observable.create(new Observable.OnSubscribe<Message>() {
+        return Observable.create(new ObservableOnSubscribe<Message>() {
             @Override
-            public void call(Subscriber<? super Message> subscriber) {
+            public void subscribe(@NonNull ObservableEmitter<Message> emitter) throws Exception {
                 if(helper.tableIsExist(table) && db.isOpen()){
                     Cursor cursor = db.rawQuery("select * from " + table + " order by time desc limit 1 offset 0", null);
                     Message msg = null;
@@ -740,28 +800,28 @@ public class DBManager implements IDBRxManager{
                         }
                         cursor.close();
                     }
-                    subscriber.onNext(msg);
+                    emitter.onNext(msg);
                 }else {
                     LogUtil.i(table+"     is exists="+helper.tableIsExist(table)+"----db.isOpen()="+db.isOpen());
-                    subscriber.onNext(null);
+                    emitter.onNext(null);
                 }
-                subscriber.onCompleted();
+                emitter.onComplete();
             }
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
     public Observable<Boolean> deletePictureRx(final String filePath) {
-        return Observable.create(new Observable.OnSubscribe<Boolean>() {
+        return Observable.create(new ObservableOnSubscribe<Boolean>() {
             @Override
-            public void call(Subscriber<? super Boolean> subscriber) {
+            public void subscribe(@NonNull ObservableEmitter<Boolean> emitter) throws Exception {
                 File file = new File(filePath);
                 if(file.exists() && file.isFile()){
-                    subscriber.onNext(file.delete());
+                    emitter.onNext(file.delete());
                 }else {
-                    subscriber.onNext(false);
+                    emitter.onNext(false);
                 }
-                subscriber.onCompleted();
+                emitter.onComplete();
             }
         }).observeOn(Schedulers.io()).subscribeOn(AndroidSchedulers.mainThread());
     }

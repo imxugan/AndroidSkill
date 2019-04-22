@@ -2,7 +2,8 @@ package com.xywy.im.db;
 
 import java.util.List;
 
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 /**
  * Created by xugan on 2018/8/17.

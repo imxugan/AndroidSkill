@@ -77,10 +77,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.UUID;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 import test.cn.example.com.util.LogUtil;
 
 import static com.xywy.im.constant.RequestCodes.PICK_LOCATION;
