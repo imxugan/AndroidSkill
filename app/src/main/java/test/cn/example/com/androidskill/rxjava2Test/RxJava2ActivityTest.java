@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
+import com.jakewharton.rxbinding3.view.RxView;
 import com.jakewharton.rxbinding3.widget.RxTextView;
 
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
+import kotlin.Unit;
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.util.LogUtil;
 
@@ -34,6 +37,7 @@ import test.cn.example.com.util.LogUtil;
 public class RxJava2ActivityTest extends AppCompatActivity implements View.OnClickListener {
 
     private EditText et;
+    private Button btn_throttleFirst;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,6 +47,8 @@ public class RxJava2ActivityTest extends AppCompatActivity implements View.OnCli
         findViewById(R.id.btn_test2).setOnClickListener(this);
         findViewById(R.id.btn_testMap).setOnClickListener(this);
         findViewById(R.id.btn_testFlatMap).setOnClickListener(this);
+        btn_throttleFirst = findViewById(R.id.btn_throttleFirst);
+        btn_throttleFirst.setOnClickListener(this);
         et = findViewById(R.id.et);
         RxTextView.textChanges(et).debounce(200, TimeUnit.MILLISECONDS)
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -218,6 +224,33 @@ public class RxJava2ActivityTest extends AppCompatActivity implements View.OnCli
             case R.id.btn_testFlatMap:
                 testFlatMap();
                 break;
+            case R.id.btn_throttleFirst:
+                testThrottleFirst();
+                break;
         }
+    }
+
+    private void testThrottleFirst() {
+        RxView.clicks(btn_throttleFirst).throttleFirst(1,TimeUnit.SECONDS).subscribe(new Observer<Unit>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(@NonNull Unit unit) {
+                LogUtil.i(System.currentTimeMillis()+"");
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
     }
 }

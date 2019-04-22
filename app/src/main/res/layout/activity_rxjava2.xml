@@ -48,5 +48,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
+    <Button
+        android:id="@+id/btn_throttleFirst"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="防止重复点击" />
 
 </LinearLayout>
