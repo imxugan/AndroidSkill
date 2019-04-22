@@ -11,8 +11,8 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.jakewharton.rxbinding.widget.RxTextView;
-import com.jakewharton.rxbinding.widget.TextViewAfterTextChangeEvent;
+import com.jakewharton.rxbinding3.widget.RxTextView;
+import com.jakewharton.rxbinding3.widget.TextViewAfterTextChangeEvent;
 import com.xywy.im.tools.GetNetworkTime;
 
 import org.greenrobot.greendao.rx.RxDao;
@@ -26,11 +26,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import test.cn.example.com.androidskill.greendao.NotesAdapter;
 import test.cn.example.com.androidskill.model.greendao.DaoSession;
 import test.cn.example.com.androidskill.model.greendao.Note;
@@ -67,31 +71,28 @@ public class GreenDaoActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void getInternetTimeByRxJava() {
-        Observable.create(new Observable.OnSubscribe<Long>() {
+        Observable.create(new ObservableOnSubscribe<Long>() {
 
             @Override
-            public void call(Subscriber<? super Long> subscriber) {
+            public void subscribe(@NonNull ObservableEmitter<Long> emitter) throws Exception {
                 long msgId = GetNetworkTime.getWebsiteDatetime("http://open.baidu.com/special/time");
-                subscriber.onNext(msgId);
-                subscriber.onCompleted();
+                emitter.onNext(msgId);
+                emitter.onComplete();
                 Log.e(" call ---> ", "运行在 " + Thread.currentThread().getName() + " 线程");
             }
         }).subscribeOn(Schedulers.newThread()) // 指定subscribe()发生在IO线程
                 .observeOn(AndroidSchedulers.mainThread()) // 指定Subscriber的回调发生在UI线程
-                .subscribe(new Subscriber<Long>() {
-                    @Override
-                    public void onStart() {
-                        super.onStart();
-                    }
-
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
+                .subscribe(new Observer<Long>() {
                     @Override
                     public void onError(Throwable e) {
+                    }
 
+                    @Override
+                    public void onComplete() {
+                    }
+
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
                     }
 
                     @Override
@@ -127,19 +128,19 @@ public class GreenDaoActivity extends AppCompatActivity implements View.OnClickL
         editText = (EditText) findViewById(R.id.editTextNote);
         //noinspection ConstantConditions
         RxTextView.editorActions(editText).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<Integer>() {
+                .subscribe(new Consumer<Integer>() {
                     @Override
-                    public void call(Integer actionId) {
+                    public void accept(Integer actionId) throws Exception {
                         if (actionId == EditorInfo.IME_ACTION_DONE) {
                             addNote();
                         }
                     }
                 });
         RxTextView.afterTextChangeEvents(editText).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<TextViewAfterTextChangeEvent>() {
+                .subscribe(new Consumer<TextViewAfterTextChangeEvent>() {
                     @Override
-                    public void call(TextViewAfterTextChangeEvent textViewAfterTextChangeEvent) {
-                        boolean enable = textViewAfterTextChangeEvent.editable().length() > 0;
+                    public void accept(TextViewAfterTextChangeEvent textViewAfterTextChangeEvent) throws Exception {
+                        boolean enable = textViewAfterTextChangeEvent.getEditable().length() > 0;
                         addNoteButton.setEnabled(enable);
                     }
                 });
@@ -158,16 +159,16 @@ public class GreenDaoActivity extends AppCompatActivity implements View.OnClickL
 
         for (int i = 0; i < 10; i++) {
             final Note note = new Note(null, noteText+"---"+i, comment, new Date(), NoteType.TEXT);;
-            noteDao.insert(note)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Action1<Note>() {
-                        @Override
-                        public void call(Note note) {
-                            Log.d("DaoExample", "Inserted new note, ID: " + note.getId()+"---"+Thread.currentThread().getName());
-                            updateNotes();
-                        }
-                    });
+//            noteDao.insert(note)
+//                    .subscribeOn(Schedulers.io())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe(new Consumer<Note>() {
+//                        @Override
+//                        public void accept(Note note) throws Exception {
+//                            Log.d("DaoExample", "Inserted new note, ID: " + note.getId()+"---"+Thread.currentThread().getName());
+//                            updateNotes();
+//                        }
+//                    });
 
         }
 //        Note note = new Note(null, noteText, comment, new Date(), NoteType.TEXT);
@@ -183,14 +184,14 @@ public class GreenDaoActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void updateNotes() {
-        notesQuery.list()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<List<Note>>() {
-                    @Override
-                    public void call(List<Note> notes) {
-                        notesAdapter.setNotes(notes);
-                    }
-                });
+//        notesQuery.list()
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Consumer<List<Note>>() {
+//                    @Override
+//                    public void accept(List<Note> notes) throws Exception {
+//                        notesAdapter.setNotes(notes);
+//                    }
+//                });
     }
 
     NotesAdapter.NoteClickListener noteClickListener = new NotesAdapter.NoteClickListener() {
@@ -199,15 +200,15 @@ public class GreenDaoActivity extends AppCompatActivity implements View.OnClickL
             Note note = notesAdapter.getNote(position);
             final Long noteId = note.getId();
 
-            noteDao.deleteByKey(noteId)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Action1<Void>() {
-                        @Override
-                        public void call(Void aVoid) {
-                            Log.d("DaoExample", "Deleted note, ID: " + noteId);
-                            updateNotes();
-                        }
-                    });
+//            noteDao.deleteByKey(noteId)
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe(new Consumer<Void>() {
+//                        @Override
+//                        public void accept(Void aVoid) throws Exception {
+//                            Log.d("DaoExample", "Deleted note, ID: " + noteId);
+//                            updateNotes();
+//                        }
+//                    });
         }
     };
 

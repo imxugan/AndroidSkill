@@ -10,13 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.functions.Action1;
-import rx.functions.Func1;
-import rx.functions.Func2;
-import rx.functions.Func3;
-import rx.functions.FuncN;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.BiFunction;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.functions.Function3;
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.util.LogUtil;
 
@@ -26,7 +29,7 @@ import test.cn.example.com.util.LogUtil;
  */
 
 public class RxJavaOperatorCombine extends AppCompatActivity implements View.OnClickListener {
-    private Subscriber mSbuscriber;
+    private Observer mSbuscriber;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,15 +39,20 @@ public class RxJavaOperatorCombine extends AppCompatActivity implements View.OnC
     }
 
     private void initSubscriber() {
-        mSbuscriber = new Subscriber() {
+        mSbuscriber = new Observer() {
             @Override
-            public void onCompleted() {
+            public void onComplete() {
                 LogUtil.i("thread ---"+Thread.currentThread().getName());
             }
 
             @Override
             public void onError(Throwable e) {
                 LogUtil.i(e.toString());
+            }
+
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
             }
 
             @Override
@@ -115,9 +123,9 @@ public class RxJavaOperatorCombine extends AppCompatActivity implements View.OnC
         //默认不在特定的调度器上执行
         initSubscriber();
         Observable<Integer> ob = Observable.just(1, 3, 5,7);
-        ob.zipWith(Observable.just(2, 4), new Func2<Integer, Integer, Integer>() {
+        ob.zipWith(Observable.just(2, 4), new BiFunction<Integer, Integer, Integer>() {
             @Override
-            public Integer call(Integer integer, Integer integer2) {
+            public Integer apply(@NonNull Integer integer, @NonNull Integer integer2) throws Exception {
                 return integer + integer2;
             }
         }).subscribe(mSbuscriber);
@@ -140,10 +148,10 @@ public class RxJavaOperatorCombine extends AppCompatActivity implements View.OnC
         // 而只有当两个都获取到了之后才能进行展示, 这个时候就可以用Zip了
         Observable<Integer> ob = Observable.just(1, 2, 3,4, 5);
         Observable<Integer> ob2 = Observable.just(7, 8);
-        Observable.zip(ob, ob2, new Func2<Integer, Integer, Integer>() {
+        Observable.zip(ob, ob2, new BiFunction<Integer, Integer, Integer>() {
             @Override
-            public Integer call(Integer integer, Integer integer2) {
-//                LogUtil.i("integer="+integer+"---integer2="+integer2);
+            public Integer apply(@NonNull Integer integer, @NonNull Integer integer2) throws Exception {
+                //                LogUtil.i("integer="+integer+"---integer2="+integer2);
                 return integer+integer2;
             }
         }).subscribe(mSbuscriber);
@@ -162,13 +170,13 @@ public class RxJavaOperatorCombine extends AppCompatActivity implements View.OnC
         // 如果在同一个时间内，存在两个或多个Observable提交的结果，
         // 只取最后一个Observable提交的结果给订阅者
         initSubscriber();
-        Observable<Observable<?>> ob = Observable.interval(100, TimeUnit.MILLISECONDS).map(new Func1<Long, Observable<?>>() {
+        Observable<Observable<?>> ob = Observable.interval(100, TimeUnit.MILLISECONDS).map(new Function<Long, Observable<?>>() {
             @Override
-            public Observable<?> call(final Long aLong) {
-                Observable<Long> longObservable = Observable.interval(30, TimeUnit.MILLISECONDS).map(new Func1<Long, Long>() {
+            public Observable<?> apply(@NonNull Long aLong) throws Exception {
+                Observable<Long> longObservable = Observable.interval(30, TimeUnit.MILLISECONDS).map(new Function<Long, Long>() {
                     @Override
-                    public Long call(Long aLong2) {
-//                        return aLong;
+                    public Long apply(@NonNull Long aLong) throws Exception {
+                        //                        return aLong;
 //                        LogUtil.i("aLong="+aLong+"---aLong2="+aLong2);
                         return aLong ;
                     }
@@ -269,37 +277,36 @@ public class RxJavaOperatorCombine extends AppCompatActivity implements View.OnC
     private void groupJoin(){
         //groupJoin，基本和join相同，只是最后组合函数的参数不同,Func2中的参数不同
         Observable<Integer> ob = Observable.just(1, 2,3,4,5);
-        Observable.just("groupJoin-").groupJoin(ob, new Func1<String, Observable<Long>>() {
+        Observable.just("groupJoin-").groupJoin(ob,
+                new Function<String, Observable<Long>>() {
                     @Override
-                    public Observable<Long> call(String s) {
+                    public Observable<Long> apply(@NonNull String s) throws Exception {
                         //源observable
                         LogUtil.i("源observable---s="+s);
                         return Observable.timer(50, TimeUnit.MILLISECONDS);
                     }
-                }, new Func1<Integer, Observable<Long>>() {
+                },
+                new Function<Integer, Observable<Long>>() {
                     @Override
-                    public Observable<Long> call(Integer integer) {
+                    public Observable<Long> apply(@NonNull Integer integer) throws Exception {
                         //目标observable
                         LogUtil.i("目标observable---integer="+integer);
                         return Observable.timer(100, TimeUnit.MILLISECONDS);
                     }
-                }, new Func2<String, Observable<Integer>, Observable<String>>() {
+                },
+                new BiFunction<String, Observable<Integer>, Observable<String>>() {
 
                     @Override
-                    public Observable<String> call(final String s, Observable<Integer> integerObservable) {
-                        return integerObservable.map(new Func1<Integer, String>() {
+                    public Observable<String> apply(@NonNull final String s, @NonNull Observable<Integer> integerObservable) throws Exception {
+                        return integerObservable.map(new Function<Integer, String>() {
                             @Override
-                            public String call(Integer integer) {
+                            public String apply(@NonNull Integer integer) throws Exception {
                                 return s+integer;
                             }
                         });
                     }
                 }
-        ).subscribe(new Subscriber<Observable<String>>() {
-            @Override
-            public void onCompleted() {
-
-            }
+        ).subscribe(new Observer<Observable<String>>() {
 
             @Override
             public void onError(Throwable e) {
@@ -307,10 +314,20 @@ public class RxJavaOperatorCombine extends AppCompatActivity implements View.OnC
             }
 
             @Override
+            public void onComplete() {
+
+            }
+
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
             public void onNext(Observable<String> stringObservable) {
-                stringObservable.subscribe(new Action1<String>() {
+                stringObservable.subscribe(new Consumer<String>() {
                     @Override
-                    public void call(String s) {
+                    public void accept(String s) throws Exception {
                         LogUtil.i(""+s);
                     }
                 });
@@ -337,11 +354,11 @@ public class RxJavaOperatorCombine extends AppCompatActivity implements View.OnC
 //        再过2s，源又发射了一条数据（c）,这时候一共过去了4s，
 //        目标的数据a已经过期，所以不能组合了…
         initSubscriber();
-        Observable<Integer> obs1 = Observable.create(new Observable.OnSubscribe<Integer>() {
+        Observable<Integer> obs1 = Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
-            public void call(Subscriber<? super Integer> subscriber) {
+            public void subscribe(@NonNull ObservableEmitter<Integer> emitter) throws Exception {
                 for (int i = 1; i < 5; i++) {
-                    subscriber.onNext(i);
+                    emitter.onNext(i);
 //                    try {
 //                        Thread.sleep(1000);
 //                    } catch (InterruptedException e) {
@@ -356,26 +373,26 @@ public class RxJavaOperatorCombine extends AppCompatActivity implements View.OnC
                 .join(obs1,
                         //接受从源Observable发射来的数据，并返回一个Observable，
                         //这个Observable的生命周期决定了源Observable发射出来数据的有效期
-                        new Func1<String, Observable<Long>>() {
+                        new Function<String, Observable<Long>>() {
                             @Override
-                            public Observable<Long> call(String s) {
+                            public Observable<Long> apply(@NonNull String s) throws Exception {
                                 LogUtil.e(""+s);
                                 return Observable.timer(3000, TimeUnit.MILLISECONDS);
                             }
                         },
                         //接受从目标Observable发射来的数据，并返回一个Observable，
                         //这个Observable的生命周期决定了目标Observable发射出来数据的有效期
-                        new Func1<Integer, Observable<Long>>() {
+                        new Function<Integer, Observable<Long>>() {
                             @Override
-                            public Observable<Long> call(Integer integer) {
+                            public Observable<Long> apply(@NonNull Integer integer) throws Exception {
                                 return Observable.timer(2000, TimeUnit.MILLISECONDS);
                             }
                         },
                         //接收从源Observable和目标Observable发射来的数据，并返回最终组合完的数据
-                        new Func2<String,Integer,String>() {
+                        new BiFunction<String,Integer,String>() {
                             @Override
-                            public String call(String str1, Integer integer) {
-//                                LogUtil.i(str1+"---"+integer);
+                            public String apply(@NonNull String str1, @NonNull Integer integer) throws Exception {
+                                //LogUtil.i(str1+"---"+integer);
                                 return str1 + integer;
                             }
                         })
@@ -400,9 +417,9 @@ public class RxJavaOperatorCombine extends AppCompatActivity implements View.OnC
         Observable ob1 = Observable.just(1,3,5);
         Observable ob3 = Observable.just(2,4,6);
         Observable ob2 = Observable.just("a","b","c");
-        Observable.combineLatest(ob1, ob3, ob2, new Func3<Integer,Integer,String,String>() {
+        Observable.combineLatest(ob1, ob3, ob2, new Function3<Integer,Integer,String,String>() {
             @Override
-            public String call(Integer integer, Integer integer2, String s) {
+            public String apply(@NonNull Integer integer, @NonNull Integer integer2, @NonNull String s) throws Exception {
                 LogUtil.i("integer="+integer+"---integer2="+integer2+"---s="+s);
                 return integer+integer2+s;
             }
@@ -419,9 +436,9 @@ public class RxJavaOperatorCombine extends AppCompatActivity implements View.OnC
         list.add(ob4);
         list.add(ob5);
         list.add(ob6);
-        Observable.combineLatest(list, new FuncN<Integer>() {
+        Observable.combineLatest(list, new Function<Object[], Integer>() {
             @Override
-            public Integer call(Object... args) {
+            public Integer apply(@NonNull Object[] args) throws Exception {
                 int sum = 0;
                 for (Object value : args) {
                     LogUtil.i(""+value);

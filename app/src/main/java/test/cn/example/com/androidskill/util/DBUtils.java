@@ -12,9 +12,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import test.cn.example.com.androidskill.constant.MessageSendState;
 import test.cn.example.com.androidskill.model.greendao.DaoMaster;
 import test.cn.example.com.androidskill.model.greendao.DaoSession;
@@ -70,81 +70,81 @@ public class DBUtils {
     }
 
     public void getMessageByPageSize(final int page, final GetMessageListListener listener){
-        RxQuery<Message> rxQuery = daoSession.getMessageDao().queryBuilder().orderDesc(MessageDao.Properties.Time).offset(page - 1).limit(10).rx();
-        rxQuery.list().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<List<Message>>() {
-            @Override
-            public void call(List<Message> messages) {
-                LogUtil.i("page=    "+page+"    size=    "+messages.size());
-                sort(messages);
-                listener.getMessageList(messages);
-            }
-        });
+//        RxQuery<Message> rxQuery = daoSession.getMessageDao().queryBuilder().orderDesc(MessageDao.Properties.Time).offset(page - 1).limit(10).rx();
+//        rxQuery.list().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<List<Message>>() {
+//            @Override
+//            public void accept(List<Message> messages) throws Exception {
+//                LogUtil.i("page=    "+page+"    size=    "+messages.size());
+//                sort(messages);
+//                listener.getMessageList(messages);
+//            }
+//        });
     }
 
     public void getMessageByMessageId(String msgId,final GetMessageListener listener){
-//        LogUtil.i("getMessageByMessageId()      msgId=      "+msgId);
-        MessageDao messageDao = daoSession.getMessageDao();
-        RxQuery<Message> rx = messageDao.queryBuilder().where(MessageDao.Properties.MsgId.eq(msgId)).rx();
-        rx.unique().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Message>() {
-            @Override
-            public void call(Message message) {
-                LogUtil.i("查询的消息id      =      "+message.getMsgId());
-                listener.getMessage(message);
-            }
-        });
+////        LogUtil.i("getMessageByMessageId()      msgId=      "+msgId);
+//        MessageDao messageDao = daoSession.getMessageDao();
+//        RxQuery<Message> rx = messageDao.queryBuilder().where(MessageDao.Properties.MsgId.eq(msgId)).rx();
+//        rx.unique().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<Message>() {
+//            @Override
+//            public void accept(Message message) throws Exception {
+//                LogUtil.i("查询的消息id      =      "+message.getMsgId());
+//                listener.getMessage(message);
+//            }
+//        });
     }
 
     public void getSendingMessage(final GetMessageListListener listener){
 //        LogUtil.i("getSendingMessage());
         MessageDao messageDao = daoSession.getMessageDao();
         RxQuery<Message> rx = messageDao.queryBuilder().where(MessageDao.Properties.SendState.eq(MessageSendState.MESSAGE_SEND_LISTENED)).rx();
-        rx.list().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<List<Message>>() {
-            @Override
-            public void call(List<Message> messages) {
-                LogUtil.i("发送中的消息的数量是   "+messages.size());
-                listener.getMessageList(messages);
-            }
-        });
+//        rx.list().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<List<Message>>() {
+//            @Override
+//            public void call(List<Message> messages) {
+//                LogUtil.i("发送中的消息的数量是   "+messages.size());
+//                listener.getMessageList(messages);
+//            }
+//        });
     }
 
     public void addMessage(Message msg, final AddMessageListener listener){
-        getMessageDao().insert(msg)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<Message>() {
-                    @Override
-                    public void call(Message message) {
-                        listener.addMessage(message);
-                        LogUtil.i("增加的消息id  "+message.getMsgId()+"          "+message.getCmd()+"         "+message.getContent());
-                    }
-                });
+//        getMessageDao().insert(msg)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Action1<Message>() {
+//                    @Override
+//                    public void call(Message message) {
+//                        listener.addMessage(message);
+//                        LogUtil.i("增加的消息id  "+message.getMsgId()+"          "+message.getCmd()+"         "+message.getContent());
+//                    }
+//                });
     }
 
     public void deleteMessage(long id){
-        getMessageDao().deleteByKey(id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Message>() {
-            @Override
-            public void call(Message message) {
-                LogUtil.i("删除的消息id  "+message.getMsgId());
-            }
-        });
+//        getMessageDao().deleteByKey(id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Message>() {
+//            @Override
+//            public void call(Message message) {
+//                LogUtil.i("删除的消息id  "+message.getMsgId());
+//            }
+//        });
     }
 
     public void deleteAllMessage(){
-        getMessageDao().deleteAll().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1() {
-            @Override
-            public void call(Object o) {
-                LogUtil.i("删除所有消息");
-            }
-        });
+//        getMessageDao().deleteAll().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1() {
+//            @Override
+//            public void call(Object o) {
+//                LogUtil.i("删除所有消息");
+//            }
+//        });
     }
 
     public void upateMessage(Message msg){
-        getMessageDao().update(msg).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Message>() {
-            @Override
-            public void call(Message message) {
-                LogUtil.i("更新的消息id  "+message.getMsgId());
-            }
-        });
+//        getMessageDao().update(msg).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Message>() {
+//            @Override
+//            public void call(Message message) {
+//                LogUtil.i("更新的消息id  "+message.getMsgId());
+//            }
+//        });
     }
 
     public void close(){

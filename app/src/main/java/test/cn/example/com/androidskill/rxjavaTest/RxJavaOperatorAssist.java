@@ -6,13 +6,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.util.LogUtil;
 
@@ -22,7 +28,7 @@ import test.cn.example.com.util.LogUtil;
  */
 
 public class RxJavaOperatorAssist extends AppCompatActivity implements View.OnClickListener {
-    private Subscriber mSbuscriber;
+    private Observer mSbuscriber;
     private SimpleDateFormat sdf;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,15 +39,20 @@ public class RxJavaOperatorAssist extends AppCompatActivity implements View.OnCl
     }
 
     private void initSubscriber() {
-        mSbuscriber = new Subscriber() {
+        mSbuscriber = new Observer() {
             @Override
-            public void onCompleted() {
+            public void onComplete() {
                 LogUtil.i("thread ---"+Thread.currentThread().getName());
             }
 
             @Override
             public void onError(Throwable e) {
                 LogUtil.i(e.toString());
+            }
+
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
             }
 
             @Override
@@ -85,16 +96,16 @@ public class RxJavaOperatorAssist extends AppCompatActivity implements View.OnCl
         // 因为只有订阅之后才会开始发射消息，所以延迟2s。
         LogUtil.i("---delaySubscription---"+sdf.format(new Date()));
         initSubscriber();
-        Observable<Integer> ob = Observable.create(new Observable.OnSubscribe<Integer>() {
+        Observable<Integer> ob = Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
-            public void call(Subscriber<? super Integer> subscriber) {
+            public void subscribe(@NonNull ObservableEmitter<Integer> emitter) throws Exception {
                 for (int i=0;i<5;i++){
                     if(i>2){
-                        subscriber.onError(new Throwable("数据大于2了"));
+                        emitter.onError(new Throwable("数据大于2了"));
                     }
-                    subscriber.onNext(i);
+                    emitter.onNext(i);
                 }
-                subscriber.onCompleted();
+                emitter.onComplete();
             }
         });
         ob.delaySubscription(2, TimeUnit.SECONDS).subscribe(mSbuscriber);
@@ -114,16 +125,16 @@ public class RxJavaOperatorAssist extends AppCompatActivity implements View.OnCl
         //注意：delay不会平移onError通知，它会立即将这个通知传递给订阅者，
         // 同时丢弃任何待发射的onNext通知。但是它会平移一个onCompleted通知。
         initSubscriber();
-        Observable<Integer> ob = Observable.create(new Observable.OnSubscribe<Integer>() {
+        Observable<Integer> ob = Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
-            public void call(Subscriber<? super Integer> subscriber) {
+            public void subscribe(@NonNull ObservableEmitter<Integer> emitter) throws Exception {
                 for (int i=0;i<5;i++){
                     if(i>2){
-                        subscriber.onError(new Throwable("数据大于2了"));
+                        emitter.onError(new Throwable("数据大于2了"));
                     }
-                    subscriber.onNext(i);
+                    emitter.onNext(i);
                 }
-                subscriber.onCompleted();
+                emitter.onComplete();
             }
         });
         ob.subscribeOn(Schedulers.computation())

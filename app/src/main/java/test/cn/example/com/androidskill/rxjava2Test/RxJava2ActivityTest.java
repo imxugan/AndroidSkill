@@ -1,7 +1,16 @@
 package test.cn.example.com.androidskill.rxjava2Test;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.EditText;
+
+import com.jakewharton.rxbinding3.widget.RxTextView;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -13,18 +22,49 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import test.cn.example.com.androidskill.R;
+import test.cn.example.com.util.LogUtil;
 
 /**
  * Created by xugan on 2019/4/22.
  */
 
-public class RxJava2Test {
-    public static void main(String[] args){
-//        test();
-//        test2();
-//        testMap();
+public class RxJava2ActivityTest extends AppCompatActivity implements View.OnClickListener {
 
-        testFlatMap();
+    private EditText et;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_rxjava2);
+        findViewById(R.id.btn_test).setOnClickListener(this);
+        findViewById(R.id.btn_test2).setOnClickListener(this);
+        findViewById(R.id.btn_testMap).setOnClickListener(this);
+        findViewById(R.id.btn_testFlatMap).setOnClickListener(this);
+        et = findViewById(R.id.et);
+        RxTextView.textChanges(et).debounce(200, TimeUnit.MILLISECONDS)
+                .flatMap(new Function<CharSequence, ObservableSource<List<String>>>() {
+                    @Override
+                    public ObservableSource<List<String>> apply(@NonNull CharSequence charSequence) throws Exception {
+                        //模拟网络返回结果
+                        LogUtil.i(charSequence.toString());
+                        List<String> resultData = new ArrayList<String>();
+                        resultData.add("abc");
+                        resultData.add("bbc");
+                        return Observable.just(resultData);
+                    }
+                })
+                .subscribe(new Consumer<List<String>>() {
+                    @Override
+                    public void accept(List<String> strings) throws Exception {
+                        LogUtil.i(strings.toString());
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                    }
+                });
     }
 
     private static void testFlatMap() {
@@ -149,5 +189,23 @@ public class RxJava2Test {
             }
         };
         observable.subscribe(observer);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btn_test:
+                test();
+                break;
+            case R.id.btn_test2:
+                test2();
+                break;
+            case R.id.btn_testMap:
+                testMap();
+                break;
+            case R.id.btn_testFlatMap:
+                testFlatMap();
+                break;
+        }
     }
 }

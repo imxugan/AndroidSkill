@@ -12,6 +12,10 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        packagingOptions {
+            exclude 'META-INF/proguard/androidx-annotations.pro'
+        }
     }
 
     //greendao配置
@@ -102,7 +106,7 @@ dependencies {
     compile 'org.greenrobot:greendao:3.2.2' // add library
     compile 'net.zetetic:android-database-sqlcipher:3.5.6' //数据库加密相关
 
-    compile 'com.jakewharton.rxbinding:rxbinding:1.0.1'
+    compile 'com.jakewharton.rxbinding3:rxbinding:3.0.0-alpha2'
 
     compile project(':mybus');
 

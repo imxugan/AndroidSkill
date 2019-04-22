@@ -18,128 +18,186 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <TextView
-                android:id="@+id/livedatabus"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:background="@color/colorAccent"
-                android:text="livedatabus的使用"/>
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/livedatabus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:background="@color/colorAccent"
+                    android:text="livedatabus的使用"/>
+                <TextView
+                    android:id="@+id/rxjava2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                   android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:background="@color/colorAccent"
+                    android:text="rxjava2的使用"/>
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/aspectj"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:background="@color/colorAccent"
-                android:text="aspectJ的使用"/>
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/aspectj"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:background="@color/colorAccent"
+                    android:text="aspectJ的使用"/>
 
-            <TextView
-                android:id="@+id/simple_eventbus"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/simple_eventbus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:background="@color/colorAccent"
+                    android:text="手写一个简单的eventbus"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:background="@color/colorAccent"
-                android:text="手写一个简单的eventbus"/>
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/change_skin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:background="@color/colorAccent"
+                    android:text="换肤"/>
 
-            <TextView
-                android:id="@+id/change_skin"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/test"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:background="@color/colorAccent"
+                    android:text="test"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:background="@color/colorAccent"
-                android:text="换肤"/>
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/sqlite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:background="@color/colorAccent"
+                    android:text="sqlite使用"/>
 
-            <TextView
-                android:id="@+id/test"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/websokcet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:background="@color/colorAccent"
+                    android:text="java websocket使用"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:background="@color/colorAccent"
-                android:text="test"/>
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/propertyChangeSupport"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:background="@color/colorAccent"
+                    android:text="PropertyChangeSupport使用"/>
 
-            <TextView
-                android:id="@+id/sqlite"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/greenDao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:background="@color/colorAccent"
+                    android:text="GreenDao使用"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:background="@color/colorAccent"
-                android:text="sqlite使用"/>
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/dispatch_event"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:background="@color/colorAccent"
+                    android:text="事件分发"/>
 
-            <TextView
-                android:id="@+id/websokcet"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/debug"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:background="@color/colorAccent"
+                    android:text="调试"/>
+                <TextView
+                    android:id="@+id/classLoader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:background="@color/colorAccent"
+                    android:text="classLoader"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:background="@color/colorAccent"
-                android:text="java websocket使用"/>
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/threadPool"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:background="@color/colorAccent"
+                    android:text="java线程池"/>
+                <TextView
+                    android:id="@+id/callBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:background="@color/colorAccent"
+                    android:text="java回调"/>
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/propertyChangeSupport"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:background="@color/colorAccent"
-                android:text="PropertyChangeSupport使用"/>
 
-            <TextView
-                android:id="@+id/greenDao"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:background="@color/colorAccent"
-                android:text="GreenDao使用"/>
 
-            <TextView
-                android:id="@+id/dispatch_event"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:background="@color/colorAccent"
-                android:text="事件分发"/>
 
-            <TextView
-                android:id="@+id/debug"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:background="@color/colorAccent"
-                android:text="调试"/>
-            <TextView
-                android:id="@+id/classLoader"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:background="@color/colorAccent"
-                android:text="classLoader"/>
-            <TextView
-                android:id="@+id/threadPool"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:background="@color/colorAccent"
-                android:text="java线程池"/>
-            <TextView
-                android:id="@+id/callBack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:background="@color/colorAccent"
-                android:text="java回调"/>
+
+
+
+
+
+
             <TextView
                 android:id="@+id/rxJava"
                 android:layout_width="wrap_content"

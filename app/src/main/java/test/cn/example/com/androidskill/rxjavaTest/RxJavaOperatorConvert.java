@@ -9,15 +9,17 @@ import android.widget.Button;
 import java.util.ArrayList;
 import java.util.List;
 
-import rx.Observable;
-import rx.Observer;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.functions.Func1;
-import rx.functions.Func2;
-import rx.observables.GroupedObservable;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.BiFunction;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.observables.GroupedObservable;
+import io.reactivex.schedulers.Schedulers;
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.androidskill.model.City;
 import test.cn.example.com.androidskill.model.House;
@@ -86,25 +88,30 @@ public class RxJavaOperatorConvert extends AppCompatActivity implements View.OnC
 //
 //        subscribeOn()主要改变的是订阅的线程，即call()执行的线程;
 //        observeOn()主要改变的是发送的线程，即onNext()执行的线程。
-        Observable.just(1,2,3,4,5,6,7).concatMap(new Func1<Integer, Observable<Integer>>() {
+        Observable.just(1,2,3,4,5,6,7).concatMap(new Function<Integer, ObservableSource<Integer>>() {
             @Override
-            public Observable<Integer> call(Integer integer) {
+            public ObservableSource<Integer> apply(@NonNull Integer integer) throws Exception {
                 return Observable.just(integer).subscribeOn(Schedulers.io());
             }
-        }).subscribe(new Subscriber<Integer>() {
+        }).subscribe(new Observer<Integer>() {
             @Override
-            public void onCompleted() {
+            public void onComplete() {
                 LogUtil.i("onCompleted---threadId="+Thread.currentThread().getId());
+            }
+
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(@NonNull Integer integer) {
+                LogUtil.i("onNext---threadId="+Thread.currentThread().getId()+"---integer="+integer);
             }
 
             @Override
             public void onError(Throwable e) {
 
-            }
-
-            @Override
-            public void onNext(Integer integer) {
-                LogUtil.i("onNext---threadId="+Thread.currentThread().getId()+"---integer="+integer);
             }
         });
 
@@ -112,15 +119,20 @@ public class RxJavaOperatorConvert extends AppCompatActivity implements View.OnC
 
     private void cast(){
         //cast操作符就是将不同数据类型转换成指定类型. 可以用于校验是否是同一种类型
-        Observable.just(1,2,3,4,5).cast(Integer.class).subscribe(new Subscriber<Integer>() {
+        Observable.just(1,2,3,4,5).cast(Integer.class).subscribe(new Observer<Integer>() {
             @Override
-            public void onCompleted() {
+            public void onError(Throwable e) {
+                LogUtil.i(e.toString());//如果类型转换失败，就会包异常
+            }
+
+            @Override
+            public void onComplete() {
                 LogUtil.i("onCompleted");//onCompleted
             }
 
             @Override
-            public void onError(Throwable e) {
-                LogUtil.i(e.toString());//如果类型转换失败，就会包异常
+            public void onSubscribe(@NonNull Disposable d) {
+
             }
 
             @Override
@@ -135,9 +147,9 @@ public class RxJavaOperatorConvert extends AppCompatActivity implements View.OnC
         //它定期从Observable收集数据到一个集合，然后把这些数据集合打包发射，而不是一次发射一个
         //注意：如果原来的Observable发射了一个onError通知，Buffer会立即传递这个通知，
         // 而不是首先发射缓存的数据，即使在这之前缓存中包含了原始Observable发射的数据
-        Observable.just(1,2,3,4,5).buffer(2).subscribe(new Action1<List<Integer>>() {
+        Observable.just(1,2,3,4,5).buffer(2).subscribe(new Consumer<List<Integer>>() {
             @Override
-            public void call(List<Integer> integers) {
+            public void accept(List<Integer> integers) throws Exception {
                 LogUtil.i(integers.toString());
                 //输出结果
                 //[1, 2]
@@ -153,10 +165,10 @@ public class RxJavaOperatorConvert extends AppCompatActivity implements View.OnC
         //buffer(2,3)就要这么算：首先，将集合中的元素按照skip指定的间隔分成几个小的集合，
         //在在这些小的集合中，取前两个元素，如果这些小集合中的元素不够两个，就只取第一个。
         //buffer还有其他的一些重载
-        Observable.from(arr).buffer(2,3).subscribe(new Action1<List<Integer>>() {
+        Observable.fromArray(arr).buffer(2,3).subscribe(new Consumer<List<List<Integer>>>() {
             @Override
-            public void call(List<Integer> integers) {
-                LogUtil.i(integers.toString());
+            public void accept(List<List<Integer>> lists) throws Exception {
+                LogUtil.i(lists.toString());
                 //[0, 1]
                 //[3, 4]
                 //[6, 7]
@@ -169,13 +181,13 @@ public class RxJavaOperatorConvert extends AppCompatActivity implements View.OnC
         //窗口，它可以批量或者按周期性从Observable收集数据到一个集合，
         // 然后把这些数据集合打包发射，而不是一次发射一个数据,类似于Buffer，
         // 但Buffer发射的是数据，Window发射的是Observable
-        Observable.just(1,2,3,4,5,6,7).window(2).subscribe(new Action1<Observable<Integer>>() {
+        Observable.just(1,2,3,4,5,6,7).window(2).subscribe(new Consumer<Observable<Integer>>() {
             @Override
-            public void call(Observable<Integer> integerObservable) {
+            public void accept(Observable<Integer> integerObservable) throws Exception {
                 LogUtil.i(integerObservable.toString());
-                integerObservable.subscribe(new Action1<Integer>() {
+                integerObservable.subscribe(new Consumer<Integer>() {
                     @Override
-                    public void call(Integer integer) {
+                    public void accept(Integer integer) throws Exception {
                         LogUtil.i(""+integer);
                     }
                 });
@@ -194,21 +206,21 @@ public class RxJavaOperatorConvert extends AppCompatActivity implements View.OnC
         // 每个GroupedObservable就开始缓存数据。
         //如果你忽略这些GroupedObservable中的任何一个，GroupedObservable 中的任何一个，
         // 这个缓存可能形成一个潜在的内存泄露。
-        Observable.just(1,2,3,4,5,6,7,8,9).groupBy(new Func1<Integer, String>() {
+        Observable.just(1,2,3,4,5,6,7,8,9).groupBy(new Function<Integer, String>() {
 
             @Override
-            public String call(Integer integer) {
+            public String apply(@NonNull Integer integer) throws Exception {
                 return (integer % 2) == 0?"偶数":"奇数";
             }
-        }).subscribe(new Action1<GroupedObservable<String, Integer>>() {
+        }).subscribe(new Consumer<GroupedObservable<String, Integer>>() {
             @Override
-            public void call(GroupedObservable<String, Integer> stringIntegerGroupedObservable) {
+            public void accept(GroupedObservable<String, Integer> stringIntegerGroupedObservable) throws Exception {
                 String key = stringIntegerGroupedObservable.getKey();
                 LogUtil.i("key="+key);
                 if("偶数".equals(key)){
-                    stringIntegerGroupedObservable.subscribe(new Action1<Integer>() {
+                    stringIntegerGroupedObservable.subscribe(new Consumer<Integer>() {
                         @Override
-                        public void call(Integer integer) {
+                        public void accept(Integer integer) throws Exception {
                             LogUtil.i(""+integer);
                         }
                     });
@@ -223,9 +235,9 @@ public class RxJavaOperatorConvert extends AppCompatActivity implements View.OnC
         //call 回掉第一个参数是上次的结算结果，第二个参数是当此的源observable的输入值
         //下面是依次做乘法的例子,第一次并不会执行call方法，
         //注意:当执行原Observable输入的第一个时,并不会回掉call函数，也就是说第一次并不参与运算，直接输给订阅者
-        Observable.just(1,2,3,4,5).scan(new Func2<Integer, Integer, Integer>() {
+        Observable.just(1,2,3,4,5).scan(new BiFunction<Integer, Integer, Integer>() {
             @Override
-            public Integer call(Integer integer, Integer integer2) {
+            public Integer apply(@NonNull Integer integer, @NonNull Integer integer2) throws Exception {
                 //interger 是上次执行的结果，integer2是此Observable的输入值
                 LogUtil.i("integer="+integer);
                 LogUtil.i("integer2="+integer2);
@@ -233,12 +245,17 @@ public class RxJavaOperatorConvert extends AppCompatActivity implements View.OnC
             }
         }).subscribe(new Observer<Integer>() {
             @Override
-            public void onCompleted() {
+            public void onError(Throwable e) {
 
             }
 
             @Override
-            public void onError(Throwable e) {
+            public void onComplete() {
+
+            }
+
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
 
             }
 
@@ -259,19 +276,24 @@ public class RxJavaOperatorConvert extends AppCompatActivity implements View.OnC
         //switchMap()和flatMap()很像，除了一点:当源Observable发射一个新的数据项时，
         // 如果旧数据项订阅还未完成，就取消旧订阅数据和停止监视那个数据项产生的Observable,
         // 开始监视新的数据项
-        Observable.just("A","B","C","D").switchMap(new Func1<String, Observable<String>>() {
+        Observable.just("A","B","C","D").switchMap(new Function<String, ObservableSource<String>>() {
             @Override
-            public Observable<String> call(String s) {
+            public ObservableSource<String> apply(@NonNull String s) throws Exception {
                 return Observable.just(s);
             }
         }).subscribe(new Observer<String>() {
             @Override
-            public void onCompleted() {
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
                 LogUtil.i("这是在同一线程产生数据，所以当第二个数据项来临时，第一个已经完成了，同理b，c,d都将完成");
             }
 
             @Override
-            public void onError(Throwable e) {
+            public void onSubscribe(@NonNull Disposable d) {
 
             }
 
@@ -282,19 +304,24 @@ public class RxJavaOperatorConvert extends AppCompatActivity implements View.OnC
         });
 
         String[] arr = new String[]{"A","B","C","D"};
-        Observable.from(arr).switchMap(new Func1<String, Observable<String>>() {
+        Observable.fromArray(arr).switchMap(new Function<String, ObservableSource<String>>() {
             @Override
-            public Observable<String> call(String s) {
+            public ObservableSource<String> apply(@NonNull String s) throws Exception {
                 return Observable.just(s).subscribeOn(Schedulers.newThread());
             }
         }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<String>() {
             @Override
-            public void onCompleted() {
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
                 LogUtil.i("这是在多线程产生数据,当源Observable发射一个新的数据项时，如果旧数据项订阅还未完成，就取消旧订阅数据和停止监视那个数据项产生的Observable,开始监视新的数据项");
             }
 
             @Override
-            public void onError(Throwable e) {
+            public void onSubscribe(@NonNull Disposable d) {
 
             }
 
@@ -312,14 +339,14 @@ public class RxJavaOperatorConvert extends AppCompatActivity implements View.OnC
         City[] citys = {c1,c2,c3};
         //flatMapIterable()和flatMap()几乎是一样的，
         // 不同的是flatMapIterable()它转化的多个Observable是使用Iterable作为源数据的
-        Observable.from(citys).flatMapIterable(new Func1<City, Iterable<House>>() {
+        Observable.fromArray(citys).flatMapIterable(new Function<City, Iterable<House>>() {
             @Override
-            public Iterable<House> call(City city) {
+            public Iterable<House> apply(@NonNull City city) throws Exception {
                 return city.housesList;
             }
-        }).subscribe(new Action1<House>() {
+        }).subscribe(new Consumer<House>() {
             @Override
-            public void call(House house) {
+            public void accept(House house) throws Exception {
                 LogUtil.i("flatMapIterable转换后      "+house.price);
             }
         });
@@ -345,15 +372,14 @@ public class RxJavaOperatorConvert extends AppCompatActivity implements View.OnC
         City c5 = new City(78.00);
         City c6 = new City(89.00);
         City[] citys = {c1,c2,c3,c4,c5,c6};
-        Observable.from(citys).flatMap(new Func1<City, Observable<House>>() {
+        Observable.fromArray(citys).flatMap(new Function<City, Observable<House>>() {
             @Override
-            public Observable<House> call(City city) {
-                return Observable.from(city.houses).subscribeOn(Schedulers.io());
+            public Observable<House> apply(@NonNull City city) throws Exception {
+                return Observable.fromArray(city.houses).subscribeOn(Schedulers.io());
             }
-        })
-                .subscribe(new Action1<House>() {
+        }).subscribe(new Consumer<House>() {
             @Override
-            public void call(House house) {
+            public void accept(House house) throws Exception {
                 LogUtil.i(""+house.price+"---threadId="+Thread.currentThread().getId());//打印的结果是无序的
                 //需要多试几次，才可能看到打印的结果是无序的
 //                08-22 19:55:39.680 26138-26138/test.cn.example.com.androidskill I/MY_LOG: RxJavaOperatorConvert.java::357::call-->>23.0---threadId=1
@@ -370,14 +396,15 @@ public class RxJavaOperatorConvert extends AppCompatActivity implements View.OnC
         //map():对Observable发射的每一项数据使用函数执行变换操作，然后在发射出去。
         // 返回的对象可以随便指定，可以实现一对一的转换
         Observable<Integer> observable = Observable.just(1,2,3,5,9,7);
-        observable.map(new Func1<Integer,String>(){//将Integer转换成String
+        observable.map(new Function<Integer, String>(){
             @Override
-            public String call(Integer integer) {
+            public String apply(@NonNull Integer integer) throws Exception {
+                //将Integer转换成String
                 return "this is "+integer;
             }
-        }).subscribe(new Action1<String>() {
+        }).subscribe(new Consumer<String>() {
             @Override
-            public void call(String s) {
+            public void accept(String s) throws Exception {
                 LogUtil.i(s);
             }
         });

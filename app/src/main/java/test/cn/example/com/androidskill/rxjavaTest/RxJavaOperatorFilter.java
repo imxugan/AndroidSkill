@@ -7,12 +7,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import org.reactivestreams.Subscriber;
+
 import java.util.concurrent.TimeUnit;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
+import io.reactivex.CompletableObserver;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.Single;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
+import io.reactivex.schedulers.Schedulers;
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.util.LogUtil;
 
@@ -21,10 +31,17 @@ import static test.cn.example.com.util.LogUtil.i;
 /**
  * RxJava过滤操作符使用
  * Created by xgxg on 2017/8/21.
+ *
+ * RxJava2.x使用以及操作符详解
+ * https://blog.csdn.net/u011200604/article/details/72934661
+ *
+ * RxJava2 Flowable first 、last (过滤操作符)
+ * https://blog.csdn.net/weixin_36709064/article/details/82957330
+ *
  */
 
 public class RxJavaOperatorFilter extends AppCompatActivity implements View.OnClickListener{
-    private Subscriber mSubscriber;
+    private Observer mSubscriber;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,15 +89,20 @@ public class RxJavaOperatorFilter extends AppCompatActivity implements View.OnCl
     }
 
     private void initSubscribe(){
-        mSubscriber = new Subscriber() {
+        mSubscriber = new Observer() {
             @Override
-            public void onCompleted() {
+            public void onError(Throwable e) {
+                i(""+e.toString());
+            }
+
+            @Override
+            public void onComplete() {
                 i("onCompleted");
             }
 
             @Override
-            public void onError(Throwable e) {
-                i(""+e.toString());
+            public void onSubscribe(@NonNull Disposable d) {
+
             }
 
             @Override
@@ -139,39 +161,39 @@ public class RxJavaOperatorFilter extends AppCompatActivity implements View.OnCl
                 takeLast();
                 break;
             case R.id.takeLastBuffer:
-                takeLastBuffer();
+//                takeLastBuffer();//rxjava2中去掉了
                 break;
         }
     }
 
-    private void takeLastBuffer(){
-        //takeLastBuffer(count)操作符与takeLast(count)操作符类似，
-        // 唯一不同就是takeLastBuffer(count)将最后的那些数据项收集到一个list集合中
-        // 提交这个集合给订阅者
-        initSubscribe();
-        Observable.range(1,5).takeLastBuffer(3).subscribe(mSubscriber);
-        //打印结果：
-//        08-23 16:40:01.790 10072-10072/test.cn.example.com.androidskill I/MY_LOG: RxJavaOperatorFilter.java::87::onNext-->>[3, 4, 5]
-
-
-        //takeLastBuffer(long,TimeUnit)操作符与takeLast(long,TimeUnit)操作符类似，
-        // 唯一不同就是将在最后时间段Long中数据项收集到一个list集合中，
-        //将这个集合提交给了订阅者，可以指定运行的线程。
-        LogUtil.i("---takeLastBuffer(long,TimeUnit)---");
-        initSubscribe();
-        Observable.create(new Observable.OnSubscribe<Integer>() {
-            @Override
-            public void call(Subscriber<? super Integer> subscriber) {
-                for (int i=0;i<9;i++){
-                    subscriber.onNext(i);
-                    SystemClock.sleep(100);
-                }
-                subscriber.onCompleted();
-            }
-        }).takeLastBuffer(300,TimeUnit.MILLISECONDS).subscribe(mSubscriber);
-        //打印结果：(要看到打印结果，一定要手动调用subscriber.onCompleted(); 否则是看不到打印结果的)
-//        08-23 17:41:07.910 3294-3294/test.cn.example.com.androidskill I/MY_LOG: RxJavaOperatorFilter.java::88::onNext-->>[7, 8]
-    }
+//    private void takeLastBuffer(){
+//        //takeLastBuffer(count)操作符与takeLast(count)操作符类似，
+//        // 唯一不同就是takeLastBuffer(count)将最后的那些数据项收集到一个list集合中
+//        // 提交这个集合给订阅者
+//        initSubscribe();
+//        Observable.range(1,5).takeLastBuffer(3).subscribe(mSubscriber);
+//        //打印结果：
+////        08-23 16:40:01.790 10072-10072/test.cn.example.com.androidskill I/MY_LOG: RxJavaOperatorFilter.java::87::onNext-->>[3, 4, 5]
+//
+//
+//        //takeLastBuffer(long,TimeUnit)操作符与takeLast(long,TimeUnit)操作符类似，
+//        // 唯一不同就是将在最后时间段Long中数据项收集到一个list集合中，
+//        //将这个集合提交给了订阅者，可以指定运行的线程。
+//        LogUtil.i("---takeLastBuffer(long,TimeUnit)---");
+//        initSubscribe();
+//        Observable.create(new ObservableOnSubscribe<Integer>() {
+//            @Override
+//            public void subscribe(@NonNull ObservableEmitter<Integer> emitter) throws Exception {
+//                for (int i=0;i<9;i++){
+//                    emitter.onNext(i);
+//                    SystemClock.sleep(100);
+//                }
+//                emitter.onComplete();
+//            }
+//        }).takeLastBuffer(300,TimeUnit.MILLISECONDS).subscribe(mSubscriber);
+//        //打印结果：(要看到打印结果，一定要手动调用subscriber.onCompleted(); 否则是看不到打印结果的)
+////        08-23 17:41:07.910 3294-3294/test.cn.example.com.androidskill I/MY_LOG: RxJavaOperatorFilter.java::88::onNext-->>[7, 8]
+//    }
 
     private void takeLast(){
         //takeLast(count)操作符对于源Observable发射的数据项，
@@ -188,17 +210,17 @@ public class RxJavaOperatorFilter extends AppCompatActivity implements View.OnCl
         // 提取后面long时间段里的数据项提交给订阅者，忽略前面的，可以指定线程
         LogUtil.i("---takeLast(long,TimeUnit)---");
         initSubscribe();
-        Observable.create(new Observable.OnSubscribe<Integer>() {
+        Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
-            public void call(Subscriber<? super Integer> subscriber) {
-                if(subscriber.isUnsubscribed()){
+            public void subscribe(@NonNull ObservableEmitter<Integer> emitter) throws Exception {
+                if(emitter.isDisposed()){
                     return;
                 }
-                    for(int i =0;i<9;i++){
-                        SystemClock.sleep(100);
-                        subscriber.onNext(i);
-                    }
-                subscriber.onCompleted();
+                for(int i =0;i<9;i++){
+                    SystemClock.sleep(100);
+                    emitter.onNext(i);
+                }
+                emitter.onComplete();
             }
         }).subscribeOn(Schedulers.computation())
                 .takeLast(300,TimeUnit.MILLISECONDS)
@@ -253,19 +275,19 @@ public class RxJavaOperatorFilter extends AppCompatActivity implements View.OnCl
         //skipLast(long,TimeUnit)对于原Observalbe发射的数据项，省略最后long时间段的数据项，
         // 将之前的数据提交给订阅者，可以指定执行线程
         initSubscribe();
-        Observable.create(new Observable.OnSubscribe<Integer>() {
+        Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
-            public void call(Subscriber<? super Integer> subscriber) {
-                if(subscriber.isUnsubscribed()){
+            public void subscribe(@NonNull ObservableEmitter<Integer> emitter) throws Exception {
+                if(emitter.isDisposed()){
                     return;
                 }
                 try{
                     for(int i =0;i<9;i++){
-                        subscriber.onNext(i);
+                        emitter.onNext(i);
                         Thread.sleep(100);
                     }
                 }catch (InterruptedException e){
-                    subscriber.onError(e);
+                    emitter.onError(e);
                 }
             }
         }).skipLast(220,TimeUnit.MILLISECONDS).subscribe(mSubscriber);
@@ -295,19 +317,19 @@ public class RxJavaOperatorFilter extends AppCompatActivity implements View.OnCl
         //skip(long,TimeUnit)对于原Observalbe发射的数据项，跳过long前的数据项，
         LogUtil.i("---skip(long,TimeUnit)---");
         initSubscribe();
-        Observable.create(new Observable.OnSubscribe<Integer>() {
+        Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
-            public void call(Subscriber<? super Integer> subscriber) {
-                if(subscriber.isUnsubscribed()){
+            public void subscribe(@NonNull ObservableEmitter<Integer> emitter) throws Exception {
+                if(emitter.isDisposed()){
                     return;
                 }
                 try{
                     for(int i=0;i<9;i++){
-                        subscriber.onNext(i);
+                        emitter.onNext(i);
                         Thread.sleep(100);
                     }
                 }catch (InterruptedException e){
-                    subscriber.onError(e);
+                    emitter.onError(e);
                 }
             }
         }).skip(220,TimeUnit.MILLISECONDS).subscribe(mSubscriber);
@@ -329,7 +351,12 @@ public class RxJavaOperatorFilter extends AppCompatActivity implements View.OnCl
 //        如果符合条件的数据数量大于1就会抛异常。不是正好是一个数据项就会抛异常
 //        也有设置默认值得api，默认不在任何特定的调度器上执行
         initSubscribe();
-        Observable.just(1,3,5).single().subscribe(mSubscriber);
+        Observable.just(1,3,5).singleOrError().subscribe(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer integer) throws Exception {
+                LogUtil.i(integer+"");
+            }
+        });
         //打印结果：
 //        08-23 14:54:29.240 7605-7605/test.cn.example.com.androidskill I/MY_LOG: RxJavaOperatorFilter.java::72::onError-->>java.lang.IllegalArgumentException: Sequence contains too many elements
 
@@ -338,12 +365,17 @@ public class RxJavaOperatorFilter extends AppCompatActivity implements View.OnCl
         // 如果符合条件的数据数量大于1就会抛异常。不是正好是一个数据项就会抛异常
 //        也有设置默认值得api，默认不在任何特定的调度器上执行
         initSubscribe();
-        Observable.just(1,3,5).single(new Func1<Integer, Boolean>() {
+        Observable.just(1,3,5).filter(new Predicate<Integer>() {
             @Override
-            public Boolean call(Integer integer) {
+            public boolean test(@NonNull Integer integer) throws Exception {
                 return integer>5;
             }
-        }).subscribe(mSubscriber);
+        }).singleOrError().subscribe(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer integer) throws Exception {
+                LogUtil.i(""+integer);
+            }
+        });
         //打印结果：
 //        08-23 14:57:20.610 10681-10681/test.cn.example.com.androidskill I/MY_LOG: RxJavaOperatorFilter.java::72::onError-->>java.util.NoSuchElementException: Sequence contains no elements
 
@@ -368,7 +400,12 @@ public class RxJavaOperatorFilter extends AppCompatActivity implements View.OnCl
         //如果源序列包含多个元素，则抛异常
         LogUtil.i("---singleOrDefault(T)---");
         initSubscribe();
-        Observable.just(1,3.5).singleOrDefault(9).subscribe(mSubscriber);
+        Observable.just(1, 3,5).single(9).subscribe(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer integer) throws Exception {
+                LogUtil.i(integer+"");
+            }
+        });
         //打印结果：
 //        08-23 15:09:58.760 14815-14815/test.cn.example.com.androidskill I/MY_LOG: RxJavaOperatorFilter.java::72::onError-->>java.lang.IllegalArgumentException: Sequence contains too many elements
 
@@ -378,12 +415,17 @@ public class RxJavaOperatorFilter extends AppCompatActivity implements View.OnCl
         //如果源序列包含多个元素，则抛异常
         LogUtil.i("---singleOrDefault(T,Func1)---");
         initSubscribe();
-        Observable.just(1,3).singleOrDefault(9, new Func1<Integer, Boolean>() {
+        Observable.just(1,3).single(9).filter(new Predicate<Integer>() {
             @Override
-            public Boolean call(Integer integer) {
+            public boolean test(@NonNull Integer integer) throws Exception {
                 return integer>3;
             }
-        }).subscribe(mSubscriber);
+        }).subscribe(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer integer) throws Exception {
+                LogUtil.i(integer+"");
+            }
+        });
         //打印结果：
 //        08-23 15:18:32.940 28823-28823/test.cn.example.com.androidskill I/MY_LOG: RxJavaOperatorFilter.java::77::onNext-->>9
     }
@@ -395,19 +437,19 @@ public class RxJavaOperatorFilter extends AppCompatActivity implements View.OnCl
         //具体的理解这个第一项数据，就是从上次采样时间开始计时，从这个时间点后，发射器发射的第一个数据。
         //和sample的区别是，sample取的是时间间隔的最后一项，而throttleFirst取的是时间间隔的第一项
         initSubscribe();
-        Observable.create(new Observable.OnSubscribe<Integer>() {
+        Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
-            public void call(Subscriber<? super Integer> subscriber) {
-                if(subscriber.isUnsubscribed()){
+            public void subscribe(@NonNull ObservableEmitter<Integer> emitter) throws Exception {
+                if(emitter.isDisposed()){
                     return;
                 }
                 try{
                     for(int i =0;i<9;i++){
-                        subscriber.onNext(i);
+                        emitter.onNext(i);
                         Thread.sleep(100);
                     }
                 }catch (InterruptedException e){
-                    subscriber.onError(e);
+                    emitter.onError(e);
                 }
             }
         }).throttleFirst(270,TimeUnit.MILLISECONDS).subscribe(mSubscriber);
@@ -426,19 +468,19 @@ public class RxJavaOperatorFilter extends AppCompatActivity implements View.OnCl
 //        与之对应的操作符是throttleFirst,它采样的是采样时间间隔中第一项数据，
 //        在最后一个时间段会发射最后一个数据项
         initSubscribe();
-        Observable.create(new Observable.OnSubscribe<Integer>() {
+        Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
-            public void call(Subscriber<? super Integer> subscriber) {
-                if(subscriber.isUnsubscribed()){
+            public void subscribe(@NonNull ObservableEmitter<Integer> emitter) throws Exception {
+                if(emitter.isDisposed()){
                     return;
                 }
                 try {
                     for(int i=0;i<9;i++){
-                        subscriber.onNext(i);
+                        emitter.onNext(i);
                         Thread.sleep(100);
                     }
                 }catch (InterruptedException e){
-                    subscriber.onError(e);
+                    emitter.onError(e);
                 }
             }
         })
@@ -472,7 +514,12 @@ public class RxJavaOperatorFilter extends AppCompatActivity implements View.OnCl
         LogUtil.i("---last()---");
         initSubscribe();
         Integer[] arr = new Integer[]{1,2,2,3,5,6,5};
-        Observable.from(arr).last().subscribe(mSubscriber);
+        Observable.fromArray(arr).lastElement().subscribe(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer integer) throws Exception {
+                LogUtil.i(integer+"");
+            }
+        });
         //打印结果：
 //        08-23 13:45:06.430 8794-8794/test.cn.example.com.androidskill I/MY_LOG: RxJavaOperatorFilter.java::69::onNext-->>5
 
@@ -480,12 +527,17 @@ public class RxJavaOperatorFilter extends AppCompatActivity implements View.OnCl
         // 注意只返回一项数据，不是所有满足条件的数据都返回
         LogUtil.i("---last(Func1)---");
         initSubscribe();
-        Observable.just(1,2,2,3,5,6,5).last(new Func1<Integer, Boolean>() {
+        Observable.just(1,2,2,3,5,6,5).filter(new Predicate<Integer>() {
             @Override
-            public Boolean call(Integer integer) {
+            public boolean test(@NonNull Integer integer) throws Exception {
                 return integer>=5;
             }
-        }).subscribe(mSubscriber);
+        }).lastElement().subscribe(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer integer) throws Exception {
+                LogUtil.i(""+integer);
+            }
+        });
         //打印结果：
 //        08-23 13:45:06.450 8794-8794/test.cn.example.com.androidskill I/MY_LOG: RxJavaOperatorFilter.java::69::onNext-->>5
 
@@ -493,7 +545,12 @@ public class RxJavaOperatorFilter extends AppCompatActivity implements View.OnCl
         //lastOrDefault(T）操作符是在Observable没有发射任何数据时提交一个指定的默认值
         LogUtil.i("---lastOrDefault(T）---");
         initSubscribe();
-        Observable.just(1,2,2,3,5,6,5).lastOrDefault(10).subscribe(mSubscriber);
+        Observable.just(1,2,2,3,5,6,5).last(10).subscribe(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer integer) throws Exception {
+                LogUtil.i(""+integer);
+            }
+        });
         //打印结果：
 //        08-23 13:49:40.190 13161-13161/test.cn.example.com.androidskill I/MY_LOG: RxJavaOperatorFilter.java::69::onNext-->>5
 
@@ -501,12 +558,17 @@ public class RxJavaOperatorFilter extends AppCompatActivity implements View.OnCl
         //lastOrDefault(T,Func1) 操作符是在Observable没有发射满足条件的数据时提交一个指定的默认值
         LogUtil.i("---lastOrDefault(T）---");
         initSubscribe();
-        Observable.just(1,2,2,3,5,6,5).lastOrDefault(10, new Func1<Integer, Boolean>() {
+        Observable.just(1,2,2,3,5,6,5).last(10).filter(new Predicate<Integer>() {
             @Override
-            public Boolean call(Integer integer) {
+            public boolean test(@NonNull Integer integer) throws Exception {
                 return integer>6;
             }
-        }).subscribe(mSubscriber);
+        }).subscribe(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer integer) throws Exception {
+                LogUtil.i(integer+"");
+            }
+        });
         //打印结果：
 //        08-23 13:51:51.820 15439-15439/test.cn.example.com.androidskill I/MY_LOG: RxJavaOperatorFilter.java::69::onNext-->>10
     }
@@ -515,7 +577,22 @@ public class RxJavaOperatorFilter extends AppCompatActivity implements View.OnCl
         //ignoreElements()操作符不提交任何数据给订阅者，
         // 只提交终止通知（onError或者onCompeleted）给订阅者，默认不在任何特定的调度器上执行
         initSubscribe();
-        Observable.range(2,5).ignoreElements().subscribe(mSubscriber);
+        Observable.range(2,5).ignoreElements().subscribe(new CompletableObserver() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onComplete() {
+                LogUtil.i("onComplete");
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+
+            }
+        });
         //打印结果；
 //        08-23 12:02:32.470 16317-16317/test.cn.example.com.androidskill I/MY_LOG: RxJavaOperatorFilter.java::57::onCompleted-->>onCompleted
     }
@@ -530,19 +607,29 @@ public class RxJavaOperatorFilter extends AppCompatActivity implements View.OnCl
 //        会调用onCompleted，而first(Func1)会抛一个NoSuchElementException的异常
         LogUtil.i("---first()---");
         initSubscribe();
-        Observable.just(1,2,3,5,7).first().subscribe(mSubscriber);
+        Observable.just(1,2,3,5,7).first(1).subscribe(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer integer) throws Exception {
+                LogUtil.i(integer+"");
+            }
+        });
         //打印结果：
 //        08-23 11:41:56.030 30569-30569/test.cn.example.com.androidskill I/MY_LOG: RxJavaOperatorFilter.java::65::onNext-->>1
 
         //first(Func1)操作符是提交第一项符合自定义条件的数据
         LogUtil.i("---first(Func1)---");
         initSubscribe();
-        Observable.just(1,2,3,5,7).first(new Func1<Integer, Boolean>() {
+        Observable.just(1,2,3,5,7).filter(new Predicate<Integer>() {
             @Override
-            public Boolean call(Integer integer) {
+            public boolean test(@NonNull Integer integer) throws Exception {
                 return integer>3;
             }
-        }).subscribe(mSubscriber);
+        }).firstElement().subscribe(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer integer) throws Exception {
+                LogUtil.i(integer+"");
+            }
+        });
         //打印结果：
 //        08-23 11:44:47.330 1431-1431/test.cn.example.com.androidskill I/MY_LOG: RxJavaOperatorFilter.java::65::onNext-->>5
 
@@ -550,7 +637,12 @@ public class RxJavaOperatorFilter extends AppCompatActivity implements View.OnCl
         //firstOrDefault(T)操作符是在Observable没有发射任何数据时提交一个指定的默认值
         LogUtil.i("---firstOrDefault(T)---");
         initSubscribe();
-        Observable.just(1,2,3,5,7).firstOrDefault(9).subscribe(mSubscriber);
+        Observable.just(1,2,3,5,7).first(9).subscribe(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer integer) throws Exception {
+                LogUtil.i(integer+"");
+            }
+        });
         //打印结果：
 //        08-23 11:48:14.890 4412-4412/test.cn.example.com.androidskill I/MY_LOG: RxJavaOperatorFilter.java::65::onNext-->>1
 
@@ -558,12 +650,17 @@ public class RxJavaOperatorFilter extends AppCompatActivity implements View.OnCl
         //firstOrDefault(T,Func1)操作符是在Observable没有发射满足条件的数据时提交一个指定的默认值
         LogUtil.i("---firstOrDefault(T,Func1)---");
         initSubscribe();
-        Observable.just(1,2,3,5,7).firstOrDefault(9, new Func1<Integer, Boolean>() {
+        Observable.just(1,2,3,5,7).first(9).filter(new Predicate<Integer>() {
             @Override
-            public Boolean call(Integer integer) {
-                return integer>10;
+            public boolean test(@NonNull Integer integer) throws Exception {
+                return integer > 10;
             }
-        }).subscribe(mSubscriber);
+        }).subscribe(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer integer) throws Exception {
+
+            }
+        });
         //打印结果：
 //        08-23 11:52:28.460 7896-7896/test.cn.example.com.androidskill I/MY_LOG: RxJavaOperatorFilter.java::65::onNext-->>9
 
@@ -573,12 +670,17 @@ public class RxJavaOperatorFilter extends AppCompatActivity implements View.OnCl
         // 会调用onCompleted，而first(Func1)会抛一个NoSuchElementException的异常
         LogUtil.i("---takeFirst(Func1)---");
         initSubscribe();
-        Observable.just(1,2,3,5,7).takeFirst(new Func1<Integer, Boolean>() {
+        Observable.just(1,2,3,5,7).take(1).filter(new Predicate<Integer>() {
             @Override
-            public Boolean call(Integer integer) {
+            public boolean test(@NonNull Integer integer) throws Exception {
                 return integer>9;
             }
-        }).subscribe(mSubscriber);
+        }).subscribe(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer integer) throws Exception {
+                LogUtil.i(""+integer);
+            }
+        });
         //打印结果：
 //        08-23 11:56:55.320 11659-11659/test.cn.example.com.androidskill I/MY_LOG: RxJavaOperatorFilter.java::55::onCompleted-->>onCompleted
     }
@@ -587,12 +689,17 @@ public class RxJavaOperatorFilter extends AppCompatActivity implements View.OnCl
         //filter操作符对源Observable发射的数据项按照指定的条件进行过滤，
         // 满足的条件的才会调给订阅者。默认不在任何特定的调度器上执行
         initSubscribe();
-        Observable.just(1,3,5,7).filter(new Func1<Integer, Boolean>() {
+        Observable.just(1,3,5,7).filter(new Predicate<Integer>() {
             @Override
-            public Boolean call(Integer integer) {
+            public boolean test(@NonNull Integer integer) throws Exception {
                 return integer>3;
             }
-        }).subscribe(mSubscriber);
+        }).subscribe(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer integer) throws Exception {
+                LogUtil.i(integer+"");
+            }
+        });
         //打印结果：
 //        08-23 11:36:27.410 26704-26704/test.cn.example.com.androidskill I/MY_LOG: RxJavaOperatorFilter.java::63::onNext-->>5
 //        08-23 11:36:27.420 26704-26704/test.cn.example.com.androidskill I/MY_LOG: RxJavaOperatorFilter.java::63::onNext-->>7
@@ -603,7 +710,12 @@ public class RxJavaOperatorFilter extends AppCompatActivity implements View.OnCl
         //将指定索引的数据项提交给订阅者，索引是从0开始，当没有这个索引或者索引为负数会抛异常。
         LogUtil.i("---elementAt(index)---");
         initSubscribe();
-        Observable.just(1,2,3,5).elementAt(2).subscribe(mSubscriber);
+        Observable.just(1,2,3,5).elementAt(2).subscribe(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer integer) throws Exception {
+                LogUtil.i(integer+"");
+            }
+        });
         //打印结果：
 //        08-23 11:27:42.300 19148-19148/test.cn.example.com.androidskill I/MY_LOG: RxJavaOperatorFilter.java::60::onNext-->>3
 
@@ -612,7 +724,12 @@ public class RxJavaOperatorFilter extends AppCompatActivity implements View.OnCl
         //elementAtOrDefault(index,default)：这个会设置一个默认值，当没有指定的索引就提交默认值给订阅者，为负数就抛异常
         LogUtil.i("---elementAtOrDefault(index,default)---");
         initSubscribe();
-        Observable.just(1,2,3,5).elementAtOrDefault(6,0).subscribe(mSubscriber);
+        Observable.just(1,2,3,5).elementAt(6,0).subscribe(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer integer) throws Exception {
+                LogUtil.i(""+integer);
+            }
+        });
         //打印结果：
 //        08-23 11:31:41.500 22447-22447/test.cn.example.com.androidskill I/MY_LOG: RxJavaOperatorFilter.java::60::onNext-->>0
     }
@@ -644,9 +761,9 @@ public class RxJavaOperatorFilter extends AppCompatActivity implements View.OnCl
         //由于第一个5已经返回了true,后续的两个5返回的true都被被虑掉了，所以不打印，后续的7,7,9
         //由于返回的是false，之前有fasle了，所以7,7,9返回的false都被过滤掉了，所以7,7,9也不打印。
         initSubscribe();
-        Observable.just(1,2,3,3,5,5,7,7,9,7).distinct(new Func1<Integer, Boolean>() {
+        Observable.just(1,2,3,3,5,5,7,7,9,7).distinct(new Function<Integer, Boolean>() {
             @Override
-            public Boolean call(Integer integer) {
+            public Boolean apply(@NonNull Integer integer) throws Exception {
                 boolean result = (integer == 5);
                 return result;
             }
@@ -671,9 +788,9 @@ public class RxJavaOperatorFilter extends AppCompatActivity implements View.OnCl
         LogUtil.i("-----distinctUnitilChanged(Func1)----");
         //使用distinctUnitilChanged(Func1)也是根据返回的key值去比较过滤
         initSubscribe();
-        Observable.just(1,2,3,3,5,5,7,7,9,7).distinctUntilChanged(new Func1<Integer, Boolean>() {
+        Observable.just(1,2,3,3,5,5,7,7,9,7).distinctUntilChanged(new Function<Integer, Boolean>() {
             @Override
-            public Boolean call(Integer integer) {
+            public Boolean apply(@NonNull Integer integer) throws Exception {
                 return (integer == 5);
             }
         }).subscribe(mSubscriber);
@@ -691,22 +808,21 @@ public class RxJavaOperatorFilter extends AppCompatActivity implements View.OnCl
         // 可以过滤掉发射速率过快的数据项，默认在computatiion调度器上执行，可以指定执行线程
         //值得注意的是，如果源Observable产生的最后一个结果后在规定的时间间隔内调用了onCompleted，
 //        那么通过debounce操作符也会把这个结果提交给订阅者
-        Observable.create(new Observable.OnSubscribe<Object>() {
+        Observable.create(new ObservableOnSubscribe<Object>() {
             @Override
-            public void call(Subscriber<? super Object> subscriber) {
-                if(subscriber.isUnsubscribed()){
+            public void subscribe(@NonNull ObservableEmitter<Object> emitter) throws Exception {
+                if(emitter.isDisposed()){
                     return;
                 }
                 try {
                     for (int i=0;i<9;i++){
 //                        LogUtil.i(""+i);
-                            subscriber.onNext(i);
-                            Thread.sleep(400);
+                        emitter.onNext(i);
+                        Thread.sleep(400);
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-
             }
         })
                 .subscribeOn(Schedulers.newThread())

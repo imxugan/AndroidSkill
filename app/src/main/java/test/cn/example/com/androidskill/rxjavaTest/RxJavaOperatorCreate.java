@@ -6,11 +6,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import org.reactivestreams.Subscriber;
+
+import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.functions.Func0;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.util.LogUtil;
 
@@ -55,15 +61,20 @@ public class RxJavaOperatorCreate extends AppCompatActivity implements View.OnCl
     private void never(){
         //创建一个什么都不做的Observable
         Observable observable = Observable.never();
-        observable.subscribe(new Subscriber() {
+        observable.subscribe(new Observer() {
             @Override
-            public void onCompleted() {
+            public void onError(Throwable e) {
+                LogUtil.i("onError");
+            }
+
+            @Override
+            public void onComplete() {
                 LogUtil.i("onCompleted");
             }
 
             @Override
-            public void onError(Throwable e) {
-                LogUtil.i("onError");
+            public void onSubscribe(@NonNull Disposable d) {
+
             }
 
             @Override
@@ -79,15 +90,20 @@ public class RxJavaOperatorCreate extends AppCompatActivity implements View.OnCl
     private void error(){
         // 创建一个什么都不做直接通知错误的Observable,//直接调用onError。这里可以自定义异常
         Observable observable = Observable.error(new NullPointerException("空指针异常"));
-        observable.subscribe(new Subscriber() {
+        observable.subscribe(new Observer() {
             @Override
-            public void onCompleted() {
+            public void onError(Throwable e) {
+                LogUtil.i(e.getMessage());//onError-->>空指针异常
+            }
+
+            @Override
+            public void onComplete() {
 
             }
 
             @Override
-            public void onError(Throwable e) {
-                LogUtil.i(e.getMessage());//onError-->>空指针异常
+            public void onSubscribe(@NonNull Disposable d) {
+
             }
 
             @Override
@@ -100,14 +116,19 @@ public class RxJavaOperatorCreate extends AppCompatActivity implements View.OnCl
     private void empty(){
         //empty： 创建一个什么都不做直接通知完成的Observable,直接调用onCompleted
        Observable observable = Observable.empty();
-        observable.subscribe(new Subscriber() {
+        observable.subscribe(new Observer() {
             @Override
-            public void onCompleted() {
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
                 LogUtil.i("onCompleted");//onCompleted
             }
 
             @Override
-            public void onError(Throwable e) {
+            public void onSubscribe(@NonNull Disposable d) {
 
             }
 
@@ -121,20 +142,25 @@ public class RxJavaOperatorCreate extends AppCompatActivity implements View.OnCl
     private void defer() {
         //defer： 只有当订阅者订阅才创建Observable，为每个订阅创建一个新的Observable。
         // 内部通过OnSubscribeDefer在订阅时调用Func0创建Observable。
-        Observable<String> observable = Observable.defer(new Func0<Observable<String>>() {
+        Observable<String> observable = Observable.defer(new Callable<Observable<String>>() {
             @Override
             public Observable<String> call() {
                 return Observable.just("defer operator");
             }
         });
-        Subscriber<String> subscriber = new Subscriber<String>() {
+        Observer<String> subscriber = new Observer<String>() {
             @Override
-            public void onCompleted() {
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
                 LogUtil.i("onCompleted");//onCompleted
             }
 
             @Override
-            public void onError(Throwable e) {
+            public void onSubscribe(@NonNull Disposable d) {
 
             }
 
@@ -149,14 +175,19 @@ public class RxJavaOperatorCreate extends AppCompatActivity implements View.OnCl
     private void repeat(){
         //Repeat 会将一个Observable对象重复发射，我们可以指定其发射的次数
         Observable<Integer> observable = Observable.just(1,2,3).repeat(2);
-        observable.subscribe(new Subscriber<Integer>() {
+        observable.subscribe(new Observer<Integer>() {
             @Override
-            public void onCompleted() {
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
                 LogUtil.i("onCompleted");//>onCompleted
             }
 
             @Override
-            public void onError(Throwable e) {
+            public void onSubscribe(@NonNull Disposable d) {
 
             }
 
@@ -170,14 +201,19 @@ public class RxJavaOperatorCreate extends AppCompatActivity implements View.OnCl
     private void timer(){
         //timer 创建一个在给定的延时之后发射数据项为0的Observable<Long>,内部通过OnSubscribeTimerOnce工作
         Observable<Long> observable = Observable.timer(1,TimeUnit.SECONDS);
-        Subscriber<Long> subscriber = new Subscriber<Long>() {
+        Observer<Long> subscriber = new Observer<Long>() {
             @Override
-            public void onCompleted() {
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
                 LogUtil.i("onCompleted");//onCompleted
             }
 
             @Override
-            public void onError(Throwable e) {
+            public void onSubscribe(@NonNull Disposable d) {
 
             }
 
@@ -198,14 +234,19 @@ public class RxJavaOperatorCreate extends AppCompatActivity implements View.OnCl
         //第一个参数：代表两个消息发送之间的间隔时间(轮训时间)
         //第二个参数：时间单位：(毫秒，秒，分钟) TimeUtil时间工具类
         Observable observable  = Observable.interval(1,TimeUnit.SECONDS);
-        Subscriber subscriber = new Subscriber<Long>() {
+        Observer subscriber = new Observer<Long>() {
             @Override
-            public void onCompleted() {
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
                 LogUtil.i("onCompleted");
             }
 
             @Override
-            public void onError(Throwable e) {
+            public void onSubscribe(@NonNull Disposable d) {
 
             }
 
@@ -214,7 +255,7 @@ public class RxJavaOperatorCreate extends AppCompatActivity implements View.OnCl
                 LogUtil.i(""+aLong);
             }
         };
-        observable.unsafeSubscribe(subscriber);
+        observable.subscribe(subscriber);
 
         //interval的另外一种重载
         //Observable.interval(2,1,TimeUnit.SECONDS);
@@ -230,14 +271,19 @@ public class RxJavaOperatorCreate extends AppCompatActivity implements View.OnCl
         //第一个参数为起始值，
         // 第二个为发送的个数，如果为0则不发送，负数则抛异常
         //range(2,5)表示从2开始发射5个数据,2表示的是起始值，5表示的是个数
-        Observable.range(2,5).subscribe(new Subscriber<Integer>() {
+        Observable.range(2,5).subscribe(new Observer<Integer>() {
             @Override
-            public void onCompleted() {
+            public void onError(Throwable e) {
 
             }
 
             @Override
-            public void onError(Throwable e) {
+            public void onComplete() {
+
+            }
+
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
 
             }
 
@@ -250,15 +296,20 @@ public class RxJavaOperatorCreate extends AppCompatActivity implements View.OnCl
 
     private void from() {
         String[] names = {"jim","jack","tom"};
-        Observable<String> observable = Observable.from(names);
-        Subscriber<String> subscriber = new Subscriber<String>() {
+        Observable<String> observable = Observable.fromArray(names);
+        Observer<String> subscriber = new Observer<String>() {
             @Override
-            public void onCompleted() {
+            public void onError(Throwable e) {
 
             }
 
             @Override
-            public void onError(Throwable e) {
+            public void onComplete() {
+
+            }
+
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
 
             }
 
@@ -273,14 +324,19 @@ public class RxJavaOperatorCreate extends AppCompatActivity implements View.OnCl
 
     private void just() {
         Observable<String> observable = Observable.just("a","b","c","d");
-        Subscriber<String> subscriber = new Subscriber<String>() {
+        Observer<String> subscriber = new Observer<String>() {
             @Override
-            public void onCompleted() {
+            public void onError(Throwable e) {
 
             }
 
             @Override
-            public void onError(Throwable e) {
+            public void onComplete() {
+
+            }
+
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
 
             }
 
@@ -293,21 +349,26 @@ public class RxJavaOperatorCreate extends AppCompatActivity implements View.OnCl
     }
 
     private void create() {
-        Observable<String> observable = Observable.create(new Observable.OnSubscribe<String>() {
+        Observable<String> observable = Observable.create(new ObservableOnSubscribe<String>() {
             @Override
-            public void call(Subscriber<? super String> subscriber) {
-                subscriber.onNext("create operator");
-                subscriber.onCompleted();
+            public void subscribe(@NonNull ObservableEmitter<String> emitter) throws Exception {
+                emitter.onNext("create operator");
+                emitter.onComplete();
             }
         });
-        Subscriber<String> subscriber = new Subscriber<String>() {
+        Observer<String> subscriber = new Observer<String>() {
             @Override
-            public void onCompleted() {
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
                 LogUtil.i("onCompleted");
             }
 
             @Override
-            public void onError(Throwable e) {
+            public void onSubscribe(@NonNull Disposable d) {
 
             }
 

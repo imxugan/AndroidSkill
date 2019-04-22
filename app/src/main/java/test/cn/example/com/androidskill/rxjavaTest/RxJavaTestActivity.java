@@ -7,11 +7,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import rx.Observable;
-import rx.Observer;
-import rx.Subscriber;
-import rx.functions.Action0;
-import rx.functions.Action1;
+import org.reactivestreams.Subscriber;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.util.LogUtil;
 
@@ -131,15 +136,15 @@ public class RxJavaTestActivity extends AppCompatActivity implements View.OnClic
 
     private void rxJavaActionTest() {
         //使用Action1
-        Observable.create(new Observable.OnSubscribe<String>(){
+        Observable.create(new ObservableOnSubscribe<String>(){
 
             @Override
-            public void call(Subscriber<? super String> subscriber) {
-                subscriber.onNext("aciont1 execute");
+            public void subscribe(@NonNull ObservableEmitter<String> emitter) throws Exception {
+                emitter.onNext("aciont1 execute");
             }
-        }).subscribe(new Action1<String>() {
+        }).subscribe(new Consumer<String>() {
             @Override
-            public void call(String s) {
+            public void accept(String s) throws Exception {
                 LogUtil.i(s);
             }
         });
@@ -147,23 +152,23 @@ public class RxJavaTestActivity extends AppCompatActivity implements View.OnClic
         //使用Action0
         Observable<String> observable = Observable.just("hello","rxjava");
         //处理next()中的内容
-        Action1<String> onNextAction = new Action1<String>() {
+        Consumer<String> onNextAction = new Consumer<String>() {
             @Override
-            public void call(String s) {
+            public void accept(String s) throws Exception {
                 LogUtil.i(s);
             }
         };
         //处理onError()中的内容
-        Action1<Throwable> onErrorAction = new Action1<Throwable>() {
+        Consumer<Throwable> onErrorAction = new Consumer<Throwable>() {
             @Override
-            public void call(Throwable throwable) {
+            public void accept(Throwable throwable) throws Exception {
                 LogUtil.i("onErrorAction");
             }
         };
         //处理onCompleted()中的内容
-        Action0 onCompletedAction = new Action0() {
+        Action onCompletedAction = new Action() {
             @Override
-            public void call() {
+            public void run() throws Exception {
                 LogUtil.i("completed");
             }
         };
@@ -174,23 +179,28 @@ public class RxJavaTestActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void rxJavaSimpleTest2() {
-        Observable.create(new Observable.OnSubscribe<String>(){
+        Observable.create(new ObservableOnSubscribe<String>(){
 
             @Override
-            public void call(Subscriber<? super String> subscriber) {
+            public void subscribe(@NonNull ObservableEmitter<String> emitter) throws Exception {
                 for (int i=0;i<5;i++){
-                    subscriber.onNext("     "+i);
+                    emitter.onNext("     "+i);
                 }
-                subscriber.onCompleted();
+                emitter.onComplete();
             }
         }).subscribe(new Observer<String>() {
             @Override
-            public void onCompleted() {
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
                 LogUtil.i("onCompleted");
             }
 
             @Override
-            public void onError(Throwable e) {
+            public void onSubscribe(@NonNull Disposable d) {
 
             }
 
@@ -207,12 +217,17 @@ public class RxJavaTestActivity extends AppCompatActivity implements View.OnClic
         //第一步：创建观察者
         Observer<String> observer = new Observer<String>() {
             @Override
-            public void onCompleted() {
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
                 LogUtil.i("onCompleted");
             }
 
             @Override
-            public void onError(Throwable e) {
+            public void onSubscribe(@NonNull Disposable d) {
 
             }
 
@@ -225,12 +240,12 @@ public class RxJavaTestActivity extends AppCompatActivity implements View.OnClic
         //第二步：创建被观察者Observable，Observable.create()方法可以创建Observable，
         //使用create()方法创建Observable需要传递一个OnSubscribe对象，这个对象继承Action1.
         //当观察者订阅我们的Observable时，它作为一个参数传入，并执行call()方法
-        Observable<String> observable = Observable.create(new rx.Observable.OnSubscribe<String>() {
+        Observable<String> observable = Observable.create(new ObservableOnSubscribe<String>() {
 
             @Override
-            public void call(Subscriber<? super String> subscriber) {
+            public void subscribe(@NonNull ObservableEmitter<String> emitter) throws Exception {
                 for (int i=0;i<5;i++){
-                    subscriber.onNext(""+i);
+                    emitter.onNext(""+i);
                 }
 //                subscriber.onCompleted();
                 LogUtil.i("--888--");
@@ -246,7 +261,7 @@ public class RxJavaTestActivity extends AppCompatActivity implements View.OnClic
 
         String[] parameters = {"one","two","three"};
 
-        Observable<String> observable3 = Observable.from(parameters);
+        Observable<String> observable3 = Observable.fromArray(parameters);
         //上面这行代码会依次调用
         //onNext("One");
         //onNext("Two");
@@ -260,15 +275,20 @@ public class RxJavaTestActivity extends AppCompatActivity implements View.OnClic
 
         //基础学习加强
         //1.创建观察者对象
-        Subscriber<String> subscriber = new Subscriber<String>() {
+        Observer<String> subscriber = new Observer<String>() {
             @Override
-            public void onCompleted() {
+            public void onError(Throwable e) {
+                LogUtil.i("onError");
+            }
+
+            @Override
+            public void onComplete() {
                 LogUtil.i("onCompleted");
             }
 
             @Override
-            public void onError(Throwable e) {
-                LogUtil.i("onError");
+            public void onSubscribe(@NonNull Disposable d) {
+
             }
 
             @Override
@@ -278,10 +298,10 @@ public class RxJavaTestActivity extends AppCompatActivity implements View.OnClic
         };
 
         //2.创建被观察者对象
-        Observable<String> observable4 = Observable.create(new Observable.OnSubscribe<String>() {
+        Observable<String> observable4 = Observable.create(new ObservableOnSubscribe<String>() {
             @Override
-            public void call(Subscriber<? super String> subscriber) {
-                subscriber.onNext("test");
+            public void subscribe(@NonNull ObservableEmitter<String> emitter) throws Exception {
+                emitter.onNext("test");
             }
         });
 
@@ -289,14 +309,19 @@ public class RxJavaTestActivity extends AppCompatActivity implements View.OnClic
         observable4.subscribe(subscriber);
 
         Observable<String> observable5 = Observable.just("a","s","d");
-        observable5.subscribe(new Subscriber<String>() {
+        observable5.subscribe(new Observer<String>() {
             @Override
-            public void onCompleted() {
+            public void onError(Throwable e) {
 
             }
 
             @Override
-            public void onError(Throwable e) {
+            public void onComplete() {
+
+            }
+
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
 
             }
 
@@ -306,14 +331,20 @@ public class RxJavaTestActivity extends AppCompatActivity implements View.OnClic
             }
         });
         String[] arr = {"x","y","z"};
-        Observable<String> observable16 = Observable.from(arr);
-        observable16.subscribe(new Subscriber<String>() {
+        Observable<String> observable16 = Observable.fromArray(arr);
+        observable16.subscribe(new Observer<String>() {
             @Override
-            public void onCompleted() {
+            public void onError(Throwable e) {
+
             }
 
             @Override
-            public void onError(Throwable e) {
+            public void onComplete() {
+
+            }
+
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
 
             }
 
