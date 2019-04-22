@@ -1,11 +1,17 @@
 package test.cn.example.com.androidskill.rxjava2Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -14,8 +20,69 @@ import io.reactivex.schedulers.Schedulers;
 
 public class RxJava2Test {
     public static void main(String[] args){
-        test();
-        test2();
+//        test();
+//        test2();
+//        testMap();
+
+        testFlatMap();
+    }
+
+    private static void testFlatMap() {
+        List<List<ResultBean>> data = new ArrayList<>();
+        for(int i=0;i<10;i++){
+            ArrayList<ResultBean> resultBeanArrayList = new ArrayList<>();
+            for(int k=0;k<10;k++){
+                resultBeanArrayList.add(new ResultBean(k,"jack ma"+i+k));
+            }
+            data.add(resultBeanArrayList);
+        }
+        Observable.just(data).flatMap(new Function<List<List<ResultBean>>, ObservableSource<List<ResultBean>>>() {
+            @Override
+            public ObservableSource<List<ResultBean>> apply(@NonNull final List<List<ResultBean>> lists) throws Exception {
+//                Observable<List<ResultBean>> listObservable = Observable.just(lists.get(0));
+//                return listObservable;
+                return Observable.create(new ObservableOnSubscribe<List<ResultBean>>() {
+                    @Override
+                    public void subscribe(@NonNull ObservableEmitter<List<ResultBean>> emitter) throws Exception {
+                        for(int i=0;i<lists.size();i++){
+                            emitter.onNext(lists.get(i));
+                        }
+                    }
+                });
+            }
+        }).flatMap(new Function<List<ResultBean>, ObservableSource<ResultBean>>() {
+            @Override
+            public ObservableSource<ResultBean> apply(@NonNull final List<ResultBean> resultBeen) throws Exception {
+                System.out.println(resultBeen);
+                return Observable.create(new ObservableOnSubscribe<ResultBean>() {
+                    @Override
+                    public void subscribe(@NonNull ObservableEmitter<ResultBean> emitter) throws Exception {
+                        for(ResultBean bean:resultBeen){
+                            emitter.onNext(bean);
+                        }
+                    }
+                });
+            }
+        }).subscribe(new Consumer<ResultBean>() {
+            @Override
+            public void accept(ResultBean resultBean) throws Exception {
+                System.out.println(resultBean.id+"        "+resultBean.name);
+            }
+        });
+    }
+
+    private static void testMap() {
+        Observable.just(1,2,3,4,5).map(new Function<Integer, String>() {
+            @Override
+            public String apply(@NonNull Integer integer) throws Exception {
+                return integer+"";
+            }
+        }).subscribe(new Consumer<String>() {
+            @Override
+            public void accept(String s) throws Exception {
+                System.out.println(s);
+            }
+        });
     }
 
     private static void test2() {
