@@ -17,10 +17,12 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.util.LogUtil;
@@ -43,21 +45,31 @@ public class RxJava2ActivityTest extends AppCompatActivity implements View.OnCli
         findViewById(R.id.btn_testFlatMap).setOnClickListener(this);
         et = findViewById(R.id.et);
         RxTextView.textChanges(et).debounce(200, TimeUnit.MILLISECONDS)
-                .flatMap(new Function<CharSequence, ObservableSource<List<String>>>() {
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .filter(new Predicate<CharSequence>() {
+                    @Override
+                    public boolean test(@NonNull CharSequence charSequence) throws Exception {
+                        LogUtil.i(charSequence.toString());
+                        return charSequence.toString().trim().length()>0;
+                    }
+                })
+                //这里使用switchMap更好，switchMap，当上一个任务尚未完成时，就开始下一个任务的话，上一个任务就会被取消掉
+                .switchMap(new Function<CharSequence, ObservableSource<List<String>>>() {
                     @Override
                     public ObservableSource<List<String>> apply(@NonNull CharSequence charSequence) throws Exception {
                         //模拟网络返回结果
-                        LogUtil.i(charSequence.toString());
+                        LogUtil.w(charSequence.toString());
                         List<String> resultData = new ArrayList<String>();
                         resultData.add("abc");
                         resultData.add("bbc");
                         return Observable.just(resultData);
                     }
-                })
+                }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<String>>() {
                     @Override
                     public void accept(List<String> strings) throws Exception {
-                        LogUtil.i(strings.toString());
+                        LogUtil.e(strings.toString());
                     }
                 }, new Consumer<Throwable>() {
                     @Override
