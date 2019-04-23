@@ -3,6 +3,7 @@ package test.cn.example.com.androidskill.rxjava2Test;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,6 +40,7 @@ public class RxJava2ActivityTest extends AppCompatActivity implements View.OnCli
 
     private EditText et;
     private Button btn_throttleFirst,btn_interval_take;
+    private Button btn_pic_cache;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,6 +55,8 @@ public class RxJava2ActivityTest extends AppCompatActivity implements View.OnCli
         findViewById(R.id.btn_merge).setOnClickListener(this);
         btn_interval_take = findViewById(R.id.btn_interval_take);
         btn_interval_take.setOnClickListener(this);
+        btn_pic_cache = findViewById(R.id.btn_pic_cache);
+        testPicCacheFrame();
         et = findViewById(R.id.et);
         RxTextView.textChanges(et).debounce(200, TimeUnit.MILLISECONDS)
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -87,6 +91,65 @@ public class RxJava2ActivityTest extends AppCompatActivity implements View.OnCli
 
                     }
                 });
+    }
+
+    /**
+     * 简单的图片缓存框架的原理演示
+     */
+    private void testPicCacheFrame() {
+        final Observable<String> memoryCacheObservable = Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<String> emitter) throws Exception {
+                String pic = new Random().nextBoolean()?"pic from memory":"";
+//                LogUtil.i(pic);
+                emitter.onNext(pic);
+                emitter.onComplete();
+            }
+        }).subscribeOn(Schedulers.io());
+
+        final Observable<String> diskCacheObservable = Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<String> emitter) throws Exception {
+                String pic = new Random().nextBoolean()?"pic from disk cache":"";
+//                LogUtil.i(pic);
+                emitter.onNext(pic);
+                emitter.onComplete();
+            }
+        }).subscribeOn(Schedulers.io());
+
+        final Observable<String> netCahceObservable = Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<String> emitter) throws Exception {
+                String pic = new Random().nextBoolean()?"pic from network":"";
+//                LogUtil.i(pic);
+                emitter.onNext(pic);
+                emitter.onComplete();
+            }
+        }).subscribeOn(Schedulers.io());
+        RxView.clicks(btn_pic_cache).subscribe(new Consumer<Unit>() {
+            @Override
+            public void accept(Unit unit) throws Exception {
+                Observable.concat(memoryCacheObservable,diskCacheObservable,netCahceObservable)
+                        .filter(new Predicate<String>() {
+                            @Override
+                            public boolean test(@NonNull String s) throws Exception {
+                                return !TextUtils.isEmpty(s);
+                            }
+                        })
+                        .firstElement()
+                        .subscribe(new Consumer<String>() {
+                            @Override
+                            public void accept(String s) throws Exception {
+                                LogUtil.i(s);
+                            }
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                LogUtil.i(throwable.getMessage());
+                            }
+                        });
+            }
+        });
     }
 
     private static void testFlatMap() {
