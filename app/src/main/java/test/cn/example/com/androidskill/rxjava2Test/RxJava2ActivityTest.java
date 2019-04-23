@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.jakewharton.rxbinding3.view.RxView;
 import com.jakewharton.rxbinding3.widget.RxTextView;
@@ -30,6 +31,7 @@ import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 import kotlin.Unit;
 import test.cn.example.com.androidskill.R;
+import test.cn.example.com.androidskill.myimageloader.RxImageLoader;
 import test.cn.example.com.util.LogUtil;
 
 /**
@@ -39,8 +41,9 @@ import test.cn.example.com.util.LogUtil;
 public class RxJava2ActivityTest extends AppCompatActivity implements View.OnClickListener {
 
     private EditText et;
-    private Button btn_throttleFirst,btn_interval_take;
+    private Button btn_throttleFirst,btn_interval_take,btn_loadImage;
     private Button btn_pic_cache;
+    private ImageView iv;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,6 +60,11 @@ public class RxJava2ActivityTest extends AppCompatActivity implements View.OnCli
         btn_interval_take.setOnClickListener(this);
         btn_pic_cache = findViewById(R.id.btn_pic_cache);
         testPicCacheFrame();
+
+        btn_loadImage = findViewById(R.id.btn_loadImage);
+        iv = findViewById(R.id.iv);
+        loadImage(btn_loadImage,iv);
+
         et = findViewById(R.id.et);
         RxTextView.textChanges(et).debounce(200, TimeUnit.MILLISECONDS)
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -91,6 +99,21 @@ public class RxJava2ActivityTest extends AppCompatActivity implements View.OnCli
 
                     }
                 });
+    }
+
+    private void loadImage(Button btn_loadImage, final ImageView iv) {
+        RxView.clicks(btn_loadImage).subscribe(new Consumer<Unit>() {
+            @Override
+            public void accept(Unit unit) throws Exception {
+                LogUtil.i("accept");
+                RxImageLoader.with(RxJava2ActivityTest.this).load("http://seopic.699pic.com/photo/50108/2763.jpg_wh1200.jpg").into(iv);
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                LogUtil.i(throwable.getMessage());
+            }
+        });
     }
 
     /**
