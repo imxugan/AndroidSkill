@@ -12,6 +12,7 @@ import com.jakewharton.rxbinding3.widget.RxTextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -49,6 +50,7 @@ public class RxJava2ActivityTest extends AppCompatActivity implements View.OnCli
         findViewById(R.id.btn_testFlatMap).setOnClickListener(this);
         btn_throttleFirst = findViewById(R.id.btn_throttleFirst);
         btn_throttleFirst.setOnClickListener(this);
+        findViewById(R.id.btn_merge).setOnClickListener(this);
         et = findViewById(R.id.et);
         RxTextView.textChanges(et).debounce(200, TimeUnit.MILLISECONDS)
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -227,7 +229,56 @@ public class RxJava2ActivityTest extends AppCompatActivity implements View.OnCli
             case R.id.btn_throttleFirst:
                 testThrottleFirst();
                 break;
+            case R.id.btn_merge:
+                tetMerge();
+                break;
         }
+    }
+
+    private void tetMerge() {
+        Observable<String> observableLocal = Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<String> emitter) throws Exception {
+                //模拟重数据库读取数据
+                Thread.sleep(new Random().nextInt(500));
+                emitter.onNext("data from local");
+            }
+        }).subscribeOn(Schedulers.io());
+
+        Observable<String> observableNetWork = Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<String> emitter) throws Exception {
+                //模拟网络延时
+                Thread.sleep(new Random().nextInt(500));
+                emitter.onNext("data form network");
+            }
+        }).subscribeOn(Schedulers.io());
+
+        Observable.merge(observableLocal,observableNetWork).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<String>() {
+            private Disposable mDisposable;
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+                this.mDisposable = d;
+                LogUtil.i("onSubscribe   "+d.isDisposed());
+            }
+
+            @Override
+            public void onNext(@NonNull String s) {
+                if(!mDisposable.isDisposed()){
+                    LogUtil.i(s);
+                }
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                LogUtil.i("onError    "+e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+                LogUtil.i("onComplete");
+            }
+        });
     }
 
     private void testThrottleFirst() {

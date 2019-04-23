@@ -55,4 +55,11 @@
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:text="防止重复点击" />
 
+    <Button
+        android:id="@+id/btn_merge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="购物车合并本地数据和网络数据" />
+
 </LinearLayout>
