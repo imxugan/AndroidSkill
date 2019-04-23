@@ -38,7 +38,7 @@ import test.cn.example.com.util.LogUtil;
 public class RxJava2ActivityTest extends AppCompatActivity implements View.OnClickListener {
 
     private EditText et;
-    private Button btn_throttleFirst;
+    private Button btn_throttleFirst,btn_interval_take;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,6 +51,8 @@ public class RxJava2ActivityTest extends AppCompatActivity implements View.OnCli
         btn_throttleFirst = findViewById(R.id.btn_throttleFirst);
         btn_throttleFirst.setOnClickListener(this);
         findViewById(R.id.btn_merge).setOnClickListener(this);
+        btn_interval_take = findViewById(R.id.btn_interval_take);
+        btn_interval_take.setOnClickListener(this);
         et = findViewById(R.id.et);
         RxTextView.textChanges(et).debounce(200, TimeUnit.MILLISECONDS)
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -230,12 +232,69 @@ public class RxJava2ActivityTest extends AppCompatActivity implements View.OnCli
                 testThrottleFirst();
                 break;
             case R.id.btn_merge:
-                tetMerge();
+                testMerge();
+                break;
+            case R.id.btn_interval_take:
+                countDownTest();
                 break;
         }
     }
 
-    private void tetMerge() {
+    private void countDownTest() {
+        final int count = 10;
+        Observable.interval(0,1,TimeUnit.SECONDS)
+                .take(count+1)
+                .subscribeOn(Schedulers.io())
+                .map(new Function<Long, Long>() {
+                    @Override
+                    public Long apply(@NonNull Long aLong) throws Exception {
+                        LogUtil.i("map      "+Thread.currentThread().getName());
+                        return count-aLong;
+                    }
+                })
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        if(!disposable.isDisposed()){
+                            LogUtil.e("doOnSubscribe   "+Thread.currentThread().getName());
+                            btn_interval_take.setEnabled(false);
+                        }
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Long>() {
+            private Disposable mDisposable;
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+                this.mDisposable = d;
+                LogUtil.i("onSubscribe   "+d.isDisposed()+"     "+Thread.currentThread().getName());
+            }
+
+            @Override
+            public void onNext(@NonNull Long aLong) {
+                if(!mDisposable.isDisposed()){
+                    LogUtil.i(aLong+"");
+//                    btn_interval_take.setText("剩余"+(count-aLong)+"秒");//这个步骤，可以放入map中处理
+                    btn_interval_take.setText("剩余"+aLong+"秒");
+                }
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                LogUtil.i(e.getMessage());
+                btn_interval_take.setEnabled(true);
+            }
+
+            @Override
+            public void onComplete() {
+                LogUtil.i("onComplete");
+                btn_interval_take.setEnabled(true);
+                btn_interval_take.setText("发送验证码");
+            }
+        });
+    }
+
+    private void testMerge() {
         Observable<String> observableLocal = Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<String> emitter) throws Exception {
