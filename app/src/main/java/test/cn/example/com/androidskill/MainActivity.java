@@ -18,6 +18,7 @@ import test.cn.example.com.androidskill.designpattern.DesignPatternActivity;
 import test.cn.example.com.androidskill.livedatabus.LiveDataBusTestActivity;
 import test.cn.example.com.androidskill.login.view.LoginActivity;
 import test.cn.example.com.androidskill.my_eventbus.MyEventBusTestActivity;
+import test.cn.example.com.androidskill.myvolley.MyVolleyTestActivity;
 import test.cn.example.com.androidskill.rxjava2Test.RxJava2ActivityTest;
 import test.cn.example.com.androidskill.rxjavaTest.RxJavaTestActivity;
 import test.cn.example.com.androidskill.sqlite.SqliteActivity;
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initView() {
+        TextView tv_volley = (TextView) findViewById(R.id.tv_volley);
+        tv_volley.setOnClickListener(this);
         TextView rxjava2 = (TextView) findViewById(R.id.rxjava2);
         rxjava2.setOnClickListener(this);
         TextView livedatabus = (TextView) findViewById(R.id.livedatabus);
@@ -97,6 +100,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.tv_volley:
+                myStartActivity(MyVolleyTestActivity.class,false);
+                break;
             case R.id.rxjava2:
                 myStartActivity(RxJava2ActivityTest.class,false);
                 break;

@@ -41,7 +41,7 @@ import test.cn.example.com.util.LogUtil;
 public class RxJava2ActivityTest extends AppCompatActivity implements View.OnClickListener {
 
     private EditText et;
-    private Button btn_throttleFirst,btn_interval_take,btn_loadImage;
+    private Button btn_throttleFirst, btn_interval_take, btn_loadImage;
     private Button btn_pic_cache;
     private ImageView iv;
 
@@ -63,7 +63,7 @@ public class RxJava2ActivityTest extends AppCompatActivity implements View.OnCli
 
         btn_loadImage = findViewById(R.id.btn_loadImage);
         iv = findViewById(R.id.iv);
-        loadImage(btn_loadImage,iv);
+        loadImage(btn_loadImage, iv);
 
         et = findViewById(R.id.et);
         RxTextView.textChanges(et).debounce(200, TimeUnit.MILLISECONDS)
@@ -72,7 +72,7 @@ public class RxJava2ActivityTest extends AppCompatActivity implements View.OnCli
                     @Override
                     public boolean test(@NonNull CharSequence charSequence) throws Exception {
                         LogUtil.i(charSequence.toString());
-                        return charSequence.toString().trim().length()>0;
+                        return charSequence.toString().trim().length() > 0;
                     }
                 })
                 //这里使用switchMap更好，switchMap，当上一个任务尚未完成时，就开始下一个任务的话，上一个任务就会被取消掉
@@ -123,7 +123,7 @@ public class RxJava2ActivityTest extends AppCompatActivity implements View.OnCli
         final Observable<String> memoryCacheObservable = Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<String> emitter) throws Exception {
-                String pic = new Random().nextBoolean()?"pic from memory":"";
+                String pic = new Random().nextBoolean() ? "pic from memory" : "";
 //                LogUtil.i(pic);
                 emitter.onNext(pic);
                 emitter.onComplete();
@@ -133,7 +133,7 @@ public class RxJava2ActivityTest extends AppCompatActivity implements View.OnCli
         final Observable<String> diskCacheObservable = Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<String> emitter) throws Exception {
-                String pic = new Random().nextBoolean()?"pic from disk cache":"";
+                String pic = new Random().nextBoolean() ? "pic from disk cache" : "";
 //                LogUtil.i(pic);
                 emitter.onNext(pic);
                 emitter.onComplete();
@@ -143,7 +143,7 @@ public class RxJava2ActivityTest extends AppCompatActivity implements View.OnCli
         final Observable<String> netCahceObservable = Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<String> emitter) throws Exception {
-                String pic = new Random().nextBoolean()?"pic from network":"";
+                String pic = new Random().nextBoolean() ? "pic from network" : "";
 //                LogUtil.i(pic);
                 emitter.onNext(pic);
                 emitter.onComplete();
@@ -152,7 +152,7 @@ public class RxJava2ActivityTest extends AppCompatActivity implements View.OnCli
         RxView.clicks(btn_pic_cache).subscribe(new Consumer<Unit>() {
             @Override
             public void accept(Unit unit) throws Exception {
-                Observable.concat(memoryCacheObservable,diskCacheObservable,netCahceObservable)
+                Observable.concat(memoryCacheObservable, diskCacheObservable, netCahceObservable)
                         .filter(new Predicate<String>() {
                             @Override
                             public boolean test(@NonNull String s) throws Exception {
@@ -177,10 +177,10 @@ public class RxJava2ActivityTest extends AppCompatActivity implements View.OnCli
 
     private static void testFlatMap() {
         List<List<ResultBean>> data = new ArrayList<>();
-        for(int i=0;i<10;i++){
+        for (int i = 0; i < 10; i++) {
             ArrayList<ResultBean> resultBeanArrayList = new ArrayList<>();
-            for(int k=0;k<10;k++){
-                resultBeanArrayList.add(new ResultBean(k,"jack ma"+i+k));
+            for (int k = 0; k < 10; k++) {
+                resultBeanArrayList.add(new ResultBean(k, "jack ma" + i + k));
             }
             data.add(resultBeanArrayList);
         }
@@ -192,7 +192,7 @@ public class RxJava2ActivityTest extends AppCompatActivity implements View.OnCli
                 return Observable.create(new ObservableOnSubscribe<List<ResultBean>>() {
                     @Override
                     public void subscribe(@NonNull ObservableEmitter<List<ResultBean>> emitter) throws Exception {
-                        for(int i=0;i<lists.size();i++){
+                        for (int i = 0; i < lists.size(); i++) {
                             emitter.onNext(lists.get(i));
                         }
                     }
@@ -205,7 +205,7 @@ public class RxJava2ActivityTest extends AppCompatActivity implements View.OnCli
                 return Observable.create(new ObservableOnSubscribe<ResultBean>() {
                     @Override
                     public void subscribe(@NonNull ObservableEmitter<ResultBean> emitter) throws Exception {
-                        for(ResultBean bean:resultBeen){
+                        for (ResultBean bean : resultBeen) {
                             emitter.onNext(bean);
                         }
                     }
@@ -214,16 +214,16 @@ public class RxJava2ActivityTest extends AppCompatActivity implements View.OnCli
         }).subscribe(new Consumer<ResultBean>() {
             @Override
             public void accept(ResultBean resultBean) throws Exception {
-                System.out.println(resultBean.id+"        "+resultBean.name);
+                System.out.println(resultBean.id + "        " + resultBean.name);
             }
         });
     }
 
     private static void testMap() {
-        Observable.just(1,2,3,4,5).map(new Function<Integer, String>() {
+        Observable.just(1, 2, 3, 4, 5).map(new Function<Integer, String>() {
             @Override
             public String apply(@NonNull Integer integer) throws Exception {
-                return integer+"";
+                return integer + "";
             }
         }).subscribe(new Consumer<String>() {
             @Override
@@ -243,22 +243,22 @@ public class RxJava2ActivityTest extends AppCompatActivity implements View.OnCli
         }).subscribeOn(Schedulers.io()).subscribe(new Observer<String>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
-                System.out.println("onSubscribe    d.isDisposed()="+d.isDisposed()+"     "+Thread.currentThread().getName());
+                System.out.println("onSubscribe    d.isDisposed()=" + d.isDisposed() + "     " + Thread.currentThread().getName());
             }
 
             @Override
             public void onNext(@NonNull String s) {
-                System.out.println(s+"     "+Thread.currentThread().getName());
+                System.out.println(s + "     " + Thread.currentThread().getName());
             }
 
             @Override
             public void onError(@NonNull Throwable e) {
-                System.out.println(e.getMessage()+"     "+Thread.currentThread().getName());
+                System.out.println(e.getMessage() + "     " + Thread.currentThread().getName());
             }
 
             @Override
             public void onComplete() {
-                System.out.println("onComplete      "+ Thread.currentThread().getName());
+                System.out.println("onComplete      " + Thread.currentThread().getName());
             }
         });
     }
@@ -274,26 +274,27 @@ public class RxJava2ActivityTest extends AppCompatActivity implements View.OnCli
         });
         Observer<Integer> observer = new Observer<Integer>() {
             private Disposable disposable;
+
             @Override
             public void onSubscribe(@NonNull Disposable d) {
                 this.disposable = d;
-                System.out.println("onSubscribe     "+Thread.currentThread().getName());
+                System.out.println("onSubscribe     " + Thread.currentThread().getName());
             }
 
             @Override
             public void onNext(@NonNull Integer s) {
                 //isDisposed()方法，是否取消了订阅关系
-                System.out.println(s+"      "+disposable.isDisposed()+"     "+Thread.currentThread().getName());
+                System.out.println(s + "      " + disposable.isDisposed() + "     " + Thread.currentThread().getName());
             }
 
             @Override
             public void onError(@NonNull Throwable e) {
-                System.out.println("onError"+"      "+Thread.currentThread().getName());
+                System.out.println("onError" + "      " + Thread.currentThread().getName());
             }
 
             @Override
             public void onComplete() {
-                System.out.println("onComplete"+"       "+Thread.currentThread().getName());
+                System.out.println("onComplete" + "       " + Thread.currentThread().getName());
             }
         };
         observable.subscribe(observer);
@@ -301,7 +302,7 @@ public class RxJava2ActivityTest extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btn_test:
                 test();
                 break;
@@ -328,56 +329,57 @@ public class RxJava2ActivityTest extends AppCompatActivity implements View.OnCli
 
     private void countDownTest() {
         final int count = 10;
-        Observable.interval(0,1,TimeUnit.SECONDS)
-                .take(count+1)
+        Observable.interval(0, 1, TimeUnit.SECONDS)
+                .take(count + 1)
                 .subscribeOn(Schedulers.io())
                 .map(new Function<Long, Long>() {
                     @Override
                     public Long apply(@NonNull Long aLong) throws Exception {
-                        LogUtil.i("map      "+Thread.currentThread().getName());
-                        return count-aLong;
+                        LogUtil.i("map      " + Thread.currentThread().getName());
+                        return count - aLong;
                     }
                 })
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-                        if(!disposable.isDisposed()){
-                            LogUtil.e("doOnSubscribe   "+Thread.currentThread().getName());
+                        if (!disposable.isDisposed()) {
+                            LogUtil.e("doOnSubscribe   " + Thread.currentThread().getName());
                             btn_interval_take.setEnabled(false);
                         }
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Long>() {
-            private Disposable mDisposable;
-            @Override
-            public void onSubscribe(@NonNull Disposable d) {
-                this.mDisposable = d;
-                LogUtil.i("onSubscribe   "+d.isDisposed()+"     "+Thread.currentThread().getName());
-            }
+                    private Disposable mDisposable;
 
-            @Override
-            public void onNext(@NonNull Long aLong) {
-                if(!mDisposable.isDisposed()){
-                    LogUtil.i(aLong+"");
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        this.mDisposable = d;
+                        LogUtil.i("onSubscribe   " + d.isDisposed() + "     " + Thread.currentThread().getName());
+                    }
+
+                    @Override
+                    public void onNext(@NonNull Long aLong) {
+                        if (!mDisposable.isDisposed()) {
+                            LogUtil.i(aLong + "");
 //                    btn_interval_take.setText("剩余"+(count-aLong)+"秒");//这个步骤，可以放入map中处理
-                    btn_interval_take.setText("剩余"+aLong+"秒");
-                }
-            }
+                            btn_interval_take.setText("剩余" + aLong + "秒");
+                        }
+                    }
 
-            @Override
-            public void onError(@NonNull Throwable e) {
-                LogUtil.i(e.getMessage());
-                btn_interval_take.setEnabled(true);
-            }
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        LogUtil.i(e.getMessage());
+                        btn_interval_take.setEnabled(true);
+                    }
 
-            @Override
-            public void onComplete() {
-                LogUtil.i("onComplete");
-                btn_interval_take.setEnabled(true);
-                btn_interval_take.setText("发送验证码");
-            }
-        });
+                    @Override
+                    public void onComplete() {
+                        LogUtil.i("onComplete");
+                        btn_interval_take.setEnabled(true);
+                        btn_interval_take.setText("发送验证码");
+                    }
+                });
     }
 
     private void testMerge() {
@@ -399,24 +401,25 @@ public class RxJava2ActivityTest extends AppCompatActivity implements View.OnCli
             }
         }).subscribeOn(Schedulers.io());
 
-        Observable.merge(observableLocal,observableNetWork).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<String>() {
+        Observable.merge(observableLocal, observableNetWork).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<String>() {
             private Disposable mDisposable;
+
             @Override
             public void onSubscribe(@NonNull Disposable d) {
                 this.mDisposable = d;
-                LogUtil.i("onSubscribe   "+d.isDisposed());
+                LogUtil.i("onSubscribe   " + d.isDisposed());
             }
 
             @Override
             public void onNext(@NonNull String s) {
-                if(!mDisposable.isDisposed()){
+                if (!mDisposable.isDisposed()) {
                     LogUtil.i(s);
                 }
             }
 
             @Override
             public void onError(@NonNull Throwable e) {
-                LogUtil.i("onError    "+e.getMessage());
+                LogUtil.i("onError    " + e.getMessage());
             }
 
             @Override
@@ -427,7 +430,7 @@ public class RxJava2ActivityTest extends AppCompatActivity implements View.OnCli
     }
 
     private void testThrottleFirst() {
-        RxView.clicks(btn_throttleFirst).throttleFirst(1,TimeUnit.SECONDS).subscribe(new Observer<Unit>() {
+        RxView.clicks(btn_throttleFirst).throttleFirst(1, TimeUnit.SECONDS).subscribe(new Observer<Unit>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
 
@@ -435,7 +438,7 @@ public class RxJava2ActivityTest extends AppCompatActivity implements View.OnCli
 
             @Override
             public void onNext(@NonNull Unit unit) {
-                LogUtil.i(System.currentTimeMillis()+"");
+                LogUtil.i(System.currentTimeMillis() + "");
             }
 
             @Override

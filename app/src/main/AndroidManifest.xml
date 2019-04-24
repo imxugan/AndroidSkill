@@ -432,6 +432,10 @@
             android:name="test.cn.example.com.androidskill.rxjava2Test.RxJava2ActivityTest"
             android:screenOrientation="portrait">
         </activity>
+       <activity
+            android:name="test.cn.example.com.androidskill.myvolley.MyVolleyTestActivity"
+            android:screenOrientation="portrait">
+        </activity>
 
 
         <service android:name="test.cn.example.com.androidskill.service.MyService"
