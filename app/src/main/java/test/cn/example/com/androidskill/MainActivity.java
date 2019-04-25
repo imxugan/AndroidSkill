@@ -15,6 +15,7 @@ import test.cn.example.com.androidskill.aop.AspectJTestActivity;
 import test.cn.example.com.androidskill.callback.CallBackActivity;
 import test.cn.example.com.androidskill.changeSkin.ChangeSkinActivity;
 import test.cn.example.com.androidskill.designpattern.DesignPatternActivity;
+import test.cn.example.com.androidskill.leak.LeakTestActivity;
 import test.cn.example.com.androidskill.livedatabus.LiveDataBusTestActivity;
 import test.cn.example.com.androidskill.login.view.LoginActivity;
 import test.cn.example.com.androidskill.my_eventbus.MyEventBusTestActivity;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initView() {
+        findViewById(R.id.tv_leak).setOnClickListener(this);
         TextView tv_volley = (TextView) findViewById(R.id.tv_volley);
         tv_volley.setOnClickListener(this);
         TextView rxjava2 = (TextView) findViewById(R.id.rxjava2);
@@ -100,6 +102,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.tv_leak:
+                myStartActivity(LeakTestActivity .class,false);
+                break;
             case R.id.tv_volley:
                 myStartActivity(MyVolleyTestActivity.class,false);
                 break;

@@ -29,6 +29,14 @@
                     android:padding="10dp"
                     android:background="@color/colorAccent"
                     android:text="测试手写简单的volley"/>
+                <TextView
+                    android:id="@+id/tv_leak"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/colorAccent"
+                    android:text="内存泄漏的检测演示"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"

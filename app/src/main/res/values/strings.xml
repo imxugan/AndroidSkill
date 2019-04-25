@@ -4,6 +4,9 @@
     <string name="error">网络请求错误</string>
     <string name="try_again">请重试</string>
 
+    <string name="tips">注意测试时，不要讲屏幕设定为横屏或者竖屏，这样，旋转手机时，屏幕时不会旋转的，
+        ，还有，如果未设置屏幕固定未横屏或者竖屏，在手机的设定中，辅助设置里面，将禁止屏幕旋转的选项去掉</string>
+
 
 
     <string name="friend_delete">删除好友</string>
