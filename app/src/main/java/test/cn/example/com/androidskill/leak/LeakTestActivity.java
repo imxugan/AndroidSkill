@@ -7,7 +7,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import java.util.Map;
 import java.util.Set;
+import java.util.WeakHashMap;
 
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.util.LogUtil;
@@ -70,6 +72,12 @@ public class LeakTestActivity extends AppCompatActivity {
 //
 //         5.准确获取一个对象的内存地址值   System.identityHashCode(Object)
 //         6.static修饰的变量称为类变量或者静态变量，它位于方法区
+//         7.WeakHashMap,特点是，当除了自身有对key引用外，此key没有其他引用，那么此map会自动丢弃此值
+//        例如：int a = 1;
+//        Map weakHashMap = new WeakHashMap<>();
+//        weakHashMap.put(a,"hello");
+//        a = null;
+//        此时，weakmap里面的a会被丢弃。
 //
 
 
