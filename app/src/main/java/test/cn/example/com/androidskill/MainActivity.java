@@ -24,7 +24,6 @@ import test.cn.example.com.androidskill.optimize.OptimizeActivity;
 import test.cn.example.com.androidskill.rxjava2Test.RxJava2ActivityTest;
 import test.cn.example.com.androidskill.rxjavaTest.RxJavaTestActivity;
 import test.cn.example.com.androidskill.sqlite.SqliteActivity;
-import test.cn.example.com.androidskill.test.TestEditDetailsActivity2;
 import test.cn.example.com.androidskill.websocket.WebsocketActivity;
 import test.cn.example.com.util.LogUtils;
 
@@ -127,7 +126,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 myStartActivity(ChangeSkinActivity.class,false);
                 break;
             case R.id.test:
-                myStartActivity(TestEditDetailsActivity2.class,false);
                 break;
             case R.id.optimize:
                 myStartActivity(OptimizeActivity.class,false);

@@ -32,7 +32,7 @@ public class HttpResponseCacheActivity extends AppCompatActivity implements View
     private ProgressDialog progressDialog;
     private  Bitmap bitmap = null;
     private Button btn_cache;
-    private boolean openCache = true;
+    private boolean openCache = false;
     private File cacheDir;
     private long cacheSize;
 
@@ -56,7 +56,7 @@ public class HttpResponseCacheActivity extends AppCompatActivity implements View
                 netWorkRequest();
                 break;
             case R.id.btn_cache:
-                if(openCache){
+                if(!openCache){
                     try {
                         HttpResponseCache.install(cacheDir, cacheSize);
                     } catch (IOException e) {
@@ -66,14 +66,14 @@ public class HttpResponseCacheActivity extends AppCompatActivity implements View
                     HttpResponseCache installed = HttpResponseCache.getInstalled();
                     if(null != installed){
                         try {
-                            installed.delete();
+                            installed.close();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
                 }
                 openCache = !openCache;
-                btn_cache.setText(openCache?"关闭缓存":"打开缓存");
+                btn_cache.setText(openCache?"打开缓存":"关闭缓存");
                 break;
         }
     }
@@ -90,8 +90,6 @@ public class HttpResponseCacheActivity extends AppCompatActivity implements View
 
             @Override
             protected Bitmap doInBackground(String... params) {
-
-                LogUtil.i(params[0]);
                 try {
                     URL url = new URL(params[0]);
                     HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
