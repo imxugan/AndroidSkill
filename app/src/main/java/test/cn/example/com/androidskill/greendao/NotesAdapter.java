@@ -29,8 +29,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
 
         public NoteViewHolder(View itemView, final NoteClickListener clickListener) {
             super(itemView);
-            text = (TextView) itemView.findViewById(R.id.textViewNoteText);
-            comment = (TextView) itemView.findViewById(R.id.textViewNoteComment);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -58,9 +56,10 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
 
     @Override
     public NoteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_note, parent, false);
-        return new NoteViewHolder(view, clickListener);
+//        View view = LayoutInflater.from(parent.getContext())
+//                .inflate(R.layout.item_note, parent, false);
+//        return new NoteViewHolder(view, clickListener);
+        return null;
     }
 
     @Override

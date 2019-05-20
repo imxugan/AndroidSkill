@@ -53,7 +53,7 @@ public class GreenDaoActivity extends AppCompatActivity implements View.OnClickL
 
     private RxDao<Note, Long> noteDao;
     private RxQuery<Note> notesQuery;
-    private NotesAdapter notesAdapter;
+//    private NotesAdapter notesAdapter;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,8 +120,8 @@ public class GreenDaoActivity extends AppCompatActivity implements View.OnClickL
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        notesAdapter = new NotesAdapter(noteClickListener);
-        recyclerView.setAdapter(notesAdapter);
+//        notesAdapter = new NotesAdapter(noteClickListener);
+//        recyclerView.setAdapter(notesAdapter);
 
         addNoteButton = findViewById(R.id.buttonAdd);
 
@@ -197,18 +197,7 @@ public class GreenDaoActivity extends AppCompatActivity implements View.OnClickL
     NotesAdapter.NoteClickListener noteClickListener = new NotesAdapter.NoteClickListener() {
         @Override
         public void onNoteClick(int position) {
-            Note note = notesAdapter.getNote(position);
-            final Long noteId = note.getId();
 
-//            noteDao.deleteByKey(noteId)
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .subscribe(new Consumer<Void>() {
-//                        @Override
-//                        public void accept(Void aVoid) throws Exception {
-//                            Log.d("DaoExample", "Deleted note, ID: " + noteId);
-//                            updateNotes();
-//                        }
-//                    });
         }
     };
 

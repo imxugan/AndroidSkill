@@ -441,6 +441,14 @@
             android:name="test.cn.example.com.androidskill.leak.LeakTestActivity">
         </activity>
 
+        <activity
+            android:name="test.cn.example.com.androidskill.optimize.OptimizeActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="test.cn.example.com.androidskill.optimize.HttpResponseCacheActivity"
+            android:screenOrientation="portrait"/>
+
 
         <service android:name="test.cn.example.com.androidskill.service.MyService"
                  android:process=":remote">

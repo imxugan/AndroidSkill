@@ -20,6 +20,7 @@ import test.cn.example.com.androidskill.livedatabus.LiveDataBusTestActivity;
 import test.cn.example.com.androidskill.login.view.LoginActivity;
 import test.cn.example.com.androidskill.my_eventbus.MyEventBusTestActivity;
 import test.cn.example.com.androidskill.myvolley.MyVolleyTestActivity;
+import test.cn.example.com.androidskill.optimize.OptimizeActivity;
 import test.cn.example.com.androidskill.rxjava2Test.RxJava2ActivityTest;
 import test.cn.example.com.androidskill.rxjavaTest.RxJavaTestActivity;
 import test.cn.example.com.androidskill.sqlite.SqliteActivity;
@@ -53,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         change_skin.setOnClickListener(this);
         TextView test = (TextView) findViewById(R.id.test);
         test.setOnClickListener(this);
+        TextView optimize = (TextView) findViewById(R.id.optimize);
+        optimize.setOnClickListener(this);
         TextView debug = (TextView) findViewById(R.id.debug);
         debug.setOnClickListener(this);
         TextView classLoader = (TextView) findViewById(R.id.classLoader);
@@ -125,6 +128,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.test:
                 myStartActivity(TestEditDetailsActivity2.class,false);
+                break;
+            case R.id.optimize:
+                myStartActivity(OptimizeActivity.class,false);
                 break;
             case R.id.debug:
                 myStartActivity(DebugActivity.class,false);
