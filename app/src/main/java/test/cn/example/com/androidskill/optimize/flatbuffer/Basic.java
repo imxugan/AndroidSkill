@@ -1,11 +1,9 @@
 // automatically generated, do not modify
 
-package test.cn.example.com.androidskill.optimize;
+package test.cn.example.com.androidskill.optimize.flatbuffer;
 
 import java.nio.*;
 import java.lang.*;
-import java.util.*;
-import com.google.flatbuffers.*;
 
 public class Basic extends Table {
   public static Basic getRootAsBasic(ByteBuffer _bb) { return getRootAsBasic(_bb, new Basic()); }

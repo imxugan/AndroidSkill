@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import test.cn.example.com.androidskill.R;
+import test.cn.example.com.androidskill.optimize.flatbuffer.FlatBufferActivity;
+import test.cn.example.com.androidskill.optimize.httpresponsecache.HttpResponseCacheActivity;
 
 /**
  * Created by xugan on 2019/5/16.

@@ -1,4 +1,4 @@
-package test.cn.example.com.androidskill.optimize;
+package test.cn.example.com.androidskill.optimize.flatbuffer;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;

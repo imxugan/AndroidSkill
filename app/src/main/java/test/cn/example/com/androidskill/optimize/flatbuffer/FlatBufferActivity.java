@@ -1,4 +1,4 @@
-package test.cn.example.com.androidskill.optimize;
+package test.cn.example.com.androidskill.optimize.flatbuffer;
 
 import android.os.Bundle;
 import android.os.Environment;

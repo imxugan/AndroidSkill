@@ -1,4 +1,4 @@
-package test.cn.example.com.androidskill.optimize;
+package test.cn.example.com.androidskill.optimize.httpresponsecache;
 
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;

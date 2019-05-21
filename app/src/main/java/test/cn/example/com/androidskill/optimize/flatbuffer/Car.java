@@ -1,11 +1,9 @@
 // automatically generated, do not modify
 
-package test.cn.example.com.androidskill.optimize;
+package test.cn.example.com.androidskill.optimize.flatbuffer;
 
 import java.nio.*;
 import java.lang.*;
-import java.util.*;
-import com.google.flatbuffers.*;
 
 public class Car extends Table {
   public static Car getRootAsCar(ByteBuffer _bb) { return getRootAsCar(_bb, new Car()); }
