@@ -26,12 +26,6 @@
             android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.test.TestEditDetailsActivity2"
-                  android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize">
-        </activity>
-
-
         <activity android:name="test.cn.example.com.androidskill.LannchModeActivity"
                   android:screenOrientation="portrait">
         </activity>
@@ -447,6 +441,10 @@
 
         <activity
             android:name="test.cn.example.com.androidskill.optimize.HttpResponseCacheActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="test.cn.example.com.androidskill.optimize.FlatBufferActivity"
             android:screenOrientation="portrait"/>
 
 

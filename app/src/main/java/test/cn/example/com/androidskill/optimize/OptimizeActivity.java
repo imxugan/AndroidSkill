@@ -18,6 +18,7 @@ public class OptimizeActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_optimize);
         findViewById(R.id.btn_httpResponseCache).setOnClickListener(this);
+        findViewById(R.id.btn_flatBuffer).setOnClickListener(this);
     }
 
     @Override
@@ -25,6 +26,9 @@ public class OptimizeActivity extends AppCompatActivity implements View.OnClickL
         switch (view.getId()){
             case R.id.btn_httpResponseCache:
                 startActivity(new Intent(OptimizeActivity.this,HttpResponseCacheActivity.class));
+                break;
+            case R.id.btn_flatBuffer:
+                startActivity(new Intent(OptimizeActivity.this,FlatBufferActivity.class));
                 break;
         }
     }
