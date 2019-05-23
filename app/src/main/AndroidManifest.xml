@@ -447,6 +447,10 @@
             android:name="test.cn.example.com.androidskill.optimize.flatbuffer.FlatBufferActivity"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:name="test.cn.example.com.androidskill.optimize.myhandler.MyHandlerTestActivity"
+            android:screenOrientation="portrait"/>
+
 
         <service android:name="test.cn.example.com.androidskill.service.MyService"
                  android:process=":remote">

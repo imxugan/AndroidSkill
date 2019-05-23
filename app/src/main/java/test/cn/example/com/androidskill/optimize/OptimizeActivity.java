@@ -9,6 +9,7 @@ import android.view.View;
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.androidskill.optimize.flatbuffer.FlatBufferActivity;
 import test.cn.example.com.androidskill.optimize.httpresponsecache.HttpResponseCacheActivity;
+import test.cn.example.com.androidskill.optimize.myhandler.MyHandlerTestActivity;
 
 /**
  * Created by xugan on 2019/5/16.
@@ -21,6 +22,7 @@ public class OptimizeActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_optimize);
         findViewById(R.id.btn_httpResponseCache).setOnClickListener(this);
         findViewById(R.id.btn_flatBuffer).setOnClickListener(this);
+        findViewById(R.id.btn_handler).setOnClickListener(this);
     }
 
     @Override
@@ -31,6 +33,9 @@ public class OptimizeActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.btn_flatBuffer:
                 startActivity(new Intent(OptimizeActivity.this,FlatBufferActivity.class));
+                break;
+            case R.id.btn_handler:
+                startActivity(new Intent(OptimizeActivity.this,MyHandlerTestActivity.class));
                 break;
         }
     }

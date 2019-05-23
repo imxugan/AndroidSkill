@@ -17,5 +17,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="flatBuffer"/>
+
+        <Button
+            android:id="@+id/btn_handler"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="handler核心原理实现"/>
     </LinearLayout>
 </ScrollView>
