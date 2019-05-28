@@ -23,5 +23,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="handler核心原理实现"/>
+
+        <Button
+            android:id="@+id/btn_pic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="拍照和重相册选择图片演示"/>
     </LinearLayout>
 </ScrollView>

@@ -451,6 +451,20 @@
             android:name="test.cn.example.com.androidskill.optimize.myhandler.MyHandlerTestActivity"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:name="test.cn.example.com.androidskill.optimize.PicActivity"
+            android:screenOrientation="portrait"/>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.chen.cameraalbumtest.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
+
 
         <service android:name="test.cn.example.com.androidskill.service.MyService"
                  android:process=":remote">

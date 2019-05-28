@@ -23,6 +23,7 @@ public class OptimizeActivity extends AppCompatActivity implements View.OnClickL
         findViewById(R.id.btn_httpResponseCache).setOnClickListener(this);
         findViewById(R.id.btn_flatBuffer).setOnClickListener(this);
         findViewById(R.id.btn_handler).setOnClickListener(this);
+        findViewById(R.id.btn_pic).setOnClickListener(this);
     }
 
     @Override
@@ -36,6 +37,9 @@ public class OptimizeActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.btn_handler:
                 startActivity(new Intent(OptimizeActivity.this,MyHandlerTestActivity.class));
+                break;
+            case R.id.btn_pic:
+                startActivity(new Intent(OptimizeActivity.this,PicActivity.class));
                 break;
         }
     }
