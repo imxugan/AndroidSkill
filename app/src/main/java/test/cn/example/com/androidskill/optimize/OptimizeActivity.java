@@ -10,6 +10,8 @@ import test.cn.example.com.androidskill.R;
 import test.cn.example.com.androidskill.optimize.flatbuffer.FlatBufferActivity;
 import test.cn.example.com.androidskill.optimize.httpresponsecache.HttpResponseCacheActivity;
 import test.cn.example.com.androidskill.optimize.myhandler.MyHandlerTestActivity;
+import test.cn.example.com.androidskill.optimize.service_keep.KeepLiveActivity;
+import test.cn.example.com.androidskill.optimize.service_keep.MyService;
 
 /**
  * Created by xugan on 2019/5/16.
@@ -20,10 +22,14 @@ public class OptimizeActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_optimize);
+
+        startService(new Intent(this,MyService.class));
+
         findViewById(R.id.btn_httpResponseCache).setOnClickListener(this);
         findViewById(R.id.btn_flatBuffer).setOnClickListener(this);
         findViewById(R.id.btn_handler).setOnClickListener(this);
         findViewById(R.id.btn_pic).setOnClickListener(this);
+        findViewById(R.id.btn_service_keep_live).setOnClickListener(this);
     }
 
     @Override
@@ -40,6 +46,9 @@ public class OptimizeActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.btn_pic:
                 startActivity(new Intent(OptimizeActivity.this,PicActivity.class));
+                break;
+            case R.id.btn_service_keep_live:
+                startActivity(new Intent(OptimizeActivity.this,KeepLiveActivity.class));
                 break;
         }
     }
