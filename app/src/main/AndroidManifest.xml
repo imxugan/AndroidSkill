@@ -7,7 +7,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT"/>
-
+    <!--开机广播-->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <application
         android:name="test.cn.example.com.androidskill.MyApplication"
         android:allowBackup="true"
@@ -456,6 +457,9 @@
         <activity
             android:name="test.cn.example.com.androidskill.optimize.PicActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name="test.cn.example.com.androidskill.optimize.process_keep.KeepProcessActivity"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name="test.cn.example.com.androidskill.optimize.service_keep.KeepLiveActivity"
@@ -477,6 +481,14 @@
         <service android:name="test.cn.example.com.androidskill.service.MyService"
                  android:process=":remote">
         </service>
+
+        <service android:name="test.cn.example.com.androidskill.optimize.process_keep.LocalService" />
+
+        <service android:name="test.cn.example.com.androidskill.optimize.process_keep.RemoteService"
+            android:process=":remoteProcess"/>
+        <service android:name=".optimize.process_keep.JobHandleService"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
+
         <!--<service android:name="test.cn.example.com.androidskill.service.BookManagerService"-->
                  <!--android:process=":remote">-->
         <!--</service>-->

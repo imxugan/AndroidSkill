@@ -35,5 +35,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="service keep live"/>
+        <Button
+            android:id="@+id/btn_process_keep_live"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="process keep live"/>
     </LinearLayout>
 </ScrollView>
