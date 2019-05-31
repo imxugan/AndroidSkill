@@ -1,13 +1,11 @@
 package test.cn.example.com.androidskill;
 
 import android.app.Application;
-import android.database.sqlite.SQLiteDatabase;
 
 import org.greenrobot.greendao.database.Database;
 
 import test.cn.example.com.androidskill.model.greendao.DaoMaster;
 import test.cn.example.com.androidskill.model.greendao.DaoSession;
-import test.cn.example.com.util.LogUtil;
 
 
 /**

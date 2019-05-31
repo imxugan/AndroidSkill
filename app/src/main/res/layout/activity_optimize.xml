@@ -46,5 +46,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="hot    fix"/>
+        <Button
+            android:id="@+id/btn_handler_thread"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="handler  thread"/>
     </LinearLayout>
 </ScrollView>
