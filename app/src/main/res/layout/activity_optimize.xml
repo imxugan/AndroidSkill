@@ -40,5 +40,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="process keep live"/>
+
+        <Button
+            android:id="@+id/btn_hot_fix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="hot    fix"/>
     </LinearLayout>
 </ScrollView>

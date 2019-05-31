@@ -8,6 +8,7 @@ import android.view.View;
 
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.androidskill.optimize.flatbuffer.FlatBufferActivity;
+import test.cn.example.com.androidskill.optimize.hotfix.HotFixActivity;
 import test.cn.example.com.androidskill.optimize.httpresponsecache.HttpResponseCacheActivity;
 import test.cn.example.com.androidskill.optimize.myhandler.MyHandlerTestActivity;
 import test.cn.example.com.androidskill.optimize.process_keep.KeepProcessActivity;
@@ -32,6 +33,7 @@ public class OptimizeActivity extends AppCompatActivity implements View.OnClickL
         findViewById(R.id.btn_pic).setOnClickListener(this);
         findViewById(R.id.btn_service_keep_live).setOnClickListener(this);
         findViewById(R.id.btn_process_keep_live).setOnClickListener(this);
+        findViewById(R.id.btn_hot_fix).setOnClickListener(this);
     }
 
     @Override
@@ -54,6 +56,9 @@ public class OptimizeActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.btn_process_keep_live:
                 startActivity(new Intent(OptimizeActivity.this,KeepProcessActivity.class));
+                break;
+            case R.id.btn_hot_fix:
+                startActivity(new Intent(OptimizeActivity.this,HotFixActivity.class));
                 break;
         }
     }

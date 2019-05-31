@@ -465,6 +465,9 @@
             android:name="test.cn.example.com.androidskill.optimize.service_keep.KeepLiveActivity"
             android:theme="@style/KeepLiveActivityStyle"
             android:screenOrientation="portrait"/>
+
+        <activity android:name=".optimize.hotfix.HotFixActivity"
+            android:screenOrientation="portrait"/>
         <service android:name=".optimize.service_keep.MyService"/>
 
         <provider
