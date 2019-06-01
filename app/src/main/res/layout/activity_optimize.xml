@@ -57,5 +57,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="intent service"/>
+
+        <Button
+            android:id="@+id/btn_splash_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="splash activity  optimize 记得演示是，将SplashActivityOptimize设置成app的入口页面"/>
     </LinearLayout>
 </ScrollView>

@@ -476,6 +476,15 @@
         <activity android:name=".optimize.handler_thread.IntentServiceActivity"
             android:screenOrientation="portrait"/>
 
+        <activity android:name="test.cn.example.com.androidskill.optimize.splash.SplashActivityOptimize"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
         <service android:name=".optimize.handler_thread.MyIntentService"/>
         <service android:name=".optimize.service_keep.MyService"/>
 
@@ -506,9 +515,9 @@
         <!--</service>-->
 
         <service android:name="test.cn.example.com.androidskill.service.BookManagerService">
-            <intent-filter>
-                <action android:name="com.android.skill.service.book_manager_service"></action>
-            </intent-filter>
+            <!--<intent-filter>-->
+                <!--<action android:name="com.android.skill.service.book_manager_service"></action>-->
+            <!--</intent-filter>-->
         </service>
         <meta-data
             android:name="com.google.android.gms.version"

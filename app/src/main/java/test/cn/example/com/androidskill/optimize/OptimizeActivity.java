@@ -16,6 +16,7 @@ import test.cn.example.com.androidskill.optimize.myhandler.MyHandlerTestActivity
 import test.cn.example.com.androidskill.optimize.process_keep.KeepProcessActivity;
 import test.cn.example.com.androidskill.optimize.service_keep.KeepLiveActivity;
 import test.cn.example.com.androidskill.optimize.service_keep.MyService;
+import test.cn.example.com.androidskill.optimize.splash.SplashActivityOptimize;
 
 /**
  * Created by xugan on 2019/5/16.
@@ -38,6 +39,7 @@ public class OptimizeActivity extends AppCompatActivity implements View.OnClickL
         findViewById(R.id.btn_hot_fix).setOnClickListener(this);
         findViewById(R.id.btn_handler_thread).setOnClickListener(this);
         findViewById(R.id.btn_intent_service).setOnClickListener(this);
+        findViewById(R.id.btn_splash_activity).setOnClickListener(this);
     }
 
     @Override
@@ -69,6 +71,9 @@ public class OptimizeActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.btn_intent_service:
                 startActivity(new Intent(OptimizeActivity.this,IntentServiceActivity.class));
+                break;
+            case R.id.btn_splash_activity:
+                startActivity(new Intent(OptimizeActivity.this,SplashActivityOptimize.class));
                 break;
         }
     }
