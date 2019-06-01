@@ -51,5 +51,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="handler  thread"/>
+
+        <Button
+            android:id="@+id/btn_intent_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="intent service"/>
     </LinearLayout>
 </ScrollView>

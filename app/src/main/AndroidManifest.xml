@@ -472,6 +472,11 @@
 
         <activity android:name=".optimize.handler_thread.HandlerThreadActivity"
             android:screenOrientation="portrait"/>
+
+        <activity android:name=".optimize.handler_thread.IntentServiceActivity"
+            android:screenOrientation="portrait"/>
+
+        <service android:name=".optimize.handler_thread.MyIntentService"/>
         <service android:name=".optimize.service_keep.MyService"/>
 
         <provider
