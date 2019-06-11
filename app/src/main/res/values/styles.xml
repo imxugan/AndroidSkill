@@ -108,4 +108,12 @@
         <item name="android:windowNoDisplay">false</item>
 
     </style>
+
+    <style name="MyDividerStyle">
+        <item name="android:divider">#f00</item>
+        <item name="android:dividerHeight">1px</item>
+    </style>
+    <style name="PopupMenuStyle" parent="AppTheme">
+        <item name="android:dropDownListViewStyle">@style/MyDividerStyle</item>
+    </style>
 </resources>
