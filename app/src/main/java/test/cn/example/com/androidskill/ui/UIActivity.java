@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import test.cn.example.com.androidskill.R;
+import test.cn.example.com.androidskill.ui.compact.ListPopupWindowActivity;
 import test.cn.example.com.androidskill.ui.compact.SwipeRefreshLayoutActivity;
 
 /**
@@ -19,6 +20,7 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ui);
         findViewById(R.id.btn_1).setOnClickListener(this);
+        findViewById(R.id.btn_2).setOnClickListener(this);
     }
 
     @Override
@@ -26,6 +28,9 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         switch (v.getId()){
             case R.id.btn_1:
                 startActivity(new Intent(UIActivity.this,SwipeRefreshLayoutActivity.class));
+                break;
+            case R.id.btn_2:
+                startActivity(new Intent(UIActivity.this,ListPopupWindowActivity.class));
                 break;
         }
     }
