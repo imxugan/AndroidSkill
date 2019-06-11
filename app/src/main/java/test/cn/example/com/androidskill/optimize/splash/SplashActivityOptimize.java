@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.ViewStub;
+import android.view.Window;
 
 import java.lang.ref.WeakReference;
 
@@ -33,7 +34,9 @@ public class SplashActivityOptimize extends FragmentActivity {
         fragmentTransaction.replace(R.id.frame,splashFragment);
         fragmentTransaction.commit();
         //当窗体加载完毕后，加载SplashActivityOptimize的真正要展示的布局
-        getWindow().getDecorView().post(new Runnable() {
+        Window window = getWindow();
+        LogUtil.i(window+"");
+        window.getDecorView().post(new Runnable() {
             @Override
             public void run() {
                 LogUtil.i(Thread.currentThread().getName());
@@ -48,7 +51,7 @@ public class SplashActivityOptimize extends FragmentActivity {
         });
 
         //2.当窗体加载完毕后，延时2秒执行一个任务，这里延迟2秒的时间，相当于模拟一个动画的执行时间
-        getWindow().getDecorView().post(new Runnable() {
+        window.getDecorView().post(new Runnable() {
             @Override
             public void run() {
                 LogUtil.i(Thread.currentThread().getName()+"   onResume 之后 ");

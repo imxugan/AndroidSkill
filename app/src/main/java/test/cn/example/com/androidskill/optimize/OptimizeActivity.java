@@ -27,9 +27,7 @@ public class OptimizeActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_optimize);
-
         startService(new Intent(this,MyService.class));
-
         findViewById(R.id.btn_httpResponseCache).setOnClickListener(this);
         findViewById(R.id.btn_flatBuffer).setOnClickListener(this);
         findViewById(R.id.btn_handler).setOnClickListener(this);
