@@ -447,6 +447,7 @@
         <activity android:name=".ui.compact.PopMenuActivity"
             android:theme="@style/PopupMenuStyle"></activity>
 
+        <activity android:name=".ui.compact.LinerLayoutCompactActivity"></activity>
         <activity
             android:name="test.cn.example.com.androidskill.optimize.OptimizeActivity"
             android:screenOrientation="portrait"/>
