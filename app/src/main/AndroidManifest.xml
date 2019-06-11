@@ -438,6 +438,10 @@
             android:name="test.cn.example.com.androidskill.leak.LeakTestActivity">
         </activity>
 
+        <activity android:name=".ui.UIActivity"></activity>
+
+        <activity android:name=".ui.compact.SwipeRefreshLayoutActivity"></activity>
+
         <activity
             android:name="test.cn.example.com.androidskill.optimize.OptimizeActivity"
             android:screenOrientation="portrait"/>
@@ -478,11 +482,11 @@
 
         <activity android:name="test.cn.example.com.androidskill.optimize.splash.SplashActivityOptimize"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN"/>-->
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--</intent-filter>-->
         </activity>
 
         <service android:name=".optimize.handler_thread.MyIntentService"/>

@@ -24,6 +24,7 @@ import test.cn.example.com.androidskill.optimize.OptimizeActivity;
 import test.cn.example.com.androidskill.rxjava2Test.RxJava2ActivityTest;
 import test.cn.example.com.androidskill.rxjavaTest.RxJavaTestActivity;
 import test.cn.example.com.androidskill.sqlite.SqliteActivity;
+import test.cn.example.com.androidskill.ui.UIActivity;
 import test.cn.example.com.androidskill.websocket.WebsocketActivity;
 import test.cn.example.com.util.LogUtils;
 
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initView() {
+        findViewById(R.id.ui).setOnClickListener(this);
         findViewById(R.id.tv_leak).setOnClickListener(this);
         TextView tv_volley = (TextView) findViewById(R.id.tv_volley);
         tv_volley.setOnClickListener(this);
@@ -104,6 +106,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.ui:
+                myStartActivity(UIActivity.class,false);
+                break;
             case R.id.tv_leak:
                 myStartActivity(LeakTestActivity .class,false);
                 break;
