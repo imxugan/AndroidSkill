@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -23,6 +24,8 @@ public class RecyclerViewActivity extends AppCompatActivity implements View.OnCl
     private MyRecyclerAdapter myRecyclerAdapter;
     private LinearLayoutManager linearLayoutManager;
     private GridLayoutManager gridLayoutManager;
+    private StaggeredGridLayoutManager staggeredGridLayoutManager;
+    private DividerGridViewItemDecoraton dividerGridViewItemDecoraton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,16 +33,20 @@ public class RecyclerViewActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_recyclerview);
         findViewById(R.id.btn_horizontal).setOnClickListener(this);
         findViewById(R.id.btn_vertical).setOnClickListener(this);
-        findViewById(R.id.btn_gride).setOnClickListener(this);
+        findViewById(R.id.btn_grid).setOnClickListener(this);
+        findViewById(R.id.btn_staggederedGrid).setOnClickListener(this);
         recyclerView = findViewById(R.id.recyclerView);
         linearLayoutManager = new LinearLayoutManager(this);
         gridLayoutManager = new GridLayoutManager(this,3);
+        dividerGridViewItemDecoraton = new DividerGridViewItemDecoraton(this);
+        staggeredGridLayoutManager = new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL);
         List<String> data = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             data.add(i+"");
         }
 
         myRecyclerAdapter = new MyRecyclerAdapter(this,data);
+
 
     }
 
@@ -56,8 +63,14 @@ public class RecyclerViewActivity extends AppCompatActivity implements View.OnCl
                 recyclerView.setLayoutManager(linearLayoutManager);
                 recyclerView.setAdapter(myRecyclerAdapter);
                 break;
-            case R.id.btn_gride:
+            case R.id.btn_grid:
+                recyclerView.removeItemDecoration(dividerGridViewItemDecoraton);
+                recyclerView.addItemDecoration(dividerGridViewItemDecoraton);
                 recyclerView.setLayoutManager(gridLayoutManager);
+                recyclerView.setAdapter(myRecyclerAdapter);
+                break;
+            case R.id.btn_staggederedGrid:
+                recyclerView.setLayoutManager(staggeredGridLayoutManager);
                 recyclerView.setAdapter(myRecyclerAdapter);
                 break;
         }

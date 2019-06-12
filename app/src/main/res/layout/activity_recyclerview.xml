@@ -19,10 +19,16 @@
             android:text="纵向布局"/>
 
         <Button
-            android:id="@+id/btn_gride"
+            android:id="@+id/btn_grid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="九宫格"/>
+
+        <Button
+            android:id="@+id/btn_staggederedGrid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="瀑布流"/>
     </LinearLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
