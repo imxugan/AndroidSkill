@@ -438,16 +438,19 @@
             android:name="test.cn.example.com.androidskill.leak.LeakTestActivity">
         </activity>
 
-        <activity android:name=".ui.UIActivity"></activity>
+        <activity android:name=".ui.UIActivity"/>
 
-        <activity android:name=".ui.compact.SwipeRefreshLayoutActivity"></activity>
+        <activity android:name=".ui.compact.SwipeRefreshLayoutActivity"/>
 
-        <activity android:name=".ui.compact.ListPopupWindowActivity"></activity>
+        <activity android:name=".ui.compact.ListPopupWindowActivity"/>
 
         <activity android:name=".ui.compact.PopMenuActivity"
-            android:theme="@style/PopupMenuStyle"></activity>
+            android:theme="@style/PopupMenuStyle"/>
 
-        <activity android:name=".ui.compact.LinerLayoutCompactActivity"></activity>
+        <activity android:name=".ui.compact.LinerLayoutCompactActivity"/>
+
+        <activity android:name=".ui.compact.RecyclerViewActivity"/>
+
         <activity
             android:name="test.cn.example.com.androidskill.optimize.OptimizeActivity"
             android:screenOrientation="portrait"/>
