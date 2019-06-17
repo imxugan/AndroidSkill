@@ -11,6 +11,8 @@
         <item name="attr6">attr6 from AppTheme style</item>
 
         <item name="toolbarNavigationButtonStyle">@style/toolbar_nav_button</item>
+
+        <item name="android:listDivider">@drawable/item_divider</item>
     </style>
 
     <style name="toolbar_nav_button" parent="Widget.AppCompat.Toolbar.Button.Navigation">

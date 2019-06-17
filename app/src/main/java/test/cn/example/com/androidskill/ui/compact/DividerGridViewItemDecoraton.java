@@ -6,8 +6,11 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import test.cn.example.com.util.LogUtil;
 
 /**
  * Created by xugan on 2019/6/12.
@@ -29,7 +32,8 @@ public class DividerGridViewItemDecoraton extends RecyclerView.ItemDecoration {
 
     @Override
     public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-        super.onDraw(c, parent, state);
+//        super.onDraw(c, parent, state);
+        LogUtil.e(parent.getChildCount()+"");
         drawHorizontal(c,parent);
         drawVertical(c,parent);
 
@@ -67,6 +71,52 @@ public class DividerGridViewItemDecoraton extends RecyclerView.ItemDecoration {
 
     @Override
     public void getItemOffsets(@NonNull Rect outRect, int itemPosition, @NonNull RecyclerView parent) {
-        super.getItemOffsets(outRect, itemPosition, parent);
+//        super.getItemOffsets(outRect, itemPosition, parent);
+        int right = mDivider.getIntrinsicWidth();
+        int bottom = mDivider.getIntrinsicHeight();
+        if(isLastColumn(itemPosition,parent)){
+            right = 0;
+        }
+
+        if(isLastRow(itemPosition,parent)){
+            bottom = 0;
+        }
+        LogUtil.i(itemPosition+"        "+right+"       "+bottom);
+        outRect.set(0,0,right,bottom);
+    }
+
+    //最后一列
+    private boolean isLastColumn(int itemPosition,RecyclerView parent){
+        RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
+        if(layoutManager instanceof GridLayoutManager){
+            int spanCount = getSpanCount(parent);
+            if((itemPosition+1)%spanCount==0){
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    private boolean isLastRow(int itemPosition,RecyclerView parent){
+        RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
+        if(layoutManager instanceof GridLayoutManager){
+            int spanCount = getSpanCount(parent);
+            int itemCount = parent.getAdapter().getItemCount();
+            int rowCount = itemCount%spanCount;
+            if(0==rowCount || rowCount<spanCount){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private int getSpanCount(RecyclerView parent){
+        RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
+        if(layoutManager instanceof GridLayoutManager){
+            GridLayoutManager lm = (GridLayoutManager) layoutManager;
+            return lm.getSpanCount();
+        }
+        return 0;
     }
 }

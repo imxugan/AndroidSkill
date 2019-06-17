@@ -43,8 +43,8 @@ public class RecyclerViewActivity extends AppCompatActivity implements View.OnCl
         divierItemDecoration = new DivierItemDecoration(this, LinearLayoutManager.VERTICAL);
         staggeredGridLayoutManager = new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL);
         List<String> data = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            data.add(i+"");
+        for (int i = 0; i < 9; i++) {
+            data.add(i+"abc");
         }
         myRecyclerAdapter = new MyRecyclerAdapter(this,data);
     }
