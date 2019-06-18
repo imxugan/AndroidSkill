@@ -453,6 +453,8 @@
 
         <activity android:name=".ui.compact.WraperRecyclerViewActivity"/>
 
+        <activity android:name=".ui.compact.ItemTouchHelperActivity"/>
+
         <activity
             android:name="test.cn.example.com.androidskill.optimize.OptimizeActivity"
             android:screenOrientation="portrait"/>
