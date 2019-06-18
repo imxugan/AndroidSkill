@@ -32,6 +32,10 @@ public class MyItemTouchHelperCallback extends ItemTouchHelper.Callback{
     @Override
     public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder srcHolder, @NonNull RecyclerView.ViewHolder targetHolder) {
         //当来回拖拽时回调这个方法
+        if(srcHolder.getItemViewType() != targetHolder.getItemViewType()){
+            //如果不是相同类型的条目则不进行拖拽移动
+            return false;
+        }
         boolean result = mItemMoveListener.onItemMove(srcHolder.getAdapterPosition(), targetHolder.getAdapterPosition());
         return result;//返回ture，才起作用
     }
@@ -39,5 +43,10 @@ public class MyItemTouchHelperCallback extends ItemTouchHelper.Callback{
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
         //侧滑时，回调
+        if(direction == ItemTouchHelper.LEFT || direction == ItemTouchHelper.RIGHT){
+            //向左或者向右侧滑时
+            mItemMoveListener.onItemRemove(viewHolder.getAdapterPosition());
+        }
+
     }
 }

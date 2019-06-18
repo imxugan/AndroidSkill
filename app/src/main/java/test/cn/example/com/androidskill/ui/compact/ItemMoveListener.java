@@ -6,4 +6,5 @@ package test.cn.example.com.androidskill.ui.compact;
 
 public interface ItemMoveListener {
     boolean onItemMove(int srcPositon,int targetPositon);
+    void onItemRemove(int position);
 }

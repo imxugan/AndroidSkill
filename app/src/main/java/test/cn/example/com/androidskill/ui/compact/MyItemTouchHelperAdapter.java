@@ -65,6 +65,12 @@ public class MyItemTouchHelperAdapter extends RecyclerView.Adapter<MyItemTouchHe
         return true;
     }
 
+    @Override
+    public void onItemRemove(int position) {
+        mData.remove(position);
+        notifyItemRemoved(position);
+    }
+
     class MyViewHolder extends RecyclerView.ViewHolder{
 
         private final ImageView iv_logo;
