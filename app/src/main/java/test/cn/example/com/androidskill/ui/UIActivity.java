@@ -12,6 +12,8 @@ import test.cn.example.com.androidskill.ui.compact.ListPopupWindowActivity;
 import test.cn.example.com.androidskill.ui.compact.PopMenuActivity;
 import test.cn.example.com.androidskill.ui.compact.RecyclerViewActivity;
 import test.cn.example.com.androidskill.ui.compact.SwipeRefreshLayoutActivity;
+import test.cn.example.com.androidskill.ui.compact.WraperRecyclerView;
+import test.cn.example.com.androidskill.ui.compact.WraperRecyclerViewActivity;
 
 /**
  * Created by xugan on 2019/6/11.
@@ -27,6 +29,7 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.btn_3).setOnClickListener(this);
         findViewById(R.id.btn_4).setOnClickListener(this);
         findViewById(R.id.btn_5).setOnClickListener(this);
+        findViewById(R.id.btn_6).setOnClickListener(this);
     }
 
     @Override
@@ -46,6 +49,9 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
                 break;
             case R.id.btn_5:
                 startActivity(new Intent(UIActivity.this,RecyclerViewActivity.class));
+                break;
+            case R.id.btn_6:
+                startActivity(new Intent(UIActivity.this,WraperRecyclerViewActivity.class));
                 break;
         }
     }
