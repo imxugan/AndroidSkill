@@ -18,7 +18,7 @@ public class MyItemTouchHelperCallback extends ItemTouchHelper.Callback{
     @Override
     public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
         int dragFlags = ItemTouchHelper.DOWN | ItemTouchHelper.UP; //注意这里是 | 运算
-        int swipeFlags = 0;//暂时不坚挺侧滑方向
+        int swipeFlags = ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT;
         int flags = makeMovementFlags(dragFlags, swipeFlags);
         return flags;
     }
@@ -38,6 +38,6 @@ public class MyItemTouchHelperCallback extends ItemTouchHelper.Callback{
 
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-
+        //侧滑时，回调
     }
 }
