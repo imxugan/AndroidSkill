@@ -456,6 +456,8 @@
         <activity android:name=".ui.compact.ItemTouchHelperActivity"/>
 
         <activity android:name=".ui.compact.DrawerLayoutActivity"/>
+
+        <activity android:name=".ui.compact.DrawerLayoutActivity2"/>
         <activity
             android:name="test.cn.example.com.androidskill.optimize.OptimizeActivity"
             android:screenOrientation="portrait"/>
