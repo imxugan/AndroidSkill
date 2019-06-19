@@ -69,6 +69,7 @@ public class MyItemTouchHelperCallback extends ItemTouchHelper.Callback{
         LogUtil.i(""+viewHolder.getAdapterPosition());
         //恢复选中的条目的背景颜色
         viewHolder.itemView.setBackgroundColor(viewHolder.itemView.getContext().getResources().getColor(android.R.color.transparent));
+        //恢复之前设置的各个动画效果，防止，出现条目复用时，出现空白的条目的bug
         viewHolder.itemView.setAlpha(1);
         viewHolder.itemView.setScaleX(1);
         viewHolder.itemView.setScaleY(1);
