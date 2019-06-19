@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import test.cn.example.com.androidskill.R;
+import test.cn.example.com.androidskill.ui.compact.DrawerLayoutActivity;
 import test.cn.example.com.androidskill.ui.compact.ItemTouchHelperActivity;
 import test.cn.example.com.androidskill.ui.compact.LinerLayoutCompactActivity;
 import test.cn.example.com.androidskill.ui.compact.ListPopupWindowActivity;
@@ -32,6 +33,7 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.btn_5).setOnClickListener(this);
         findViewById(R.id.btn_6).setOnClickListener(this);
         findViewById(R.id.btn_7).setOnClickListener(this);
+        findViewById(R.id.btn_8).setOnClickListener(this);
     }
 
     @Override
@@ -57,6 +59,9 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
                 break;
             case R.id.btn_7:
                 startActivity(new Intent(UIActivity.this,ItemTouchHelperActivity.class));
+                break;
+            case R.id.btn_8:
+                startActivity(new Intent(UIActivity.this,DrawerLayoutActivity.class));
                 break;
         }
     }

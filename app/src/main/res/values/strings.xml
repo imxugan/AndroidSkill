@@ -20,4 +20,6 @@
     <string name="answer_d">选项D</string>
     <string name="title_edit_test_content">测试题目:</string>
     <string name="clean_content">清空内容</string>
+    <string name="drawer_open">打开</string>
+    <string name="drawer_close">关闭</string>
 </resources>
