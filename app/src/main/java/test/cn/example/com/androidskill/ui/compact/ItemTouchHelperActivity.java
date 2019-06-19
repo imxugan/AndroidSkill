@@ -26,7 +26,7 @@ public class ItemTouchHelperActivity extends AppCompatActivity implements ItemDr
         setContentView(R.layout.activity_itemtouchhelper);
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         List<QQMessage> data = new ArrayList<>();
-        for(int i=0;i<10;i++){
+        for(int i=0;i<17;i++){
             QQMessage qqMessage = new QQMessage();
             if(i== 0){
                 qqMessage.resId = R.drawable.wb;
@@ -48,6 +48,20 @@ public class ItemTouchHelperActivity extends AppCompatActivity implements ItemDr
                 qqMessage.resId = R.drawable.qq_music;
             }else if(i == 9){
                 qqMessage.resId = R.drawable.qzone;
+            }else if(i == 10){
+                qqMessage.resId = R.drawable.test0;
+            }else if(i == 11){
+                qqMessage.resId = R.drawable.test1;
+            }else if(i == 12){
+                qqMessage.resId = R.drawable.test2;
+            }else if(i == 13){
+                qqMessage.resId = R.drawable.test3;
+            }else if(i == 14){
+                qqMessage.resId = R.drawable.test4;
+            }else if(i == 15){
+                qqMessage.resId = R.drawable.vx;
+            }else if(i == 16){
+                qqMessage.resId = R.drawable.test_ic_img_user_default;
             }
 
             qqMessage.title = "title"+i;

@@ -6,6 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
+import test.cn.example.com.util.LogUtil;
+
+
 /**
  * Created by xugan on 2019/6/18.
  */
@@ -63,18 +66,25 @@ public class MyItemTouchHelperCallback extends ItemTouchHelper.Callback{
     @Override
     public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
         super.clearView(recyclerView, viewHolder);
+        LogUtil.i(""+viewHolder.getAdapterPosition());
         //恢复选中的条目的背景颜色
         viewHolder.itemView.setBackgroundColor(viewHolder.itemView.getContext().getResources().getColor(android.R.color.transparent));
+        viewHolder.itemView.setAlpha(1);
+        viewHolder.itemView.setScaleX(1);
+        viewHolder.itemView.setScaleY(1);
     }
 
     @Override
     public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+        LogUtil.i(viewHolder.getAdapterPosition()+"     dX="+dX+"      dY="+dY);
         //dX 横向移动的增量
         //dY 纵向移动的增量
         float alpha = 1 - (Math.abs(dX)) / viewHolder.itemView.getWidth();
-        viewHolder.itemView.setAlpha(alpha);
-        viewHolder.itemView.setScaleX(alpha);
-        viewHolder.itemView.setScaleY(alpha);
+        if(ItemTouchHelper.ACTION_STATE_SWIPE==actionState){
+            viewHolder.itemView.setAlpha(alpha);
+            viewHolder.itemView.setScaleX(alpha);
+            viewHolder.itemView.setScaleY(alpha);
+        }
     }
 }
