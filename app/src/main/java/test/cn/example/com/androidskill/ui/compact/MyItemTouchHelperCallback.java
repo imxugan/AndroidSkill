@@ -47,6 +47,7 @@ public class MyItemTouchHelperCallback extends ItemTouchHelper.Callback{
 
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+        LogUtil.e(viewHolder.getAdapterPosition()+"             "+direction);
         //侧滑时，回调
         if(direction == ItemTouchHelper.LEFT || direction == ItemTouchHelper.RIGHT){
             //向左或者向右侧滑时
@@ -78,14 +79,20 @@ public class MyItemTouchHelperCallback extends ItemTouchHelper.Callback{
     @Override
     public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-        LogUtil.i(viewHolder.getAdapterPosition()+"     dX="+dX+"      dY="+dY);
-        //dX 横向移动的增量
+        LogUtil.i(viewHolder.getAdapterPosition()+"     dX="+dX+"      dY="+dY+"        "+viewHolder.itemView.getWidth());
+        //dX 横向移动的增量,负数，向左，正数 向右,范围 0---view.getWidth()
         //dY 纵向移动的增量
         float alpha = 1 - (Math.abs(dX)) / viewHolder.itemView.getWidth();
         if(ItemTouchHelper.ACTION_STATE_SWIPE==actionState){
             viewHolder.itemView.setAlpha(alpha);
             viewHolder.itemView.setScaleX(alpha);
             viewHolder.itemView.setScaleY(alpha);
+
+            if(Math.abs(dX)<=viewHolder.itemView.getWidth()/2){
+                viewHolder.itemView.setTranslationX(dX);
+            }else {
+                viewHolder.itemView.setTranslationX(-viewHolder.itemView.getWidth()/2);
+            }
         }
     }
 }
