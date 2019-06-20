@@ -73,8 +73,23 @@ public class SnackBarActivity extends AppCompatActivity implements View.OnClickL
 //
 //        return result;
 //    }
+
+    private void myToasInThread(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Toast toast = new Toast(SnackBarActivity.this);
+                LayoutInflater layoutInflateService = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View v = layoutInflateService.inflate(R.layout.toast_layout, null);
+                TextView tv = v.findViewById(R.id.tv);
+                toast.setDuration(Toast.LENGTH_SHORT);
+                toast.setView(v);
+                toast.show();
+            }
+        }).start();
+    }
     private void myToast(String text){
-        Toast toast = new Toast(this);
+        Toast toast = new Toast(SnackBarActivity.this);
         LayoutInflater layoutInflateService = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = layoutInflateService.inflate(R.layout.toast_layout, null);
         TextView tv = v.findViewById(R.id.tv);
@@ -82,5 +97,6 @@ public class SnackBarActivity extends AppCompatActivity implements View.OnClickL
         toast.setDuration(Toast.LENGTH_SHORT);
         toast.setView(v);
         toast.show();
+
     }
 }

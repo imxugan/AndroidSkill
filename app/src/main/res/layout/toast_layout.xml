@@ -14,5 +14,5 @@
         android:layout_height="wrap_content"
         android:textSize="17sp"
         android:layout_gravity="center_vertical"
-        tools:text="@string/Add_a_button_was_clicked"/>
+        android:text="@string/Add_a_button_was_clicked"/>
 </LinearLayout>
