@@ -80,5 +80,12 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="DrawerLayout配合NavigationView使用" />
+
+        <Button
+            android:id="@+id/btn_11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Snackbar使用" />
     </LinearLayout>
 </ScrollView>

@@ -460,6 +460,8 @@
         <activity android:name=".ui.compact.DrawerLayoutActivity2"/>
 
         <activity android:name=".ui.compact.NavigationViewActivity"/>
+
+        <activity android:name=".ui.compact.SnackBarActivity"/>
         <activity
             android:name="test.cn.example.com.androidskill.optimize.OptimizeActivity"
             android:screenOrientation="portrait"/>
