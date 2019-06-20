@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/next"
+        android:icon="@mipmap/ic_launcher"
+        android:title="下一首播放" />
+    <item
+        android:id="@+id/add"
+        android:icon="@mipmap/ic_launcher"
+        android:title="添加到歌单" />
+    <item
+        android:id="@+id/detail"
+        android:icon="@mipmap/ic_launcher"
+        android:title="歌曲详情" />
+    <item
+        android:id="@+id/del"
+        android:icon="@mipmap/ic_launcher"
+        android:title="删除歌曲" />
+    <item android:id="@+id/about"
+        android:icon="@mipmap/ic_launcher"
+        android:title="@string/Add_a_friend">
+        <menu >
+            <item android:id="@+id/about1"
+                android:icon="@drawable/qq_music"
+                android:title="@string/agree"/>
+            <item android:id="@+id/about2"
+                android:title="@string/address_book"
+                android:icon="@drawable/vx"/>
+        </menu>
+    </item>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_camera"
+            android:icon="@drawable/p4"
+            android:title="Import"/>
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/p1"
+            android:title="Gallery"/>
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/p2"
+            android:title="Slideshow"/>
+        <item
+            android:id="@+id/nav_manage"
+            android:icon="@drawable/p3"
+            android:title="Tools"/>
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/vx"
+                android:title="Share"/>
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/qq"
+                android:title="Send"/>
+        </menu>
+    </item>
+</menu>

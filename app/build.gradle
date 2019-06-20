@@ -118,4 +118,7 @@ dependencies {
     //flatbuffer
     compile 'com.github.davidmoten:flatbuffers-java:1.3.0.1'
 
+    //navigationview
+    compile 'com.android.support:design:28.0.0'
+
 }
