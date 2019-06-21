@@ -15,6 +15,7 @@ import test.cn.example.com.androidskill.ui.compact.ListPopupWindowActivity;
 import test.cn.example.com.androidskill.ui.compact.NavigationViewActivity;
 import test.cn.example.com.androidskill.ui.compact.PopMenuActivity;
 import test.cn.example.com.androidskill.ui.compact.RecyclerViewActivity;
+import test.cn.example.com.androidskill.ui.compact.RecyclerViewItemAnimator;
 import test.cn.example.com.androidskill.ui.compact.SnackBarActivity;
 import test.cn.example.com.androidskill.ui.compact.SwipeRefreshLayoutActivity;
 import test.cn.example.com.androidskill.ui.compact.WraperRecyclerView;
@@ -40,6 +41,7 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.btn_9).setOnClickListener(this);
         findViewById(R.id.btn_10).setOnClickListener(this);
         findViewById(R.id.btn_11).setOnClickListener(this);
+        findViewById(R.id.btn_12).setOnClickListener(this);
     }
 
     @Override
@@ -77,6 +79,9 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
                 break;
             case R.id.btn_11:
                 startActivity(new Intent(UIActivity.this,SnackBarActivity.class));
+                break;
+            case R.id.btn_12:
+                startActivity(new Intent(UIActivity.this,RecyclerViewItemAnimator.class));
                 break;
         }
     }
