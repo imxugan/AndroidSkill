@@ -465,6 +465,8 @@
 
         <activity android:name=".ui.compact.RecyclerViewItemAnimator"/>
 
+        <activity android:name=".ui.compact.LayoutAnimationActivity"/>
+
         <activity
             android:name="test.cn.example.com.androidskill.optimize.OptimizeActivity"
             android:screenOrientation="portrait"/>

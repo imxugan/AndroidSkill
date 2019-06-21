@@ -10,6 +10,7 @@ import test.cn.example.com.androidskill.R;
 import test.cn.example.com.androidskill.ui.compact.DrawerLayoutActivity;
 import test.cn.example.com.androidskill.ui.compact.DrawerLayoutActivity2;
 import test.cn.example.com.androidskill.ui.compact.ItemTouchHelperActivity;
+import test.cn.example.com.androidskill.ui.compact.LayoutAnimationActivity;
 import test.cn.example.com.androidskill.ui.compact.LinerLayoutCompactActivity;
 import test.cn.example.com.androidskill.ui.compact.ListPopupWindowActivity;
 import test.cn.example.com.androidskill.ui.compact.NavigationViewActivity;
@@ -42,11 +43,15 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.btn_10).setOnClickListener(this);
         findViewById(R.id.btn_11).setOnClickListener(this);
         findViewById(R.id.btn_12).setOnClickListener(this);
+        findViewById(R.id.btn_13).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.btn_13:
+                startActivity(new Intent(UIActivity.this,LayoutAnimationActivity.class));
+                break;
             case R.id.btn_1:
                 startActivity(new Intent(UIActivity.this,SwipeRefreshLayoutActivity.class));
                 break;
