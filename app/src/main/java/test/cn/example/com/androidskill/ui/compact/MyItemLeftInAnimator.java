@@ -14,7 +14,7 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyItemAnimator extends SimpleItemAnimator {
+public class MyItemLeftInAnimator extends SimpleItemAnimator {
     private static final boolean DEBUG = false;
     private static TimeInterpolator sDefaultInterpolator;
     private ArrayList<ViewHolder> mPendingRemovals = new ArrayList<>();
