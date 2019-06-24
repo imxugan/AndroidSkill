@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/action_search"
+        android:title="搜索"
+        app:showAsAction="always"
+        android:icon="@drawable/qq"/>
+    <item android:id="@+id/action_share"
+        android:title="分享"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/p1"/>
+    <item android:id="@+id/action_delete"
+        android:title="删除"
+        app:showAsAction="never"
+        android:icon="@drawable/p2"/>
+    <item android:id="@+id/action_add"
+        android:title="添加"
+        app:showAsAction="never"
+        android:icon="@drawable/p3"/>
+</menu>

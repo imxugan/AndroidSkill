@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigationIcon="@mipmap/back"
+        app:title="标题"
+        app:titleTextAppearance="@style/toolbar_style"
+        app:titleTextColor="@color/colorAccent"
+        app:subtitleTextAppearance="@style/toolbar_style"
+        app:subtitle="旅行"
+        app:subtitleTextColor="@color/common_action_bar_splitter"
+        app:logo="@mipmap/ic_launcher"
+        android:background="?attr/colorPrimary"
+        android:navigationContentDescription="什么作用"
+        app:popupTheme="@style/ToolbarPopupTheme">
+        <!--toolbar没有提供将app:title的文字设置到居中的方法，不过可以在toolbar中添加一个标题，让标题textview居中达到效果，、-->
+        <!--不过，这样处理后，如果toolbar中的空间不够用，这个textview会将 app：title和 app:subtitle设置的内容挡住,-->
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textSize="8sp"
+           android:text="位于居中位置的标题"
+           android:layout_gravity="center"/>
+    </android.support.v7.widget.Toolbar>
+</LinearLayout>
