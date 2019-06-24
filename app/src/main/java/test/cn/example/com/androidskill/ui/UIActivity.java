@@ -17,10 +17,10 @@ import test.cn.example.com.androidskill.ui.compact.NavigationViewActivity;
 import test.cn.example.com.androidskill.ui.compact.PopMenuActivity;
 import test.cn.example.com.androidskill.ui.compact.RecyclerViewActivity;
 import test.cn.example.com.androidskill.ui.compact.RecyclerViewItemAnimator;
+import test.cn.example.com.androidskill.ui.compact.SearchViewActivity;
 import test.cn.example.com.androidskill.ui.compact.SnackBarActivity;
 import test.cn.example.com.androidskill.ui.compact.SwipeRefreshLayoutActivity;
 import test.cn.example.com.androidskill.ui.compact.ToolbarActivity;
-import test.cn.example.com.androidskill.ui.compact.WraperRecyclerView;
 import test.cn.example.com.androidskill.ui.compact.WraperRecyclerViewActivity;
 
 /**
@@ -46,11 +46,15 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.btn_12).setOnClickListener(this);
         findViewById(R.id.btn_13).setOnClickListener(this);
         findViewById(R.id.btn_14).setOnClickListener(this);
+        findViewById(R.id.btn_15).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.btn_15:
+                startActivity(new Intent(UIActivity.this,SearchViewActivity.class));
+                break;
             case R.id.btn_14:
                 startActivity(new Intent(UIActivity.this,ToolbarActivity.class));
                 break;
