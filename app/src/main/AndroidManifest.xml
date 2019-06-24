@@ -471,6 +471,7 @@
 
         <activity android:name=".ui.compact.SearchViewActivity"/>
 
+        <activity android:name=".ui.compact.TextInputLayoutActivity"/>
         <activity
             android:name="test.cn.example.com.androidskill.optimize.OptimizeActivity"
             android:screenOrientation="portrait"/>

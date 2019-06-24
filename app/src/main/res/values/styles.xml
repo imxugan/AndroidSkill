@@ -131,4 +131,9 @@
     <style name="PopupMenuStyle" parent="AppTheme">
         <item name="android:dropDownListViewStyle">@style/MyDividerStyle</item>
     </style>
+
+    <style name="EditTextSytle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#f00</item>
+    </style>
 </resources>
