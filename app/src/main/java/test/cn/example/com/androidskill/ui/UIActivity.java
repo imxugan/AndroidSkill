@@ -20,6 +20,7 @@ import test.cn.example.com.androidskill.ui.compact.RecyclerViewActivity;
 import test.cn.example.com.androidskill.ui.compact.RecyclerViewItemAnimator;
 import test.cn.example.com.androidskill.ui.compact.SearchViewActivity;
 import test.cn.example.com.androidskill.ui.compact.SnackBarActivity;
+import test.cn.example.com.androidskill.ui.compact.StatusBarActivity;
 import test.cn.example.com.androidskill.ui.compact.SwipeRefreshLayoutActivity;
 import test.cn.example.com.androidskill.ui.compact.TabLayoutActivity;
 import test.cn.example.com.androidskill.ui.compact.TabLayoutActivity2;
@@ -57,11 +58,15 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.btn_18).setOnClickListener(this);
         findViewById(R.id.btn_19).setOnClickListener(this);
         findViewById(R.id.btn_20).setOnClickListener(this);
+        findViewById(R.id.btn_21).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.btn_21:
+                startActivity(new Intent(UIActivity.this,StatusBarActivity.class));
+                break;
             case R.id.btn_20:
                 startActivity(new Intent(UIActivity.this,TabLayoutActivity2.class));
                 break;
