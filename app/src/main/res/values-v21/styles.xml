@@ -1,0 +1,143 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!--<item name="customViewStyle">@style/custom_view_style</item>-->
+        <item name="attr5">attr5 from AppTheme style</item>
+        <item name="attr6">attr6 from AppTheme style</item>
+
+        <item name="toolbarNavigationButtonStyle">@style/toolbar_nav_button</item>
+
+        <item name="android:listDivider">@drawable/item_divider</item>
+        <!--指定状态栏的颜色，如果不单独指定，则会采用 colorPrimaryDark属性指定的颜色作为状态栏的颜色-->
+        <item name="android:statusBarColor">@color/c_00c8aa</item>
+        <!--指定手机底部虚拟导航栏颜色-->
+        <item name="android:navigationBarColor">@color/red</item>
+    </style>
+
+    <style name="toolbar_style" parent="AppTheme">
+        <item name="android:textSize">8sp</item>
+    </style>
+
+    <style name="ToolbarPopupTheme" parent="@style/ThemeOverlay.AppCompat.Dark">
+        <!--<item name="android:colorBackground">#000000</item>--> <!--这里可以改变菜单的背景色-->
+        <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item> <!--新增一个item，用于控制menu-->
+    </style>
+
+    <style name="OverflowMenuStyle" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
+        <item name="overlapAnchor">false</item>  <!--把该属性改为false即可使menu位置位于toolbar之下-->
+    </style>
+
+    <style name="toolbar_nav_button" parent="Widget.AppCompat.Toolbar.Button.Navigation">
+        <item name="android:minWidth">0dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+    </style>
+
+    <style name="LoadingIndicatorView">
+        <item name="android:minWidth">48dp</item>
+        <item name="android:maxWidth">48dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:maxHeight">48dp</item>
+        <item name="indicatorName">BallBeatIndicator</item>
+    </style>
+
+    <style name="LoadingIndicatorView.Large">
+        <item name="minWidth">76dp</item>
+        <item name="maxWidth">76dp</item>
+        <item name="minHeight">76dp</item>
+        <item name="maxHeight">76dp</item>
+        <item name="indicatorName">BallBeatIndicator</item>
+    </style>
+
+    <style name="LoadingIndicatorView.Small">
+        <item name="minWidth">24dp</item>
+        <item name="maxWidth">24dp</item>
+        <item name="minHeight">24dp</item>
+        <item name="maxHeight">24dp</item>
+        <item name="indicatorName">BallBeatIndicator</item>
+    </style>
+
+    <!--自定义属性的样式-->
+    <style name="xml_style">
+        <item name="attr2">attr2 from xml style</item>
+        <item name="attr3">attr3 from xml style</item>
+    </style>
+
+    <style name="custom_view_style">
+        <item name="attr3">attr3 from custom view style</item>
+        <item name="attr4">attr4 from custom view style</item>
+    </style>
+
+    <style name="default_custom_view_style">
+        <item name="attr4">attr4 from default custom view style</item>
+        <item name="attr5">attr5 from default custom view style</item>
+    </style>
+
+    <!--给flowlayout的子view添加的样式-->
+    <style name="text_flag_01">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:background">@drawable/flag_01</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
+    <style name="Dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="PayDialog" parent="Dialog">
+        <item name="android:windowAnimationStyle">@style/BottomDialogAnimation</item>
+    </style>
+
+    <style name="BottomDialogAnimation" parent="@android:style/Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/dialog_pay_enter</item>
+        <item name="android:windowExitAnimation">@anim/dialog_pay_exit</item>
+    </style>
+
+
+    <style name="TitleBarCenterText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/color_333333</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+    </style>
+
+    <style name="KeepLiveActivityStyle" parent="@style/Theme.AppCompat">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowNoDisplay">false</item>
+
+    </style>
+
+    <style name="MyDividerStyle">
+        <item name="android:divider">#f00</item>
+        <item name="android:dividerHeight">1px</item>
+    </style>
+    <style name="PopupMenuStyle" parent="AppTheme">
+        <item name="android:dropDownListViewStyle">@style/MyDividerStyle</item>
+    </style>
+
+    <style name="EditTextSytle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#f00</item>
+    </style>
+</resources>
