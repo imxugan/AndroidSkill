@@ -475,6 +475,8 @@
 
         <activity android:name=".ui.compact.PaletteActivity"/>
 
+        <activity android:name=".ui.compact.ToolbarBackgroundGradulChange"/>
+
         <activity
             android:name="test.cn.example.com.androidskill.optimize.OptimizeActivity"
             android:screenOrientation="portrait"/>
