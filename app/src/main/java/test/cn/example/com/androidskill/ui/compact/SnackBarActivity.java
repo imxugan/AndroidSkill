@@ -2,6 +2,7 @@ package test.cn.example.com.androidskill.ui.compact;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +25,7 @@ public class SnackBarActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_sanckbar);
         findViewById(R.id.btn_toast).setOnClickListener(this);
         findViewById(R.id.btn_snackbar).setOnClickListener(this);
+        findViewById(R.id.btn_toast_thread).setOnClickListener(this);
     }
 
     @Override
@@ -56,6 +58,9 @@ public class SnackBarActivity extends AppCompatActivity implements View.OnClickL
                 snackbar.setActionTextColor(getResources().getColor(R.color.colorPrimary));
                 snackbar.show();
                 break;
+            case R.id.btn_toast_thread:
+                myToasInThread();
+                break;
         }
     }
 //    public static Toast makeText(@NonNull Context context, @Nullable Looper looper,
@@ -74,17 +79,36 @@ public class SnackBarActivity extends AppCompatActivity implements View.OnClickL
 //        return result;
 //    }
 
+
+    public static void showToast(Context context, String text) {
+        Looper myLooper = Looper.myLooper();
+        LogUtil.i(myLooper+"");
+        if (myLooper == null) {
+            Looper.prepare();
+            myLooper = Looper.myLooper();
+        }
+        Toast toast = new Toast(context);
+        LayoutInflater layoutInflateService = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View v = layoutInflateService.inflate(R.layout.toast_layout, null);
+        TextView tv = v.findViewById(R.id.tv);
+        tv.setText(text);
+        //如果context传的是Application，则需要给tv设置颜色，否则tv显示的颜色将会是透明颜色
+//        tv.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(v);
+
+        toast.show();
+        if ( myLooper != null) {
+            Looper.loop();
+            myLooper.quit();
+        }
+    }
+
     private void myToasInThread(){
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Toast toast = new Toast(SnackBarActivity.this);
-                LayoutInflater layoutInflateService = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                View v = layoutInflateService.inflate(R.layout.toast_layout, null);
-                TextView tv = v.findViewById(R.id.tv);
-                toast.setDuration(Toast.LENGTH_SHORT);
-                toast.setView(v);
-                toast.show();
+               showToast(SnackBarActivity.this,"子线程的自定义吐司");
             }
         }).start();
     }
