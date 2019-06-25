@@ -6,13 +6,15 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import test.cn.example.com.androidskill.R;
+import test.cn.example.com.util.DensityUtil;
 import test.cn.example.com.util.LogUtil;
 
 /**
@@ -44,6 +46,13 @@ public class TabLayoutActivity2 extends AppCompatActivity {
             ImageView iv = tab.getCustomView().findViewById(R.id.iv);
             iv.setImageResource(R.mipmap.ic_launcher);
         }
+
+        LinearLayout linearLayout = (LinearLayout) tablayout.getChildAt(0);
+        linearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+        linearLayout.setDividerDrawable(ContextCompat.getDrawable(this,
+                R.drawable.tablayout_divider_vertical_line));
+        linearLayout.setDividerPadding(DensityUtil.dp2Px(15));
+        LogUtil.i(linearLayout+"");
     }
 
     class MyPagerAdapter extends FragmentPagerAdapter{
