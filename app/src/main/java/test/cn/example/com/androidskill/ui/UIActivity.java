@@ -14,6 +14,7 @@ import test.cn.example.com.androidskill.ui.compact.LayoutAnimationActivity;
 import test.cn.example.com.androidskill.ui.compact.LinerLayoutCompactActivity;
 import test.cn.example.com.androidskill.ui.compact.ListPopupWindowActivity;
 import test.cn.example.com.androidskill.ui.compact.NavigationViewActivity;
+import test.cn.example.com.androidskill.ui.compact.PaletteActivity;
 import test.cn.example.com.androidskill.ui.compact.PopMenuActivity;
 import test.cn.example.com.androidskill.ui.compact.RecyclerViewActivity;
 import test.cn.example.com.androidskill.ui.compact.RecyclerViewItemAnimator;
@@ -49,11 +50,15 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.btn_14).setOnClickListener(this);
         findViewById(R.id.btn_15).setOnClickListener(this);
         findViewById(R.id.btn_16).setOnClickListener(this);
+        findViewById(R.id.btn_17).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.btn_17:
+                startActivity(new Intent(UIActivity.this,PaletteActivity.class));
+                break;
             case R.id.btn_16:
                 startActivity(new Intent(UIActivity.this,TextInputLayoutActivity.class));
                 break;
