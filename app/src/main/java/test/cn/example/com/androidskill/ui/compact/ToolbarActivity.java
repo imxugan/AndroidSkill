@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import test.cn.example.com.androidskill.R;
+import test.cn.example.com.util.LogUtil;
 
 /**
  * Created by xg on 2019/6/23.
@@ -28,6 +29,12 @@ public class ToolbarActivity extends AppCompatActivity implements MenuItem.OnMen
                 finish();
             }
         });
+        //这行代码是调整logo和titile与navigationIcon的间距
+        toolbar.setContentInsetStartWithNavigation(0);
+        int contentInsetLeft = toolbar.getContentInsetLeft();
+        LogUtil.i(""+contentInsetLeft);
+        int contentInsetStartWithNavigation = toolbar.getContentInsetStartWithNavigation();
+        LogUtil.i(""+contentInsetStartWithNavigation);
     }
 
     @Override

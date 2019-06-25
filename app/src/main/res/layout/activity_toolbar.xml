@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         app:navigationIcon="@mipmap/back"
         app:title="标题"
+        app:contentInsetStart="0dp"
         app:titleTextAppearance="@style/toolbar_style"
         app:titleTextColor="@color/colorAccent"
         app:subtitleTextAppearance="@style/toolbar_style"
@@ -28,4 +29,26 @@
            android:text="位于居中位置的标题"
            android:layout_gravity="center"/>
     </android.support.v7.widget.Toolbar>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:gravity="center_vertical"
+        android:background="@color/accent">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/dp16"
+            android:paddingRight="@dimen/dp16"
+            android:src="@mipmap/back"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="自定义的标题栏和toolbar的对比效果"/>
+    </LinearLayout>
 </LinearLayout>
