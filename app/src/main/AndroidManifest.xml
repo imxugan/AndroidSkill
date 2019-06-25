@@ -479,6 +479,8 @@
 
         <activity android:name=".ui.compact.TabLayoutActivity"/>
 
+        <activity android:name=".ui.compact.TabLayoutActivity2"/>
+
         <activity
             android:name="test.cn.example.com.androidskill.optimize.OptimizeActivity"
             android:screenOrientation="portrait"/>
