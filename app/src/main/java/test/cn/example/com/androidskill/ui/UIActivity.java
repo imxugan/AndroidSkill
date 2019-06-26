@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import test.cn.example.com.androidskill.R;
+import test.cn.example.com.androidskill.ui.compact.BaseImmersiveActivity;
 import test.cn.example.com.androidskill.ui.compact.DrawerLayoutActivity;
 import test.cn.example.com.androidskill.ui.compact.DrawerLayoutActivity2;
 import test.cn.example.com.androidskill.ui.compact.ItemTouchHelperActivity;
@@ -59,11 +60,15 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.btn_19).setOnClickListener(this);
         findViewById(R.id.btn_20).setOnClickListener(this);
         findViewById(R.id.btn_21).setOnClickListener(this);
+        findViewById(R.id.btn_22).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.btn_22:
+                startActivity(new Intent(UIActivity.this,BaseImmersiveActivity.class));
+                break;
             case R.id.btn_21:
                 startActivity(new Intent(UIActivity.this,StatusBarActivity.class));
                 break;

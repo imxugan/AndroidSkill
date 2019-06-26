@@ -483,6 +483,8 @@
 
         <activity android:name=".ui.compact.StatusBarActivity"/>
 
+        <activity android:name=".ui.compact.BaseImmersiveActivity"/>
+
         <activity
             android:name="test.cn.example.com.androidskill.optimize.OptimizeActivity"
             android:screenOrientation="portrait"/>
