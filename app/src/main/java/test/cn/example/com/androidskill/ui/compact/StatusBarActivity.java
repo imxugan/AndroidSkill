@@ -41,6 +41,7 @@ public class StatusBarActivity extends AppCompatActivity {
             //需要给toolbar指定高度，否则这里通过反射是获取不到toolbar的高度的，
             //oncreate中View.getWidth和View.getHeight无法获得一个view的高度和宽度，
             // 这是因为View组件 布局要在onResume回调后完成
+            //这种兼容也只能兼容到4.4版本，4.4以下的版本，没有沉浸式设计，也就没法兼容
             int statsBarHeight = getStatsBarHeight(this);
             LogUtil.i(statsBarHeight+"      "+layoutParams.height);
             layoutParams.height +=statsBarHeight;
