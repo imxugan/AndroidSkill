@@ -25,10 +25,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="标题栏"/>
-        </android.support.v7.widget.Toolbar>>
+        </android.support.v7.widget.Toolbar>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="0"
         android:background="@color/white">
         <LinearLayout
             android:layout_width="wrap_content"
@@ -102,4 +103,10 @@
                 android:text="ads"/>
         </LinearLayout>
     </ScrollView>
+    <View
+        android:id="@+id/nav_bg"
+        android:background="?attr/colorPrimaryDark"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp1"/>
 </LinearLayout>
