@@ -11,6 +11,7 @@ import test.cn.example.com.androidskill.ui.compact.BaseImmersiveActivity;
 import test.cn.example.com.androidskill.ui.compact.CardViewActivity;
 import test.cn.example.com.androidskill.ui.compact.DrawerLayoutActivity;
 import test.cn.example.com.androidskill.ui.compact.DrawerLayoutActivity2;
+import test.cn.example.com.androidskill.ui.compact.FloatingActionButtonActivity;
 import test.cn.example.com.androidskill.ui.compact.ItemTouchHelperActivity;
 import test.cn.example.com.androidskill.ui.compact.LayoutAnimationActivity;
 import test.cn.example.com.androidskill.ui.compact.LinerLayoutCompactActivity;
@@ -63,11 +64,15 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.btn_21).setOnClickListener(this);
         findViewById(R.id.btn_22).setOnClickListener(this);
         findViewById(R.id.btn_23).setOnClickListener(this);
+        findViewById(R.id.btn_24).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.btn_24:
+                startActivity(new Intent(UIActivity.this,FloatingActionButtonActivity.class));
+                break;
             case R.id.btn_23:
                 startActivity(new Intent(UIActivity.this,CardViewActivity.class));
                 break;

@@ -487,6 +487,8 @@
 
         <activity android:name=".ui.compact.CardViewActivity"/>
 
+        <activity android:name=".ui.compact.FloatingActionButtonActivity"/>
+
         <activity
             android:name="test.cn.example.com.androidskill.optimize.OptimizeActivity"
             android:screenOrientation="portrait"/>
