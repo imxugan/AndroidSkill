@@ -489,6 +489,8 @@
 
         <activity android:name=".ui.compact.FloatingActionButtonActivity"/>
 
+        <activity android:name=".ui.compact.FloatingActionButtonHideShowActivity"/>
+
         <activity
             android:name="test.cn.example.com.androidskill.optimize.OptimizeActivity"
             android:screenOrientation="portrait"/>
