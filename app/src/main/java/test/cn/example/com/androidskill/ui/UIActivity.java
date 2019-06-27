@@ -20,6 +20,7 @@ import test.cn.example.com.androidskill.ui.compact.LinerLayoutCompactActivity;
 import test.cn.example.com.androidskill.ui.compact.ListPopupWindowActivity;
 import test.cn.example.com.androidskill.ui.compact.NavigationViewActivity;
 import test.cn.example.com.androidskill.ui.compact.PaletteActivity;
+import test.cn.example.com.androidskill.ui.compact.ParallelActivity;
 import test.cn.example.com.androidskill.ui.compact.PopMenuActivity;
 import test.cn.example.com.androidskill.ui.compact.RecyclerViewActivity;
 import test.cn.example.com.androidskill.ui.compact.RecyclerViewItemAnimator;
@@ -69,11 +70,15 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.btn_24).setOnClickListener(this);
         findViewById(R.id.btn_25).setOnClickListener(this);
         findViewById(R.id.btn_26).setOnClickListener(this);
+        findViewById(R.id.btn_27).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.btn_27:
+                startActivity(new Intent(UIActivity.this,ParallelActivity.class));
+                break;
             case R.id.btn_26:
                 startActivity(new Intent(UIActivity.this,FloatingActionButtonHideShowActivity2.class));
                 break;
