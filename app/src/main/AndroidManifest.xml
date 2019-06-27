@@ -495,6 +495,8 @@
 
         <activity android:name=".ui.compact.ParallelActivity"/>
 
+        <activity android:name=".ui.compact.CoordinatorLayoutActivity"/>
+
         <activity
             android:name="test.cn.example.com.androidskill.optimize.OptimizeActivity"
             android:screenOrientation="portrait"/>
