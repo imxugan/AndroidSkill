@@ -485,6 +485,8 @@
 
         <activity android:name=".ui.compact.BaseImmersiveActivity"/>
 
+        <activity android:name=".ui.compact.CardViewActivity"/>
+
         <activity
             android:name="test.cn.example.com.androidskill.optimize.OptimizeActivity"
             android:screenOrientation="portrait"/>
