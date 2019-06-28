@@ -497,6 +497,8 @@
 
         <activity android:name=".ui.compact.CoordinatorLayoutActivity"/>
 
+        <activity android:name=".ui.compact.CoordinatorLayoutActivity2"/>
+
         <activity
             android:name="test.cn.example.com.androidskill.optimize.OptimizeActivity"
             android:screenOrientation="portrait"/>
