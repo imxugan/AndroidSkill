@@ -21,6 +21,7 @@ import test.cn.example.com.androidskill.ui.compact.ItemTouchHelperActivity;
 import test.cn.example.com.androidskill.ui.compact.LayoutAnimationActivity;
 import test.cn.example.com.androidskill.ui.compact.LinerLayoutCompactActivity;
 import test.cn.example.com.androidskill.ui.compact.ListPopupWindowActivity;
+import test.cn.example.com.androidskill.ui.compact.MyBehaviorActivity;
 import test.cn.example.com.androidskill.ui.compact.NavigationViewActivity;
 import test.cn.example.com.androidskill.ui.compact.PaletteActivity;
 import test.cn.example.com.androidskill.ui.compact.ParallelActivity;
@@ -77,11 +78,15 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.btn_28).setOnClickListener(this);
         findViewById(R.id.btn_29).setOnClickListener(this);
         findViewById(R.id.btn_30).setOnClickListener(this);
+        findViewById(R.id.btn_31).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.btn_31:
+                startActivity(new Intent(UIActivity.this,MyBehaviorActivity.class));
+                break;
             case R.id.btn_30:
                 startActivity(new Intent(UIActivity.this,CoordinatorLayoutActivity3.class));
                 break;

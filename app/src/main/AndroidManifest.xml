@@ -501,6 +501,8 @@
 
         <activity android:name=".ui.compact.CoordinatorLayoutActivity3"/>
 
+        <activity android:name=".ui.compact.MyBehaviorActivity"/>
+
         <activity
             android:name="test.cn.example.com.androidskill.optimize.OptimizeActivity"
             android:screenOrientation="portrait"/>
