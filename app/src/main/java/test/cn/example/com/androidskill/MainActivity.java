@@ -15,6 +15,7 @@ import test.cn.example.com.androidskill.aop.AspectJTestActivity;
 import test.cn.example.com.androidskill.art.ArtActivity;
 import test.cn.example.com.androidskill.changeSkin.ChangeSkinActivity;
 import test.cn.example.com.androidskill.designpattern.DesignPatternActivity;
+import test.cn.example.com.androidskill.java_about.JavaAboutActivity;
 import test.cn.example.com.androidskill.leak.LeakTestActivity;
 import test.cn.example.com.androidskill.livedatabus.LiveDataBusTestActivity;
 import test.cn.example.com.androidskill.login.view.LoginActivity;

@@ -39,10 +39,10 @@
         <activity android:name="test.cn.example.com.androidskill.DebugActivity"
                   android:screenOrientation="portrait">
         </activity>
-        <activity android:name="test.cn.example.com.androidskill.ThreadPoolActivity"
+        <activity android:name="test.cn.example.com.androidskill.java_about.ThreadPoolActivity"
                   android:screenOrientation="portrait">
         </activity>
-        <activity android:name="test.cn.example.com.androidskill.callback.CallBackActivity"
+        <activity android:name="test.cn.example.com.androidskill.java_about.CallBackActivity"
                   android:screenOrientation="portrait">
         </activity>
         <activity android:name="test.cn.example.com.androidskill.SingleTaskActivity"
@@ -84,7 +84,7 @@
         <activity android:name="test.cn.example.com.androidskill.HttpTestActivity"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name="test.cn.example.com.androidskill.AnnotationActivity"
+        <activity android:name="test.cn.example.com.androidskill.java_about.AnnotationActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity android:name="test.cn.example.com.androidskill.designpattern.DesignPatternActivity"
@@ -156,7 +156,7 @@
 
         <activity android:name=".art.ArtActivity"/>
 
-        <activity android:name=".JavaAboutActivity"/>
+        <activity android:name=".java_about.JavaAboutActivity"/>
 
         <activity android:name="test.cn.example.com.androidskill.art.chapter_four.ChapterFourActivity"
                   android:screenOrientation="portrait">
@@ -164,7 +164,7 @@
         <activity android:name="test.cn.example.com.androidskill.HandlerActivity"
                   android:screenOrientation="portrait">
         </activity>
-        <activity android:name="test.cn.example.com.androidskill.ClassLoaderTestActivity"
+        <activity android:name="test.cn.example.com.androidskill.java_about.ClassLoaderTestActivity"
                   android:screenOrientation="portrait">
         </activity>
         <activity android:name="test.cn.example.com.androidskill.designpattern.SingleInstancePatternActivity"
@@ -330,7 +330,7 @@
                   android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.PropertyChangeSupportActivity"
+        <activity android:name="test.cn.example.com.androidskill.java_about.PropertyChangeSupportActivity"
                   android:screenOrientation="portrait">
         </activity>
 

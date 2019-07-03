@@ -1,4 +1,4 @@
-package test.cn.example.com.androidskill.callback;
+package test.cn.example.com.androidskill.java_about;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

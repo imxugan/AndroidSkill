@@ -1,4 +1,4 @@
-package test.cn.example.com.androidskill;
+package test.cn.example.com.androidskill.java_about;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import test.cn.example.com.androidskill.callback.CallBackActivity;
+import test.cn.example.com.androidskill.R;
 
 /**
  * Created by xugan on 2019/7/3.

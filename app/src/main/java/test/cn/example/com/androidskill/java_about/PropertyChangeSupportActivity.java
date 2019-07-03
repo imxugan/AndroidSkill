@@ -1,10 +1,11 @@
-package test.cn.example.com.androidskill;
+package test.cn.example.com.androidskill.java_about;
 
 import android.view.View;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import test.cn.example.com.androidskill.R;
 import test.cn.example.com.androidskill.base.BaseActivity;
 import test.cn.example.com.androidskill.model.SomeBean;
 import test.cn.example.com.util.LogUtil;

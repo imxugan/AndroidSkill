@@ -1,9 +1,8 @@
-package test.cn.example.com.androidskill;
+package test.cn.example.com.androidskill.java_about;
 
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -16,6 +15,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 
+import test.cn.example.com.androidskill.R;
 import test.cn.example.com.androidskill.annotation.AnnotationTest;
 import test.cn.example.com.androidskill.annotation.MyBindViewAnnotation;
 import test.cn.example.com.androidskill.annotation.TestMethodAnnotation;
