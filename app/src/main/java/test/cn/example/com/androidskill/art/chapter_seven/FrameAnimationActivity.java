@@ -1,9 +1,11 @@
-package test.cn.example.com.androidskill;
+package test.cn.example.com.androidskill.art.chapter_seven;
 
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
+
+import test.cn.example.com.androidskill.R;
 
 /**
  * 帧动画演示

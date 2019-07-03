@@ -6,10 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import test.cn.example.com.androidskill.FrameAnimationActivity;
-import test.cn.example.com.androidskill.PropertyAnimationActivity;
 import test.cn.example.com.androidskill.R;
-import test.cn.example.com.androidskill.ViewAnimationActivity;
 
 /**
  * 动画

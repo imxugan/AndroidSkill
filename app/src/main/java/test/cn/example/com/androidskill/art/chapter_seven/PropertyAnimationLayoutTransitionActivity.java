@@ -1,6 +1,5 @@
-package test.cn.example.com.androidskill;
+package test.cn.example.com.androidskill.art.chapter_seven;
 
-import android.animation.Animator;
 import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
@@ -12,8 +11,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.GridLayout;
 
-import java.util.Random;
-
+import test.cn.example.com.androidskill.R;
 import test.cn.example.com.util.LogUtil;
 
 /**

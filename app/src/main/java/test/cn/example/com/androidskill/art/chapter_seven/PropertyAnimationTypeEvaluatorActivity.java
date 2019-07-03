@@ -1,4 +1,4 @@
-package test.cn.example.com.androidskill;
+package test.cn.example.com.androidskill.art.chapter_seven;
 
 import android.animation.ValueAnimator;
 import android.os.Build;
@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import test.cn.example.com.androidskill.R;
 import test.cn.example.com.androidskill.model.Point;
 import test.cn.example.com.androidskill.model.PointEvaluator;
 import test.cn.example.com.util.LogUtil;

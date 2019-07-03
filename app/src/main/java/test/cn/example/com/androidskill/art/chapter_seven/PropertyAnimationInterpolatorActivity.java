@@ -1,7 +1,9 @@
-package test.cn.example.com.androidskill;
+package test.cn.example.com.androidskill.art.chapter_seven;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import test.cn.example.com.androidskill.R;
 
 /**
  * 属性动画高级演示

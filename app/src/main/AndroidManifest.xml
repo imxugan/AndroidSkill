@@ -65,15 +65,15 @@
             android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.ViewAnimationActivity"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_seven.ViewAnimationActivity"
             android:screenOrientation="portrait">
 
         </activity>
-        <activity android:name="test.cn.example.com.androidskill.FrameAnimationActivity"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_seven.FrameAnimationActivity"
             android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.PropertyAnimationActivity"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_seven.PropertyAnimationActivity"
             android:screenOrientation="portrait">
         </activity>
 
@@ -170,7 +170,7 @@
         <activity android:name="test.cn.example.com.androidskill.designpattern.SingleInstancePatternActivity"
                   android:screenOrientation="portrait">
         </activity>
-        <activity android:name="test.cn.example.com.androidskill.PropertyAnimationBaseActivity"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_seven.PropertyAnimationBaseActivity"
                   android:screenOrientation="portrait">
         </activity>
 
@@ -182,7 +182,7 @@
                   android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.PropertyAnimationTypeEvaluatorActivity"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_seven.PropertyAnimationTypeEvaluatorActivity"
                   android:screenOrientation="portrait">
         </activity>
 
@@ -194,11 +194,11 @@
                   android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.PropertyAnimationInterpolatorActivity"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_seven.PropertyAnimationInterpolatorActivity"
                   android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.PropertyAnimationExerciseActivity"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_seven.PropertyAnimationExerciseActivity"
                   android:screenOrientation="portrait">
         </activity>
 
@@ -206,7 +206,7 @@
                   android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.ViewPropertyAnimatorActivity"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_seven.ViewPropertyAnimatorActivity"
                   android:screenOrientation="portrait">
         </activity>
 
@@ -218,11 +218,11 @@
                   android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.PropertyAnimationLayoutTransitionActivity"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_seven.PropertyAnimationLayoutTransitionActivity"
                   android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.PropertyAnimationLayoutChangesActivity"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_seven.PropertyAnimationLayoutChangesActivity"
                   android:screenOrientation="portrait">
         </activity>
 

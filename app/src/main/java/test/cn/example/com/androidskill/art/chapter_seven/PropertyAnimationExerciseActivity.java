@@ -1,4 +1,4 @@
-package test.cn.example.com.androidskill;
+package test.cn.example.com.androidskill.art.chapter_seven;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
@@ -14,6 +14,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
+import test.cn.example.com.androidskill.ExplodeActivity;
+import test.cn.example.com.androidskill.IntEvaluatorActivity;
+import test.cn.example.com.androidskill.LoadingIndicatorActivity;
+import test.cn.example.com.androidskill.R;
+import test.cn.example.com.androidskill.TransZFBActivity;
+import test.cn.example.com.androidskill.ZFBAnimator2Activity;
 import test.cn.example.com.androidskill.view.ViewWrapper;
 
 /**

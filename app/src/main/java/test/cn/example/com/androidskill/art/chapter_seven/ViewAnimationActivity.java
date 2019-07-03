@@ -1,4 +1,4 @@
-package test.cn.example.com.androidskill;
+package test.cn.example.com.androidskill.art.chapter_seven;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +12,8 @@ import android.widget.SimpleAdapter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import test.cn.example.com.androidskill.R;
 
 /**
  * 补间动画演示

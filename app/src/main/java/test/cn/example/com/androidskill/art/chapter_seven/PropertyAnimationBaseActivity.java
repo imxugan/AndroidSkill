@@ -1,4 +1,4 @@
-package test.cn.example.com.androidskill;
+package test.cn.example.com.androidskill.art.chapter_seven;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
@@ -16,6 +16,7 @@ import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import test.cn.example.com.androidskill.R;
 import test.cn.example.com.util.LogUtil;
 
 import static android.animation.ValueAnimator.ofFloat;

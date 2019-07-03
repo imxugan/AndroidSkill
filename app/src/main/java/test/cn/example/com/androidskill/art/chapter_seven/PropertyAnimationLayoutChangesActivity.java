@@ -1,18 +1,13 @@
-package test.cn.example.com.androidskill;
+package test.cn.example.com.androidskill.art.chapter_seven;
 
-import android.animation.LayoutTransition;
-import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.GridLayout;
 import android.widget.LinearLayout;
 
-import test.cn.example.com.util.LogUtil;
+import test.cn.example.com.androidskill.R;
 
 /**
  * 属性动画animateLayoutChanges使用演示
