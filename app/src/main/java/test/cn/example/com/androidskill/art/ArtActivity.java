@@ -1,4 +1,4 @@
-package test.cn.example.com.androidskill;
+package test.cn.example.com.androidskill.art;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,14 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+
+import test.cn.example.com.androidskill.HandlerActivity;
+import test.cn.example.com.androidskill.R;
+import test.cn.example.com.androidskill.art.chapter_four.ChapterFourActivity;
+import test.cn.example.com.androidskill.art.chapter_nine.ChapterNineActivity;
+import test.cn.example.com.androidskill.art.chapter_one.ChapterOneActivity;
+import test.cn.example.com.androidskill.art.chapter_seven.ChapterSevenActivity;
+import test.cn.example.com.androidskill.art.chapter_two.ChapterTwoActivity;
 
 /**
  * Created by xugan on 2019/7/3.

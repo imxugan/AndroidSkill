@@ -1,9 +1,10 @@
-package test.cn.example.com.androidskill;
+package test.cn.example.com.androidskill.art.chapter_one;
 
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 
+import test.cn.example.com.androidskill.R;
 import test.cn.example.com.util.LogUtil;
 
 /**

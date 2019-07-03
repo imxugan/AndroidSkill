@@ -1,4 +1,4 @@
-package test.cn.example.com.androidskill;
+package test.cn.example.com.androidskill.art.chapter_four;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,8 +6,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import test.cn.example.com.androidskill.ArcMenuActivity;
+import test.cn.example.com.androidskill.CircleViewActivity;
+import test.cn.example.com.androidskill.CustomActivity;
+import test.cn.example.com.androidskill.CustomAttrActivity;
+import test.cn.example.com.androidskill.CustomContainer2Activity;
+import test.cn.example.com.androidskill.CustomContainerActivity;
+import test.cn.example.com.androidskill.CustomImageViewActivity;
+import test.cn.example.com.androidskill.CustomProgressBarActivity;
+import test.cn.example.com.androidskill.CustomTitleView01Activity;
+import test.cn.example.com.androidskill.CustomViewActivity;
+import test.cn.example.com.androidskill.CustomViewActivity2;
+import test.cn.example.com.androidskill.CustomVolumeControlBar;
+import test.cn.example.com.androidskill.FlowLayoutActivity;
+import test.cn.example.com.androidskill.GestureLockViewActivity;
+import test.cn.example.com.androidskill.QQListViewActivity;
+import test.cn.example.com.androidskill.R;
+import test.cn.example.com.androidskill.ScrollActivity;
+import test.cn.example.com.androidskill.VerticalLinearLayoutActivity;
+import test.cn.example.com.androidskill.ViewDragHelperLayoutActivity;
 import test.cn.example.com.androidskill.view.defineView.hencoder.HenCoderPracticeActivity;
-import test.cn.example.com.androidskill.view.defineView.hencoder.practice_one.HenCoderPracticeDrawOneActivity;
 
 /**
  * Created by xgxg on 2017/8/9.

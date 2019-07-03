@@ -1,4 +1,4 @@
-package test.cn.example.com.androidskill;
+package test.cn.example.com.androidskill.art.chapter_two;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -16,6 +16,10 @@ import android.widget.Button;
 
 import java.util.List;
 
+import test.cn.example.com.androidskill.Book;
+import test.cn.example.com.androidskill.IBookManager;
+import test.cn.example.com.androidskill.IOnNewBookArrived;
+import test.cn.example.com.androidskill.R;
 import test.cn.example.com.androidskill.constant.MyConstants;
 import test.cn.example.com.androidskill.service.BookManagerService;
 import test.cn.example.com.androidskill.service.MyService;

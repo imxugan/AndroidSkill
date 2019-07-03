@@ -25,15 +25,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.ChapterOneActivity"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_one.ChapterOneActivity"
             android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.LannchModeActivity"
+        <activity android:name=".art.chapter_one.LannchModeActivity"
                   android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.LifeActivity"
+        <activity android:name=".art.chapter_one.LifeActivity"
                   android:screenOrientation="portrait">
         </activity>
         <activity android:name="test.cn.example.com.androidskill.DebugActivity"
@@ -53,7 +53,7 @@
 
         <service android:name="test.cn.example.com.androidskill.service.MyService4"/>
 
-        <activity android:name="test.cn.example.com.androidskill.ChapterNineActivity"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_nine.ChapterNineActivity"
             android:screenOrientation="portrait">
         </activity>
 
@@ -61,7 +61,7 @@
             android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.ChapterSevenActivity"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_seven.ChapterSevenActivity"
             android:screenOrientation="portrait">
         </activity>
 
@@ -77,7 +77,7 @@
             android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.ChapterTwoActivity"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_two.ChapterTwoActivity"
             android:screenOrientation="portrait">
         </activity>
 
@@ -154,11 +154,11 @@
                   android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name=".ArtActivity"/>
+        <activity android:name=".art.ArtActivity"/>
 
         <activity android:name=".JavaAboutActivity"/>
 
-        <activity android:name="test.cn.example.com.androidskill.ChapterFourActivity"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.ChapterFourActivity"
                   android:screenOrientation="portrait">
         </activity>
         <activity android:name="test.cn.example.com.androidskill.HandlerActivity"

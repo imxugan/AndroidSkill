@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import test.cn.example.com.androidskill.aop.AspectJTestActivity;
+import test.cn.example.com.androidskill.art.ArtActivity;
 import test.cn.example.com.androidskill.changeSkin.ChangeSkinActivity;
 import test.cn.example.com.androidskill.designpattern.DesignPatternActivity;
 import test.cn.example.com.androidskill.leak.LeakTestActivity;

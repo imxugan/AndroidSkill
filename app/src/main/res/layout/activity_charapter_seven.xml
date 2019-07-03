@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="test.cn.example.com.androidskill.ChapterOneActivity">
+    tools:context="test.cn.example.com.androidskill.art.chapter_one.ChapterOneActivity">
     <Button
     android:id="@+id/view_animation"
     android:layout_width="wrap_content"
