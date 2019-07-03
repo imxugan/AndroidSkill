@@ -503,6 +503,8 @@
 
         <activity android:name=".ui.compact.MyBehaviorActivity"/>
 
+        <activity android:name=".ui.compact.CustomBehaviorActivity2"/>
+
         <activity
             android:name="test.cn.example.com.androidskill.optimize.OptimizeActivity"
             android:screenOrientation="portrait"/>

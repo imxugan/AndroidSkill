@@ -12,6 +12,7 @@ import test.cn.example.com.androidskill.ui.compact.CardViewActivity;
 import test.cn.example.com.androidskill.ui.compact.CoordinatorLayoutActivity;
 import test.cn.example.com.androidskill.ui.compact.CoordinatorLayoutActivity2;
 import test.cn.example.com.androidskill.ui.compact.CoordinatorLayoutActivity3;
+import test.cn.example.com.androidskill.ui.compact.CustomBehaviorActivity2;
 import test.cn.example.com.androidskill.ui.compact.DrawerLayoutActivity;
 import test.cn.example.com.androidskill.ui.compact.DrawerLayoutActivity2;
 import test.cn.example.com.androidskill.ui.compact.FloatingActionButtonActivity;
@@ -79,11 +80,15 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.btn_29).setOnClickListener(this);
         findViewById(R.id.btn_30).setOnClickListener(this);
         findViewById(R.id.btn_31).setOnClickListener(this);
+        findViewById(R.id.btn_32).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.btn_32:
+                startActivity(new Intent(UIActivity.this,CustomBehaviorActivity2.class));
+                break;
             case R.id.btn_31:
                 startActivity(new Intent(UIActivity.this,MyBehaviorActivity.class));
                 break;
