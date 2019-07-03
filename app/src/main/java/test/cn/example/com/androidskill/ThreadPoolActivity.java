@@ -177,6 +177,8 @@ public class ThreadPoolActivity extends AppCompatActivity implements View.OnClic
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mScheduledExecutorService.shutdownNow();
+        if(null !=mScheduledExecutorService){
+            mScheduledExecutorService.shutdownNow();
+        }
     }
 }

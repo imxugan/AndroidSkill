@@ -12,7 +12,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import test.cn.example.com.androidskill.aop.AspectJTestActivity;
-import test.cn.example.com.androidskill.callback.CallBackActivity;
 import test.cn.example.com.androidskill.changeSkin.ChangeSkinActivity;
 import test.cn.example.com.androidskill.designpattern.DesignPatternActivity;
 import test.cn.example.com.androidskill.leak.LeakTestActivity;
@@ -59,23 +58,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         optimize.setOnClickListener(this);
         TextView debug = (TextView) findViewById(R.id.debug);
         debug.setOnClickListener(this);
-        TextView classLoader = (TextView) findViewById(R.id.classLoader);
-        classLoader.setOnClickListener(this);
-        TextView threadPool = (TextView) findViewById(R.id.threadPool);
-        threadPool.setOnClickListener(this);
-        TextView callBack = (TextView) findViewById(R.id.callBack);
-        callBack.setOnClickListener(this);
+
         TextView rxJava = (TextView) findViewById(R.id.rxJava);
         rxJava.setOnClickListener(this);
         TextView design_pattern = (TextView) findViewById(R.id.design_pattern);
         design_pattern.setOnClickListener(this);
         TextView mvp = (TextView) findViewById(R.id.mvp);
         mvp.setOnClickListener(this);
-        TextView annotation = (TextView) findViewById(R.id.annotation);
-        annotation.setOnClickListener(this);
+
         TextView httpUrlConnection = (TextView) findViewById(R.id.httpUrlConnection);
         httpUrlConnection.setOnClickListener(this);
         findViewById(R.id.art).setOnClickListener(this);
+        findViewById(R.id.java_about).setOnClickListener(this);
 
         TextView toolbar = (TextView) findViewById(R.id.toolbar);
         toolbar.setOnClickListener(this);
@@ -86,7 +80,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView dispatch_event = (TextView) findViewById(R.id.dispatch_event);
         dispatch_event.setOnClickListener(this);
         findViewById(R.id.greenDao).setOnClickListener(this);
-        findViewById(R.id.propertyChangeSupport).setOnClickListener(this);
         findViewById(R.id.websokcet).setOnClickListener(this);
         findViewById(R.id.sqlite).setOnClickListener(this);
     }
@@ -128,15 +121,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.debug:
                 myStartActivity(DebugActivity.class,false);
                 break;
-            case R.id.classLoader:
-                myStartActivity(ClassLoaderTestActivity.class,false);
-                break;
-            case R.id.threadPool:
-                myStartActivity(ThreadPoolActivity.class,false);
-                break;
-            case R.id.callBack:
-                myStartActivity(CallBackActivity.class,false);
-                break;
             case R.id.rxJava:
                 myStartActivity(RxJavaTestActivity.class,false);
                 break;
@@ -146,14 +130,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.mvp:
                 myStartActivity(LoginActivity.class,false);
                 break;
-            case R.id.annotation:
-                myStartActivity(AnnotationActivity.class,false);
-                break;
+
             case R.id.httpUrlConnection:
                 myStartActivity(HttpTestActivity.class,false);
                 break;
             case R.id.art:
                 myStartActivity(ArtActivity.class,false);
+                break;
+            case R.id.java_about:
+                myStartActivity(JavaAboutActivity.class,false);
                 break;
             case R.id.toolbar:
                 myStartActivity(ToolBarTestActivity.class,false);
@@ -169,9 +154,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.greenDao:
                 myStartActivity(GreenDaoActivity.class,false);
-                break;
-            case R.id.propertyChangeSupport:
-                myStartActivity(PropertyChangeSupportActivity.class,false);
                 break;
             case R.id.websokcet:
                 myStartActivity(WebsocketActivity.class,false);

@@ -156,15 +156,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:id="@+id/propertyChangeSupport"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:padding="@dimen/activity_horizontal_margin"
-                    android:background="@color/colorAccent"
-                    android:text="PropertyChangeSupport使用"/>
-
-                <TextView
                     android:id="@+id/greenDao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -196,47 +187,8 @@
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:background="@color/colorAccent"
                     android:text="调试"/>
-                <TextView
-                    android:id="@+id/classLoader"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:padding="@dimen/activity_horizontal_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:background="@color/colorAccent"
-                    android:text="classLoader"/>
+
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/threadPool"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:padding="@dimen/activity_horizontal_margin"
-                    android:background="@color/colorAccent"
-                    android:text="java线程池"/>
-                <TextView
-                    android:id="@+id/callBack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:padding="@dimen/activity_horizontal_margin"
-                    android:background="@color/colorAccent"
-                    android:text="java回调"/>
-            </LinearLayout>
-
-
-
-
-
-
-
-
-
 
             <TextView
                 android:id="@+id/rxJava"
@@ -262,14 +214,7 @@
                 android:padding="@dimen/activity_horizontal_margin"
                 android:background="@color/colorAccent"
                 android:text="MVP模式"/>
-            <TextView
-                android:id="@+id/annotation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:background="@color/colorAccent"
-                android:text="annotation测试"/>
+
             <TextView
                 android:id="@+id/httpUrlConnection"
                 android:layout_width="wrap_content"
@@ -288,7 +233,14 @@
                 android:background="@color/colorAccent"
                 android:text="艺术探索"/>
 
-
+            <TextView
+                android:id="@+id/java_about"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:background="@color/colorAccent"
+                android:text="java相关"/>
             <TextView
                 android:id="@+id/toolbar"
                 android:layout_width="wrap_content"
