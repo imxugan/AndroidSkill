@@ -75,18 +75,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         annotation.setOnClickListener(this);
         TextView httpUrlConnection = (TextView) findViewById(R.id.httpUrlConnection);
         httpUrlConnection.setOnClickListener(this);
-        TextView charapter1 = (TextView) findViewById(R.id.charapter1);
-        charapter1.setOnClickListener(this);
-        TextView charapter2 = (TextView) findViewById(R.id.charapter2);
-        charapter2.setOnClickListener(this);
-        TextView charapter4 = (TextView) findViewById(R.id.charapter4);
-        charapter4.setOnClickListener(this);
-        TextView charapter7 = (TextView) findViewById(R.id.charapter7);
-        charapter7.setOnClickListener(this);
-        TextView charapter9 = (TextView) findViewById(R.id.charapter9);
-        charapter9.setOnClickListener(this);
-        TextView charapter10 = (TextView) findViewById(R.id.charapter10);
-        charapter10.setOnClickListener(this);
+        findViewById(R.id.art).setOnClickListener(this);
+
         TextView toolbar = (TextView) findViewById(R.id.toolbar);
         toolbar.setOnClickListener(this);
         TextView viewstub = (TextView) findViewById(R.id.viewstub);
@@ -162,24 +152,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.httpUrlConnection:
                 myStartActivity(HttpTestActivity.class,false);
                 break;
-            case R.id.charapter1:
-                myStartActivity(ChapterOneActivity.class,false);
-                break;
-            case R.id.charapter2:
-                myStartActivity(ChapterTwoActivity.class,false);
-                break;
-            case R.id.charapter4:
-                myStartActivity(ChapterFourActivity.class,false);
-                break;
-            case R.id.charapter7:
-                myStartActivity(ChapterSevenActivity.class,false);
-                break;
-            case R.id.charapter9:
-                Intent intent_9 = new Intent(MainActivity.this, ChapterNineActivity.class);
-                myStartActivity(ChapterNineActivity.class,false);
-                break;
-            case R.id.charapter10:
-                myStartActivity(HandlerActivity.class,false);
+            case R.id.art:
+                myStartActivity(ArtActivity.class,false);
                 break;
             case R.id.toolbar:
                 myStartActivity(ToolBarTestActivity.class,false);

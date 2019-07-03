@@ -153,6 +153,8 @@
         <activity android:name="test.cn.example.com.androidskill.rxjavaTest.RxJavaOperatorConvert"
                   android:screenOrientation="portrait">
         </activity>
+
+        <activity android:name=".ArtActivity"/>
         <activity android:name="test.cn.example.com.androidskill.ChapterFourActivity"
                   android:screenOrientation="portrait">
         </activity>

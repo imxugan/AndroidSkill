@@ -278,54 +278,16 @@
                 android:padding="@dimen/activity_horizontal_margin"
                 android:background="@color/colorAccent"
                 android:text="httpUrlConnection测试"/>
+
             <TextView
-                android:id="@+id/charapter1"
+                android:id="@+id/art"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:padding="@dimen/activity_horizontal_margin"
                 android:background="@color/colorAccent"
-                android:text="第一章"/>
-            <TextView
-                android:id="@+id/charapter2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:background="@color/colorAccent"
-                android:text="第二章"/>
-            <TextView
-                android:id="@+id/charapter4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:background="@color/colorAccent"
-                android:text="第四章(自定义view)"/>
-            <TextView
-                android:id="@+id/charapter7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:background="@color/colorAccent"
-                android:text="第七章"/>
-            <TextView
-                android:id="@+id/charapter9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:background="@color/colorAccent"
-                android:text="第九章"/>
-            <TextView
-                android:id="@+id/charapter10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:background="@color/colorAccent"
-                android:text="第十章"/>
+                android:text="艺术探索"/>
+
 
             <TextView
                 android:id="@+id/toolbar"
