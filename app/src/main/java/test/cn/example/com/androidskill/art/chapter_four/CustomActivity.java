@@ -1,10 +1,11 @@
-package test.cn.example.com.androidskill;
+package test.cn.example.com.androidskill.art.chapter_four;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.LinearLayout;
 
+import test.cn.example.com.androidskill.R;
 import test.cn.example.com.androidskill.view.defineView.DrawView;
 
 /**

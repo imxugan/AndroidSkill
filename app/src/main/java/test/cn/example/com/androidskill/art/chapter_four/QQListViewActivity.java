@@ -1,4 +1,4 @@
-package test.cn.example.com.androidskill;
+package test.cn.example.com.androidskill.art.chapter_four;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +11,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import test.cn.example.com.androidskill.R;
 import test.cn.example.com.androidskill.view.defineView.QQListView;
 import test.cn.example.com.androidskill.view.defineView.QQListView2;
 import test.cn.example.com.util.LogUtil;

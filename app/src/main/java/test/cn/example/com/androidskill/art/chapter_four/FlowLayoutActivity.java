@@ -1,8 +1,10 @@
-package test.cn.example.com.androidskill;
+package test.cn.example.com.androidskill.art.chapter_four;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+
+import test.cn.example.com.androidskill.R;
 
 /**
  * 流式布局之热门标签

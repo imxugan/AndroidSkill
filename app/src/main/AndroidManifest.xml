@@ -238,75 +238,75 @@
                   android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.CircleViewActivity"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.CircleViewActivity"
                   android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.CustomTitleView01Activity"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.CustomTitleView01Activity"
                   android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.CustomViewActivity"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.CustomViewActivity"
                   android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.CustomImageViewActivity"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.CustomImageViewActivity"
                   android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.CustomProgressBarActivity"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.CustomProgressBarActivity"
                   android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.CustomActivity"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.CustomActivity"
                   android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.CustomViewActivity2"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.CustomViewActivity2"
                   android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.CustomVolumeControlBar"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.CustomVolumeControlBar"
                   android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.CustomContainerActivity"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.CustomContainerActivity"
                   android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.CustomContainer2Activity"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.CustomContainer2Activity"
                   android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.CustomAttrActivity"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.CustomAttrActivity"
                   android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.ViewDragHelperLayoutActivity"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.ViewDragHelperLayoutActivity"
                   android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.QQListViewActivity"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.QQListViewActivity"
                   android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.ScrollActivity"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.ScrollActivity"
                   android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.VerticalLinearLayoutActivity"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.VerticalLinearLayoutActivity"
                   android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.GestureLockViewActivity"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.GestureLockViewActivity"
                   android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.ArcMenuActivity"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.ArcMenuActivity"
                   android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.FlowLayoutActivity"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.FlowLayoutActivity"
                   android:screenOrientation="portrait">
         </activity>
 

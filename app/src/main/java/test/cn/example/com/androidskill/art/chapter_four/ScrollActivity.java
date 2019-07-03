@@ -1,4 +1,4 @@
-package test.cn.example.com.androidskill;
+package test.cn.example.com.androidskill.art.chapter_four;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import test.cn.example.com.androidskill.R;
 import test.cn.example.com.util.DensityUtil;
 
 import static test.cn.example.com.androidskill.R.id.scrollImageViewToLeft;
