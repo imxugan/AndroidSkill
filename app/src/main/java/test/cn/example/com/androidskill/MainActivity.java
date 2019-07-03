@@ -73,8 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.art).setOnClickListener(this);
         findViewById(R.id.java_about).setOnClickListener(this);
 
-        TextView toolbar = (TextView) findViewById(R.id.toolbar);
-        toolbar.setOnClickListener(this);
+
         TextView viewstub = (TextView) findViewById(R.id.viewstub);
         viewstub.setOnClickListener(this);
         TextView retrofit = (TextView) findViewById(R.id.retrofit);
@@ -141,9 +140,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.java_about:
                 myStartActivity(JavaAboutActivity.class,false);
-                break;
-            case R.id.toolbar:
-                myStartActivity(ToolBarTestActivity.class,false);
                 break;
             case R.id.viewstub:
                 myStartActivity(ViewStubActivity.class,false);

@@ -164,6 +164,15 @@
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:background="@color/colorAccent"
                     android:text="GreenDao使用"/>
+                <TextView
+                    android:id="@+id/httpUrlConnection"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp16"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:background="@color/colorAccent"
+                    android:text="httpUrlConnection测试"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -188,85 +197,87 @@
                     android:background="@color/colorAccent"
                     android:text="调试"/>
 
+                <TextView
+                    android:id="@+id/rxJava"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp16"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:background="@color/colorAccent"
+                    android:text="rxJava使用演示"/>
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/rxJava"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:background="@color/colorAccent"
-                android:text="rxJava使用演示"/>
-            <TextView
-                android:id="@+id/design_pattern"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:background="@color/colorAccent"
-                android:text="设计模式"/>
-            <TextView
-                android:id="@+id/mvp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:background="@color/colorAccent"
-                android:text="MVP模式"/>
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/design_pattern"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:background="@color/colorAccent"
+                    android:text="设计模式"/>
 
-            <TextView
-                android:id="@+id/httpUrlConnection"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:background="@color/colorAccent"
-                android:text="httpUrlConnection测试"/>
+                <TextView
+                    android:id="@+id/mvp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp10"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:background="@color/colorAccent"
+                    android:text="MVP模式"/>
 
-            <TextView
-                android:id="@+id/art"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:background="@color/colorAccent"
-                android:text="艺术探索"/>
+                <TextView
+                    android:id="@+id/art"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp10"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:background="@color/colorAccent"
+                    android:text="艺术探索"/>
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/java_about"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:background="@color/colorAccent"
-                android:text="java相关"/>
-            <TextView
-                android:id="@+id/toolbar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:background="@color/colorAccent"
-                android:text="toolbar使用"/>
 
-            <TextView
-                android:id="@+id/viewstub"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:background="@color/colorAccent"
-                android:text="viewstub使用"/>
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/java_about"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:background="@color/colorAccent"
+                    android:text="java相关"/>
 
-            <TextView
-                android:id="@+id/retrofit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:background="@color/colorAccent"
-                android:text="retrofit2使用"/>
+                <TextView
+                    android:id="@+id/viewstub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp10"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:background="@color/colorAccent"
+                    android:text="viewstub使用"/>
+
+                <TextView
+                    android:id="@+id/retrofit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp10"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:background="@color/colorAccent"
+                    android:text="retrofit2使用"/>
+
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

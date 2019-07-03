@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import test.cn.example.com.androidskill.R;
+import test.cn.example.com.androidskill.ToolBarTestActivity;
 import test.cn.example.com.androidskill.ui.compact.BaseImmersiveActivity;
 import test.cn.example.com.androidskill.ui.compact.CardViewActivity;
 import test.cn.example.com.androidskill.ui.compact.CoordinatorLayoutActivity;
@@ -81,11 +82,15 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.btn_30).setOnClickListener(this);
         findViewById(R.id.btn_31).setOnClickListener(this);
         findViewById(R.id.btn_32).setOnClickListener(this);
+        findViewById(R.id.toolbar).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.toolbar:
+                startActivity(new Intent(UIActivity.this,ToolBarTestActivity.class));
+                break;
             case R.id.btn_32:
                 startActivity(new Intent(UIActivity.this,CustomBehaviorActivity2.class));
                 break;

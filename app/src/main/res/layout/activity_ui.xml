@@ -146,6 +146,13 @@
             android:text="toolbar使用演示" />
 
         <Button
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:text="toolbar使用"/>
+
+        <Button
             android:id="@+id/btn_13"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
