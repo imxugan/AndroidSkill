@@ -45,7 +45,7 @@
         <activity android:name="test.cn.example.com.androidskill.java_about.CallBackActivity"
                   android:screenOrientation="portrait">
         </activity>
-        <activity android:name="test.cn.example.com.androidskill.SingleTaskActivity"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_one.SingleTaskActivity"
                   android:launchMode="singleTask"
                   android:screenOrientation="portrait">
         </activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
@@ -97,7 +97,7 @@
             android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name="test.cn.example.com.androidskill.SingleTopActivity"
+        <activity android:name="test.cn.example.com.androidskill.art.chapter_one.SingleTopActivity"
             android:launchMode="singleTop"
                   android:screenOrientation="portrait">
             <intent-filter >

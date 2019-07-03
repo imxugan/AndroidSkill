@@ -7,8 +7,6 @@ import android.view.View;
 import android.widget.Button;
 
 import test.cn.example.com.androidskill.R;
-import test.cn.example.com.androidskill.SingleTaskActivity;
-import test.cn.example.com.androidskill.SingleTopActivity;
 
 /**
  * activity的启动模式
