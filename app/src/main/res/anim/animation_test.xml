@@ -1,4 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
+    <!--通用的属性：-->
+    <!--android:duration：设置动画持续时间-->
+    <!--android:fillAfter：如果fillAfter设为true，则动画执行后，控件将停留在动画结束的状态-->
+    <!--android:fillBefore：如果fillBefore设为true，则动画执行后，控件将回到动画开始的状态-->
+    <!--android:startOffset(long startOffset)：设置动画执行之前等待的时间（单位：毫秒）-->
+    <!--android:repeatCount(int repeatCount)：设置动画重复的次数-->
+    <!--android:interpolator：设置动画的变化速度，其值： ｛-->
+          <!--android:interpolator="@android:anim/accelerate_decelerate_interpolator"：先加速，后减速-->
+      <!---->
+          <!--android:interpolator="@android:anim/accelerate_interpolator"：加速-->
+      <!---->
+          <!--android:interpolator="@android:anim/decelerate_interpolator"：减速-->
+      <!---->
+          <!--android:interpolator="@android:anim/cycle_Interpolator"：动画循环播放特定次数，速率改变沿着正弦曲线-->
+      <!---->
+          <!--android:interpolator="@android:anim/linear_Interpolator"：匀速-->
+    <!--｝-->
+
 <set xmlns:android="http://schemas.android.com/apk/res/android"
     android:duration="1000"
     android:fillAfter="false"
