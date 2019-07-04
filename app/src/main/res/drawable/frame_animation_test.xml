@@ -42,8 +42,9 @@
         </animation-list >
     </item>
 
-    <!--<animation-list >-->
-        <!--<item android:drawable="@color/colorPrimary" android:duration="500"/>-->
-        <!--<item android:drawable="@color/c_00c8aa" android:duration="500"/>-->
-    <!--</animation-list >-->
+    <!--不会执行-->
+    <animation-list >
+        <item android:drawable="@color/black_deep" android:duration="500"/>
+        <item android:drawable="@color/c_00c8aa" android:duration="500"/>
+    </animation-list >
 </animation-list>
