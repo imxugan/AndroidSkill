@@ -1,9 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android"
-    android:oneshot="false">
+    android:oneshot="false"
+    android:variablePadding="true">
+    <!--android:oneshot="true"     oneshot取值为false表示重复播放动画，取值为true表示只播放一次 -->
+
+    <!--android:visible 参数为布尔值，设置AnimationDrawable的可见性，true可见，false不可见，-->
+    <!--xml中定义的visible属性无用，因为根本没有解析。-->
+
+    <!--android:variablePadding 表示是否支持可变的Padding。-->
+    <!--false表示使用所有帧中最大的Padding，true表示使用当前帧的padding。-->
+
     <item android:drawable="@drawable/test4" android:duration="1000"/>
     <item android:drawable="@drawable/test3" android:duration="1000"/>
     <item android:drawable="@drawable/test2" android:duration="1000"/>
     <item android:drawable="@drawable/test1" android:duration="1000"/>
     <item android:drawable="@drawable/test0" android:duration="1000"/>
+
+    <!--此时外层item的drawable为colorPrimary，-->
+    <!--相当于外层item从内层aniamtion-list的子元素内找到一个drawable用做自己的drawable-->
+    <!--内层animation-list中的子元素的时间是无效的，外层item只会使用自己设置的时间-->
+    <item android:duration= "1100">
+        <animation-list >
+            <item android:drawable="@color/colorPrimary" android:duration="500"/>
+            <item android:drawable="@color/c_f034f9" android:duration="500"/>
+        </animation-list >
+    </item>
+
+    <!--这种方式定义，是无法解析的，会报异常-->
+    <!--<item android:drawable="@color/c_00c8aa">-->
+        <!--<animation-list >-->
+            <!--<item android:drawable="@color/black_deep" android:duration="500"/>-->
+            <!--<item android:drawable="@color/c_fc5348" android:duration="500"/>-->
+        <!--</animation-list >-->
+    <!--</item>-->
+
+    <!--下面这种方式定义的item，里面的animation-list就没有任何作用-->
+    <item android:drawable="@color/c_fea116" android:duration= "800">
+        <animation-list >
+            <item android:drawable="@color/c_ddff90" android:duration="500"/>
+            <item android:drawable="@color/colorPrimaryDark" android:duration="500"/>
+        </animation-list >
+    </item>
+
+    <!--<animation-list >-->
+        <!--<item android:drawable="@color/colorPrimary" android:duration="500"/>-->
+        <!--<item android:drawable="@color/c_00c8aa" android:duration="500"/>-->
+    <!--</animation-list >-->
 </animation-list>

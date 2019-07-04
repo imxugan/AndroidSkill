@@ -40,6 +40,7 @@ import test.cn.example.com.androidskill.ui.compact.TextInputLayoutActivity;
 import test.cn.example.com.androidskill.ui.compact.ToolbarActivity;
 import test.cn.example.com.androidskill.ui.compact.ToolbarBackgroundGradulChange;
 import test.cn.example.com.androidskill.ui.compact.WraperRecyclerViewActivity;
+import test.cn.example.com.androidskill.ui.compact.animator.PropertyActivity;
 
 /**
  * Created by xugan on 2019/6/11.
@@ -83,11 +84,15 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.btn_31).setOnClickListener(this);
         findViewById(R.id.btn_32).setOnClickListener(this);
         findViewById(R.id.toolbar).setOnClickListener(this);
+        findViewById(R.id.btn_33).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.btn_33:
+                startActivity(new Intent(UIActivity.this,PropertyActivity.class));
+                break;
             case R.id.toolbar:
                 startActivity(new Intent(UIActivity.this,ToolBarTestActivity.class));
                 break;
