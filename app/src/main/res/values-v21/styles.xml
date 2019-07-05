@@ -17,6 +17,8 @@
         <item name="android:statusBarColor">@color/c_00c8aa</item>
         <!--指定手机底部虚拟导航栏颜色-->
         <item name="android:navigationBarColor">@color/red</item>
+
+
     </style>
 
     <style name="toolbar_style" parent="AppTheme">
@@ -139,5 +141,10 @@
     <style name="EditTextSytle">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">#f00</item>
+    </style>
+
+    <style name="MyButtonSytle">
+        <item name="android:colorControlHighlight">@color/red</item>
+        <item name="android:colorButtonNormal">@color/c_00c9ab</item>
     </style>
 </resources>

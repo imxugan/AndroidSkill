@@ -1,7 +1,5 @@
 package test.cn.example.com.androidskill.ui.compact.animator;
 
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
 import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
 import android.content.Intent;
@@ -13,7 +11,6 @@ import android.view.View;
 
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.androidskill.art.chapter_seven.ViewPropertyAnimatorActivity;
-import test.cn.example.com.androidskill.ui.UIActivity;
 import test.cn.example.com.util.LogUtil;
 
 /**
@@ -28,11 +25,15 @@ public class PropertyActivity extends AppCompatActivity implements View.OnClickL
         findViewById(R.id.btn_1).setOnClickListener(this);
         findViewById(R.id.btn_2).setOnClickListener(this);
         findViewById(R.id.btn_3).setOnClickListener(this);
+        findViewById(R.id.btn_4).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.btn_4:
+                startActivity(new Intent(this,RippleBackgroundActivity.class));
+                break;
             case R.id.btn_1:
                 startActivity(new Intent(this, ViewPropertyAnimatorActivity.class));
                 break;

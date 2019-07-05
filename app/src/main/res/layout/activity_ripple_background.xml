@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/MyButtonSytle">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="通过给当前布局设置主题，来更改button的colorButtonNormal和colorControlHighlight
+颜色后的效果，可以通过触摸下面三个button，来看高亮效果，以及button被选中的各种不同效果对比"/>
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:text="默认背景"/>
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="@dimen/dp16"
+        android:background="?attr/selectableItemBackground"
+        android:text="使用系统selectableItemBackground背景"/>
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="@dimen/dp16"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:text="使用系统selectableItemBackgroundBorderless背景"/>
+</LinearLayout>

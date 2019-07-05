@@ -514,6 +514,8 @@
 
         <activity android:name=".ui.compact.animator.SafariAnimatorActivity"/>
 
+        <activity android:name=".ui.compact.animator.RippleBackgroundActivity"/>
+
         <activity
             android:name="test.cn.example.com.androidskill.optimize.OptimizeActivity"
             android:screenOrientation="portrait"/>
