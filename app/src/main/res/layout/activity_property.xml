@@ -14,4 +14,11 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:text="点击，执行抛物线动画"/>
+
+    <Button
+        android:id="@+id/btn_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="属性动画，模仿safari的效果" />
 </LinearLayout>

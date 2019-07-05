@@ -13,6 +13,7 @@ import android.view.View;
 
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.androidskill.art.chapter_seven.ViewPropertyAnimatorActivity;
+import test.cn.example.com.androidskill.ui.UIActivity;
 import test.cn.example.com.util.LogUtil;
 
 /**
@@ -26,6 +27,7 @@ public class PropertyActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_property);
         findViewById(R.id.btn_1).setOnClickListener(this);
         findViewById(R.id.btn_2).setOnClickListener(this);
+        findViewById(R.id.btn_3).setOnClickListener(this);
     }
 
     @Override
@@ -36,6 +38,9 @@ public class PropertyActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.btn_2:
                 paowuxian(v);
+                break;
+            case R.id.btn_3:
+                startActivity(new Intent(this,SafariAnimatorActivity.class));
                 break;
         }
     }
