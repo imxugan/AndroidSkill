@@ -26,11 +26,15 @@ public class PropertyActivity extends AppCompatActivity implements View.OnClickL
         findViewById(R.id.btn_2).setOnClickListener(this);
         findViewById(R.id.btn_3).setOnClickListener(this);
         findViewById(R.id.btn_4).setOnClickListener(this);
+        findViewById(R.id.btn_5).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.btn_5:
+                startActivity(new Intent(this,RippleAnimatonActivity.class));
+                break;
             case R.id.btn_4:
                 startActivity(new Intent(this,RippleBackgroundActivity.class));
                 break;
