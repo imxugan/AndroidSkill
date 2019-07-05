@@ -518,6 +518,10 @@
 
         <activity android:name=".ui.compact.animator.RippleAnimatonActivity"/>
 
+        <activity android:name=".ui.compact.animator.SceneTransitionActivity"/>
+
+        <activity android:name=".ui.compact.animator.SecondActvity"/>
+
         <activity
             android:name="test.cn.example.com.androidskill.optimize.OptimizeActivity"
             android:screenOrientation="portrait"/>

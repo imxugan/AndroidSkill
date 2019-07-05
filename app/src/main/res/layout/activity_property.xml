@@ -4,6 +4,13 @@
     android:layout_height="match_parent">
 
     <Button
+        android:id="@+id/btn_6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="activity 转场动画" />
+
+    <Button
         android:id="@+id/btn_5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
