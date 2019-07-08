@@ -25,17 +25,15 @@ class KotlinChapter2 : AppCompatActivity() {
 
     class 帅锅(var 性格:String,var 长相:String,var 声音:String){
         init{
-            LogUtil.i("性格：$性格 ,长相:$长相,声音:$声音")
+            LogUtil.i("${this.javaClass.simpleName},性格:$性格，长相：$长相，声音:$声音")
         }
     }
 
-    class 学生(性格:String,长相:String,声音:String):人(性格,长相,声音){
-        init{
-            LogUtil.i("性格:$性格，长相：$长相，声音:$声音")
-        }
-    }
+    class 学生(性格:String,长相:String,声音:String):人(性格,长相,声音)
 
     open class 人(var 性格:String ,var 长相:String,var 声音:String){
-
+        init{
+            LogUtil.i("${this.javaClass.simpleName},性格:$性格，长相:$长相，声音:$声音")
+        }
     }
 }
