@@ -1,580 +1,455 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="test.cn.example.com.androidskill"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="test.cn.example.com.androidskill">
+
     <!-- 联网权限 -->
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <!--往sdcard中写入数据的权限 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT"/>
-    <!--开机广播-->
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 往sdcard中写入数据的权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <!-- 开机广播 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
-        android:name="test.cn.example.com.androidskill.MyApplication"
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <!--<activity android:name=".MainActivity">-->
+
+        <!-- <activity android:name=".MainActivity"> -->
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_one.ChapterOneActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name=".art.chapter_one.LannchModeActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name=".art.chapter_one.LifeActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-        <activity android:name="test.cn.example.com.androidskill.DebugActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-        <activity android:name="test.cn.example.com.androidskill.java_about.ThreadPoolActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-        <activity android:name="test.cn.example.com.androidskill.java_about.CallBackActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_one.SingleTaskActivity"
-                  android:launchMode="singleTask"
-                  android:screenOrientation="portrait">
-        </activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
-
-        <service android:name="test.cn.example.com.androidskill.service.MyService4"/>
-
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_nine.ChapterNineActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.ServiceWorkActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_seven.ChapterSevenActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_seven.ViewAnimationActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_seven.FrameAnimationActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_seven.PropertyAnimationActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_two.ChapterTwoActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.HttpTestActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity android:name="test.cn.example.com.androidskill.java_about.AnnotationActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity android:name="test.cn.example.com.androidskill.designpattern.DesignPatternActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity android:name="test.cn.example.com.androidskill.designpattern.ObserverPatternActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity android:name="test.cn.example.com.androidskill.designpattern.AdapterPatternActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_one.SingleTopActivity"
-            android:launchMode="singleTop"
-                  android:screenOrientation="portrait">
-            <intent-filter >
-                <action android:name="action.com.android.skill"></action>
-                <category android:name="category.com.android.skill"></category>
-                <category android:name="android.intent.category.DEFAULT"></category>
-            </intent-filter>
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.designpattern.ProtoTypeActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.designpattern.FactoryPatternActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-        <activity android:name="test.cn.example.com.androidskill.login.view.LoginActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-        <activity android:name="test.cn.example.com.androidskill.designpattern.StrategyPatternActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-        <activity android:name="test.cn.example.com.androidskill.designpattern.ProxyPatternActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-        <activity android:name="test.cn.example.com.androidskill.designpattern.FacadePatternActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-        <activity android:name="test.cn.example.com.androidskill.designpattern.BuilderPatternActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-        <activity android:name="test.cn.example.com.androidskill.designpattern.DecoratorPatternActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-        <activity android:name="test.cn.example.com.androidskill.designpattern.CompositePatternActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-        <activity android:name="test.cn.example.com.androidskill.designpattern.StatePatternActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-        <activity android:name="test.cn.example.com.androidskill.designpattern.ChainPatternActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-        <activity android:name="test.cn.example.com.androidskill.designpattern.CommandPatternActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-        <activity android:name="test.cn.example.com.androidskill.designpattern.MediatorPatternActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-        <activity android:name="test.cn.example.com.androidskill.rxjavaTest.RxJavaTestActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-        <activity android:name="test.cn.example.com.androidskill.rxjavaTest.RxJavaOperatorConvert"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name=".art.ArtActivity"/>
-
-        <activity android:name=".java_about.JavaAboutActivity"/>
-
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.ChapterFourActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-        <activity android:name="test.cn.example.com.androidskill.HandlerActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-        <activity android:name="test.cn.example.com.androidskill.java_about.ClassLoaderTestActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-        <activity android:name="test.cn.example.com.androidskill.designpattern.SingleInstancePatternActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_seven.PropertyAnimationBaseActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.rxjavaTest.RxJavaOperatorCreate"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.rxjavaTest.RxJavaOperatorFilter"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_seven.PropertyAnimationTypeEvaluatorActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.rxjavaTest.RxJavaOperatorCombine"
-                  android:screenOrientation="portrait">
-        </activity>
-
-         <activity android:name="test.cn.example.com.androidskill.rxjavaTest.RxJavaOperatorAssist"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_seven.PropertyAnimationInterpolatorActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_seven.PropertyAnimationExerciseActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.IntEvaluatorActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_seven.ViewPropertyAnimatorActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.TransZFBActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.ZFBAnimator2Activity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_seven.PropertyAnimationLayoutTransitionActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_seven.PropertyAnimationLayoutChangesActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.ExplodeActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.IndicatorActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.LoadingIndicatorActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.CircleViewActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.CustomTitleView01Activity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.CustomViewActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.CustomImageViewActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.CustomProgressBarActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.CustomActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.CustomViewActivity2"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.CustomVolumeControlBar"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.CustomContainerActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.CustomContainer2Activity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.CustomAttrActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.ViewDragHelperLayoutActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.QQListViewActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.ScrollActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.VerticalLinearLayoutActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.GestureLockViewActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.ArcMenuActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.art.chapter_four.FlowLayoutActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.ToolBarTestActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.ViewStubActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.RetrofitActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.DispatchEventActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.GreenDaoActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.java_about.PropertyChangeSupportActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.websocket.WebsocketActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.sqlite.SqliteActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.sqlite.ChatActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name="test.cn.example.com.androidskill.sqlite.ContactActivity"
-                  android:screenOrientation="portrait">
-        </activity>
-
-        <!--hencoder  start-->
         <activity
-            android:name="test.cn.example.com.androidskill.view.defineView.hencoder.HenCoderPracticeActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".art.chapter_one.ChapterOneActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".art.chapter_one.LannchModeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".art.chapter_one.LifeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DebugActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".java_about.ThreadPoolActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".java_about.CallBackActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".art.chapter_one.SingleTaskActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <!--
+ ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
 
+        <service android:name=".service.MyService4" />
+
+        <activity
+            android:name=".art.chapter_nine.ChapterNineActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ServiceWorkActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".art.chapter_seven.ChapterSevenActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".art.chapter_seven.ViewAnimationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".art.chapter_seven.FrameAnimationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".art.chapter_seven.PropertyAnimationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".art.chapter_two.ChapterTwoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".HttpTestActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".java_about.AnnotationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".designpattern.DesignPatternActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".designpattern.ObserverPatternActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".designpattern.AdapterPatternActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".art.chapter_one.SingleTopActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="action.com.android.skill" />
+
+                <category android:name="category.com.android.skill" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".designpattern.ProtoTypeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".designpattern.FactoryPatternActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".login.view.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".designpattern.StrategyPatternActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".designpattern.ProxyPatternActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".designpattern.FacadePatternActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".designpattern.BuilderPatternActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".designpattern.DecoratorPatternActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".designpattern.CompositePatternActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".designpattern.StatePatternActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".designpattern.ChainPatternActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".designpattern.CommandPatternActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".designpattern.MediatorPatternActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".rxjavaTest.RxJavaTestActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".rxjavaTest.RxJavaOperatorConvert"
+            android:screenOrientation="portrait" />
+        <activity android:name=".art.ArtActivity" />
+        <activity android:name=".java_about.JavaAboutActivity" />
+        <activity
+            android:name=".art.chapter_four.ChapterFourActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".HandlerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".java_about.ClassLoaderTestActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".designpattern.SingleInstancePatternActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".art.chapter_seven.PropertyAnimationBaseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".rxjavaTest.RxJavaOperatorCreate"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".rxjavaTest.RxJavaOperatorFilter"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".art.chapter_seven.PropertyAnimationTypeEvaluatorActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".rxjavaTest.RxJavaOperatorCombine"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".rxjavaTest.RxJavaOperatorAssist"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".art.chapter_seven.PropertyAnimationInterpolatorActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".art.chapter_seven.PropertyAnimationExerciseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".IntEvaluatorActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".art.chapter_seven.ViewPropertyAnimatorActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TransZFBActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ZFBAnimator2Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".art.chapter_seven.PropertyAnimationLayoutTransitionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".art.chapter_seven.PropertyAnimationLayoutChangesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ExplodeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".IndicatorActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LoadingIndicatorActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".art.chapter_four.CircleViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".art.chapter_four.CustomTitleView01Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".art.chapter_four.CustomViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".art.chapter_four.CustomImageViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".art.chapter_four.CustomProgressBarActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".art.chapter_four.CustomActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".art.chapter_four.CustomViewActivity2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".art.chapter_four.CustomVolumeControlBar"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".art.chapter_four.CustomContainerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".art.chapter_four.CustomContainer2Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".art.chapter_four.CustomAttrActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".art.chapter_four.ViewDragHelperLayoutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".art.chapter_four.QQListViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".art.chapter_four.ScrollActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".art.chapter_four.VerticalLinearLayoutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".art.chapter_four.GestureLockViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".art.chapter_four.ArcMenuActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".art.chapter_four.FlowLayoutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ToolBarTestActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ViewStubActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RetrofitActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DispatchEventActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".GreenDaoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".java_about.PropertyChangeSupportActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".websocket.WebsocketActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sqlite.SqliteActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sqlite.ChatActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".sqlite.ContactActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- hencoder  start -->
+        <activity
+            android:name=".view.defineView.hencoder.HenCoderPracticeActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.defineView.hencoder.practice_one.HenCoderPracticeDrawOneActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.defineView.hencoder.practice_two.HenCoderPracticeDrawTwoActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.defineView.hencoder.practice_three.HenCoderPracticeDrawThreeActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.defineView.hencoder.practice_four.HenCoderPracticeDrawFourActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.defineView.hencoder.practice_five.HenCoderPracticeDrawFiveActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.defineView.hencoder.practice_six.HenCoderPracticeSixActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.defineView.hencoder.practice_seven.HenCoderPracticeSevenActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.defineView.hencoder.practice_eight.HenCoderPracticeEightActivity"
+            android:screenOrientation="portrait" />
+        <!-- hencoder end -->
+
+        <activity
+            android:name=".TestActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".changeSkin.ChangeSkinActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".my_eventbus.MyEventBusTestActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".my_eventbus.MyEventBusTestActivity2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".aop.AspectJTestActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".livedatabus.LiveDataBusTestActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".livedatabus.LiveDataBusTestActivity2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".rxjava2Test.RxJava2ActivityTest"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".myvolley.MyVolleyTestActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".leak.LeakTestActivity" />
+        <activity android:name=".ui.UIActivity" />
+        <activity android:name=".ui.compact.SwipeRefreshLayoutActivity" />
+        <activity android:name=".ui.compact.ListPopupWindowActivity" />
+        <activity
+            android:name=".ui.compact.PopMenuActivity"
+            android:theme="@style/PopupMenuStyle" />
+        <activity android:name=".ui.compact.LinerLayoutCompactActivity" />
+        <activity android:name=".ui.compact.RecyclerViewActivity" />
+        <activity android:name=".ui.compact.WraperRecyclerViewActivity" />
+        <activity android:name=".ui.compact.ItemTouchHelperActivity" />
+        <activity android:name=".ui.compact.DrawerLayoutActivity" />
+        <activity android:name=".ui.compact.DrawerLayoutActivity2" />
+        <activity android:name=".ui.compact.NavigationViewActivity" />
+        <activity android:name=".ui.compact.SnackBarActivity" />
+        <activity android:name=".ui.compact.RecyclerViewItemAnimator" />
+        <activity android:name=".ui.compact.LayoutAnimationActivity" />
+        <activity android:name=".ui.compact.ToolbarActivity" />
+        <activity android:name=".ui.compact.SearchViewActivity" />
+        <activity android:name=".ui.compact.TextInputLayoutActivity" />
+        <activity android:name=".ui.compact.PaletteActivity" />
+        <activity android:name=".ui.compact.ToolbarBackgroundGradulChange" />
+        <activity android:name=".ui.compact.TabLayoutActivity" />
+        <activity android:name=".ui.compact.TabLayoutActivity2" />
+        <activity android:name=".ui.compact.StatusBarActivity" />
+        <activity android:name=".ui.compact.BaseImmersiveActivity" />
+        <activity android:name=".ui.compact.CardViewActivity" />
+        <activity android:name=".ui.compact.FloatingActionButtonActivity" />
+        <activity android:name=".ui.compact.FloatingActionButtonHideShowActivity" />
+        <activity android:name=".ui.compact.FloatingActionButtonHideShowActivity2" />
+        <activity android:name=".ui.compact.ParallelActivity" />
+        <activity android:name=".ui.compact.CoordinatorLayoutActivity" />
+        <activity android:name=".ui.compact.CoordinatorLayoutActivity2" />
+        <activity android:name=".ui.compact.CoordinatorLayoutActivity3" />
+        <activity android:name=".ui.compact.MyBehaviorActivity" />
+        <activity android:name=".ui.compact.CustomBehaviorActivity2" />
+        <activity android:name=".ui.compact.animator.PropertyActivity" />
+        <activity android:name=".ui.compact.animator.SafariAnimatorActivity" />
+        <activity android:name=".ui.compact.animator.RippleBackgroundActivity" />
+        <activity android:name=".ui.compact.animator.RippleAnimatonActivity" />
+        <activity android:name=".ui.compact.animator.SceneTransitionActivity" />
+        <activity android:name=".ui.compact.animator.SecondActvity" />
+        <activity android:name=".ui.compact.animator.SceneTransitionActivity2" />
+        <activity android:name=".ui.compact.animator.SecondActivity2" />
+        <activity android:name=".kotlin.KotlinActivity" />
+        <activity android:name=".kotlin.chapter1.KotlinChapter1" />
+        <activity
+            android:name=".optimize.OptimizeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".optimize.httpresponsecache.HttpResponseCacheActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".optimize.flatbuffer.FlatBufferActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".optimize.myhandler.MyHandlerTestActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".optimize.PicActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".optimize.process_keep.KeepProcessActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".optimize.service_keep.KeepLiveActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/KeepLiveActivityStyle" />
+        <activity
+            android:name=".optimize.hotfix.HotFixActivity"
+            android:screenOrientation="portrait" />
+
+        <service android:name=".optimize.service_keep.MyService" />
+
+        <activity
+            android:name=".optimize.handler_thread.HandlerThreadActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".optimize.handler_thread.IntentServiceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".optimize.splash.SplashActivityOptimize"
             android:screenOrientation="portrait">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN"/> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
+            <!-- </intent-filter> -->
         </activity>
 
-        <activity android:name=".view.defineView.hencoder.practice_seven.HenCoderPracticeSevenActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity android:name=".view.defineView.hencoder.practice_eight.HenCoderPracticeEightActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <!--hencoder end-->
-
-        <activity
-            android:name="test.cn.example.com.androidskill.TestActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity
-            android:name="test.cn.example.com.androidskill.changeSkin.ChangeSkinActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity
-            android:name="test.cn.example.com.androidskill.my_eventbus.MyEventBusTestActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity
-            android:name="test.cn.example.com.androidskill.my_eventbus.MyEventBusTestActivity2"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity
-            android:name="test.cn.example.com.androidskill.aop.AspectJTestActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity
-            android:name="test.cn.example.com.androidskill.livedatabus.LiveDataBusTestActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity
-            android:name="test.cn.example.com.androidskill.livedatabus.LiveDataBusTestActivity2"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
-            android:name="test.cn.example.com.androidskill.rxjava2Test.RxJava2ActivityTest"
-            android:screenOrientation="portrait">
-        </activity>
-       <activity
-            android:name="test.cn.example.com.androidskill.myvolley.MyVolleyTestActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity
-            android:name="test.cn.example.com.androidskill.leak.LeakTestActivity">
-        </activity>
-
-        <activity android:name=".ui.UIActivity"/>
-
-        <activity android:name=".ui.compact.SwipeRefreshLayoutActivity"/>
-
-        <activity android:name=".ui.compact.ListPopupWindowActivity"/>
-
-        <activity android:name=".ui.compact.PopMenuActivity"
-            android:theme="@style/PopupMenuStyle"/>
-
-        <activity android:name=".ui.compact.LinerLayoutCompactActivity"/>
-
-        <activity android:name=".ui.compact.RecyclerViewActivity"/>
-
-        <activity android:name=".ui.compact.WraperRecyclerViewActivity"/>
-
-        <activity android:name=".ui.compact.ItemTouchHelperActivity"/>
-
-        <activity android:name=".ui.compact.DrawerLayoutActivity"/>
-
-        <activity android:name=".ui.compact.DrawerLayoutActivity2"/>
-
-        <activity android:name=".ui.compact.NavigationViewActivity"/>
-
-        <activity android:name=".ui.compact.SnackBarActivity"/>
-
-        <activity android:name=".ui.compact.RecyclerViewItemAnimator"/>
-
-        <activity android:name=".ui.compact.LayoutAnimationActivity"/>
-
-        <activity android:name=".ui.compact.ToolbarActivity"/>
-
-        <activity android:name=".ui.compact.SearchViewActivity"/>
-
-        <activity android:name=".ui.compact.TextInputLayoutActivity"/>
-
-        <activity android:name=".ui.compact.PaletteActivity"/>
-
-        <activity android:name=".ui.compact.ToolbarBackgroundGradulChange"/>
-
-        <activity android:name=".ui.compact.TabLayoutActivity"/>
-
-        <activity android:name=".ui.compact.TabLayoutActivity2"/>
-
-        <activity android:name=".ui.compact.StatusBarActivity"/>
-
-        <activity android:name=".ui.compact.BaseImmersiveActivity"/>
-
-        <activity android:name=".ui.compact.CardViewActivity"/>
-
-        <activity android:name=".ui.compact.FloatingActionButtonActivity"/>
-
-        <activity android:name=".ui.compact.FloatingActionButtonHideShowActivity"/>
-
-        <activity android:name=".ui.compact.FloatingActionButtonHideShowActivity2"/>
-
-        <activity android:name=".ui.compact.ParallelActivity"/>
-
-        <activity android:name=".ui.compact.CoordinatorLayoutActivity"/>
-
-        <activity android:name=".ui.compact.CoordinatorLayoutActivity2"/>
-
-        <activity android:name=".ui.compact.CoordinatorLayoutActivity3"/>
-
-        <activity android:name=".ui.compact.MyBehaviorActivity"/>
-
-        <activity android:name=".ui.compact.CustomBehaviorActivity2"/>
-
-        <activity android:name=".ui.compact.animator.PropertyActivity"/>
-
-        <activity android:name=".ui.compact.animator.SafariAnimatorActivity"/>
-
-        <activity android:name=".ui.compact.animator.RippleBackgroundActivity"/>
-
-        <activity android:name=".ui.compact.animator.RippleAnimatonActivity"/>
-
-        <activity android:name=".ui.compact.animator.SceneTransitionActivity"/>
-
-        <activity android:name=".ui.compact.animator.SecondActvity"/>
-
-        <activity android:name=".ui.compact.animator.SceneTransitionActivity2"/>
-
-        <activity android:name=".ui.compact.animator.SecondActivity2"/>
-
-        <activity
-            android:name="test.cn.example.com.androidskill.optimize.OptimizeActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity
-            android:name="test.cn.example.com.androidskill.optimize.httpresponsecache.HttpResponseCacheActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity
-            android:name="test.cn.example.com.androidskill.optimize.flatbuffer.FlatBufferActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity
-            android:name="test.cn.example.com.androidskill.optimize.myhandler.MyHandlerTestActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity
-            android:name="test.cn.example.com.androidskill.optimize.PicActivity"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name="test.cn.example.com.androidskill.optimize.process_keep.KeepProcessActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity
-            android:name="test.cn.example.com.androidskill.optimize.service_keep.KeepLiveActivity"
-            android:theme="@style/KeepLiveActivityStyle"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".optimize.hotfix.HotFixActivity"
-            android:screenOrientation="portrait"/>
-        <service android:name=".optimize.service_keep.MyService"/>
-
-        <activity android:name=".optimize.handler_thread.HandlerThreadActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".optimize.handler_thread.IntentServiceActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name="test.cn.example.com.androidskill.optimize.splash.SplashActivityOptimize"
-            android:screenOrientation="portrait">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN"/>-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-            <!--</intent-filter>-->
-        </activity>
-
-        <service android:name=".optimize.handler_thread.MyIntentService"/>
-        <service android:name=".optimize.service_keep.MyService"/>
+        <service android:name=".optimize.handler_thread.MyIntentService" />
+        <service android:name=".optimize.service_keep.MyService" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -583,34 +458,34 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths" />
         </provider>
 
+        <service
+            android:name=".service.MyService"
+            android:process=":remote" />
+        <service android:name=".optimize.process_keep.LocalService" />
+        <service
+            android:name=".optimize.process_keep.RemoteService"
+            android:process=":remoteProcess" />
+        <service
+            android:name=".optimize.process_keep.JobHandleService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
 
-        <service android:name="test.cn.example.com.androidskill.service.MyService"
-                 android:process=":remote">
+        <!-- <service android:name="test.cn.example.com.androidskill.service.BookManagerService" -->
+        <!-- android:process=":remote"> -->
+        <!-- </service> -->
+
+        <service android:name=".service.BookManagerService">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="com.android.skill.service.book_manager_service"></action> -->
+            <!-- </intent-filter> -->
         </service>
 
-        <service android:name="test.cn.example.com.androidskill.optimize.process_keep.LocalService" />
-
-        <service android:name="test.cn.example.com.androidskill.optimize.process_keep.RemoteService"
-            android:process=":remoteProcess"/>
-        <service android:name=".optimize.process_keep.JobHandleService"
-            android:permission="android.permission.BIND_JOB_SERVICE"/>
-
-        <!--<service android:name="test.cn.example.com.androidskill.service.BookManagerService"-->
-                 <!--android:process=":remote">-->
-        <!--</service>-->
-
-        <service android:name="test.cn.example.com.androidskill.service.BookManagerService">
-            <!--<intent-filter>-->
-                <!--<action android:name="com.android.skill.service.book_manager_service"></action>-->
-            <!--</intent-filter>-->
-        </service>
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version"/>
-
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>
