@@ -11,7 +11,29 @@ class KotlinChapter3 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kotlin_chapter3)
+        showNull()
 
+        typeCast()
+
+    }
+
+    fun typeCast(){
+       var p:Parent = Child()
+        if(p is Child){
+            LogUtil.i(p.playGame())
+        }
+
+        var str:String ? = "abc"
+        if(str is String){
+            LogUtil.i(""+str.length)
+        }
+
+        var parent:Parent = Parent()
+        var child:Child ? = parent as? Child //将parent转成Child类型，如果转换失败了，不要抛出异常，返回null
+        LogUtil.i(""+child)
+    }
+
+    fun showNull(){
         var name:String = getName()
         LogUtil.i("${name} lenght is "+name.length)
 
@@ -29,7 +51,6 @@ class KotlinChapter3 : AppCompatActivity() {
 
         var address2 = getAddress()?:return //这句的意思是，如果getAddress()返回null，则直接return,否则，将getAddress方法的返回值赋值给我address2变量
         LogUtil.i(""+address2.length)
-
     }
 
     fun getName():String{
