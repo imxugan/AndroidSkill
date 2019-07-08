@@ -28,11 +28,15 @@ public class PropertyActivity extends AppCompatActivity implements View.OnClickL
         findViewById(R.id.btn_4).setOnClickListener(this);
         findViewById(R.id.btn_5).setOnClickListener(this);
         findViewById(R.id.btn_6).setOnClickListener(this);
+        findViewById(R.id.btn_7).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.btn_7:
+                startActivity(new Intent(this,SceneTransitionActivity2.class));
+                break;
             case R.id.btn_6:
                 startActivity(new Intent(this,SceneTransitionActivity.class));
                 break;

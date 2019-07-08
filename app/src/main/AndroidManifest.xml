@@ -522,6 +522,10 @@
 
         <activity android:name=".ui.compact.animator.SecondActvity"/>
 
+        <activity android:name=".ui.compact.animator.SceneTransitionActivity2"/>
+
+        <activity android:name=".ui.compact.animator.SecondActivity2"/>
+
         <activity
             android:name="test.cn.example.com.androidskill.optimize.OptimizeActivity"
             android:screenOrientation="portrait"/>
