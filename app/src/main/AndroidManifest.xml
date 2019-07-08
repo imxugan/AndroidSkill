@@ -487,7 +487,8 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".kotlin.chapter1.KotlinChapter2"></activity>
+        <activity android:name=".kotlin.chapter1.KotlinChapter2" />
+        <activity android:name=".kotlin.chapter1.KotlinChapter3"></activity>
     </application>
 
 </manifest>
