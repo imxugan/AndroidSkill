@@ -488,7 +488,8 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".kotlin.chapter1.KotlinChapter2" />
-        <activity android:name=".kotlin.chapter1.KotlinChapter3"></activity>
+        <activity android:name=".kotlin.chapter1.KotlinChapter3" />
+        <activity android:name=".kotlin.chapter1.KotlinChapter4"></activity>
     </application>
 
 </manifest>
