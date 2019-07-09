@@ -5,6 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="test.cn.example.com.androidskill.kotlin.chapter2.KotlinDemo1">
+    tools:context="test.cn.example.com.androidskill.kotlin.chapter2.KotlinChapter2Demo1">
 
 </LinearLayout>

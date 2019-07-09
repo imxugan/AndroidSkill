@@ -11,21 +11,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="常量和变量，函数"/>
-    <Button
-        android:id="@+id/btn1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="类和对象的初始化"/>
 
-    <Button
-        android:id="@+id/btn2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="空类型安全和智能转换"/>
-
-    <Button
-        android:id="@+id/btn3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Range和Array"/>
 </LinearLayout>

@@ -8,6 +8,7 @@ import android.view.View;
 
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.androidskill.kotlin.chapter1.KotlinChapter1;
+import test.cn.example.com.androidskill.kotlin.chapter2.KotlinChapter2;
 
 /**
  * Created by xugan on 2019/7/8.
@@ -28,6 +29,9 @@ public class KotlinActivity extends AppCompatActivity implements View.OnClickLis
         switch (v.getId()){
             case R.id.btn:
                 startActivity(new Intent(KotlinActivity.this, KotlinChapter1.class));
+                break;
+            case R.id.btn1:
+                startActivity(new Intent(KotlinActivity.this, KotlinChapter2.class));
                 break;
         }
     }
