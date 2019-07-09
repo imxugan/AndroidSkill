@@ -8,7 +8,6 @@
         ，还有，如果未设置屏幕固定未横屏或者竖屏，在手机的设定中，辅助设置里面，将禁止屏幕旋转的选项去掉</string>
 
 
-
     <string name="friend_delete">删除好友</string>
     <string name="app_cancel">取消</string>
     <string name="save_draft">保存草稿</string>
