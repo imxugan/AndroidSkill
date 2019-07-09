@@ -10,7 +10,7 @@ class KotlinDemo1 : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_kotlin_chapter1)
+        setContentView(R.layout.activity_kotlin_chapter1_demo1)
         var aBoolean = true
         LogUtil.i(""+aBoolean)
         var aInt = 6;

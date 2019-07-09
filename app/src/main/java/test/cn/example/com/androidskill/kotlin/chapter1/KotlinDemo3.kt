@@ -10,7 +10,7 @@ class KotlinDemo3 : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_kotlin_chapter3)
+        setContentView(R.layout.activity_kotlin_chapter1_demo3)
         showNull()
 
         typeCast()

@@ -10,7 +10,7 @@ class KotlinDemo2 : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_kotlin_chapter2)
+        setContentView(R.layout.activity_kotlin_chapter1_demo2)
         var meizi = 妹子("温柔","甜美","动人")
         var bog = 帅锅("豪放","殷俊","嘹亮")
         var student = 学生("正直","清秀","清脆")

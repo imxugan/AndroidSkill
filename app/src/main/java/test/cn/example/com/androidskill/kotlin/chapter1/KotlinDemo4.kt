@@ -9,7 +9,7 @@ class KotlinDemo4 : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_kotlin_chapter4)
+        setContentView(R.layout.activity_kotlin_chapter1_demo4)
         var rang = 0..10
         for(i in rang){
             LogUtil.i(""+i)
