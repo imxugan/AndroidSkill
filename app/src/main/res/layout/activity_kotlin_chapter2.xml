@@ -18,4 +18,10 @@
         android:layout_height="wrap_content"
         android:text="Lambda表达式"/>
 
+    <Button
+        android:id="@+id/btn2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="类中的成员"/>
+
 </LinearLayout>
