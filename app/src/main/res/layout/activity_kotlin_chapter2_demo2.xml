@@ -5,17 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="test.cn.example.com.androidskill.kotlin.chapter2.KotlinChapter2">
-    <Button
-        android:id="@+id/btn"
+    tools:context="test.cn.example.com.androidskill.kotlin.chapter2.KotlinChapter2Demo2">
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="常量和变量，函数"/>
-
-    <Button
-        android:id="@+id/btn1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Lambda表达式"/>
-
+        android:text="查看打印日志看结果"/>
 </LinearLayout>

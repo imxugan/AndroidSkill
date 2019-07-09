@@ -494,6 +494,7 @@
         <activity android:name=".kotlin.chapter1.KotlinChapter1" />
         <activity android:name=".kotlin.chapter2.KotlinChapter2" />
         <activity android:name=".kotlin.chapter2.KotlinChapter2Demo1" />
+        <activity android:name=".kotlin.chapter2.KotlinChapter2Demo2"></activity>
     </application>
 
 </manifest>
