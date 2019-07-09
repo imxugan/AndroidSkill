@@ -22,4 +22,7 @@
     <string name="clean_content">清空内容</string>
     <string name="drawer_open">打开</string>
     <string name="drawer_close">关闭</string>
+
+    <string name="phone_login">手机登录</string>
+    <string name="phone_reg">注册帐号</string>
 </resources>

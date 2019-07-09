@@ -26,6 +26,7 @@ import test.cn.example.com.androidskill.ui.compact.ListPopupWindowActivity;
 import test.cn.example.com.androidskill.ui.compact.MyBehaviorActivity;
 import test.cn.example.com.androidskill.ui.compact.NavigationViewActivity;
 import test.cn.example.com.androidskill.ui.compact.PaletteActivity;
+import test.cn.example.com.androidskill.ui.compact.ParallaxActivity;
 import test.cn.example.com.androidskill.ui.compact.ParallelActivity;
 import test.cn.example.com.androidskill.ui.compact.PopMenuActivity;
 import test.cn.example.com.androidskill.ui.compact.RecyclerViewActivity;
@@ -85,11 +86,15 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.btn_32).setOnClickListener(this);
         findViewById(R.id.toolbar).setOnClickListener(this);
         findViewById(R.id.btn_33).setOnClickListener(this);
+        findViewById(R.id.btn_34).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.btn_34:
+                startActivity(new Intent(UIActivity.this,ParallaxActivity.class));
+                break;
             case R.id.btn_33:
                 startActivity(new Intent(UIActivity.this,PropertyActivity.class));
                 break;
