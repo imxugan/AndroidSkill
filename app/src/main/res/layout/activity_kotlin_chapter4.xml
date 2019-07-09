@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="test.cn.example.com.androidskill.kotlin.chapter1.KotlinChapter4">
+    tools:context="test.cn.example.com.androidskill.kotlin.chapter1.KotlinDemo4">
 
     <TextView
         android:layout_width="wrap_content"

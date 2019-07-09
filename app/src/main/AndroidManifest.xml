@@ -402,7 +402,7 @@
         <activity android:name=".ui.compact.animator.SecondActivity2" />
         <activity android:name=".ui.compact.ParallaxActivity"/>
         <activity android:name=".kotlin.KotlinActivity" />
-        <activity android:name=".kotlin.chapter1.KotlinChapter1" />
+        <activity android:name=".kotlin.chapter1.KotlinDemo1" />
         <activity
             android:name=".optimize.OptimizeActivity"
             android:screenOrientation="portrait" />
@@ -488,9 +488,9 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".kotlin.chapter1.KotlinChapter2" />
-        <activity android:name=".kotlin.chapter1.KotlinChapter3" />
-        <activity android:name=".kotlin.chapter1.KotlinChapter4"></activity>
+        <activity android:name=".kotlin.chapter1.KotlinDemo2" />
+        <activity android:name=".kotlin.chapter1.KotlinDemo3" />
+        <activity android:name=".kotlin.chapter1.KotlinDemo4"/>
     </application>
 
 </manifest>

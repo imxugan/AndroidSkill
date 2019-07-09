@@ -6,7 +6,7 @@ import android.os.Bundle
 import test.cn.example.com.androidskill.R
 import test.cn.example.com.util.LogUtil
 
-class KotlinChapter3 : AppCompatActivity() {
+class KotlinDemo3 : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
