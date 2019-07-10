@@ -10,6 +10,7 @@ import test.cn.example.com.androidskill.R;
 import test.cn.example.com.androidskill.ToolBarTestActivity;
 import test.cn.example.com.androidskill.ui.compact.BaseImmersiveActivity;
 import test.cn.example.com.androidskill.ui.compact.CardViewActivity;
+import test.cn.example.com.androidskill.ui.compact.CollapsingToolBarLayoutActivity;
 import test.cn.example.com.androidskill.ui.compact.CoordinatorLayoutActivity;
 import test.cn.example.com.androidskill.ui.compact.CoordinatorLayoutActivity2;
 import test.cn.example.com.androidskill.ui.compact.CoordinatorLayoutActivity3;
@@ -82,6 +83,7 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.btn_28).setOnClickListener(this);
         findViewById(R.id.btn_29).setOnClickListener(this);
         findViewById(R.id.btn_30).setOnClickListener(this);
+        findViewById(R.id.btn_35).setOnClickListener(this);
         findViewById(R.id.btn_31).setOnClickListener(this);
         findViewById(R.id.btn_32).setOnClickListener(this);
         findViewById(R.id.toolbar).setOnClickListener(this);
@@ -106,6 +108,9 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
                 break;
             case R.id.btn_31:
                 startActivity(new Intent(UIActivity.this,MyBehaviorActivity.class));
+                break;
+            case R.id.btn_35:
+                startActivity(new Intent(UIActivity.this,CollapsingToolBarLayoutActivity.class));
                 break;
             case R.id.btn_30:
                 startActivity(new Intent(UIActivity.this,CoordinatorLayoutActivity3.class));

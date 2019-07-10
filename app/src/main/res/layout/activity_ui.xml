@@ -50,6 +50,11 @@
             android:text="CoordinatorLayout+AppbarLayout+ToolBar+FloatingActionBar+NestedScrollView" />
 
         <Button
+            android:id="@+id/btn_35"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CoordinatorLayout+NestedScrollview+CollapsingToolbarLayout+Appbarlayout+ToolBar"/>
+        <Button
             android:id="@+id/btn_29"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
