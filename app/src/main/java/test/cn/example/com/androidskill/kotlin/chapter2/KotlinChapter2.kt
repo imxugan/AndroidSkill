@@ -18,6 +18,7 @@ class KotlinChapter2 : AppCompatActivity(), View.OnClickListener {
         findViewById<View>(R.id.btn5).setOnClickListener(this)
         findViewById<View>(R.id.btn6).setOnClickListener(this)
         findViewById<View>(R.id.btn7).setOnClickListener(this)
+        findViewById<View>(R.id.btn8).setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -30,6 +31,7 @@ class KotlinChapter2 : AppCompatActivity(), View.OnClickListener {
             R.id.btn5 ->startActivity(Intent(this, KotlinChapter2Demo6::class.java))
             R.id.btn6 ->startActivity(Intent(this, KotlinChapter2Demo7::class.java))
             R.id.btn7 ->startActivity(Intent(this, KotlinChapter2Demo8::class.java))
+            R.id.btn8 ->startActivity(Intent(this, KotlinChapter2Demo9::class.java))
         }
     }
 }

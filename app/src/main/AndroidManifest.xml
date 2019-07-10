@@ -500,7 +500,8 @@
         <activity android:name=".kotlin.chapter2.KotlinChapter2Demo5" />
         <activity android:name=".kotlin.chapter2.KotlinChapter2Demo6" />
         <activity android:name=".kotlin.chapter2.KotlinChapter2Demo7" />
-        <activity android:name=".kotlin.chapter2.KotlinChapter2Demo8"></activity>
+        <activity android:name=".kotlin.chapter2.KotlinChapter2Demo8" />
+        <activity android:name=".kotlin.chapter2.KotlinChapter2Demo9"></activity>
     </application>
 
 </manifest>
