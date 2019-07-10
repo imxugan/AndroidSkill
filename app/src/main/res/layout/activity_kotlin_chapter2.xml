@@ -36,4 +36,10 @@
         android:layout_height="wrap_content"
         android:text="分支表达式和when表达式"/>
 
+    <Button
+        android:id="@+id/btn5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="fro,while,continue,break使用"/>
+
 </LinearLayout>
