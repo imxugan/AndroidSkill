@@ -11,6 +11,7 @@ class KotlinChapter3 : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when(v!!.id){
             R.id.btn -> startActivity(Intent(this,KotlinChapter3Demo1::class.java))
+            R.id.btn1 ->startActivity(Intent(this,KotlinChapter3Demo2::class.java))
         }
     }
 
@@ -18,5 +19,6 @@ class KotlinChapter3 : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kotlin_chpater3)
         findViewById<View>(R.id.btn).setOnClickListener(this)
+        findViewById<View>(R.id.btn1).setOnClickListener(this)
     }
 }
