@@ -22,6 +22,9 @@ android {
 
         // 设置支持multidex
         multiDexEnabled true
+
+        //兼容低版本vvectorDrawable
+        vectorDrawables.useSupportLibrary = true
     }
 
     //greendao配置

@@ -401,6 +401,7 @@
         <activity android:name=".ui.compact.animator.SecondActvity" />
         <activity android:name=".ui.compact.animator.SceneTransitionActivity2" />
         <activity android:name=".ui.compact.animator.SecondActivity2" />
+        <activity android:name=".ui.compact.SVGActivity"/>
         <activity android:name=".ui.compact.ParallaxActivity" />
         <activity android:name=".kotlin.KotlinActivity" />
         <activity android:name=".kotlin.chapter1.KotlinDemo1" />
