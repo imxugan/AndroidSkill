@@ -390,7 +390,7 @@
         <activity android:name=".ui.compact.CoordinatorLayoutActivity" />
         <activity android:name=".ui.compact.CoordinatorLayoutActivity2" />
         <activity android:name=".ui.compact.CoordinatorLayoutActivity3" />
-        <activity android:name=".ui.compact.CollapsingToolBarLayoutActivity"/>
+        <activity android:name=".ui.compact.CollapsingToolBarLayoutActivity" />
         <activity android:name=".ui.compact.MyBehaviorActivity" />
         <activity android:name=".ui.compact.CustomBehaviorActivity2" />
         <activity android:name=".ui.compact.animator.PropertyActivity" />
@@ -401,7 +401,7 @@
         <activity android:name=".ui.compact.animator.SecondActvity" />
         <activity android:name=".ui.compact.animator.SceneTransitionActivity2" />
         <activity android:name=".ui.compact.animator.SecondActivity2" />
-        <activity android:name=".ui.compact.SVGActivity"/>
+        <activity android:name=".ui.compact.SVGActivity" />
         <activity android:name=".ui.compact.ParallaxActivity" />
         <activity android:name=".kotlin.KotlinActivity" />
         <activity android:name=".kotlin.chapter1.KotlinDemo1" />
@@ -503,7 +503,9 @@
         <activity android:name=".kotlin.chapter2.KotlinChapter2Demo6" />
         <activity android:name=".kotlin.chapter2.KotlinChapter2Demo7" />
         <activity android:name=".kotlin.chapter2.KotlinChapter2Demo8" />
-        <activity android:name=".kotlin.chapter2.KotlinChapter2Demo9"></activity>
+        <activity android:name=".kotlin.chapter2.KotlinChapter2Demo9" />
+        <activity android:name=".kotlin.chapter3.KotlinChapter3" />
+        <activity android:name=".kotlin.chapter3.KotlinChapter3Demo1"></activity>
     </application>
 
 </manifest>

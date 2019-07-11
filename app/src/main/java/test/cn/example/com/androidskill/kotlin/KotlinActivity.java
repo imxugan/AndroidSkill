@@ -9,6 +9,7 @@ import android.view.View;
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.androidskill.kotlin.chapter1.KotlinChapter1;
 import test.cn.example.com.androidskill.kotlin.chapter2.KotlinChapter2;
+import test.cn.example.com.androidskill.kotlin.chapter3.KotlinChapter3;
 
 /**
  * Created by xugan on 2019/7/8.
@@ -21,6 +22,7 @@ public class KotlinActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_kotlin);
         findViewById(R.id.btn).setOnClickListener(this);
         findViewById(R.id.btn1).setOnClickListener(this);
+        findViewById(R.id.btn2).setOnClickListener(this);
 
     }
 
@@ -32,6 +34,9 @@ public class KotlinActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.btn1:
                 startActivity(new Intent(KotlinActivity.this, KotlinChapter2.class));
+                break;
+            case R.id.btn2:
+                startActivity(new Intent(KotlinActivity.this, KotlinChapter3.class));
                 break;
         }
     }
