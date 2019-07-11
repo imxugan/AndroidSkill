@@ -25,6 +25,7 @@ class KotlinChapter3Demo3 : AppCompatActivity() {
         LogUtil.i(""+la+"       "+la2+"        "+la3)
         LogUtil.i(""+la.value+"       "+la2.value+"        "+la3.value)
         LogUtil.i(""+Latitude.Companion)
+        LogUtil.i(la.TAG)
 
 
     }

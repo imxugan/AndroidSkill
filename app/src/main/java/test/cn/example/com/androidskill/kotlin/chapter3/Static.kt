@@ -14,4 +14,6 @@ class Latitude private constructor(var value:Double){
     fun ofLatitude(latitude:Latitude):Latitude{
         return ofDouble(latitude.value)
     }
+
+    val TAG:String = "latitudeTag"
 }
