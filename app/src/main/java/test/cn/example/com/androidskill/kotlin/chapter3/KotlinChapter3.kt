@@ -12,6 +12,7 @@ class KotlinChapter3 : AppCompatActivity(), View.OnClickListener {
         when(v!!.id){
             R.id.btn -> startActivity(Intent(this,KotlinChapter3Demo1::class.java))
             R.id.btn1 ->startActivity(Intent(this,KotlinChapter3Demo2::class.java))
+            R.id.btn2 ->startActivity(Intent(this,KotlinChapter3Demo3::class.java))
         }
     }
 
@@ -20,5 +21,6 @@ class KotlinChapter3 : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_kotlin_chpater3)
         findViewById<View>(R.id.btn).setOnClickListener(this)
         findViewById<View>(R.id.btn1).setOnClickListener(this)
+        findViewById<View>(R.id.btn2).setOnClickListener(this)
     }
 }

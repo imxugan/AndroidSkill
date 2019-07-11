@@ -17,4 +17,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="面向对象，继承"/>
+
+    <Button
+        android:id="@+id/btn2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="面向对象，成员可见性,object,伴生对象和静态成员"/>
 </LinearLayout>
