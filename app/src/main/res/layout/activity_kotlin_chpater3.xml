@@ -23,4 +23,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="面向对象，成员可见性,object,伴生对象和静态成员"/>
+
+    <Button
+        android:id="@+id/btn3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="面向对象，方法重载和默认参数,扩展成员"/>
 </LinearLayout>

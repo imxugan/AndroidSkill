@@ -13,6 +13,7 @@ class KotlinChapter3 : AppCompatActivity(), View.OnClickListener {
             R.id.btn -> startActivity(Intent(this,KotlinChapter3Demo1::class.java))
             R.id.btn1 ->startActivity(Intent(this,KotlinChapter3Demo2::class.java))
             R.id.btn2 ->startActivity(Intent(this,KotlinChapter3Demo3::class.java))
+            R.id.btn3 ->startActivity(Intent(this,KotlinChapter3Demo4::class.java))
         }
     }
 
@@ -22,5 +23,6 @@ class KotlinChapter3 : AppCompatActivity(), View.OnClickListener {
         findViewById<View>(R.id.btn).setOnClickListener(this)
         findViewById<View>(R.id.btn1).setOnClickListener(this)
         findViewById<View>(R.id.btn2).setOnClickListener(this)
+        findViewById<View>(R.id.btn3).setOnClickListener(this)
     }
 }
