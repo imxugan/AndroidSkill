@@ -16,5 +16,44 @@ class KotlinChapter3Demo5 : AppCompatActivity() {
         LogUtil.i(""+delegate.hello3)
         delegate.hello3 = "aasbbddsss"
         LogUtil.i(delegate.hello3)
+
+        //data class 修饰的类
+        LogUtil.i("data class 修饰的类的使用")
+        var country = Country(1,"China")
+        LogUtil.i("$country")
+        LogUtil.i("${country.id}     ${country.name}")
+        LogUtil.i("coutnry.component1 =  ${country.component1()}      country.component2=${country.component2()}")
+        val (id1,name1) = country
+        LogUtil.i("$id1     $name1")
+
+        //自定义类中的component
+        var (a,b,c,d,e) = ComponentX()
+        LogUtil.i("$a $b $c $d $e")
+
+    }
+}
+
+@Poko
+data class Country(val id:Int,val name:String)
+
+class ComponentX{
+    operator fun component1():String{
+        return "您好，我是ted "
+    }
+
+    operator fun component2():String{
+        return "who "
+    }
+
+    operator fun component3():String{
+        return "is "
+    }
+
+    operator fun component4():String{
+        return "ted"
+    }
+
+    operator fun component5():Int{
+        return 1000
     }
 }

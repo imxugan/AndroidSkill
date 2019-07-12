@@ -27,6 +27,8 @@ buildscript {
 //        classpath 'com.hujiang.aspectjx:gradle-android-plugin-aspectjx:2.0.4'
 
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.10"
+        classpath "org.jetbrains.kotlin:kotlin-noarg:1.2.10"
+        classpath "org.jetbrains.kotlin:kotlin-allopen:1.2.10"
     }
 }
 

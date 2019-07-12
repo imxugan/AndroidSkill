@@ -5,6 +5,11 @@ apply plugin: 'org.greenrobot.greendao' // apply plugin
 //kotlin必须添加
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+//使用noArg 插件
+apply plugin:'kotlin-noarg'
+//使用allopen插件
+apply plugin:'kotlin-allopen'
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.androidBuildToolsVersion
@@ -83,6 +88,14 @@ android {
             buildConfigField("String","BaseUrl" ,"\"http://api.wws.xywy.com/api.php/\"")
         }
     }
+}
+
+noArg{
+  annotation("test.cn.example.com.androidskill.kotlin.chapter3.Poko")
+}
+
+allOpen{
+    annotation("test.cn.example.com.androidskill.kotlin.chapter3.Poko")
 }
 
 dependencies {
