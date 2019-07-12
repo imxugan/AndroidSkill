@@ -29,6 +29,10 @@ class KotlinChapter3Demo7 : AppCompatActivity() {
         val error = LogLevel.valueOf("ERROR")
         LogUtil.i("$error")
 
+
+        LogUtil.e("查看SealedClasses文件中密封类的定义")
+        val play = Play("www.baidu.com.music.1",1)
+        LogUtil.i("${play.url}     ${play.position}")
     }
 }
 
