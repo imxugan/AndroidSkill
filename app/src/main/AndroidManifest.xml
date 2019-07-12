@@ -508,7 +508,8 @@
         <activity android:name=".kotlin.chapter3.KotlinChapter3Demo1" />
         <activity android:name=".kotlin.chapter3.KotlinChapter3Demo2" />
         <activity android:name=".kotlin.chapter3.KotlinChapter3Demo3" />
-        <activity android:name=".kotlin.chapter3.KotlinChapter3Demo4"></activity>
+        <activity android:name=".kotlin.chapter3.KotlinChapter3Demo4" />
+        <activity android:name=".kotlin.chapter3.KotlinChapter3Demo5"></activity>
     </application>
 
 </manifest>
