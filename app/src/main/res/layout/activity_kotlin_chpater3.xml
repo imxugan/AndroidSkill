@@ -35,4 +35,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="属性代理和data class,allopen插件,noArg插件"/>
+
+    <Button
+        android:id="@+id/btn5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="内部类，匿名内部类"/>
 </LinearLayout>
