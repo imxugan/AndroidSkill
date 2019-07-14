@@ -10,4 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="高阶函数"/>
+
+    <Button
+        android:id="@+id/btn1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="常见高阶函数使用"/>
 </LinearLayout>
