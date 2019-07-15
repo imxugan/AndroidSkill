@@ -4,7 +4,6 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import kotlinx.android.synthetic.main.activity_main.*
 
 import test.cn.example.com.androidskill.R
 
@@ -14,6 +13,7 @@ class KotlinChapter4 : AppCompatActivity(), View.OnClickListener {
             R.id.btn ->startActivity(Intent(this,KotlinChapter4Demo1::class.java))
             R.id.btn1 ->startActivity(Intent(this,KotlinChapter4Demo2::class.java))
             R.id.btn2 ->startActivity(Intent(this,KotlinChapter4Demo3::class.java))
+            R.id.btn3 ->startActivity(Intent(this,KotlinChapter4Demo4::class.java))
         }
     }
 
@@ -23,5 +23,6 @@ class KotlinChapter4 : AppCompatActivity(), View.OnClickListener {
         findViewById<View>(R.id.btn).setOnClickListener(this)
         findViewById<View>(R.id.btn1).setOnClickListener(this)
         findViewById<View>(R.id.btn2).setOnClickListener(this)
+        findViewById<View>(R.id.btn3).setOnClickListener(this)
     }
 }
