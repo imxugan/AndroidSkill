@@ -14,6 +14,7 @@ class KotlinChapter4 : AppCompatActivity(), View.OnClickListener {
             R.id.btn1 ->startActivity(Intent(this,KotlinChapter4Demo2::class.java))
             R.id.btn2 ->startActivity(Intent(this,KotlinChapter4Demo3::class.java))
             R.id.btn3 ->startActivity(Intent(this,KotlinChapter4Demo4::class.java))
+            R.id.btn4 ->startActivity(Intent(this,KotlinChapter4Demo5::class.java))
         }
     }
 
@@ -24,5 +25,6 @@ class KotlinChapter4 : AppCompatActivity(), View.OnClickListener {
         findViewById<View>(R.id.btn1).setOnClickListener(this)
         findViewById<View>(R.id.btn2).setOnClickListener(this)
         findViewById<View>(R.id.btn3).setOnClickListener(this)
+        findViewById<View>(R.id.btn4).setOnClickListener(this)
     }
 }
