@@ -40,4 +40,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="currying 科里化 ,偏函数"/>
+    <Button
+        android:id="@+id/btn6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="统计字符串中的字符的个数"/>
 </LinearLayout>
