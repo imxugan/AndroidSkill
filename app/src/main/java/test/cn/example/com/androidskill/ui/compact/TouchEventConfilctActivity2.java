@@ -18,7 +18,7 @@ import java.util.List;
 
 import test.cn.example.com.androidskill.R;
 
-/**
+/**这种外部拦截法，方式，对于buttonz这种默认消费事件的控件，会不起作用
  * Created by xugan on 2019/7/16.
  */
 
