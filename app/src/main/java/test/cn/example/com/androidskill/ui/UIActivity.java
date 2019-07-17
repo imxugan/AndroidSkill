@@ -17,6 +17,7 @@ import test.cn.example.com.androidskill.ui.compact.CoordinatorLayoutActivity3;
 import test.cn.example.com.androidskill.ui.compact.CustomBehaviorActivity2;
 import test.cn.example.com.androidskill.ui.compact.DrawerLayoutActivity;
 import test.cn.example.com.androidskill.ui.compact.DrawerLayoutActivity2;
+import test.cn.example.com.androidskill.ui.compact.ExpandedListviewActivity;
 import test.cn.example.com.androidskill.ui.compact.FloatingActionButtonActivity;
 import test.cn.example.com.androidskill.ui.compact.FloatingActionButtonHideShowActivity;
 import test.cn.example.com.androidskill.ui.compact.FloatingActionButtonHideShowActivity2;
@@ -97,11 +98,15 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.btn_37).setOnClickListener(this);
         findViewById(R.id.btn_38).setOnClickListener(this);
         findViewById(R.id.btn_39).setOnClickListener(this);
+        findViewById(R.id.btn_40).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.btn_40:
+                startActivity(new Intent(UIActivity.this, ExpandedListviewActivity.class));
+                break;
             case R.id.btn_39:
                 startActivity(new Intent(UIActivity.this,TouchEventConfilctActivity3.class));
                 break;

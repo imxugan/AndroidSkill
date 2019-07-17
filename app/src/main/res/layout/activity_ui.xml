@@ -15,6 +15,13 @@
         tools:context="test.cn.example.com.androidskill.LannchModeActivity">
 
         <Button
+            android:id="@+id/btn_40"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="scrollview中嵌套listview,让listview完全展开" />
+
+        <Button
             android:id="@+id/btn_39"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
