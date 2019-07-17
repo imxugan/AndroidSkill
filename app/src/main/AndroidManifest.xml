@@ -405,6 +405,7 @@
         <activity android:name=".ui.compact.ParallaxActivity" />
         <activity android:name=".ui.compact.TouchEventConfilctActivity"/>
         <activity android:name=".ui.compact.TouchEventConfilctActivity2"/>
+        <activity android:name=".ui.compact.TouchEventConfilctActivity3"/>
         <activity android:name=".kotlin.KotlinActivity" />
         <activity android:name=".kotlin.chapter1.KotlinDemo1" />
         <activity
