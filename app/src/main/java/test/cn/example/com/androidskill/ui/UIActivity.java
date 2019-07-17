@@ -42,6 +42,7 @@ import test.cn.example.com.androidskill.ui.compact.TabLayoutActivity2;
 import test.cn.example.com.androidskill.ui.compact.TextInputLayoutActivity;
 import test.cn.example.com.androidskill.ui.compact.ToolbarActivity;
 import test.cn.example.com.androidskill.ui.compact.ToolbarBackgroundGradulChange;
+import test.cn.example.com.androidskill.ui.compact.TouchEventConfilctActivity;
 import test.cn.example.com.androidskill.ui.compact.WraperRecyclerViewActivity;
 import test.cn.example.com.androidskill.ui.compact.animator.PropertyActivity;
 
@@ -91,11 +92,15 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.btn_33).setOnClickListener(this);
         findViewById(R.id.btn_34).setOnClickListener(this);
         findViewById(R.id.btn_36).setOnClickListener(this);
+        findViewById(R.id.btn_37).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.btn_37:
+                startActivity(new Intent(UIActivity.this,TouchEventConfilctActivity.class));
+                break;
             case R.id.btn_36:
                 startActivity(new Intent(UIActivity.this,SVGActivity.class));
                 break;
