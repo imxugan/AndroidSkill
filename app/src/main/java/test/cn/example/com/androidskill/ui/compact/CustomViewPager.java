@@ -89,7 +89,10 @@ public class CustomViewPager extends ViewGroup {
             case MotionEvent.ACTION_MOVE:
                 moveX = event.getRawX();
                 int scrollDx = (int) (lastMoveX - moveX);
-                LogUtil.i("scrollDx      "+scrollDx+"       moveX="+moveX);
+//                getScrollX()
+// Return the scrolled left position of this view. This is the left edge of the displayed part of your view
+// 返回这个视图滚动到的左边的位置
+                LogUtil.i("getWidth()="+getWidth()+" , "+"getLeft()="+getLeft()+"  ,getScrollX()="+getScrollX()+"    "+"scrollDx="+scrollDx+"    moveX="+moveX);
 
                 //判断左边界，如果不断的拖拽达到了左边界，则拖拽失效
                 if(getScrollX()+scrollDx<leftBound){
