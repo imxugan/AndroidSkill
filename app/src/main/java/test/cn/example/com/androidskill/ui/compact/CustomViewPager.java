@@ -76,7 +76,16 @@ public class CustomViewPager extends ViewGroup {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        LogUtil.i("onTouchEvent         "+event.getAction());
         switch (event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                return true;//这里不能返回false，否则，后续的move,up事件CustomViewPager都收不到，因为，
+            //down事件传递下来后，CoustomViewPager分发给自己的子控件，比如TextView,由于TextView默认是
+            //不消费事件的，所以回传给CoustomViewPager的onTouchEvent方法，但是CustomViewPager也是默认不
+            //消费事件的，所以，再次将事件回传给CustomViewPager的父控件，这样当move事件到来时，由于CoustomViewPager
+            //的父控件知道down事件时，自己的子控件CustomViewPager不需要事件，所以move事件就不会交给自己的子控件
+            //CustomViewPager了，这就解释了，为什么这里不返回true时，触摸TextView这些CustomViewPgger的子控件
+            //CustomViewPager无法滑动的原因。
             case MotionEvent.ACTION_MOVE:
                 moveX = event.getRawX();
                 int scrollDx = (int) (lastMoveX - moveX);
@@ -97,6 +106,11 @@ public class CustomViewPager extends ViewGroup {
 
                 break;
         }
-        return super.onTouchEvent(event);
+        boolean touchEvent = super.onTouchEvent(event);
+        if(MotionEvent.ACTION_DOWN == event.getAction()){
+            LogUtil.e("重点看down事件时，这个返回值     "+touchEvent);
+        }
+
+        return touchEvent;
     }
 }

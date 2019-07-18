@@ -10,16 +10,16 @@
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:background="@color/c_00c8aa"
-            android:text="第一个view"/>
+            android:text="第一个view是button"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:text="第二个view是textview"/>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:text="第二个view"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:text="第三个view"/>
+            android:text="第三个view是button"/>
     </test.cn.example.com.androidskill.ui.compact.CustomViewPager>
 </LinearLayout>
