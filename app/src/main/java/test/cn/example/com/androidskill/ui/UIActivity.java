@@ -15,6 +15,7 @@ import test.cn.example.com.androidskill.ui.compact.CoordinatorLayoutActivity;
 import test.cn.example.com.androidskill.ui.compact.CoordinatorLayoutActivity2;
 import test.cn.example.com.androidskill.ui.compact.CoordinatorLayoutActivity3;
 import test.cn.example.com.androidskill.ui.compact.CustomBehaviorActivity2;
+import test.cn.example.com.androidskill.ui.compact.CustomViewPagerActivity;
 import test.cn.example.com.androidskill.ui.compact.DrawerLayoutActivity;
 import test.cn.example.com.androidskill.ui.compact.DrawerLayoutActivity2;
 import test.cn.example.com.androidskill.ui.compact.ExpandedListviewActivity;
@@ -99,11 +100,15 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.btn_38).setOnClickListener(this);
         findViewById(R.id.btn_39).setOnClickListener(this);
         findViewById(R.id.btn_40).setOnClickListener(this);
+        findViewById(R.id.btn_41).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.btn_41:
+                startActivity(new Intent(UIActivity.this, CustomViewPagerActivity.class));
+                break;
             case R.id.btn_40:
                 startActivity(new Intent(UIActivity.this, ExpandedListviewActivity.class));
                 break;
