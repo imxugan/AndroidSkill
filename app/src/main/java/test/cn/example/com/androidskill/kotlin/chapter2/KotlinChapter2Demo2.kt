@@ -72,6 +72,10 @@ class KotlinChapter2Demo2 : AppCompatActivity() {
 //                    ",$int23Arrs[12],$int23Arrs[13],$int23Arrs[14],$int23Arrs[15],$int23Arrs[16],$int23Arrs[17]" +
 //                    ",$int23Arrs[18],$int23Arrs[19],$int23Arrs[20],$int23Arrs[21],$int23Arrs[22],$int23Arrs[23]")
 //          }
+        val pp={
+            it:String -> LogUtil.i(it)
+        }
+        pp("ppppppppppppppp")
 
         strArrs.forEach {
             if(it=="3"){
@@ -79,7 +83,9 @@ class KotlinChapter2Demo2 : AppCompatActivity() {
             }
             LogUtil.i(it)
         }
-        LogUtil.i("遍历字符数组完毕")
+        LogUtil.i("遍历字符数组完毕,这句话永远不会打印，因为上面的for循环中有个return")
+
+
     }
 
     fun hello2(action:(Int,Int,Int,Int,Int,Int,Int,Int,Int,Int,Int,Int,Int,Int,Int,Int,Int,Int,Int,Int,Int,Int,Int)->Unit){

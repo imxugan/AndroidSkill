@@ -9,5 +9,5 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="查看打印日志看结果"/>
+        android:text="lambda表达式查看打印日志看结果"/>
 </LinearLayout>
