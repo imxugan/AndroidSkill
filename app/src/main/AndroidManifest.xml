@@ -408,6 +408,7 @@
         <activity android:name=".ui.compact.TouchEventConfilctActivity3"/>
         <activity android:name=".ui.compact.ExpandedListviewActivity"/>
         <activity android:name=".ui.compact.CustomViewPagerActivity"/>
+        <activity android:name=".ui.compact.QQSlidingMenuActivity"/>
         <activity android:name=".kotlin.KotlinActivity" />
         <activity android:name=".kotlin.chapter1.KotlinDemo1" />
         <activity

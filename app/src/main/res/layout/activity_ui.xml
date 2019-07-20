@@ -15,6 +15,13 @@
         tools:context="test.cn.example.com.androidskill.LannchModeActivity">
 
         <Button
+            android:id="@+id/btn_42"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="QQ侧滑效果" />
+
+        <Button
             android:id="@+id/btn_41"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

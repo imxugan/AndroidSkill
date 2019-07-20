@@ -32,6 +32,7 @@ import test.cn.example.com.androidskill.ui.compact.PaletteActivity;
 import test.cn.example.com.androidskill.ui.compact.ParallaxActivity;
 import test.cn.example.com.androidskill.ui.compact.ParallelActivity;
 import test.cn.example.com.androidskill.ui.compact.PopMenuActivity;
+import test.cn.example.com.androidskill.ui.compact.QQSlidingMenuActivity;
 import test.cn.example.com.androidskill.ui.compact.RecyclerViewActivity;
 import test.cn.example.com.androidskill.ui.compact.RecyclerViewItemAnimator;
 import test.cn.example.com.androidskill.ui.compact.SVGActivity;
@@ -101,11 +102,15 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.btn_39).setOnClickListener(this);
         findViewById(R.id.btn_40).setOnClickListener(this);
         findViewById(R.id.btn_41).setOnClickListener(this);
+        findViewById(R.id.btn_42).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.btn_42:
+                startActivity(new Intent(UIActivity.this, QQSlidingMenuActivity.class));
+                break;
             case R.id.btn_41:
                 startActivity(new Intent(UIActivity.this, CustomViewPagerActivity.class));
                 break;

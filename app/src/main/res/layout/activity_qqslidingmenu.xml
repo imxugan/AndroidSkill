@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test.cn.example.com.androidskill.ui.compact.QQSlidingMenu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <include layout="@layout/qq_menu"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/splash12">
+
+        </LinearLayout>
+    </LinearLayout>
+</test.cn.example.com.androidskill.ui.compact.QQSlidingMenu>
