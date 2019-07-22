@@ -15,6 +15,12 @@
         tools:context="test.cn.example.com.androidskill.LannchModeActivity">
 
         <Button
+            android:id="@+id/btn_43"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="侧滑删除条目效果" />
+        <Button
             android:id="@+id/btn_42"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

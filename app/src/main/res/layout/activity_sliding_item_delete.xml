@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <test.cn.example.com.androidskill.ui.compact.SlidingItemDelete
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@color/accent"/>
+        <Button
+            android:id="@+id/tv_delete"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:text="删除"/>
+    </test.cn.example.com.androidskill.ui.compact.SlidingItemDelete>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp48">
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="80dp"
+            android:background="@color/accent"/>
+        <Button
+            android:id="@+id/tv_delete_2"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:text="删除2"/>
+    </LinearLayout>
+</LinearLayout>

@@ -37,6 +37,7 @@ import test.cn.example.com.androidskill.ui.compact.RecyclerViewActivity;
 import test.cn.example.com.androidskill.ui.compact.RecyclerViewItemAnimator;
 import test.cn.example.com.androidskill.ui.compact.SVGActivity;
 import test.cn.example.com.androidskill.ui.compact.SearchViewActivity;
+import test.cn.example.com.androidskill.ui.compact.SlidingItemDeleteActivity;
 import test.cn.example.com.androidskill.ui.compact.SnackBarActivity;
 import test.cn.example.com.androidskill.ui.compact.StatusBarActivity;
 import test.cn.example.com.androidskill.ui.compact.SwipeRefreshLayoutActivity;
@@ -103,11 +104,15 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.btn_40).setOnClickListener(this);
         findViewById(R.id.btn_41).setOnClickListener(this);
         findViewById(R.id.btn_42).setOnClickListener(this);
+        findViewById(R.id.btn_43).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.btn_43:
+                startActivity(new Intent(UIActivity.this, SlidingItemDeleteActivity.class));
+                break;
             case R.id.btn_42:
                 startActivity(new Intent(UIActivity.this, QQSlidingMenuActivity.class));
                 break;
