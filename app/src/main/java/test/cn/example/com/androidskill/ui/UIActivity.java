@@ -19,6 +19,7 @@ import test.cn.example.com.androidskill.ui.compact.CustomViewPagerActivity;
 import test.cn.example.com.androidskill.ui.compact.DrawerLayoutActivity;
 import test.cn.example.com.androidskill.ui.compact.DrawerLayoutActivity2;
 import test.cn.example.com.androidskill.ui.compact.ExpandedListviewActivity;
+import test.cn.example.com.androidskill.ui.compact.FirstCompatStatusBarActivity;
 import test.cn.example.com.androidskill.ui.compact.FloatingActionButtonActivity;
 import test.cn.example.com.androidskill.ui.compact.FloatingActionButtonHideShowActivity;
 import test.cn.example.com.androidskill.ui.compact.FloatingActionButtonHideShowActivity2;
@@ -105,11 +106,15 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.btn_41).setOnClickListener(this);
         findViewById(R.id.btn_42).setOnClickListener(this);
         findViewById(R.id.btn_43).setOnClickListener(this);
+        findViewById(R.id.btn_44).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.btn_44:
+                startActivity(new Intent(UIActivity.this, FirstCompatStatusBarActivity.class));
+                break;
             case R.id.btn_43:
                 startActivity(new Intent(UIActivity.this, SlidingItemDeleteActivity.class));
                 break;
