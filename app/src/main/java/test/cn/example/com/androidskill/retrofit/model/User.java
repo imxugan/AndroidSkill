@@ -42,7 +42,7 @@ public class User {
      * qrcode :
      * gold : 0
      */
-    //接口请求多出来的部分 stone
+    //接口请求多出来的部分
     public int gold;
 
     //原来文档上的
@@ -68,7 +68,7 @@ public class User {
     public int city;                //市id
     public int rank;                //医院等级id
 
-    //解析错误 后台传的"" 而不是整数 stone
+    //解析错误 后台传的"" 而不是整数
 //    public int major_first;         //一级专业方向
 //    public int major_second;        //二级专业方向
     public String major_first;         //一级专业方向
@@ -141,7 +141,7 @@ public class User {
          * shf_image : http://xs3.op.xywy.com/club.xywy.com/doc/20180206/9825cd219d23c1.jpg|http://xs3.op.xywy.com/club.xywy.com/doc/20180206/f6840207efb04a.jpg
          * remark :
          */
-        //接口请求数据多出来的部分 stone
+        //接口请求数据多出来的部分
         public int user_type;
         public String subject_first;
         public String subject_second;

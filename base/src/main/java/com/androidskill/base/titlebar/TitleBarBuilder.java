@@ -22,7 +22,7 @@ public class TitleBarBuilder {
 
 
     private static final int defaultBgResId = R.drawable.toolbar_bg_no_alpha_new;
-    private static final int defaultBackIconResId = R.drawable.icon_back;
+    private static final int defaultBackIconResId = R.mipmap.back;
 
     Map<String, MyMenuItem> itemLinkedHashMap = new LinkedHashMap<>();
 
@@ -63,7 +63,7 @@ public class TitleBarBuilder {
                 return false;
             }
         });
-        //stone 设置高度
+        //设置高度
         mToolbar.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp2px(48)));
     }
 
