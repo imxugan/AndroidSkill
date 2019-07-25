@@ -39,7 +39,9 @@ public abstract class GestureDetectorActivity extends BaseActitivy {
             // 获得滑过的距离
             float moveDistanceX = event.getX() - downX;
             float moveDistanceY = event.getY() - downY;
-            if(moveDistanceX > 0 && moveDistanceY<mTouchSlop){// 如果是向右滑动
+            LogUtil.i("moveDistanceX="+moveDistanceX+"          moveDistanceY="+moveDistanceY);
+            // 如果是向右滑动,右滑的距离大于0，并且横向移动的距离大于纵向移动的距离
+            if(moveDistanceX > 0 && moveDistanceX>Math.abs(moveDistanceY)){
                 getWindow().getDecorView().setX(moveDistanceX);// 设置界面的X到滑动到的位置
                 return true;
             }
@@ -48,7 +50,8 @@ public abstract class GestureDetectorActivity extends BaseActitivy {
             // 获得滑过的距离
             float moveDistanceX = event.getX() - downX;
             float moveDistanceY = event.getY() - downY;
-            if(moveDistanceX > 0 && moveDistanceY<mTouchSlop){
+            LogUtil.e("moveDistanceX="+moveDistanceX+"          moveDistanceY="+moveDistanceY);
+            if(moveDistanceX > 0 && moveDistanceX>Math.abs(moveDistanceY)){
                 if(moveDistanceX > screenWidth / 2){
                     // 如果滑动的距离超过了手机屏幕的一半, 结束当前Activity
                     finish();
@@ -57,6 +60,9 @@ public abstract class GestureDetectorActivity extends BaseActitivy {
                     getWindow().getDecorView().setX(0);
                 }
                 return true;
+            }else {
+                // 恢复初始状态
+                getWindow().getDecorView().setX(0);
             }
 
         }
