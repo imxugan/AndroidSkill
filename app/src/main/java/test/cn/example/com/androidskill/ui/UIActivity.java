@@ -23,6 +23,7 @@ import test.cn.example.com.androidskill.ui.compact.FirstCompatStatusBarActivity;
 import test.cn.example.com.androidskill.ui.compact.FloatingActionButtonActivity;
 import test.cn.example.com.androidskill.ui.compact.FloatingActionButtonHideShowActivity;
 import test.cn.example.com.androidskill.ui.compact.FloatingActionButtonHideShowActivity2;
+import test.cn.example.com.androidskill.ui.compact.ImmersiveSwipeBackActivity;
 import test.cn.example.com.androidskill.ui.compact.ItemTouchHelperActivity;
 import test.cn.example.com.androidskill.ui.compact.LayoutAnimationActivity;
 import test.cn.example.com.androidskill.ui.compact.LinerLayoutCompactActivity;
@@ -107,11 +108,15 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.btn_42).setOnClickListener(this);
         findViewById(R.id.btn_43).setOnClickListener(this);
         findViewById(R.id.btn_44).setOnClickListener(this);
+        findViewById(R.id.btn_45).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.btn_45:
+                startActivity(new Intent(UIActivity.this, ImmersiveSwipeBackActivity.class));
+                break;
             case R.id.btn_44:
                 startActivity(new Intent(UIActivity.this, FirstCompatStatusBarActivity.class));
                 break;

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <View
+        android:id="@+id/base_view_status_bar_place"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"/>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/base_common_toolbar"
+        android:layout_width="match_parent"
+        app:theme="@style/ToolbarTheme"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        android:layout_height="@dimen/dp51">
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="@dimen/sp13"
+            android:textColor="@color/c_2A2A2A"
+            android:textStyle="bold"
+            android:gravity="center"
+            tools:text="统一标题栏"/>
+    </android.support.v7.widget.Toolbar>
+    <FrameLayout
+        android:id="@+id/root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ViewStub
+            android:id="@+id/viewstub_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ViewStub
+            android:id="@+id/viewstub_error"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+    <View
+        android:id="@+id/base_view_nav_bar_place"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp1"/>
+</LinearLayout>

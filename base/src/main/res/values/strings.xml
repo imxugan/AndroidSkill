@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">base</string>
+
+    <string name="empty">暂时没有任何数据</string>
+    <string name="error">网络连接异常</string>
+    <string name="try_again">请重试</string>
+</resources>

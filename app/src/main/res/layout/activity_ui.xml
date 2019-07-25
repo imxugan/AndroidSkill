@@ -158,6 +158,13 @@
             android:text="CardView演示" />
 
         <Button
+            android:id="@+id/btn_45"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="沉浸式(带swipeback效果)适配,抽取到了基类演示" />
+
+        <Button
             android:id="@+id/btn_44"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

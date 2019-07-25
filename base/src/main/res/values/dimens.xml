@@ -1,0 +1,10 @@
+<resources>
+    <!-- menu文字大小 -->
+    <dimen name="sp12">12sp</dimen>
+    <dimen name="sp13">13sp</dimen>
+
+
+    <dimen name="dp16">16dp</dimen>
+    <dimen name="dp51">51dp</dimen>
+    <dimen name="dp1">1dp</dimen>
+</resources>
