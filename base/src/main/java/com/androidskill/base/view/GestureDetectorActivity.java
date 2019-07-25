@@ -27,9 +27,8 @@ public abstract class GestureDetectorActivity extends BaseActitivy {
         mTouchSlop = ViewConfigurationCompat.getScaledPagingTouchSlop(configuration);
     }
 
-    //重写activity的触摸事件
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
+    public boolean dispatchTouchEvent(MotionEvent event) {
         LogUtil.i(""+event.getAction());
         if(event.getAction() == MotionEvent.ACTION_DOWN){// 当按下时
             // 获得按下时的X坐标
@@ -42,19 +41,25 @@ public abstract class GestureDetectorActivity extends BaseActitivy {
             float moveDistanceY = event.getY() - downY;
             if(moveDistanceX > 0 && moveDistanceY<mTouchSlop){// 如果是向右滑动
                 getWindow().getDecorView().setX(moveDistanceX);// 设置界面的X到滑动到的位置
+                return true;
             }
 
         }else if(event.getAction() == MotionEvent.ACTION_UP){// 当抬起手指时
             // 获得滑过的距离
             float moveDistanceX = event.getX() - downX;
-            if(moveDistanceX > screenWidth / 2){
-                // 如果滑动的距离超过了手机屏幕的一半, 结束当前Activity
-                finish();
-            }else{ // 如果滑动距离没有超过一半
-                // 恢复初始状态
-                getWindow().getDecorView().setX(0);
+            float moveDistanceY = event.getY() - downY;
+            if(moveDistanceX > 0 && moveDistanceY<mTouchSlop){
+                if(moveDistanceX > screenWidth / 2){
+                    // 如果滑动的距离超过了手机屏幕的一半, 结束当前Activity
+                    finish();
+                }else{ // 如果滑动距离没有超过一半
+                    // 恢复初始状态
+                    getWindow().getDecorView().setX(0);
+                }
+                return true;
             }
+
         }
-        return super.onTouchEvent(event);
+        return super.dispatchTouchEvent(event);
     }
 }
