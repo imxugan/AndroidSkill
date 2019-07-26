@@ -30,6 +30,7 @@ import test.cn.example.com.androidskill.ui.compact.LinerLayoutCompactActivity;
 import test.cn.example.com.androidskill.ui.compact.ListPopupWindowActivity;
 import test.cn.example.com.androidskill.ui.compact.MyBehaviorActivity;
 import test.cn.example.com.androidskill.ui.compact.NavigationViewActivity;
+import test.cn.example.com.androidskill.ui.compact.PaintActivity;
 import test.cn.example.com.androidskill.ui.compact.PaletteActivity;
 import test.cn.example.com.androidskill.ui.compact.ParallaxActivity;
 import test.cn.example.com.androidskill.ui.compact.ParallelActivity;
@@ -109,11 +110,15 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.btn_43).setOnClickListener(this);
         findViewById(R.id.btn_44).setOnClickListener(this);
         findViewById(R.id.btn_45).setOnClickListener(this);
+        findViewById(R.id.btn_46).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.btn_46:
+                startActivity(new Intent(UIActivity.this, PaintActivity.class));
+                break;
             case R.id.btn_45:
                 startActivity(new Intent(UIActivity.this, ImmersiveSwipeBackActivity.class));
                 break;
