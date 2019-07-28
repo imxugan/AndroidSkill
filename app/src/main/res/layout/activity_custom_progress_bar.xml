@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <test.cn.example.com.androidskill.ui.compact.CustomProgerssBar3
+        android:id="@+id/cpb1"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:textSize="12sp"
+        app:textColor="@color/colorPrimaryDark"
+        app:roundColor="@color/accent"
+        app:roundWidth="5dp"
+        app:textShow="true"
+        app:roundProgressColor="@color/colorPrimaryDark"/>
+
+    <test.cn.example.com.androidskill.ui.compact.CustomProgerssBar3
+        android:id="@+id/cpb2"
+        android:layout_marginTop="@dimen/dp16"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:textSize="12sp"
+        app:textColor="@color/accent"
+        app:roundColor="@color/red"
+        app:roundWidth="15dp"
+        app:textShow="true"
+        app:roundProgressColor="@color/accent"/>
+
+
+    <test.cn.example.com.androidskill.ui.compact.CustomProgerssBar3
+        android:id="@+id/cpb3"
+        android:layout_marginTop="@dimen/dp16"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:textSize="12sp"
+        app:textColor="@color/accent"
+        app:roundColor="@color/red"
+        app:roundWidth="15dp"
+        app:style="FILL"
+        app:textShow="true"
+        app:roundProgressColor="@color/accent"/>
+</LinearLayout>

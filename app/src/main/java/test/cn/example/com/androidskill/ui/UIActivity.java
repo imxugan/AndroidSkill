@@ -15,6 +15,7 @@ import test.cn.example.com.androidskill.ui.compact.CoordinatorLayoutActivity;
 import test.cn.example.com.androidskill.ui.compact.CoordinatorLayoutActivity2;
 import test.cn.example.com.androidskill.ui.compact.CoordinatorLayoutActivity3;
 import test.cn.example.com.androidskill.ui.compact.CustomBehaviorActivity2;
+import test.cn.example.com.androidskill.ui.compact.CustomProgerssBarActivity;
 import test.cn.example.com.androidskill.ui.compact.CustomViewPagerActivity;
 import test.cn.example.com.androidskill.ui.compact.DrawerLayoutActivity;
 import test.cn.example.com.androidskill.ui.compact.DrawerLayoutActivity2;
@@ -54,6 +55,7 @@ import test.cn.example.com.androidskill.ui.compact.TouchEventConfilctActivity2;
 import test.cn.example.com.androidskill.ui.compact.TouchEventConfilctActivity3;
 import test.cn.example.com.androidskill.ui.compact.WraperRecyclerViewActivity;
 import test.cn.example.com.androidskill.ui.compact.animator.PropertyActivity;
+import test.cn.example.com.androidskill.view.defineView.CustomProgerssBar2;
 
 /**
  * Created by xugan on 2019/6/11.
@@ -111,11 +113,15 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.btn_44).setOnClickListener(this);
         findViewById(R.id.btn_45).setOnClickListener(this);
         findViewById(R.id.btn_46).setOnClickListener(this);
+        findViewById(R.id.btn_47).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.btn_47:
+                startActivity(new Intent(UIActivity.this, CustomProgerssBarActivity.class));
+                break;
             case R.id.btn_46:
                 startActivity(new Intent(UIActivity.this, PaintActivity.class));
                 break;
