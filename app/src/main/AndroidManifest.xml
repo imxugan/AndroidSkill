@@ -403,21 +403,21 @@
         <activity android:name=".ui.compact.animator.SecondActivity2" />
         <activity android:name=".ui.compact.SVGActivity" />
         <activity android:name=".ui.compact.ParallaxActivity" />
-        <activity android:name=".ui.compact.TouchEventConfilctActivity"/>
-        <activity android:name=".ui.compact.TouchEventConfilctActivity2"/>
-        <activity android:name=".ui.compact.TouchEventConfilctActivity3"/>
-        <activity android:name=".ui.compact.ExpandedListviewActivity"/>
-        <activity android:name=".ui.compact.CustomViewPagerActivity"/>
-        <activity android:name=".ui.compact.QQSlidingMenuActivity"/>
-        <activity android:name=".ui.compact.SlidingItemDeleteActivity"/>
-        <activity android:name=".ui.compact.FirstCompatStatusBarActivity"/>
-        <activity android:name=".ui.compact.NextActivity"/>
-        <activity android:name=".ui.compact.NextActivity2"/>
-        <activity android:name=".ui.compact.ImmersiveSwipeBackActivity"/>
-        <activity android:name=".ui.compact.ImmersiveSwipeBackActivity2"/>
-        <activity android:name=".ui.compact.ImmersiveSwipeBackActivity3"/>
-        <activity android:name=".ui.compact.PaintActivity"/>
-        <activity android:name=".ui.compact.CustomProgerssBarActivity"/>
+        <activity android:name=".ui.compact.TouchEventConfilctActivity" />
+        <activity android:name=".ui.compact.TouchEventConfilctActivity2" />
+        <activity android:name=".ui.compact.TouchEventConfilctActivity3" />
+        <activity android:name=".ui.compact.ExpandedListviewActivity" />
+        <activity android:name=".ui.compact.CustomViewPagerActivity" />
+        <activity android:name=".ui.compact.QQSlidingMenuActivity" />
+        <activity android:name=".ui.compact.SlidingItemDeleteActivity" />
+        <activity android:name=".ui.compact.FirstCompatStatusBarActivity" />
+        <activity android:name=".ui.compact.NextActivity" />
+        <activity android:name=".ui.compact.NextActivity2" />
+        <activity android:name=".ui.compact.ImmersiveSwipeBackActivity" />
+        <activity android:name=".ui.compact.ImmersiveSwipeBackActivity2" />
+        <activity android:name=".ui.compact.ImmersiveSwipeBackActivity3" />
+        <activity android:name=".ui.compact.PaintActivity" />
+        <activity android:name=".ui.compact.CustomProgerssBarActivity" />
         <activity android:name=".kotlin.KotlinActivity" />
         <activity android:name=".kotlin.chapter1.KotlinDemo1" />
         <activity
@@ -534,7 +534,9 @@
         <activity android:name=".kotlin.chapter4.KotlinChapter4Demo4" />
         <activity android:name=".kotlin.chapter4.KotlinChapter4Demo5" />
         <activity android:name=".kotlin.chapter4.KotlinChapter4Demo6" />
-        <activity android:name=".kotlin.chapter4.KotlinChapter4Demo7"></activity>
+        <activity android:name=".kotlin.chapter4.KotlinChapter4Demo7" />
+        <activity android:name=".kotlin.chapter6.KotlinChapter6" />
+        <activity android:name=".kotlin.chapter6.KotlinChapter6Demo1"></activity>
     </application>
 
 </manifest>
