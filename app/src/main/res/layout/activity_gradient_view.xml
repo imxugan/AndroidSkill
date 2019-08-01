@@ -30,6 +30,20 @@
 
     <test.cn.example.com.androidskill.ui.compact.LinearGradientView
         android:layout_marginTop="@dimen/dp16"
-        android:layout_width="200dp"
-        android:layout_height="200dp"/>
+        android:layout_width="150dp"
+        android:layout_height="150dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="@dimen/dp16"
+        android:background="@color/black">
+        <test.cn.example.com.androidskill.ui.compact.LinearGradientTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@android:color/tertiary_text_light"
+            android:text="人在广东漂泊十年，不能少了活的精彩的勇气"/>
+    </RelativeLayout>
+
 </LinearLayout>
