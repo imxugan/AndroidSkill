@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="test.cn.example.com.androidskill">
-
     <!-- 联网权限 -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!-- 往sdcard中写入数据的权限 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 往sdcard中写入数据的权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
-    <!-- 开机广播 -->
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" /> <!-- 开机广播 -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
@@ -18,7 +15,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".ui.compact.GradientViewActivity"></activity>
         <!-- <activity android:name=".MainActivity"> -->
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -53,7 +50,6 @@
  ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
         -->
-
         <service android:name=".service.MyService4" />
 
         <activity
@@ -297,9 +293,7 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".sqlite.ContactActivity"
-            android:screenOrientation="portrait" />
-
-        <!-- hencoder  start -->
+            android:screenOrientation="portrait" /> <!-- hencoder  start -->
         <activity
             android:name=".view.defineView.hencoder.HenCoderPracticeActivity"
             android:screenOrientation="portrait" />
@@ -326,9 +320,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.defineView.hencoder.practice_eight.HenCoderPracticeEightActivity"
-            android:screenOrientation="portrait" />
-        <!-- hencoder end -->
-
+            android:screenOrientation="portrait" /> <!-- hencoder end -->
         <activity
             android:name=".TestActivity"
             android:screenOrientation="portrait" />
@@ -488,12 +480,9 @@
             android:process=":remoteProcess" />
         <service
             android:name=".optimize.process_keep.JobHandleService"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
-
-        <!-- <service android:name="test.cn.example.com.androidskill.service.BookManagerService" -->
+            android:permission="android.permission.BIND_JOB_SERVICE" /> <!-- <service android:name="test.cn.example.com.androidskill.service.BookManagerService" -->
         <!-- android:process=":remote"> -->
         <!-- </service> -->
-
         <service android:name=".service.BookManagerService">
 
             <!-- <intent-filter> -->
@@ -536,7 +525,7 @@
         <activity android:name=".kotlin.chapter4.KotlinChapter4Demo6" />
         <activity android:name=".kotlin.chapter4.KotlinChapter4Demo7" />
         <activity android:name=".kotlin.chapter6.KotlinChapter6" />
-        <activity android:name=".kotlin.chapter6.KotlinChapter6Demo1"></activity>
+        <activity android:name=".kotlin.chapter6.KotlinChapter6Demo1" />
     </application>
 
 </manifest>

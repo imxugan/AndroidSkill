@@ -24,6 +24,7 @@ import test.cn.example.com.androidskill.ui.compact.FirstCompatStatusBarActivity;
 import test.cn.example.com.androidskill.ui.compact.FloatingActionButtonActivity;
 import test.cn.example.com.androidskill.ui.compact.FloatingActionButtonHideShowActivity;
 import test.cn.example.com.androidskill.ui.compact.FloatingActionButtonHideShowActivity2;
+import test.cn.example.com.androidskill.ui.compact.GradientViewActivity;
 import test.cn.example.com.androidskill.ui.compact.ImmersiveSwipeBackActivity;
 import test.cn.example.com.androidskill.ui.compact.ItemTouchHelperActivity;
 import test.cn.example.com.androidskill.ui.compact.LayoutAnimationActivity;
@@ -114,12 +115,16 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.btn_45).setOnClickListener(this);
         findViewById(R.id.btn_46).setOnClickListener(this);
         findViewById(R.id.btn_47).setOnClickListener(this);
+        findViewById(R.id.btn_48).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.btn_47:
+            case R.id.btn_48:
+                startActivity(new Intent(UIActivity.this, GradientViewActivity.class));
+                break;
+                case R.id.btn_47:
                 startActivity(new Intent(UIActivity.this, CustomProgerssBarActivity.class));
                 break;
             case R.id.btn_46:

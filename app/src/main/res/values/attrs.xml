@@ -133,4 +133,12 @@
             <enum name="FILL" value="1"/>
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="MyGradientView">
+        <attr name="src" format="reference"/>
+        <attr name="scale" format="enum">
+            <enum name="scaleX" value="0"/>
+            <enum name="scaleY" value="1"/>
+        </attr>
+    </declare-styleable>
 </resources>
