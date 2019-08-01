@@ -31,6 +31,7 @@ public class LinearGradientTextView extends TextView {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
+        //特别注意，这里用getPaint()，否则死活不出效果
         mPaint = getPaint();
         String text = getText().toString();
         textWidth = mPaint.measureText(text);
