@@ -28,5 +28,8 @@
         app:scale="scaleX"
         app:src="@drawable/dog_bg"/>
 
-
+    <test.cn.example.com.androidskill.ui.compact.LinearGradientView
+        android:layout_marginTop="@dimen/dp16"
+        android:layout_width="200dp"
+        android:layout_height="200dp"/>
 </LinearLayout>
