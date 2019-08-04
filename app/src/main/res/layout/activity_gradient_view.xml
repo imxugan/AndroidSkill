@@ -6,36 +6,41 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.compact.GradientViewActivity">
-
-    <test.cn.example.com.androidskill.ui.compact.MyGradientView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:scale="scaleX"
-        app:src="@drawable/avatar_contact"/>
+        android:orientation="horizontal">
+        <test.cn.example.com.androidskill.ui.compact.MyGradientView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:scale="scaleX"
+            app:src="@drawable/avatar_contact"/>
 
-    <test.cn.example.com.androidskill.ui.compact.MyGradientView
-        android:layout_marginTop="@dimen/dp16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:scale="scaleX"
-        app:src="@drawable/dog_bg"/>
+        <test.cn.example.com.androidskill.ui.compact.MyGradientView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp16"
+            app:scale="scaleX"
+            app:src="@drawable/dog_bg"/>
 
-    <test.cn.example.com.androidskill.ui.compact.MyGradientView
-        android:layout_marginTop="@dimen/dp16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:scale="scaleX"
-        app:src="@drawable/dog_bg"/>
+        <test.cn.example.com.androidskill.ui.compact.MyGradientView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp16"
+            app:scale="scaleX"
+            app:src="@drawable/dog_bg"/>
+    </LinearLayout>
+
 
     <test.cn.example.com.androidskill.ui.compact.LinearGradientView
-        android:layout_marginTop="@dimen/dp16"
+        android:layout_marginTop="@dimen/dp10"
         android:layout_width="150dp"
-        android:layout_height="150dp"/>
+        android:layout_height="100dp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="100dp"
         android:layout_marginTop="@dimen/dp16"
         android:background="@color/black">
         <test.cn.example.com.androidskill.ui.compact.LinearGradientTextView
@@ -45,5 +50,23 @@
             android:textColor="@android:color/tertiary_text_light"
             android:text="人在广东漂泊十年，不能少了活的精彩的勇气"/>
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp10"
+        android:orientation="horizontal">
+        <test.cn.example.com.androidskill.ui.compact.MyGradientView2
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:scale="scaleX"
+            app:src="@drawable/dog_bg"/>
+        <test.cn.example.com.androidskill.ui.compact.MyGradientView2
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp10"
+            app:scale="scaleY"
+            app:src="@drawable/dog_bg"/>
+    </LinearLayout>
 
 </LinearLayout>
