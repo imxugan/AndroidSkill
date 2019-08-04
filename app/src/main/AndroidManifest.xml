@@ -410,6 +410,7 @@
         <activity android:name=".ui.compact.ImmersiveSwipeBackActivity3" />
         <activity android:name=".ui.compact.PaintActivity" />
         <activity android:name=".ui.compact.CustomProgerssBarActivity" />
+        <activity android:name=".ui.compact.ZoomImageViewActivity"/>
         <activity android:name=".kotlin.KotlinActivity" />
         <activity android:name=".kotlin.chapter1.KotlinDemo1" />
         <activity

@@ -134,11 +134,17 @@
         </attr>
     </declare-styleable>
 
+    <!--如果多个自定义view都用到了相同的这个属性，则要将这个属性在全局定义，然后在各个自定义view分别使用-->
+    <attr name="src" format="reference"/>
     <declare-styleable name="MyGradientView">
-        <attr name="src" format="reference"/>
+        <attr name="src"/>
         <attr name="scale" format="enum">
             <enum name="scaleX" value="0"/>
             <enum name="scaleY" value="1"/>
         </attr>
+    </declare-styleable>
+
+    <declare-styleable name="ZoomImageView">
+        <attr name="src"/>
     </declare-styleable>
 </resources>
