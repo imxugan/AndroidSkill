@@ -147,4 +147,13 @@
     <declare-styleable name="ZoomImageView">
         <attr name="src"/>
     </declare-styleable>
+
+    <declare-styleable name="BlurMaskFilterView">
+        <attr name="blurmask" format="enum">
+            <enum name="BlurMaskFilter.Blur.INNER" value="0"/>
+            <enum name="BlurMaskFilter.Blur.NORMAL" value="1"/>
+            <enum name="BlurMaskFilter.Blur.OUTER" value="2"/>
+            <enum name="BlurMaskFilter.Blur.SOLID" value="3"/>
+        </attr>
+    </declare-styleable>
 </resources>

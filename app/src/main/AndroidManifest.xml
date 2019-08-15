@@ -23,6 +23,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".art.chapter_one.ChapterOneActivity"
@@ -411,6 +415,7 @@
         <activity android:name=".ui.compact.PaintActivity" />
         <activity android:name=".ui.compact.CustomProgerssBarActivity" />
         <activity android:name=".ui.compact.ZoomImageViewActivity"/>
+        <activity android:name=".ui.compact.BlurMaskFilterActivity"/>
         <activity android:name=".kotlin.KotlinActivity" />
         <activity android:name=".kotlin.chapter1.KotlinDemo1" />
         <activity

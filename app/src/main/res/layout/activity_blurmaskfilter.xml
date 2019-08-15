@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/dog_bg"/>
+    <test.cn.example.com.androidskill.ui.compact.BlurMaskFilterView
+        android:layout_marginTop="@dimen/dp10"
+        app:blurmask="BlurMaskFilter.Blur.INNER"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <test.cn.example.com.androidskill.ui.compact.BlurMaskFilterView
+        android:layout_marginTop="@dimen/dp10"
+        app:blurmask="BlurMaskFilter.Blur.NORMAL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <test.cn.example.com.androidskill.ui.compact.BlurMaskFilterView
+        android:layout_marginTop="@dimen/dp10"
+        app:blurmask="BlurMaskFilter.Blur.OUTER"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <test.cn.example.com.androidskill.ui.compact.BlurMaskFilterView
+        android:layout_marginTop="@dimen/dp10"
+        app:blurmask="BlurMaskFilter.Blur.SOLID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
