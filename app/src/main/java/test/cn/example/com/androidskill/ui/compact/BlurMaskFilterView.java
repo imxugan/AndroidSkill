@@ -13,6 +13,7 @@ import android.view.View;
 import androidx.annotation.Nullable;
 
 import test.cn.example.com.androidskill.R;
+import test.cn.example.com.util.LogUtil;
 
 public class BlurMaskFilterView extends View {
 
@@ -41,13 +42,14 @@ public class BlurMaskFilterView extends View {
         typedArray.recycle();
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
-        bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.bg);
+        bitmap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.marong);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        setMeasuredDimension(bitmap.getWidth(),bitmap.getHeight());
+        LogUtil.i(bitmap.getWidth()+"       "+bitmap.getHeight());
+//        setMeasuredDimension(bitmap.getWidth(),bitmap.getHeight());
 
     }
 
@@ -56,8 +58,10 @@ public class BlurMaskFilterView extends View {
         super.onDraw(canvas);
         //关闭硬件加速
         setLayerType(View.LAYER_TYPE_SOFTWARE,null);
-        mPaint.setMaskFilter(new BlurMaskFilter(30,blur));
-        canvas.drawBitmap(bitmap,0,0,mPaint);
+        mPaint.reset();
+        mPaint.setAntiAlias(true);
+        mPaint.setMaskFilter(new BlurMaskFilter(50,blur));
+        canvas.drawBitmap(bitmap,30,10,mPaint);
 
     }
 }
