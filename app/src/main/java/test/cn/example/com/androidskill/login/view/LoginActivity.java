@@ -28,7 +28,7 @@ public class LoginActivity extends Activity implements View.OnClickListener,ILog
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_login_new_module);
+		setContentView(R.layout.activity_login);
 		initView();
 		iLoginPresenter = new LoginPresenterImpl(this);
 	}
