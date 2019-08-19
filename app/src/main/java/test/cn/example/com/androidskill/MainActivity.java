@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
+
 import java.util.ArrayList;
 
 import test.cn.example.com.androidskill.aop.AspectJTestActivity;
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initView() {
+        findViewById(R.id.arouter).setOnClickListener(this);
         findViewById(R.id.ui).setOnClickListener(this);
         findViewById(R.id.tv_leak).setOnClickListener(this);
         TextView tv_volley = (TextView) findViewById(R.id.tv_volley);
@@ -92,7 +95,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.kotlin:
+            case R.id.arouter:
+                ARouter.getInstance().build("/test/activity").navigation();
+                break;
+             case R.id.kotlin:
                 myStartActivity(KotlinActivity.class,false);
                 break;
             case R.id.ui:

@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" /> <!-- 开机广播 -->
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name=".MyApplication"
@@ -465,7 +464,6 @@
         </activity>
 
         <service android:name=".optimize.handler_thread.MyIntentService" />
-        <service android:name=".optimize.service_keep.MyService" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

@@ -3,7 +3,7 @@ project.ext {
     androidCommonDir = "${project.rootDir}/libs";
     androidBuildToolsVersion = '28.0.3'
     compileSdkVersion = 28
-    minSdkVersion = 16
+    minSdkVersion = 14
     targetSdkVersion = 28
     appVersionCode = 2
     appVersionName = "1.0.1"

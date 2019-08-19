@@ -15,8 +15,8 @@ android {
     buildToolsVersion rootProject.ext.androidBuildToolsVersion
     defaultConfig {
         applicationId "test.cn.example.com.androidskill"
-        minSdkVersion 14
-        targetSdkVersion 28
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -130,7 +130,7 @@ dependencies {
 
     compile 'com.jakewharton.rxbinding3:rxbinding:3.0.0-alpha2'
 
-    compile project(':mybus');
+    compile project(':mybus')
 
     //livedata
     compile "android.arch.lifecycle:runtime:1.1.0"
@@ -158,5 +158,12 @@ dependencies {
 
     compile 'me.imid.swipebacklayout.lib:library:1.1.0'
 
-    compile project(':base');
+    compile project(':base')
+
+    if(isNeedLoginModule.toBoolean()){
+        System.print("compile login  module ?????")
+        compile project(':login')
+    }
+    compile 'com.alibaba:arouter-api:1.5.0'
+
 }
