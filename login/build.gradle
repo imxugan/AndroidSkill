@@ -26,6 +26,16 @@ android {
 
     }
 
+    sourceSets {
+        main {
+            if (isNeedLoginModule.toBoolean()) {
+                manifest.srcFile 'src/main/module/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            }
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
