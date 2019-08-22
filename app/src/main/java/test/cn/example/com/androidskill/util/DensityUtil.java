@@ -1,6 +1,11 @@
 package test.cn.example.com.androidskill.util;
 
+import android.app.Activity;
 import android.content.Context;
+import android.util.DisplayMetrics;
+import android.view.Display;
+
+import test.cn.example.com.util.LogUtil;
 
 /**
  * Created by xugan on 2018/12/17.
@@ -36,5 +41,12 @@ public class DensityUtil {
     public static int sp2px(Context context, float spValue) {
         final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (spValue * fontScale + 0.5f);
+    }
+
+    public static DisplayMetrics getDisplayMetrics(Activity context){
+        DisplayMetrics metrics = new DisplayMetrics();
+        Display display = context.getWindowManager().getDefaultDisplay();
+        display.getMetrics(metrics);
+        return metrics;
     }
 }

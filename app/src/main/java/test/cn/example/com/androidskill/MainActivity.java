@@ -27,6 +27,7 @@ import test.cn.example.com.androidskill.myvolley.MyVolleyTestActivity;
 import test.cn.example.com.androidskill.optimize.OptimizeActivity;
 import test.cn.example.com.androidskill.rxjava2Test.RxJava2ActivityTest;
 import test.cn.example.com.androidskill.rxjavaTest.RxJavaTestActivity;
+import test.cn.example.com.androidskill.screenAdapter.ScreenAdapterActivity;
 import test.cn.example.com.androidskill.sqlite.SqliteActivity;
 import test.cn.example.com.androidskill.ui.UIActivity;
 import test.cn.example.com.androidskill.websocket.WebsocketActivity;
@@ -58,8 +59,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         simple_eventbus.setOnClickListener(this);
         TextView change_skin = (TextView) findViewById(R.id.change_skin);
         change_skin.setOnClickListener(this);
-        TextView test = (TextView) findViewById(R.id.test);
-        test.setOnClickListener(this);
+        TextView screenAdapter = (TextView) findViewById(R.id.screenAdapter);
+        screenAdapter.setOnClickListener(this);
         TextView optimize = (TextView) findViewById(R.id.optimize);
         optimize.setOnClickListener(this);
         TextView debug = (TextView) findViewById(R.id.debug);
@@ -125,7 +126,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.change_skin:
                 myStartActivity(ChangeSkinActivity.class,false);
                 break;
-            case R.id.test:
+            case R.id.screenAdapter:
+                myStartActivity(ScreenAdapterActivity.class,false);
                 break;
             case R.id.optimize:
                 myStartActivity(OptimizeActivity.class,false);
