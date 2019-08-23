@@ -416,6 +416,7 @@
         <activity android:name=".ui.compact.ZoomImageViewActivity"/>
         <activity android:name=".ui.compact.BlurMaskFilterActivity"/>
         <activity android:name=".screenAdapter.ScreenAdapterActivity"/>
+        <activity android:name=".screenAdapter.ImageAdapterActivity"/>
         <activity android:name=".kotlin.KotlinActivity" />
         <activity android:name=".kotlin.chapter1.KotlinDemo1" />
         <activity
