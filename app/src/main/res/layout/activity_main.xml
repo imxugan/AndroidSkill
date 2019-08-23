@@ -98,16 +98,6 @@
                     android:text="换肤"/>
 
                 <TextView
-                    android:id="@+id/screenAdapter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:padding="@dimen/activity_horizontal_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:background="@color/colorAccent"
-                    android:text="screenAdapter"/>
-
-                <TextView
                     android:id="@+id/optimize"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -299,6 +289,16 @@
                     android:layout_marginLeft="@dimen/dp16"
                     android:background="@color/colorAccent"
                     android:text="ARouter"/>
+
+                <TextView
+                    android:id="@+id/screenAdapter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:background="@color/colorAccent"
+                    android:text="screenAdapter"/>
             </LinearLayout>
 
         </LinearLayout>
