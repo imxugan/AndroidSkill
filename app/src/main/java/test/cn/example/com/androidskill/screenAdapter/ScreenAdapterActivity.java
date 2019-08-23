@@ -24,7 +24,7 @@ public class ScreenAdapterActivity extends AppCompatActivity implements View.OnC
                 myStartActivity(ImageAdapterActivity.class);
                 break;
             case R.id.btn2:
-
+                myStartActivity(ImageAdapterActivity2.class);
                 break;
         }
     }
