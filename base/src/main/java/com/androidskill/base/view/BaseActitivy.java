@@ -1,6 +1,7 @@
 package com.androidskill.base.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Build;
@@ -50,7 +51,16 @@ public abstract class BaseActitivy extends AppCompatActivity implements IBaseVie
         if (getSupportActionBar() != null){
             getSupportActionBar().hide();
         }
-
+        //防止app 退出到后台，点击图标后再次重新启动
+        if (!isTaskRoot()) {
+            final Intent intent = getIntent();
+            final String intentAction = intent.getAction();
+            if (intent.hasCategory(Intent.CATEGORY_LAUNCHER) && intentAction != null && intentAction.equals(Intent
+                    .ACTION_MAIN)) {
+                finish();
+                return;
+            }
+        }
         getWindow().setBackgroundDrawable(getResources().getDrawable(R.color.transparent));
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); //竖屏
         setContentView(R.layout.activity_base_common);
