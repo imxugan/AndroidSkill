@@ -3,13 +3,17 @@ package test.cn.example.com.androidskill;
 import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
+import android.util.DisplayMetrics;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 
 import org.greenrobot.greendao.database.Database;
 
+import java.lang.reflect.Field;
+
 import test.cn.example.com.androidskill.model.greendao.DaoMaster;
 import test.cn.example.com.androidskill.model.greendao.DaoSession;
+import test.cn.example.com.util.LogUtil;
 
 
 /**
@@ -24,6 +28,8 @@ public class MyApplication extends Application {
     public static final boolean ENCRYPTED = true;
 
     private DaoSession daoSession;
+
+    private static final float BASEWIDTH = 375f;
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
@@ -45,6 +51,42 @@ public class MyApplication extends Application {
         }
         ARouter.init(this); // 尽可能早，推荐在Application中初始化
 
+        setCustomerDensity(this);
+
+    }
+
+    public void setCustomerDensity(MyApplication myApplication) {
+        if(null != myApplication){
+            DisplayMetrics displayMetrics = myApplication.getResources().getDisplayMetrics();
+            float targetDensity = displayMetrics.widthPixels/BASEWIDTH;
+            int targetDensityDpi = (int) (targetDensity*160);
+            LogUtil.i("   targetDensity="+targetDensity+"      targetDensityDpi="+targetDensityDpi);
+            displayMetrics.density = targetDensity;
+            displayMetrics.densityDpi = targetDensityDpi;
+            LogUtil.e(myApplication.getResources().getDisplayMetrics().density+"");
+            setBitmapDefaultDensity(targetDensityDpi);
+        }
+    }
+
+    /**
+     * 该方法解决
+     * 从获取 ImageView 的 Bitmap 的宽高，发现获取的宽高和实际的宽高(布局出来观察)不一致的问题
+     * @param defaultDensity
+     */
+    private static void setBitmapDefaultDensity(int defaultDensity) {
+        //获取单个变量的值
+        Class clazz;
+        try {
+            clazz = Class.forName("android.graphics.Bitmap");
+            Field field = clazz.getDeclaredField("sDefaultDensity");
+            field.setAccessible(true);
+            field.set(null, defaultDensity);
+            field.setAccessible(false);
+        } catch (ClassNotFoundException e) {
+        } catch (NoSuchFieldException e) {
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 
     public DaoSession getDaoSession() {

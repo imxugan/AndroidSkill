@@ -18,10 +18,17 @@
         android:src="@drawable/test_meitu"/>
 
     <ImageView
-        android:id="@+id/iv_3"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+    android:id="@+id/iv_3"
+    android:layout_width="150dp"
+    android:layout_height="150dp"
+    android:layout_marginTop="@dimen/dp48"
+    android:scaleType="fitXY"
+    android:src="@drawable/test_meitu"/>
+
+    <ImageView
+        android:id="@+id/iv_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp48"
-        android:scaleType="fitXY"
-        android:src="@drawable/test_meitu"/>
+        android:scaleType="fitXY" />
 </LinearLayout>
