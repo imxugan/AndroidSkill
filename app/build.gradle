@@ -160,7 +160,7 @@ dependencies {
 
     compile project(':base')
 
-    if(isNeedLoginModule.toBoolean()){
+    if (isNeedLoginModule.toBoolean()) {
         System.print("compile login  module ?????")
         compile project(':login')
     }

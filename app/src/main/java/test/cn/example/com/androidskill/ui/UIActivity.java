@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import test.cn.example.com.androidskill.LayoutViewMeasureSpecActiivty;
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.androidskill.ToolBarTestActivity;
 import test.cn.example.com.androidskill.ui.compact.BaseImmersiveActivity;
@@ -121,11 +122,15 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.btn_49).setOnClickListener(this);
         findViewById(R.id.btn_50).setOnClickListener(this);
         findViewById(R.id.btn_70).setOnClickListener(this);
+        findViewById(R.id.btn_71).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.btn_71:
+                startActivity(new Intent(UIActivity.this, LayoutViewMeasureSpecActiivty.class));
+                break;
             case R.id.btn_70:
                 startActivity(new Intent(UIActivity.this, LayoutParentViewActiivty.class));
                 break;

@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" /> <!-- 往sdcard中写入数据的权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" /> <!-- 开机广播 -->
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
 
     <application
         android:name=".MyApplication"
@@ -14,15 +14,14 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.compact.GradientViewActivity"></activity>
-        <!-- <activity android:name=".MainActivity"> -->
+        <activity android:name=".LayoutViewMeasureSpecActiivty"></activity>
+        <activity android:name=".ui.compact.GradientViewActivity" /> <!-- <activity android:name=".MainActivity"> -->
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
@@ -413,12 +412,12 @@
         <activity android:name=".ui.compact.ImmersiveSwipeBackActivity3" />
         <activity android:name=".ui.compact.PaintActivity" />
         <activity android:name=".ui.compact.CustomProgerssBarActivity" />
-        <activity android:name=".ui.compact.ZoomImageViewActivity"/>
-        <activity android:name=".ui.compact.BlurMaskFilterActivity"/>
-        <activity android:name=".screenAdapter.ScreenAdapterActivity"/>
-        <activity android:name=".screenAdapter.ImageAdapterActivity"/>
-        <activity android:name=".screenAdapter.ImageAdapterActivity2"/>
-        <activity android:name=".ui.compact.LayoutParentViewActiivty"/>
+        <activity android:name=".ui.compact.ZoomImageViewActivity" />
+        <activity android:name=".ui.compact.BlurMaskFilterActivity" />
+        <activity android:name=".screenAdapter.ScreenAdapterActivity" />
+        <activity android:name=".screenAdapter.ImageAdapterActivity" />
+        <activity android:name=".screenAdapter.ImageAdapterActivity2" />
+        <activity android:name=".ui.compact.LayoutParentViewActiivty" />
         <activity android:name=".kotlin.KotlinActivity" />
         <activity android:name=".kotlin.chapter1.KotlinDemo1" />
         <activity
