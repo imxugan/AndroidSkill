@@ -29,10 +29,19 @@ public class HencoderPractice_onmeasure2_Fragment extends Fragment{
         ViewGroup.LayoutParams layoutParams = myView.getLayoutParams();
         if(null != layoutParams){
             LogUtil.e(""+layoutParams.width+"   "+layoutParams.height);
+        }else {
+            LogUtil.e(""+layoutParams);
         }
 
         root.addView(myView);
         root.addView(ll);
+
+        layoutParams = myView.getLayoutParams();
+        if(null != layoutParams){
+            LogUtil.e("root.addView(myView)后   "+layoutParams.width+"   "+layoutParams.height);
+        }else {
+            LogUtil.e("root.addView(myView)后   "+layoutParams);
+        }
         return root;
     }
 
