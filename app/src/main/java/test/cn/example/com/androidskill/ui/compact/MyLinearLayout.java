@@ -31,6 +31,12 @@ public class MyLinearLayout extends LinearLayout {
         LogUtil.i("MeasureSpec.UNSPECIFIED             "+MeasureSpec.UNSPECIFIED);
     }
 
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        super.onLayout(changed, l, t, r, b);
+        LogUtil.i("l=   "+l+"   t=    "+t+"   r="+r+"     b="+b);
+    }
+
     public int getSpecMode_width() {
         return specMode_width;
     }
@@ -38,4 +44,5 @@ public class MyLinearLayout extends LinearLayout {
     public int getSpecMode_height(){
         return specMode_height;
     }
+
 }
