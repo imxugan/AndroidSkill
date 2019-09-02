@@ -34,6 +34,8 @@ public class CustomProgerssBar3 extends View {
     private final int max;
     private int progress;
     private final Paint mPaint;
+    private int defaultWidth = 0;
+    private int defaultHeight = 0;
 
     public CustomProgerssBar3(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -49,7 +51,16 @@ public class CustomProgerssBar3 extends View {
         mPaint = new Paint();
         LogUtil.i("roundWidth=  "+roundWidth+"     "+ DensityUtil.px2dip(context,roundWidth));
         typedArray.recycle();
+        defaultWidth = DensityUtil.dip2px(context,60);
+        defaultHeight = DensityUtil.dip2px(context,60);
 
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int resolveWidthSize = resolveSize(defaultWidth, widthMeasureSpec);
+        int resolveHeightSize = resolveSize(defaultHeight, heightMeasureSpec);
+        setMeasuredDimension(resolveWidthSize,resolveHeightSize);
     }
 
     @Override
