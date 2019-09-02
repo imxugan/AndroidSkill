@@ -1,6 +1,7 @@
 package test.cn.example.com.androidskill.ui.compact;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
@@ -29,12 +30,27 @@ public class MyLinearLayout extends LinearLayout {
         LogUtil.i("MeasureSpec.AT_MOST             "+MeasureSpec.AT_MOST);
         LogUtil.i("MeasureSpec.EXACTLY             "+MeasureSpec.EXACTLY);
         LogUtil.i("MeasureSpec.UNSPECIFIED             "+MeasureSpec.UNSPECIFIED);
+        LogUtil.i("onMeasure    getVisibility()，  "+getVisibility());
+        //public static final int VISIBLE = 0x00000000;
+        //public static final int INVISIBLE = 0x00000004;
+        //public static final int GONE = 0x00000008;
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
+        int opacity = getBackground().getOpacity();
         LogUtil.i("l=   "+l+"   t=    "+t+"   r="+r+"     b="+b);
+        LogUtil.i("onLayout   getVisibility()，  "+getVisibility()+"         opacity=    "+opacity);
+        setWillNotDraw(true);//如果设置了backgroud,这里即使设置了setWillNotDraw为true也没用，draw方法还是会执行
+
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        super.draw(canvas);
+        //只要给MyLinearLayout设置背景，则draw方法就会执行
+        LogUtil.i("draw 方法执行了，  getVisibility()， "+getVisibility());
     }
 
     public int getSpecMode_width() {
