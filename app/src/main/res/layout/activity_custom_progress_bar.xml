@@ -8,6 +8,7 @@
         android:id="@+id/cpb1"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:paddingLeft="@dimen/dp16"
         app:textSize="12sp"
         app:textColor="@color/colorPrimaryDark"
         app:roundColor="@color/accent"
@@ -50,5 +51,6 @@
         app:roundColor="@color/accent"
         app:roundWidth="5dp"
         app:textShow="true"
+        app:max="200"
         app:roundProgressColor="@color/colorPrimaryDark"/>
 </LinearLayout>
