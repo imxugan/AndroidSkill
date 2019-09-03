@@ -19,6 +19,7 @@ import test.cn.example.com.androidskill.ui.compact.CoordinatorLayoutActivity3;
 import test.cn.example.com.androidskill.ui.compact.CustomBehaviorActivity2;
 import test.cn.example.com.androidskill.ui.compact.CustomProgerssBarActivity;
 import test.cn.example.com.androidskill.ui.compact.CustomViewPagerActivity;
+import test.cn.example.com.androidskill.ui.compact.DrawTextActivity;
 import test.cn.example.com.androidskill.ui.compact.DrawerLayoutActivity;
 import test.cn.example.com.androidskill.ui.compact.DrawerLayoutActivity2;
 import test.cn.example.com.androidskill.ui.compact.ExpandedListviewActivity;
@@ -123,11 +124,15 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.btn_50).setOnClickListener(this);
         findViewById(R.id.btn_70).setOnClickListener(this);
         findViewById(R.id.btn_71).setOnClickListener(this);
+        findViewById(R.id.btn_72).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.btn_72:
+                startActivity(new Intent(UIActivity.this, DrawTextActivity.class));
+                break;
             case R.id.btn_71:
                 startActivity(new Intent(UIActivity.this, LayoutViewMeasureSpecActiivty.class));
                 break;
