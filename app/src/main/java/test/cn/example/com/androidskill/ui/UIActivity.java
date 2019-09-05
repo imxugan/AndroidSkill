@@ -45,6 +45,7 @@ import test.cn.example.com.androidskill.ui.compact.QQSlidingMenuActivity;
 import test.cn.example.com.androidskill.ui.compact.RecyclerViewActivity;
 import test.cn.example.com.androidskill.ui.compact.RecyclerViewItemAnimator;
 import test.cn.example.com.androidskill.ui.compact.SVGActivity;
+import test.cn.example.com.androidskill.ui.compact.ScrollerActivity;
 import test.cn.example.com.androidskill.ui.compact.SearchViewActivity;
 import test.cn.example.com.androidskill.ui.compact.SlidingItemDeleteActivity;
 import test.cn.example.com.androidskill.ui.compact.SnackBarActivity;
@@ -125,11 +126,15 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.btn_70).setOnClickListener(this);
         findViewById(R.id.btn_71).setOnClickListener(this);
         findViewById(R.id.btn_72).setOnClickListener(this);
+        findViewById(R.id.btn_73).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.btn_73:
+                startActivity(new Intent(UIActivity.this, ScrollerActivity.class));
+                break;
             case R.id.btn_72:
                 startActivity(new Intent(UIActivity.this, DrawTextActivity.class));
                 break;
