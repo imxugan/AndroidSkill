@@ -27,6 +27,7 @@ import test.cn.example.com.androidskill.ui.compact.FirstCompatStatusBarActivity;
 import test.cn.example.com.androidskill.ui.compact.FloatingActionButtonActivity;
 import test.cn.example.com.androidskill.ui.compact.FloatingActionButtonHideShowActivity;
 import test.cn.example.com.androidskill.ui.compact.FloatingActionButtonHideShowActivity2;
+import test.cn.example.com.androidskill.ui.compact.GestureDetectorActivity2;
 import test.cn.example.com.androidskill.ui.compact.GradientViewActivity;
 import test.cn.example.com.androidskill.ui.compact.ImmersiveSwipeBackActivity;
 import test.cn.example.com.androidskill.ui.compact.ItemTouchHelperActivity;
@@ -127,11 +128,15 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.btn_71).setOnClickListener(this);
         findViewById(R.id.btn_72).setOnClickListener(this);
         findViewById(R.id.btn_73).setOnClickListener(this);
+        findViewById(R.id.btn_74).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.btn_74:
+                startActivity(new Intent(UIActivity.this, GestureDetectorActivity2 .class));
+                break;
             case R.id.btn_73:
                 startActivity(new Intent(UIActivity.this, ScrollerActivity.class));
                 break;

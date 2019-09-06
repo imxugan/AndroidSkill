@@ -15,6 +15,13 @@
         tools:context="test.cn.example.com.androidskill.LannchModeActivity">
 
         <Button
+            android:id="@+id/btn_74"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="GestureDetector使用" />
+
+        <Button
             android:id="@+id/btn_73"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
