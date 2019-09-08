@@ -47,74 +47,77 @@ public class GestureDetectorActivity2 extends AppCompatActivity {
 //        gestureDetector = new GestureDetector(GestureDetectorActivity2.this,gestureListener);
 //        gestureDetector.setOnDoubleTapListener(onDoubleTapListener);
 
-        gestureDetector = new GestureDetector(new GestureDetector.SimpleOnGestureListener(){
-            @Override
-            public boolean onDown(MotionEvent e) {
-                LogUtil.i("super.onDown(e)=  "+super.onDown(e));
-                return super.onDown(e);
-            }
 
-            @Override
-            public void onShowPress(MotionEvent e) {
-                super.onShowPress(e);
-                LogUtil.i("onShowPress");
-            }
 
-            @Override
-            public boolean onSingleTapUp(MotionEvent e) {
-                LogUtil.i("super.onSingleTapUp(e)=  "+super.onSingleTapUp(e));
-                return super.onSingleTapUp(e);
-            }
 
-            @Override
-            public boolean onSingleTapConfirmed(MotionEvent e) {
-                LogUtil.i("super.onSingleTapConfirmed(e)=  "+super.onSingleTapConfirmed(e));
-                return super.onSingleTapConfirmed(e);
-            }
-
-            @Override
-            public boolean onDoubleTap(MotionEvent e) {
-                LogUtil.i("super.onDoubleTap(e)=  "+super.onDoubleTap(e));
-                return super.onDoubleTap(e);
-            }
-
-            @Override
-            public boolean onDoubleTapEvent(MotionEvent e) {
-                LogUtil.i("super.onDoubleTapEvent(e)=  "+super.onDoubleTapEvent(e));
-                return super.onDoubleTapEvent(e);
-            }
-
-            @Override
-            public void onLongPress(MotionEvent e) {
-                super.onLongPress(e);
-                LogUtil.i("onLongPress");
-            }
-
-            @Override
-            public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-                LogUtil.i("super.onScroll(e1, e2, distanceX, distanceY)=  "+super.onScroll(e1, e2, distanceX, distanceY));
-                return super.onScroll(e1, e2, distanceX, distanceY);
-            }
-
-            @Override
-            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-                LogUtil.i("super.onFling(e1, e2, velocityX, velocityY)=  "+super.onFling(e1, e2, velocityX, velocityY));
-                return super.onFling(e1, e2, velocityX, velocityY);
-            }
-        });
-        tv = findViewById(R.id.tv);
-        //为何要设置下面三项？
-        tv.setFocusable(true);
-        tv.setClickable(true);
-        tv.setLongClickable(true);
-
-        tv.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                gestureDetector.onTouchEvent(event);
-                return false;
-            }
-        });
+//        gestureDetector = new GestureDetector(new GestureDetector.SimpleOnGestureListener(){
+//            @Override
+//            public boolean onDown(MotionEvent e) {
+//                LogUtil.i("super.onDown(e)=  "+super.onDown(e));
+//                return super.onDown(e);
+//            }
+//
+//            @Override
+//            public void onShowPress(MotionEvent e) {
+//                super.onShowPress(e);
+//                LogUtil.i("onShowPress");
+//            }
+//
+//            @Override
+//            public boolean onSingleTapUp(MotionEvent e) {
+//                LogUtil.i("super.onSingleTapUp(e)=  "+super.onSingleTapUp(e));
+//                return super.onSingleTapUp(e);
+//            }
+//
+//            @Override
+//            public boolean onSingleTapConfirmed(MotionEvent e) {
+//                LogUtil.i("super.onSingleTapConfirmed(e)=  "+super.onSingleTapConfirmed(e));
+//                return super.onSingleTapConfirmed(e);
+//            }
+//
+//            @Override
+//            public boolean onDoubleTap(MotionEvent e) {
+//                LogUtil.i("super.onDoubleTap(e)=  "+super.onDoubleTap(e));
+//                return super.onDoubleTap(e);
+//            }
+//
+//            @Override
+//            public boolean onDoubleTapEvent(MotionEvent e) {
+//                LogUtil.i("super.onDoubleTapEvent(e)=  "+super.onDoubleTapEvent(e));
+//                return super.onDoubleTapEvent(e);
+//            }
+//
+//            @Override
+//            public void onLongPress(MotionEvent e) {
+//                super.onLongPress(e);
+//                LogUtil.i("onLongPress");
+//            }
+//
+//            @Override
+//            public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+//                LogUtil.i("super.onScroll(e1, e2, distanceX, distanceY)=  "+super.onScroll(e1, e2, distanceX, distanceY));
+//                return super.onScroll(e1, e2, distanceX, distanceY);
+//            }
+//
+//            @Override
+//            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+//                LogUtil.i("super.onFling(e1, e2, velocityX, velocityY)=  "+super.onFling(e1, e2, velocityX, velocityY));
+//                return super.onFling(e1, e2, velocityX, velocityY);
+//            }
+//        });
+//        tv = findViewById(R.id.tv);
+//        //为何要设置下面三项？
+//        tv.setFocusable(true);
+//        tv.setClickable(true);
+//        tv.setLongClickable(true);
+//
+//        tv.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                gestureDetector.onTouchEvent(event);
+//                return false;
+//            }
+//        });
     }
 
     private GestureDetector.OnGestureListener gestureListener = new GestureDetector.OnGestureListener() {
