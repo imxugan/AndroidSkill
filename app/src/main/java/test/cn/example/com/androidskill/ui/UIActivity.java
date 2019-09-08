@@ -60,6 +60,7 @@ import test.cn.example.com.androidskill.ui.compact.ToolbarBackgroundGradulChange
 import test.cn.example.com.androidskill.ui.compact.TouchEventConfilctActivity;
 import test.cn.example.com.androidskill.ui.compact.TouchEventConfilctActivity2;
 import test.cn.example.com.androidskill.ui.compact.TouchEventConfilctActivity3;
+import test.cn.example.com.androidskill.ui.compact.VelocityTrackerActivity;
 import test.cn.example.com.androidskill.ui.compact.WraperRecyclerViewActivity;
 import test.cn.example.com.androidskill.ui.compact.ZoomImageViewActivity;
 import test.cn.example.com.androidskill.ui.compact.animator.PropertyActivity;
@@ -129,11 +130,15 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.btn_72).setOnClickListener(this);
         findViewById(R.id.btn_73).setOnClickListener(this);
         findViewById(R.id.btn_74).setOnClickListener(this);
+        findViewById(R.id.btn_75).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.btn_75:
+                startActivity(new Intent(UIActivity.this, VelocityTrackerActivity.class));
+                break;
             case R.id.btn_74:
                 startActivity(new Intent(UIActivity.this, GestureDetectorActivity2 .class));
                 break;
