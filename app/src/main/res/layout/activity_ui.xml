@@ -14,6 +14,13 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         tools:context="test.cn.example.com.androidskill.LannchModeActivity">
         <Button
+            android:id="@+id/btn_76"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Drawable使用" />
+
+        <Button
             android:id="@+id/btn_75"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

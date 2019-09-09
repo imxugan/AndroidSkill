@@ -2,9 +2,14 @@ package test.cn.example.com.androidskill.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
 import test.cn.example.com.androidskill.LayoutViewMeasureSpecActiivty;
 import test.cn.example.com.androidskill.R;
@@ -20,6 +25,7 @@ import test.cn.example.com.androidskill.ui.compact.CustomBehaviorActivity2;
 import test.cn.example.com.androidskill.ui.compact.CustomProgerssBarActivity;
 import test.cn.example.com.androidskill.ui.compact.CustomViewPagerActivity;
 import test.cn.example.com.androidskill.ui.compact.DrawTextActivity;
+import test.cn.example.com.androidskill.ui.compact.DrawableActivity;
 import test.cn.example.com.androidskill.ui.compact.DrawerLayoutActivity;
 import test.cn.example.com.androidskill.ui.compact.DrawerLayoutActivity2;
 import test.cn.example.com.androidskill.ui.compact.ExpandedListviewActivity;
@@ -64,6 +70,8 @@ import test.cn.example.com.androidskill.ui.compact.VelocityTrackerActivity;
 import test.cn.example.com.androidskill.ui.compact.WraperRecyclerViewActivity;
 import test.cn.example.com.androidskill.ui.compact.ZoomImageViewActivity;
 import test.cn.example.com.androidskill.ui.compact.animator.PropertyActivity;
+import test.cn.example.com.androidskill.util.SignUtils;
+import test.cn.example.com.util.LogUtil;
 
 /**
  * Created by xugan on 2019/6/11.
@@ -73,6 +81,13 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //获取apk的md5值
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
+            String path = Environment.getExternalStorageDirectory()+"/app-ceshi-debug.apk";
+            String sign = SignUtils.getFileMd5(path);
+            LogUtil.i(sign);
+        }
+
         setContentView(R.layout.activity_ui);
         findViewById(R.id.btn_1).setOnClickListener(this);
         findViewById(R.id.btn_2).setOnClickListener(this);
@@ -131,11 +146,19 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.btn_73).setOnClickListener(this);
         findViewById(R.id.btn_74).setOnClickListener(this);
         findViewById(R.id.btn_75).setOnClickListener(this);
+        findViewById(R.id.btn_76).setOnClickListener(this);
+
+
     }
+
+
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.btn_76:
+                startActivity(new Intent(UIActivity.this, DrawableActivity.class));
+                break;
             case R.id.btn_75:
                 startActivity(new Intent(UIActivity.this, VelocityTrackerActivity.class));
                 break;
