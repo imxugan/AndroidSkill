@@ -10,7 +10,7 @@
     <!--android:variablePadding 表示是否支持可变的Padding。-->
     <!--false表示使用所有帧中最大的Padding，true表示使用当前帧的padding。-->
 
-    <item android:drawable="@drawable/test4" android:duration="1000"/>
+    <item android:drawable="@drawable/test4" android:duration="1000"/>  <!--duration表示动画的执行时间-->
     <item android:drawable="@drawable/test3" android:duration="1000"/>
     <item android:drawable="@drawable/test2" android:duration="1000"/>
     <item android:drawable="@drawable/test1" android:duration="1000"/>
@@ -19,7 +19,7 @@
     <!--此时外层item的drawable为colorPrimary，-->
     <!--相当于外层item从内层aniamtion-list的子元素内找到一个drawable用做自己的drawable-->
     <!--内层animation-list中的子元素的时间是无效的，外层item只会使用自己设置的时间-->
-    <item android:duration= "1100">
+    <item android:duration= "3100">
         <animation-list >
             <item android:drawable="@color/colorPrimary" android:duration="500"/>
             <item android:drawable="@color/c_f034f9" android:duration="500"/>

@@ -42,6 +42,7 @@ public class FrameAnimationActivity extends AppCompatActivity {
         AnimationDrawable animationDrawable2 = createAnimationDrawableByCode();
         ImageView iv_3 = findViewById(R.id.iv_3);
         iv_3.setImageDrawable(animationDrawable2);
+        animationDrawable2.start();
         TextView tv_frame_animation_2 = findViewById(R.id.tv_frame_animation_2);
         tv_frame_animation_2.setBackgroundDrawable(animationDrawable2);
         animationDrawable2.start();
