@@ -51,6 +51,7 @@ import test.cn.example.com.androidskill.ui.compact.PopMenuActivity;
 import test.cn.example.com.androidskill.ui.compact.QQSlidingMenuActivity;
 import test.cn.example.com.androidskill.ui.compact.RecyclerViewActivity;
 import test.cn.example.com.androidskill.ui.compact.RecyclerViewItemAnimator;
+import test.cn.example.com.androidskill.ui.compact.RoundImageDrawableActivity;
 import test.cn.example.com.androidskill.ui.compact.SVGActivity;
 import test.cn.example.com.androidskill.ui.compact.ScrollerActivity;
 import test.cn.example.com.androidskill.ui.compact.SearchViewActivity;
@@ -147,6 +148,7 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.btn_74).setOnClickListener(this);
         findViewById(R.id.btn_75).setOnClickListener(this);
         findViewById(R.id.btn_76).setOnClickListener(this);
+        findViewById(R.id.btn_77).setOnClickListener(this);
 
 
     }
@@ -156,6 +158,9 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.btn_77:
+                startActivity(new Intent(UIActivity.this, RoundImageDrawableActivity.class));
+                break;
             case R.id.btn_76:
                 startActivity(new Intent(UIActivity.this, DrawableActivity.class));
                 break;
