@@ -27,6 +27,7 @@ public class ChapterSevenActivity extends AppCompatActivity implements View.OnCl
         frame_animation.setOnClickListener(this);
         Button property_animation = (Button)findViewById(R.id.property_animation);
         property_animation.setOnClickListener(this);
+        findViewById(R.id.property_animation_2).setOnClickListener(this);
     }
 
     @Override
@@ -40,6 +41,9 @@ public class ChapterSevenActivity extends AppCompatActivity implements View.OnCl
                 break;
             case R.id.property_animation:
                 startActivity(new Intent(ChapterSevenActivity.this,PropertyAnimationActivity.class));
+                break;
+            case R.id.property_animation_2:
+                startActivity(new Intent(ChapterSevenActivity.this,ItemAnimatorActivity.class));
                 break;
             default:
                 break;

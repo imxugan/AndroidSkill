@@ -25,4 +25,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="属性动画的演示"/>
+
+    <Button
+        android:id="@+id/property_animation_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ItemAnimator的演示"/>
 </LinearLayout>

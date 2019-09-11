@@ -77,6 +77,10 @@
         <activity
             android:name=".art.chapter_seven.PropertyAnimationActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".art.chapter_seven.ItemAnimatorActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".art.chapter_two.ChapterTwoActivity"
             android:screenOrientation="portrait" />
