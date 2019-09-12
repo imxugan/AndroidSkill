@@ -4,8 +4,10 @@ import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
+import android.animation.FloatEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
+import android.animation.TimeInterpolator;
 import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
 import android.graphics.PointF;
@@ -110,7 +112,8 @@ public class PropertyAnimationBaseActivity extends AppCompatActivity implements 
                 propertyValuesHolder();
                 break;
             case R.id.paowuxian:
-                paowuxian();
+                paowuxian2();
+
                 break;
             case R.id.scale_left_top:
                 scale_left_top();
@@ -125,6 +128,32 @@ public class PropertyAnimationBaseActivity extends AppCompatActivity implements 
         objectAnimator.setDuration(5000).start();
     }
 
+    private void paowuxian2(){
+        ValueAnimator valueAnimator = new ValueAnimator();
+        valueAnimator.setDuration(5000);
+        final float[] startLocation = new float[]{iv.getLeft()+iv.getWidth()/2,iv.getTop()+iv.getHeight()/2};
+        LogUtil.e("startLocation[0]="+startLocation[0]);
+        valueAnimator.setObjectValues(startLocation);
+        valueAnimator.setEvaluator(new LocationEvaluator());
+        valueAnimator.setInterpolator(new LinearInterpolator());
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float[] location = (float[]) animation.getAnimatedValue();
+                LogUtil.i(location[0]+"     "+location[1]);
+                iv.setX(location[0]);
+                iv.setY(location[1]);
+            }
+        });
+        valueAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+            }
+        });
+        valueAnimator.start();
+    }
+
     private void paowuxian(){
         ValueAnimator valueAnimator = new ValueAnimator();
         valueAnimator.setDuration(5000);
@@ -135,6 +164,8 @@ public class PropertyAnimationBaseActivity extends AppCompatActivity implements 
         valueAnimator.setObjectValues(new PointF(startX,startY));
 //        valueAnimator.setObjectValues(new PointF(startX,startY));
 //        valueAnimator.setObjectValues(new PointF(startX,startY),new PointF(0,0),new PointF(1,1));
+        valueAnimator.setRepeatCount(ValueAnimator.REVERSE);
+        valueAnimator.setStartDelay(200);
         valueAnimator.setInterpolator(new LinearInterpolator());
         valueAnimator.setEvaluator(new TypeEvaluator() {
             @Override
@@ -158,19 +189,44 @@ public class PropertyAnimationBaseActivity extends AppCompatActivity implements 
             }
         });
         valueAnimator.start();
+        valueAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                super.onAnimationCancel(animation);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                LogUtil.i("animation is end");
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+                super.onAnimationRepeat(animation);
+            }
+
+            @Override
+            public void onAnimationStart(Animator animation) {
+                super.onAnimationStart(animation);
+            }
+
+            @Override
+            public void onAnimationPause(Animator animation) {
+                super.onAnimationPause(animation);
+            }
+
+            @Override
+            public void onAnimationResume(Animator animation) {
+                super.onAnimationResume(animation);
+            }
+        });
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 PointF p = (PointF) animation.getAnimatedValue();
                 iv.setX(p.x);
                 iv.setY(p.y);
-            }
-        });
-        valueAnimator.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
-                LogUtil.i("animation is end");
             }
         });
     }
@@ -284,9 +340,30 @@ public class PropertyAnimationBaseActivity extends AppCompatActivity implements 
     private void testTranslationX() {
         float currentX = iv.getTranslationX();
         LogUtil.i("currentX====="+currentX);
-        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(iv,"translationX",currentX,200,currentX);
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(iv,"translationX",currentX,200);
         objectAnimator.setDuration(1000);
+        objectAnimator.setInterpolator(new TimeInterpolator() {
+            @Override
+            public float getInterpolation(float input) {
+                LogUtil.e("input=   "+input);
+                return input*2;
+            }
+        });
+        objectAnimator.setEvaluator(new FloatEvaluator(){
+            public Float evaluate(float fraction, Number startValue, Number endValue) {
+//                LogUtil.e(fraction+"        "+startValue.floatValue()+"         "+endValue.floatValue());
+                float startFloat = startValue.floatValue();
+                return startFloat + fraction * (endValue.floatValue() - startFloat);
+            }
+        });
+        objectAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                LogUtil.i(animation.getAnimatedValue()+"            "+animation.getAnimatedFraction());
+            }
+        });
         objectAnimator.start();
+
     }
 
     private void testRotation() {
@@ -319,5 +396,25 @@ public class PropertyAnimationBaseActivity extends AppCompatActivity implements 
                 LogUtil.i(animatedValue + "");
             }
         });
+    }
+
+    private class LocationEvaluator implements TypeEvaluator<float[]>{
+
+        @Override
+        public float[] evaluate(float fraction, float[] startValue, float[] endValue) {
+            if(null != startValue){
+                LogUtil.e(""+startValue[0]);
+            }
+
+            if(null != endValue){
+                LogUtil.e(""+endValue[0]);
+            }
+
+
+            float[] location = new float[2];
+            location[0] = fraction * 600;
+            location[1] = fraction * fraction * 100;
+            return location;
+        }
     }
 }
