@@ -3,6 +3,7 @@
     package="test.cn.example.com.androidskill">
     <!-- 联网权限 -->
     <uses-permission android:name="android.permission.INTERNET" /> <!-- 往sdcard中写入数据的权限 -->
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />

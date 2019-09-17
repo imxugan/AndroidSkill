@@ -1,5 +1,6 @@
 package test.cn.example.com.androidskill.art.chapter_eight;
 
+import android.app.ActivityManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +14,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import androidx.annotation.Nullable;
+
+import java.util.List;
 
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.util.LogUtil;
@@ -89,10 +92,46 @@ public class FloatingService extends Service {
                             downX = moveX;
                             downY = moveY;
                             break;
+                        case MotionEvent.ACTION_UP:
+                            if(event.getRawX() == downX && event.getRawY() == downY){
+                                LogUtil.e("单击");
+                                makeActivityFromBackgroundToForeground();
+                            }
+                            break;
                     }
                     return false;
                 }
             });
+        }
+    }
+
+    private boolean isRunningForeground(){
+        ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> runningAppProcesses = activityManager.getRunningAppProcesses();
+        for (ActivityManager.RunningAppProcessInfo appProcessInfo : runningAppProcesses) {
+            if(appProcessInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND){
+                return appProcessInfo.processName.equals(getApplicationInfo().processName);
+            }
+        }
+        return false;
+    }
+
+    private void makeActivityFromBackgroundToForeground(){
+        if(!isRunningForeground()){
+            ActivityManager activityManager = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+            List<ActivityManager.RunningTaskInfo> runningTasks = activityManager.getRunningTasks(100);
+            for (ActivityManager.RunningTaskInfo runningTaskInfo:runningTasks){
+                if(runningTaskInfo.topActivity.getPackageName().equals(getPackageName())){
+                    LogUtil.e("后台回到前台,怎么偶尔又不生效????");
+                    activityManager.moveTaskToFront(runningTaskInfo.id, ActivityManager.MOVE_TASK_WITH_HOME);
+                    return;
+                }
+            }
+            LogUtil.e("重新启动");
+            //如果没有找到运行的task，用户结束了task或者被系统回收了，则需要重新启动WindowActivity
+            Intent intent = new Intent(this,WindowActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
         }
     }
 
