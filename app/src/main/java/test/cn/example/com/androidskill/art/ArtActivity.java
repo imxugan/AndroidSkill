@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import test.cn.example.com.androidskill.HandlerActivity;
 import test.cn.example.com.androidskill.R;
+import test.cn.example.com.androidskill.art.chapter_eight.WindowActivity;
 import test.cn.example.com.androidskill.art.chapter_four.ChapterFourActivity;
 import test.cn.example.com.androidskill.art.chapter_nine.ChapterNineActivity;
 import test.cn.example.com.androidskill.art.chapter_one.ChapterOneActivity;
@@ -32,6 +33,7 @@ public class ArtActivity extends AppCompatActivity implements View.OnClickListen
         charapter4.setOnClickListener(this);
         TextView charapter7 = (TextView) findViewById(R.id.charapter7);
         charapter7.setOnClickListener(this);
+        findViewById(R.id.charapter8).setOnClickListener(this);
         TextView charapter9 = (TextView) findViewById(R.id.charapter9);
         charapter9.setOnClickListener(this);
         TextView charapter10 = (TextView) findViewById(R.id.charapter10);
@@ -52,6 +54,9 @@ public class ArtActivity extends AppCompatActivity implements View.OnClickListen
                 break;
             case R.id.charapter7:
                 myStartActivity(ChapterSevenActivity.class,false);
+                break;
+            case R.id.charapter8:
+                myStartActivity(WindowActivity.class,false);
                 break;
             case R.id.charapter9:
                 myStartActivity(ChapterNineActivity.class,false);
