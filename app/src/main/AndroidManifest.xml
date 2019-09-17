@@ -544,6 +544,8 @@
         <activity android:name=".kotlin.chapter4.KotlinChapter4Demo7" />
         <activity android:name=".kotlin.chapter6.KotlinChapter6" />
         <activity android:name=".kotlin.chapter6.KotlinChapter6Demo1" />
+
+        <service android:name=".art.chapter_eight.FloatingService"/>
     </application>
 
 </manifest>
