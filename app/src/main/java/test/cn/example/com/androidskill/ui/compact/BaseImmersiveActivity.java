@@ -41,6 +41,7 @@ public class BaseImmersiveActivity extends AppCompatActivity implements ViewTree
         }
         setContentView(R.layout.activity_base_immersive);
         root = findViewById(R.id.root);
+
         root.getViewTreeObserver().addOnGlobalLayoutListener(this);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -48,6 +49,46 @@ public class BaseImmersiveActivity extends AppCompatActivity implements ViewTree
 
         primaryColor = getResources().getColor(R.color.c_00c8aa);
         setOrChangeStatusNavigatonState(this,toolbar,nav_bg, primaryColor);
+
+        proveHeight();
+
+
+    }
+
+    /**
+     * 记得去掉屏幕适配的代码在运行这个方法，否则会获取的高度不对
+     * 通过该方法，获取到的
+     * screenHeight         = 1920
+     * statusBarHeight      = 72
+     * navigationBarHeight  = 108
+     * root.getHeight()     = 1740
+     *  1920 = 72 + 108 + 1740
+     *  通过这个方法证明了，屏幕高度是包括了系统状态栏的高度和底部导航栏的高度以及android.id.content这个cntentParment的高度的
+     *  需要注意的是，获取的屏幕高度，用的是defaultDisplay.getRealMetrics(displayMetrics);方法
+     *  获取的DecorView的高度也是1920的，这表明，系统状态栏是覆盖在Decorview上的
+     */
+    private void proveHeight() {
+        int screenWidth = 0;
+        int screenHeight = 0;
+        Display defaultDisplay = getWindowManager().getDefaultDisplay();
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            defaultDisplay.getRealMetrics(displayMetrics);
+            screenWidth = displayMetrics.widthPixels;
+            screenHeight = displayMetrics.heightPixels;
+        }
+        LogUtil.e("screenHeight="+screenHeight);//1920
+        LogUtil.e("statusBarHeight="+getStatusBarHeight(this));//72
+        LogUtil.e("navigationBarHeight="+getNavigationBarHeight(this));//108
+        root.post(new Runnable() {
+            @Override
+            public void run() {
+                LogUtil.e("root.getHeight()="+root.getHeight());//1740
+                LogUtil.e("getWindow().getDecorView().getHeight()="+getWindow().getDecorView().getHeight());//1740
+            }
+        });
+
+
     }
 
     private void setOrChangeStatusNavigatonState(Context context, Toolbar toolbar,View nav_bg,int primaryColor){
