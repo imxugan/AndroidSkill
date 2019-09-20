@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Binder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -18,7 +19,9 @@ import java.util.List;
 
 import test.cn.example.com.androidskill.Book;
 import test.cn.example.com.androidskill.IBookManager;
+import test.cn.example.com.androidskill.IDownLoadInterface;
 import test.cn.example.com.androidskill.IOnNewBookArrived;
+import test.cn.example.com.androidskill.IPlayInterface;
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.androidskill.constant.MyConstants;
 import test.cn.example.com.androidskill.service.BookManagerService;
@@ -46,6 +49,7 @@ public class ChapterTwoActivity extends AppCompatActivity implements View.OnClic
         messenger.setOnClickListener(this);
         Button btn_aidl = (Button)findViewById(R.id.btn_aidl);
         btn_aidl.setOnClickListener(this);
+        findViewById(R.id.btn_aidl_pool).setOnClickListener(this);
     }
 
     @Override
@@ -58,6 +62,35 @@ public class ChapterTwoActivity extends AppCompatActivity implements View.OnClic
             case R.id.btn_aidl:
                 Intent bookService = new Intent(ChapterTwoActivity.this, BookManagerService.class);
                 bindService(bookService,bookServiceConnection,Context.BIND_AUTO_CREATE);
+                break;
+            case R.id.btn_aidl_pool:
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        try {
+                            IBinder iPlayBinder = BindPool.getInstance(ChapterTwoActivity.this).queryBinder(1);
+                            LogUtil.e("iPlayBinder =  "+iPlayBinder);
+                            if(null != iPlayBinder){
+                                IPlayInterface iPlayInterface = IPlayInterface.Stub.asInterface(iPlayBinder);
+                                iPlayInterface.palyMusic("说好不哭");
+                            }
+
+                            IBinder iDownLoadBinder = BindPool.getInstance(ChapterTwoActivity.this).queryBinder(2);
+                            LogUtil.e("iDownLoadBinder =  "+iDownLoadBinder);
+                            if(null != iDownLoadBinder){
+                                IDownLoadInterface iDownLoadInterface = IDownLoadInterface.Stub.asInterface(iDownLoadBinder);
+                                iDownLoadInterface.downLoad("www.kugo.com");
+                            }
+
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }).start();
+
+
                 break;
             default:
                 break;
@@ -85,6 +118,8 @@ public class ChapterTwoActivity extends AppCompatActivity implements View.OnClic
             }
 
         }
+
+        BindPool.getInstance(this).disconnectServcie();
         super.onDestroy();
     }
 

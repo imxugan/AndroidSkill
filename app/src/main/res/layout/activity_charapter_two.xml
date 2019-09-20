@@ -21,4 +21,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="采用AIDL进行进程间通信"/>
+
+    <Button
+        android:id="@+id/btn_aidl_pool"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="采用AIDL进行进程间通信(binder池)"/>
 </LinearLayout>
