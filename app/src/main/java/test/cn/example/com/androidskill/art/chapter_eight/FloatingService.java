@@ -10,6 +10,8 @@ import android.os.IBinder;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewParent;
+import android.view.WindowId;
 import android.view.WindowManager;
 import android.widget.Button;
 
@@ -25,7 +27,9 @@ import static android.view.WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL;
 
 public class FloatingService extends Service {
     private Button btn;
+    private Button btn2;
     private WindowManager windowManager;
+    private WindowManager windowManager2;
     private int downX;
     private int downY;
 
@@ -38,6 +42,7 @@ public class FloatingService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        createWindow2(this);
         createWindow(this);
         return super.onStartCommand(intent, flags, startId);
     }
@@ -54,12 +59,12 @@ public class FloatingService extends Service {
             final WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
             if(Build.VERSION.SDK_INT>Build.VERSION_CODES.O){
                 //8.0以上的系统
-//                layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+                layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
                 //这里如果指定window级别是应用级的，
                 // 那么就会报Unable to add window -- token null is not valid; is your activity running? 这个异常
 //                layoutParams.type =1; //这里如果指定window级别是应用级的，那么就需要
             }else {
-//                layoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
+                layoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
                 //这里如果指定window级别是应用级的，
                 // 那么就会报Unable to add window -- token null is not valid; is your activity running? 这个异常
 //                layoutParams.type =1;
@@ -106,6 +111,92 @@ public class FloatingService extends Service {
                     return false;
                 }
             });
+
+            btn.post(new Runnable() {
+                @Override
+                public void run() {
+                    WindowId windowId = btn.getWindowId();
+                    ViewParent parent = btn.getParent();
+                    LogUtil.e("悬浮窗  windowId= "+windowId+"          parent=   "+parent);
+                    LogUtil.e("悬浮窗  parent.getParent=   "+parent.getParent());
+                }
+            });
+        }
+    }
+    private void createWindow2(Context context){
+        //6.0以上系统
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
+            windowManager2 = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+            btn2 = new Button(context);
+            btn2.setText("悬浮窗2");
+            btn2.setGravity(Gravity.CENTER);
+            btn2.setBackground(getResources().getDrawable(R.color.accent));
+
+            final WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+            if(Build.VERSION.SDK_INT>Build.VERSION_CODES.O){
+                //8.0以上的系统
+                layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+                //这里如果指定window级别是应用级的，
+                // 那么就会报Unable to add window -- token null is not valid; is your activity running? 这个异常
+//                layoutParams.type =1; //这里如果指定window级别是应用级的，那么就需要
+            }else {
+                layoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
+                //这里如果指定window级别是应用级的，
+                // 那么就会报Unable to add window -- token null is not valid; is your activity running? 这个异常
+//                layoutParams.type =1;
+            }
+            //这里falgs 如果是仅仅设置成FLAG_NOT_TOUCH_MODAL，那么按返回键，onDestory方法不会回调
+            layoutParams.flags =  FLAG_NOT_FOCUSABLE | FLAG_NOT_TOUCH_MODAL;
+            layoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
+            layoutParams.height = 300;
+
+            layoutParams.gravity = Gravity.LEFT | Gravity.TOP;
+            layoutParams.x = 500;
+            layoutParams.y = 300;
+            windowManager2.addView(btn2,layoutParams);
+            //获取当前窗口可视区域大小
+            Rect rect = new Rect();
+            btn2.getWindowVisibleDisplayFrame(rect);
+            LogUtil.i("rect.width()=${rect.width()}      rect.height()= ${rect.height()}");
+
+
+            btn2.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch (event.getAction()){
+                        case MotionEvent.ACTION_DOWN:
+                            downX = (int) event.getRawX();
+                            downY = (int) event.getRawY();
+                            break;
+                        case MotionEvent.ACTION_MOVE:
+                            int moveX = (int) event.getRawX();
+                            int moveY = (int) event.getRawY();
+                            layoutParams.x += moveX - downX;
+                            layoutParams.y += moveY - downY;
+                            windowManager2.updateViewLayout(btn2,layoutParams);
+                            downX = moveX;
+                            downY = moveY;
+                            break;
+                        case MotionEvent.ACTION_UP:
+                            if(event.getRawX() == downX && event.getRawY() == downY){
+                                LogUtil.e("单击");
+                                makeActivityFromBackgroundToForeground();
+                            }
+                            break;
+                    }
+                    return false;
+                }
+            });
+
+            btn2.post(new Runnable() {
+                @Override
+                public void run() {
+                    WindowId windowId = btn2.getWindowId();
+                    ViewParent parent = btn2.getParent();
+                    LogUtil.e("悬浮窗2  windowId= "+windowId+"          parent=   "+parent);
+                    LogUtil.e("悬浮窗2  parent.getParent=   "+parent.getParent());
+                }
+            });
         }
     }
 
@@ -144,6 +235,10 @@ public class FloatingService extends Service {
         super.onDestroy();
         if(null != windowManager && null != btn){
             windowManager.removeViewImmediate(btn);
+        }
+
+        if(null != windowManager2 && null != btn2){
+            windowManager2.removeViewImmediate(btn2);
         }
     }
 }
