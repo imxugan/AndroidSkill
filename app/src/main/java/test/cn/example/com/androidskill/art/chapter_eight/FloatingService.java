@@ -54,11 +54,15 @@ public class FloatingService extends Service {
             final WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
             if(Build.VERSION.SDK_INT>Build.VERSION_CODES.O){
                 //8.0以上的系统
-                layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
-//                layoutParams.type =1
+//                layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+                //这里如果指定window级别是应用级的，
+                // 那么就会报Unable to add window -- token null is not valid; is your activity running? 这个异常
+//                layoutParams.type =1; //这里如果指定window级别是应用级的，那么就需要
             }else {
-                layoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
-//                layoutParams.type =1
+//                layoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
+                //这里如果指定window级别是应用级的，
+                // 那么就会报Unable to add window -- token null is not valid; is your activity running? 这个异常
+//                layoutParams.type =1;
             }
             //这里falgs 如果是仅仅设置成FLAG_NOT_TOUCH_MODAL，那么按返回键，onDestory方法不会回调
             layoutParams.flags =  FLAG_NOT_FOCUSABLE | FLAG_NOT_TOUCH_MODAL;
