@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import test.cn.example.com.androidskill.R;
+import test.cn.example.com.util.LogUtil;
 
 /**
  * activity的生命周期和启动模式
@@ -18,6 +21,16 @@ public class ChapterOneActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_charapter_one);
         initView();
+        testWindowState();
+    }
+
+    private void testWindowState() {
+        Window window = getWindow();
+        View decorView = window.getDecorView();
+        int visibility = decorView.getVisibility();
+        WindowManager.LayoutParams attributes = window.getAttributes();
+        int type = attributes.type;
+        LogUtil.e(type+"   "+"window="+window.hashCode()+"      decorView="+decorView.hashCode()+"  "+"visibility= "+visibility+"   View.VISIBLE="+View.VISIBLE);
     }
 
     private void initView() {

@@ -3,6 +3,9 @@ package test.cn.example.com.androidskill.art.chapter_one;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.util.LogUtil;
@@ -17,6 +20,16 @@ public class LifeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_life);
         LogUtil.i("onCreate");
+        testWindowState();
+    }
+
+    private void testWindowState() {
+        Window window = getWindow();
+        View decorView = window.getDecorView();
+        int visibility = decorView.getVisibility();
+        WindowManager.LayoutParams attributes = window.getAttributes();
+        int type = attributes.type;
+        LogUtil.e(type+"   "+"window="+window.hashCode()+"      decorView="+decorView.hashCode()+"  "+"visibility= "+visibility+"   View.VISIBLE="+View.VISIBLE);
     }
 
     @Override

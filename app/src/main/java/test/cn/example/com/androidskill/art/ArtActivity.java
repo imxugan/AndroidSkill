@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import test.cn.example.com.androidskill.HandlerActivity;
@@ -15,6 +17,7 @@ import test.cn.example.com.androidskill.art.chapter_nine.ChapterNineActivity;
 import test.cn.example.com.androidskill.art.chapter_one.ChapterOneActivity;
 import test.cn.example.com.androidskill.art.chapter_seven.ChapterSevenActivity;
 import test.cn.example.com.androidskill.art.chapter_two.ChapterTwoActivity;
+import test.cn.example.com.util.LogUtil;
 
 /**
  * Created by xugan on 2019/7/3.
@@ -38,6 +41,17 @@ public class ArtActivity extends AppCompatActivity implements View.OnClickListen
         charapter9.setOnClickListener(this);
         TextView charapter10 = (TextView) findViewById(R.id.charapter10);
         charapter10.setOnClickListener(this);
+
+        testWindowState();
+    }
+
+    private void testWindowState() {
+        Window window = getWindow();
+        View decorView = window.getDecorView();
+        int visibility = decorView.getVisibility();
+        WindowManager.LayoutParams attributes = window.getAttributes();
+        int type = attributes.type;
+        LogUtil.e(type+"  "+"window="+window.hashCode()+"      decorView="+decorView.hashCode()+"  "+"visibility= "+visibility+"   View.VISIBLE="+View.VISIBLE);
     }
 
     @Override

@@ -499,15 +499,18 @@
             android:process=":remoteProcess" />
         <service
             android:name=".optimize.process_keep.JobHandleService"
-            android:permission="android.permission.BIND_JOB_SERVICE" /> <!-- <service android:name="test.cn.example.com.androidskill.service.BookManagerService" -->
-        <!-- android:process=":remote"> -->
-        <!-- </service> -->
-        <service android:name=".service.BookManagerService">
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+         <service android:name="test.cn.example.com.androidskill.service.BookManagerService"
+         android:process=":remote">
+         </service>
+
+        <!--<service android:name=".service.BookManagerService">-->
 
             <!-- <intent-filter> -->
             <!-- <action android:name="com.android.skill.service.book_manager_service"></action> -->
             <!-- </intent-filter> -->
-        </service>
+        <!--</service>-->
 
         <meta-data
             android:name="com.google.android.gms.version"
