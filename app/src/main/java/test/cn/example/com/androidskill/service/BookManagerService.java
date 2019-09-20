@@ -54,7 +54,8 @@ public class BookManagerService extends Service{
     private Binder mBinder = new IBookManager.Stub(){
         @Override
         public List<Book> getBookList() throws RemoteException {
-            LogUtil.i("threadId ="+Thread.currentThread().getId());//子线程
+            String processName = ProcessUtils.getProcessName(BookManagerService.this, Process.myPid());
+            LogUtil.i("threadId ="+Thread.currentThread().getId()+"     processName=  "+processName);//子线程
 //            SystemClock.sleep(6000);//模拟耗时操作
             return bookList;
         }
