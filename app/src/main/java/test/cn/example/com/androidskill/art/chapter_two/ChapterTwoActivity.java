@@ -73,6 +73,7 @@ public class ChapterTwoActivity extends AppCompatActivity implements View.OnClic
                             LogUtil.e("iPlayBinder =  "+iPlayBinder);
                             if(null != iPlayBinder){
                                 IPlayInterface iPlayInterface = IPlayInterface.Stub.asInterface(iPlayBinder);
+                                LogUtil.e("iPlayInterface =  "+iPlayInterface);
                                 iPlayInterface.palyMusic("说好不哭");
                             }
 
