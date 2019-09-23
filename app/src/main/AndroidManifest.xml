@@ -43,6 +43,8 @@
         <activity
             android:name=".art.chapter_one.LifeActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".art.chapter_one.LifeActivity2"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".DebugActivity"
             android:screenOrientation="portrait" />

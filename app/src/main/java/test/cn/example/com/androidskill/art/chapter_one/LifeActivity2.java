@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.util.LogUtil;
@@ -14,76 +15,64 @@ import test.cn.example.com.util.LogUtil;
 /**
  * activity的生命周期
  */
-public class LifeActivity extends AppCompatActivity {
+public class LifeActivity2 extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_life);
-        LogUtil.i("onCreate");
-        findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LifeActivity.this,LifeActivity2.class));
-            }
-        });
-        testWindowState();
+        TextView tv = findViewById(R.id.tv);
+        tv.setText("LifeActivity2");
+        findViewById(R.id.btn).setVisibility(View.GONE);
+        LogUtil.i("LifeActivity2    onCreate");
     }
 
-    private void testWindowState() {
-        Window window = getWindow();
-        View decorView = window.getDecorView();
-        int visibility = decorView.getVisibility();
-        WindowManager.LayoutParams attributes = window.getAttributes();
-        int type = attributes.type;
-        LogUtil.e(type+"   "+"window="+window.hashCode()+"      decorView="+decorView.hashCode()+"  "+"visibility= "+visibility+"   View.VISIBLE="+View.VISIBLE);
-    }
 
     @Override
     protected void onStart() {
         super.onStart();
-        LogUtil.i("onStart");
+        LogUtil.i("LifeActivity2    onStart");
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        LogUtil.i("onRestoreInstanceState");
+        LogUtil.i("LifeActivity2    onRestoreInstanceState");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        LogUtil.i("onResume");
+        LogUtil.i("LifeActivity2    onResume");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        LogUtil.i("onPause");
+        LogUtil.i("LifeActivity2    onPause");
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
-        LogUtil.i("onSaveInstanceState");
+        LogUtil.i("LifeActivity2    onSaveInstanceState");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        LogUtil.i("onStop");
+        LogUtil.i("LifeActivity2    onStop");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        LogUtil.i("onDestroy");
+        LogUtil.i("LifeActivity2    onDestroy");
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        LogUtil.i("onRestart");
+        LogUtil.i("LifeActivity2    onRestart");
     }
 }
