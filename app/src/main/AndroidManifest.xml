@@ -553,6 +553,44 @@
         <activity android:name=".kotlin.chapter6.KotlinChapter6Demo1" />
 
         <service android:name=".art.chapter_eight.FloatingService"/>
+
+        <!--注册receiver。-->
+        <receiver
+            android:name="test.cn.example.com.androidskill.art.chapter_nine.MyBroadcastReceiverOne"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter  android:priority="1000">
+                <action android:name="com.android.skill"></action>
+            </intent-filter><!--设置优先级-->
+        </receiver>
+
+        <receiver
+            android:name="test.cn.example.com.androidskill.art.chapter_nine.MyBroadcastReceiverFour"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.android.skill"></action>
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name="test.cn.example.com.androidskill.art.chapter_nine.MyBroadcastReceiverThree"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter  android:priority="-900">
+                <action android:name="com.android.skill"></action>
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name="test.cn.example.com.androidskill.art.chapter_nine.MyBroadcastReceiverTwo"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.android.skill"></action>
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

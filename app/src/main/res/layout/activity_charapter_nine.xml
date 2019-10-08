@@ -20,4 +20,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="service工作过程"/>
+
+    <Button
+        android:id="@+id/broadcast_work_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="broadcast工作过程(按照有序方式发送)"/>
+
+    <Button
+        android:id="@+id/broadcast_work_normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="broadcast工作过程(按照普通方式发送)"/>
 </LinearLayout>
