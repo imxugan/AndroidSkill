@@ -96,6 +96,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/post_params_converter_factory_upload_files_2"/>
+
+            <Button
+                android:id="@+id/btn_content_provider_test"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="contentProvider工作过程"/>
+
         </LinearLayout>
     </ScrollView>
 

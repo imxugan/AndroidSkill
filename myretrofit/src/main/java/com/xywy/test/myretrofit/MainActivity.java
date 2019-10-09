@@ -2,9 +2,12 @@ package com.xywy.test.myretrofit;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.Settings;
@@ -62,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_retrofit2_test11).setOnClickListener(this);
         findViewById(R.id.btn_retrofit2_test12).setOnClickListener(this);
         findViewById(R.id.btn_retrofit2_test13).setOnClickListener(this);
+        findViewById(R.id.btn_content_provider_test).setOnClickListener(this);
         retrofit = MyRetrofit.getInstance().getRetrofit();
     }
 
@@ -356,6 +360,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     }
                 });
+                break;
+            case R.id.btn_content_provider_test:
+                Uri uri = Uri.parse("content://test.cn.example.com.androidskill");
+                ContentValues mContentValues = new ContentValues();
+                mContentValues.put("_id",1);
+                mContentValues.put("name","jvm最佳实践");
+                getContentResolver().insert(uri,mContentValues);
+                Cursor query = getContentResolver().query(uri, null, null, null, null);
+                LogUtils.i(""+query);
+                if(null != query){
+                    boolean b = query.moveToNext();
+                    LogUtils.i(""+b);
+                }
                 break;
         }
     }

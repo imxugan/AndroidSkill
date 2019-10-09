@@ -1,15 +1,15 @@
 package test.cn.example.com.androidskill.art.chapter_nine;
 
 import android.content.BroadcastReceiver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.androidskill.ServiceWorkActivity;
 import test.cn.example.com.util.LogUtil;
@@ -38,6 +38,7 @@ public class ChapterNineActivity extends AppCompatActivity implements View.OnCli
         registerReceiver(myBroadcastReceiverFive,intentFilter);
         findViewById(R.id.broadcast_work_order).setOnClickListener(this);
         findViewById(R.id.broadcast_work_normal).setOnClickListener(this);
+        findViewById(R.id.contentProvider).setOnClickListener(this);
     }
 
     private class MyBroadcastReceiverFive extends BroadcastReceiver{
@@ -62,6 +63,13 @@ public class ChapterNineActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.broadcast_work_normal:
                 sendMyBroadcast();
+                break;
+            case R.id.contentProvider:
+                Uri uri = Uri.parse("content://test.cn.example.com.androidskill");
+                ContentValues mContentValues = new ContentValues();
+                mContentValues.put("_id",3);
+                mContentValues.put("name","jvm最佳实践");
+                getContentResolver().insert(uri,mContentValues);
                 break;
             default:
                 break;

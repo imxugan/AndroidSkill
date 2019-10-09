@@ -7,8 +7,12 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
-    //弹出window悬浮窗需要的权限
+    <!--弹出window悬浮窗需要的权限-->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!--自定义权限-->
+    <permission android:name="test.cn.example.com.androidskill.permission.WRITE_BOOK_PROVIDER"/>
+    <permission android:name="test.cn.example.com.androidskill.permission.READ_BOOK_PROVIDER"/>
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -590,6 +594,13 @@
                 <action android:name="com.android.skill"></action>
             </intent-filter>
         </receiver>
+
+        <provider
+            android:authorities="test.cn.example.com.androidskill"
+            android:writePermission="test.cn.example.com.androidskill.permission.WRITE_BOOK_PROVIDER"
+            android:readPermission="test.cn.example.com.androidskill.permission.READ_BOOK_PROVIDER"
+            android:name="test.cn.example.com.androidskill.art.chapter_nine.BookContentProvider"
+            android:exported="true"/>
 
     </application>
 
