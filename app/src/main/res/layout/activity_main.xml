@@ -116,6 +116,16 @@
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:background="@color/colorAccent"
                     android:text="高级ui"/>
+
+                <TextView
+                    android:id="@+id/hook"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:background="@color/colorAccent"
+                    android:text="hook"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"

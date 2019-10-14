@@ -17,6 +17,7 @@ import test.cn.example.com.androidskill.aop.AspectJTestActivity;
 import test.cn.example.com.androidskill.art.ArtActivity;
 import test.cn.example.com.androidskill.changeSkin.ChangeSkinActivity;
 import test.cn.example.com.androidskill.designpattern.DesignPatternActivity;
+import test.cn.example.com.androidskill.hook.HookActivity;
 import test.cn.example.com.androidskill.java_about.JavaAboutActivity;
 import test.cn.example.com.androidskill.kotlin.KotlinActivity;
 import test.cn.example.com.androidskill.leak.LeakTestActivity;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initView() {
+        findViewById(R.id.hook).setOnClickListener(this);
         findViewById(R.id.arouter).setOnClickListener(this);
         findViewById(R.id.ui).setOnClickListener(this);
         findViewById(R.id.tv_leak).setOnClickListener(this);
@@ -96,6 +98,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.hook:
+                myStartActivity(HookActivity.class,false);
+                break;
             case R.id.arouter:
                 ARouter.getInstance().build("/test/activity").navigation();
                 break;

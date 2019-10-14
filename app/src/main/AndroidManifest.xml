@@ -484,6 +484,8 @@
             <!-- </intent-filter> -->
         </activity>
 
+        <activity android:name=".hook.HookActivity" android:screenOrientation="portrait"/>
+
         <service android:name=".optimize.handler_thread.MyIntentService" />
 
         <provider
