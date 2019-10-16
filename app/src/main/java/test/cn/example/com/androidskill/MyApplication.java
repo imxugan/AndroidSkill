@@ -11,7 +11,6 @@ import org.greenrobot.greendao.database.Database;
 
 import java.lang.reflect.Field;
 
-import test.cn.example.com.androidskill.hook.HookHelper;
 import test.cn.example.com.androidskill.model.greendao.DaoMaster;
 import test.cn.example.com.androidskill.model.greendao.DaoSession;
 import test.cn.example.com.util.LogUtil;
@@ -34,15 +33,6 @@ public class MyApplication extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        try {
-            HookHelper.hookAMS();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
         MultiDex.install(this);
     }
 

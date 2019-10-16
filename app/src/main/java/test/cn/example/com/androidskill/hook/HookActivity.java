@@ -38,12 +38,10 @@ public class HookActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_2).setOnClickListener(this);
         findViewById(R.id.tv_3).setOnClickListener(this);
         findViewById(R.id.tv_4).setOnClickListener(this);
-        replaceActivityInstrumentation(this);
-        replaceActivityThreadInstrumentation();
 
         try {
             //将插件dex合并到DexPathList类的dexElements这个数组中
-            mergeFixDexFile();
+            copyDexFileToInnerPath();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -63,7 +61,7 @@ public class HookActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    private void mergeFixDexFile() throws FileNotFoundException, ClassNotFoundException {
+    private void copyDexFileToInnerPath() throws FileNotFoundException, ClassNotFoundException {
         //模拟下载插件dex文件
         File dir = getDir(MyConstant.DEX_DIR, Context.MODE_PRIVATE);
         LogUtil.i(""+dir);
@@ -115,6 +113,10 @@ public class HookActivity extends AppCompatActivity implements View.OnClickListe
             LogUtil.i("文件复制成功       "+file.getAbsolutePath());
         }
 
+        mergeFixDexFile(dir);
+    }
+
+    private void mergeFixDexFile(File dir) throws ClassNotFoundException {
         //遍历app内部的存储了修复了bug的dex文件
         File[] files = dir.listFiles();
         File optDirFile = getDir("opt_dex", Context.MODE_PRIVATE);
@@ -185,32 +187,37 @@ public class HookActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void replaceActivityInstrumentation(Activity activity) {
-        try {
-            Field mInstrumentationField = Activity.class.getDeclaredField("mInstrumentation");
-            mInstrumentationField.setAccessible(true);
-            Instrumentation instrumentation = (Instrumentation) mInstrumentationField.get(activity);
-            InstrumentationProxy instrumentationProxy = new InstrumentationProxy(instrumentation);
-            mInstrumentationField.set(activity,instrumentationProxy);
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tv_1:
+                try {
+                    HookHelper.hookActivityInstrumentation(HookActivity.this);
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
                 startActivity(new Intent(HookActivity.this, ProxyPatternActivity.class));
                 break;
             case R.id.tv_2:
+                replaceActivityThreadInstrumentation();
                 Intent intent = new Intent(HookActivity.this, ProxyPatternActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 getApplication().startActivity(intent);
                 break;
             case R.id.tv_3:
+                try {
+                    //建议放到Application类的attachBaseContext方法中，更好
+                    HookHelper.hookAMS();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
                 Intent intent_plugin = new Intent(this, PlugActivity.class);
                 intent_plugin.putExtra("data","first plugin test");
                 startActivity(intent_plugin);

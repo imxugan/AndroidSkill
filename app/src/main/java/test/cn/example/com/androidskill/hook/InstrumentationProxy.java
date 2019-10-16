@@ -6,14 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.Parcelable;
 import android.text.TextUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import test.cn.example.com.androidskill.optimize.hotfix.FixDexUtils;
-import test.cn.example.com.androidskill.optimize.hotfix.FixDexUtils2;
 import test.cn.example.com.util.LogUtil;
 
 public class InstrumentationProxy extends Instrumentation {
@@ -30,9 +27,9 @@ public class InstrumentationProxy extends Instrumentation {
         String className = intent.getComponent().getClassName();
         if(HookHelper.PLUGCLASSNAME.equals(className)){
             Intent newIntent = new Intent();
-            newIntent.setClassName(HookHelper.packageName,HookHelper.BACKUPCLASSNAME);
+            newIntent.setClassName(HookHelper.packageName,className);
             intent.putExtra(HookHelper.PLUG_INTENT,newIntent);
-            intent.setComponent(newIntent.getComponent());
+            intent.setClassName(HookHelper.packageName,HookHelper.BACKUPCLASSNAME);
         }
         try {
             Method execStartActivityMethod = mInstrumentation.getClass().getDeclaredMethod("execStartActivity", Context.class, IBinder.class, IBinder.class,

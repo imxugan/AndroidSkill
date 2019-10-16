@@ -26,7 +26,7 @@ public class IActivityManagerInvocationHandler implements InvocationHandler {
             String plugClassName = packageName+".hook.PlugActivity";
             LogUtil.i("args.length      "+args.length);
             for (int i = 0; i < args.length; i++) {
-                LogUtil.i(args[i]+"");
+//                LogUtil.i(args[i]+"");
                 if(args[i] instanceof Intent){
                     Intent tempIntent = (Intent)args[i];
                     if(null !=tempIntent.getComponent() && plugClassName.equals(tempIntent.getComponent().getClassName())){
