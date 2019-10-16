@@ -1,8 +1,11 @@
 package test.cn.example.com.androidskill;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -21,6 +24,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import test.cn.example.com.util.AppUtils;
+import test.cn.example.com.util.LogUtil;
 import test.cn.example.com.util.LogUtils;
 
 /**
@@ -89,7 +93,14 @@ public class CrashHandler implements UncaughtExceptionHandler {
 			return false;
 		}
 		collectDeviceInfo(mContext);
-		saveCatchInfo2File(ex);
+		if (ContextCompat.checkSelfPermission(mContext, "android.permission.WRITE_EXTERNAL_STORAGE")
+				== PackageManager.PERMISSION_GRANTED) {
+			//授予了写的权限，才去写
+			saveCatchInfo2File(ex);
+		}else {
+			LogUtil.i("未授予写权限，无法将错误日志写入sd卡");
+		}
+
 		return true;
 	}
 

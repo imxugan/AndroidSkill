@@ -13,4 +13,10 @@ public class FixDexUtils2 {
         field.setAccessible(true);
         return field.get(obj);
     }
+
+    public static void setObject(Class clazz,String fieldName,Object obj,Object value) throws NoSuchFieldException, IllegalAccessException {
+        Field field = getField(clazz, fieldName);
+        field.setAccessible(true);
+        field.set(obj,value);
+    }
 }

@@ -486,6 +486,8 @@
 
         <activity android:name=".hook.HookActivity" android:screenOrientation="portrait"/>
 
+        <activity android:name=".hook.BackUpActivity" android:screenOrientation="portrait"/>
+
         <service android:name=".optimize.handler_thread.MyIntentService" />
 
         <provider
