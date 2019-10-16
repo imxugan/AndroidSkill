@@ -1,9 +1,12 @@
 package test.cn.example.com.androidskill.hook;
 
-import android.app.ActivityManager;
+import android.app.Activity;
+import android.app.Instrumentation;
+import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
 
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.lang.reflect.Proxy;
 
@@ -11,6 +14,9 @@ import test.cn.example.com.androidskill.optimize.hotfix.FixDexUtils2;
 
 public class HookHelper {
     public static final String PLUG_INTENT = "plug_intent";
+    public static final String packageName = "test.cn.example.com.androidskill";
+    public static final String PLUGCLASSNAME = packageName+".hook.PlugActivity";
+    public static final String BACKUPCLASSNAME = packageName+".hook.BackUpActivity";
     public static void hookAMS() throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
         Object singleton = null;
         if(Build.VERSION.SDK_INT>=26){
@@ -40,5 +46,14 @@ public class HookHelper {
 //        FixDexUtils2.setObject(mH.getClass(),"mCallback",mH,new HCallBack(mH));
         FixDexUtils2.setObject(Handler.class,"mCallback",mH,new HCallBack(mH));
 
+    }
+
+    public static void hookActivityInstrumentation(Context context) throws NoSuchFieldException, IllegalAccessException {
+        WeakReference<Context> weakReference = new WeakReference<>(context);
+        Context activity = weakReference.get();
+        if(activity instanceof Activity){
+            Instrumentation mInstrumentation = (Instrumentation) FixDexUtils2.getObject(Activity.class, "mInstrumentation", context);
+            FixDexUtils2.setObject(Activity.class,"mInstrumentation",context,new InstrumentationProxy(mInstrumentation));
+        }
     }
 }

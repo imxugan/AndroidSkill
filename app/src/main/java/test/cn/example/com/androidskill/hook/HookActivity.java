@@ -37,6 +37,7 @@ public class HookActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_1).setOnClickListener(this);
         findViewById(R.id.tv_2).setOnClickListener(this);
         findViewById(R.id.tv_3).setOnClickListener(this);
+        findViewById(R.id.tv_4).setOnClickListener(this);
         replaceActivityInstrumentation(this);
         replaceActivityThreadInstrumentation();
 
@@ -213,6 +214,18 @@ public class HookActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent_plugin = new Intent(this, PlugActivity.class);
                 intent_plugin.putExtra("data","first plugin test");
                 startActivity(intent_plugin);
+                break;
+            case R.id.tv_4:
+                try {
+                    HookHelper.hookActivityInstrumentation(HookActivity.this);
+                    Intent intent_plugin_2 = new Intent(this, PlugActivity.class);
+                    intent_plugin_2.putExtra("data","first plugin test");
+                    startActivity(intent_plugin_2);
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
                 break;
         }
     }
