@@ -12,4 +12,16 @@ public class PlugActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         LogUtil.i("插件onCreate");
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LogUtil.i("插件onResume");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LogUtil.i("插件onDestroy");
+    }
 }

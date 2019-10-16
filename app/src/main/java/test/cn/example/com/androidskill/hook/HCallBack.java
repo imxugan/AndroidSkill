@@ -3,7 +3,6 @@ package test.cn.example.com.androidskill.hook;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Trace;
 
 import test.cn.example.com.androidskill.optimize.hotfix.FixDexUtils2;
 import test.cn.example.com.util.LogUtil;
@@ -20,7 +19,7 @@ public class HCallBack implements Handler.Callback {
     @Override
     public boolean handleMessage(Message msg) {
         switch (msg.what) {
-            case LAUNCH_ACTIVITY: {
+            case LAUNCH_ACTIVITY:
                 Object obj = msg.obj;
                 LogUtil.e(obj+"");
                 try {
@@ -36,7 +35,6 @@ public class HCallBack implements Handler.Callback {
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
-            }
             break;
         }
         mHandler.handleMessage(msg);
