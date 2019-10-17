@@ -56,4 +56,12 @@ public class HookHelper {
             FixDexUtils2.setObject(Activity.class,"mInstrumentation",context,new InstrumentationProxy(mInstrumentation));
         }
     }
+
+    public static void hookActivityThreadInstrumentation() throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
+        Class<?> activityThreadClazz = Class.forName("android.app.ActivityThread");
+        Object sCurrentActivityThread = FixDexUtils2.getObject(activityThreadClazz, "sCurrentActivityThread", null);
+        Instrumentation mInstrumentation = (Instrumentation) FixDexUtils2.getObject(activityThreadClazz, "mInstrumentation", sCurrentActivityThread);
+        FixDexUtils2.setObject(activityThreadClazz,"mInstrumentation",sCurrentActivityThread,new InstrumentationProxy(mInstrumentation));
+    }
+
 }

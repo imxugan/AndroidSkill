@@ -167,47 +167,40 @@ public class HookActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void replaceActivityThreadInstrumentation() {
-        try {
-            Class<?> aClass = Class.forName("android.app.ActivityThread");
-            Field sCurrentActivityThreadField = aClass.getDeclaredField("sCurrentActivityThread");
-            sCurrentActivityThreadField.setAccessible(true);
-            Object activityThread = sCurrentActivityThreadField.get(null);
-            Field mInstrumentationField = aClass.getDeclaredField("mInstrumentation");
-            mInstrumentationField.setAccessible(true);
-            Instrumentation instrumentation = (Instrumentation) mInstrumentationField.get(activityThread);
-            InstrumentationProxy instrumentationProxy = new InstrumentationProxy(instrumentation);
-            mInstrumentationField.set(activityThread,instrumentationProxy);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-    }
-
-
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tv_1:
                 try {
-                    HookHelper.hookActivityInstrumentation(HookActivity.this);
+                    HookHelper.hookActivityThreadInstrumentation();
+                    Intent intent = new Intent(HookActivity.this, ProxyPatternActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    getApplication().startActivity(intent);
+
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
                 } catch (NoSuchFieldException e) {
                     e.printStackTrace();
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
-                startActivity(new Intent(HookActivity.this, ProxyPatternActivity.class));
                 break;
             case R.id.tv_2:
-                replaceActivityThreadInstrumentation();
-                Intent intent = new Intent(HookActivity.this, ProxyPatternActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                getApplication().startActivity(intent);
+                try {
+                    HookHelper.hookActivityInstrumentation(HookActivity.this);
+
+                    startActivity(new Intent(HookActivity.this, ProxyPatternActivity.class));
+
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+
                 break;
             case R.id.tv_3:
+                //演示hook  AMS 时，记得将MyApplication的attachBaseContext方法中的hookActivityThreadInstrumentation();
+                //方法注销
                 try {
                     //建议放到Application类的attachBaseContext方法中，更好
                     HookHelper.hookAMS();
@@ -223,16 +216,11 @@ public class HookActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent_plugin);
                 break;
             case R.id.tv_4:
-                try {
-                    HookHelper.hookActivityInstrumentation(HookActivity.this);
-                    Intent intent_plugin_2 = new Intent(this, PlugActivity.class);
-                    intent_plugin_2.putExtra("data","first plugin test");
-                    startActivity(intent_plugin_2);
-                } catch (NoSuchFieldException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
+                //演示hook  Instrumentation 时，如果MyApplication的attachBaseContext方法中的
+                // hookActivityThreadInstrumentation();被注销，记得打开
+                Intent intent_plugin_2 = new Intent(this, PlugActivity.class);
+                intent_plugin_2.putExtra("data","first plugin test");
+                startActivity(intent_plugin_2);
                 break;
         }
     }

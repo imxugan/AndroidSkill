@@ -48,9 +48,12 @@ public class InstrumentationProxy extends Instrumentation {
     public Activity newActivity(ClassLoader cl, String className,
                                 Intent intent) throws IllegalAccessException, InstantiationException, ClassNotFoundException {
         Intent parcelableExtra = intent.getParcelableExtra(HookHelper.PLUG_INTENT);
-        String intentName = parcelableExtra.getComponent().getClassName();
-        if(!TextUtils.isEmpty(intentName)){
-            return super.newActivity(cl,intentName,intent);
+        if(null != parcelableExtra && null != parcelableExtra.getComponent()){
+            String intentName = parcelableExtra.getComponent().getClassName();
+            if(!TextUtils.isEmpty(intentName)){
+                return super.newActivity(cl,intentName,intent);
+            }
+            LogUtil.i(parcelableExtra.getComponent()+"");
         }
         return super.newActivity(cl,className,intent);
     }

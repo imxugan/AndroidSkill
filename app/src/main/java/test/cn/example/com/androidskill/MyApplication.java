@@ -11,6 +11,7 @@ import org.greenrobot.greendao.database.Database;
 
 import java.lang.reflect.Field;
 
+import test.cn.example.com.androidskill.hook.HookHelper;
 import test.cn.example.com.androidskill.model.greendao.DaoMaster;
 import test.cn.example.com.androidskill.model.greendao.DaoSession;
 import test.cn.example.com.util.LogUtil;
@@ -34,6 +35,23 @@ public class MyApplication extends Application {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
+        hookActivityThreadInstrumentation();
+
+    }
+
+    private void hookActivityThreadInstrumentation() {
+        try {
+            //必须在Activity初始化之前用InstrumentationProxy替换Instrumentation，这样
+            //所有的Activity和ActivityThread中的mInstrumentation这个成员变量才会都是
+            //InstrumentationProxy这个对象
+            HookHelper.hookActivityThreadInstrumentation();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
