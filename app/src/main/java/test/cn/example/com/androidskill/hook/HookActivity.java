@@ -1,7 +1,5 @@
 package test.cn.example.com.androidskill.hook;
 
-import android.app.Activity;
-import android.app.Instrumentation;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,6 +23,8 @@ import dalvik.system.DexClassLoader;
 import dalvik.system.PathClassLoader;
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.androidskill.designpattern.ProxyPatternActivity;
+import test.cn.example.com.androidskill.hook.servcie.PlugService;
+import test.cn.example.com.androidskill.hook.servcie.ProxyService;
 import test.cn.example.com.androidskill.optimize.hotfix.FixDexUtils2;
 import test.cn.example.com.androidskill.optimize.hotfix.MyConstant;
 import test.cn.example.com.util.LogUtil;
@@ -38,6 +38,7 @@ public class HookActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_2).setOnClickListener(this);
         findViewById(R.id.tv_3).setOnClickListener(this);
         findViewById(R.id.tv_4).setOnClickListener(this);
+        findViewById(R.id.tv_5).setOnClickListener(this);
 
         try {
             //将插件dex合并到DexPathList类的dexElements这个数组中
@@ -221,6 +222,19 @@ public class HookActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent_plugin_2 = new Intent(this, PlugActivity.class);
                 intent_plugin_2.putExtra("data","first plugin test");
                 startActivity(intent_plugin_2);
+                break;
+            case R.id.tv_5:
+                try {
+                    HookHelper.hookAMS();
+                    startService(new Intent(HookActivity.this, PlugService.class));
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+
                 break;
         }
     }

@@ -606,6 +606,7 @@
             android:name="test.cn.example.com.androidskill.art.chapter_nine.BookContentProvider"
             android:exported="true"/>
 
+        <service android:name=".hook.servcie.ProxyService"/>
     </application>
 
 </manifest>

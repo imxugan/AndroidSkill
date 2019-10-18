@@ -1,6 +1,7 @@
 package test.cn.example.com.androidskill.hook;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.Instrumentation;
 import android.content.Context;
 import android.os.Build;
@@ -11,6 +12,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Proxy;
 
 import test.cn.example.com.androidskill.optimize.hotfix.FixDexUtils2;
+import test.cn.example.com.util.LogUtil;
 
 public class HookHelper {
     public static final String PLUG_INTENT = "plug_intent";
@@ -63,5 +65,46 @@ public class HookHelper {
         Instrumentation mInstrumentation = (Instrumentation) FixDexUtils2.getObject(activityThreadClazz, "mInstrumentation", sCurrentActivityThread);
         FixDexUtils2.setObject(activityThreadClazz,"mInstrumentation",sCurrentActivityThread,new InstrumentationProxy(mInstrumentation));
     }
+
+    public static void hookIActivityManager() throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
+        Object iActivityManagerSingleton = null;
+        if(Build.VERSION.SDK_INT>=26){
+            Class<?> activityManagerClazz = Class.forName("android.app.ActivityManager");
+            iActivityManagerSingleton = FixDexUtils2.getObject(activityManagerClazz, "IActivityManagerSingleton", null);
+        }else {
+            Class<?> actitivytManagerNatvieClazz = Class.forName("android.app.ActivityManagerNative");
+            iActivityManagerSingleton = FixDexUtils2.getObject(actitivytManagerNatvieClazz,"gDefault",null);
+        }
+        LogUtil.i(""+iActivityManagerSingleton);
+        if(null != iActivityManagerSingleton){
+            Class<?> sigletonClazz = Class.forName("android.util.Singleton");
+            Object iActivityManager = FixDexUtils2.getObject(sigletonClazz, "mInstance", iActivityManagerSingleton);
+            LogUtil.i(""+iActivityManager);
+            Object proxyInstance = Proxy.newProxyInstance(iActivityManager.getClass().getClassLoader(), iActivityManager.getClass().getInterfaces(), new IActivityManagerInvocationHandler(iActivityManager));
+            FixDexUtils2.setObject(sigletonClazz,"mInstance",iActivityManagerSingleton,proxyInstance);
+
+        }
+
+    }
+
+    public static Object getIActivityManager() throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
+        Object iActivityManagerSingleton = null;
+        if(Build.VERSION.SDK_INT>=26){
+            Class<?> activityManagerClazz = Class.forName("android.app.ActivityManager");
+            iActivityManagerSingleton = FixDexUtils2.getObject(activityManagerClazz, "IActivityManagerSingleton", null);
+        }else {
+            Class<?> actitivytManagerNatvieClazz = Class.forName("android.app.ActivityManagerNative");
+            iActivityManagerSingleton = FixDexUtils2.getObject(actitivytManagerNatvieClazz,"gDefault",null);
+        }
+        if(null != iActivityManagerSingleton){
+            Class<?> sigletonClazz = Class.forName("android.util.Singleton");
+            Object iActivityManager = FixDexUtils2.getObject(sigletonClazz, "mInstance", iActivityManagerSingleton);
+            return iActivityManager;
+        }
+        return null;
+
+    }
+
+
 
 }

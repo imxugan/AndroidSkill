@@ -47,6 +47,31 @@ public class IActivityManagerInvocationHandler implements InvocationHandler {
                 args[index] = backupIntent;
                 LogUtil.i("成功骗过了AMS");
             }
+        }else if("startService".equals(method.getName())){
+            //startService
+            int index = -1;
+            String packageName = "test.cn.example.com.androidskill";
+            //test.cn.example.com.androidskill.hook.servcie.PlugService
+            String plugServiceClassName = packageName+".hook.servcie.PlugService";
+            String proxyServiceClassName = packageName+".hook.servcie.ProxyService";
+            Intent proxyIntent = null;
+            for (int i = 0; i < args.length; i++) {
+                if(args[i] instanceof Intent){
+                    index = i;
+                    break;
+                }
+            }
+
+            if(-1 != index){
+                Intent plugIntent = (Intent) args[index];
+                if(null !=plugIntent.getComponent() && plugServiceClassName.equals(plugIntent.getComponent().getClassName())){
+                    proxyIntent = new Intent();
+                    proxyIntent.setClassName(packageName,proxyServiceClassName);
+                    proxyIntent.putExtra(HookHelper.PLUG_INTENT,plugIntent);
+                }
+                //这里添加一个判断，防止类名写错时，导致args中的intent这个参数是null,导致崩溃
+                args[index] = proxyIntent==null?plugIntent:proxyIntent;
+            }
         }
         return method.invoke(mActivityManager,args);
     }
