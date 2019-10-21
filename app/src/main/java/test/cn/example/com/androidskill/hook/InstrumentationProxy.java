@@ -27,9 +27,9 @@ public class InstrumentationProxy extends Instrumentation {
         String className = intent.getComponent().getClassName();
         if(HookHelper.PLUGCLASSNAME.equals(className)){
             Intent newIntent = new Intent();
-            newIntent.setClassName(HookHelper.packageName,className);
+            newIntent.setClassName(HookHelper.PACKAGENAME,className);
             intent.putExtra(HookHelper.PLUG_INTENT,newIntent);
-            intent.setClassName(HookHelper.packageName,HookHelper.BACKUPCLASSNAME);
+            intent.setClassName(HookHelper.PACKAGENAME,HookHelper.BACKUPCLASSNAME);
         }
         try {
             Method execStartActivityMethod = mInstrumentation.getClass().getDeclaredMethod("execStartActivity", Context.class, IBinder.class, IBinder.class,

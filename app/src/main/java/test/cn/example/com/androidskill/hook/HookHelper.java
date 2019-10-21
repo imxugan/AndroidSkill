@@ -16,9 +16,9 @@ import test.cn.example.com.util.LogUtil;
 
 public class HookHelper {
     public static final String PLUG_INTENT = "plug_intent";
-    public static final String packageName = "test.cn.example.com.androidskill";
-    public static final String PLUGCLASSNAME = packageName+".hook.PlugActivity";
-    public static final String BACKUPCLASSNAME = packageName+".hook.BackUpActivity";
+    public static final String PACKAGENAME = "test.cn.example.com.androidskill";
+    public static final String PLUGCLASSNAME = PACKAGENAME+".hook.PlugActivity";
+    public static final String BACKUPCLASSNAME = PACKAGENAME+".hook.BackUpActivity";
     public static void hookAMS() throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
         Object singleton = null;
         if(Build.VERSION.SDK_INT>=26){

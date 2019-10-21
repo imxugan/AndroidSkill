@@ -52,8 +52,8 @@ public class IActivityManagerInvocationHandler implements InvocationHandler {
             int index = -1;
             String packageName = "test.cn.example.com.androidskill";
             //test.cn.example.com.androidskill.hook.servcie.PlugService
-            String plugServiceClassName = packageName+".hook.servcie.PlugService";
-            String proxyServiceClassName = packageName+".hook.servcie.ProxyService";
+            String plugServiceClassName = packageName+".hook.service.PlugService";
+            String proxyServiceClassName = packageName+".hook.service.ProxyService";
             Intent proxyIntent = null;
             for (int i = 0; i < args.length; i++) {
                 if(args[i] instanceof Intent){
@@ -65,6 +65,7 @@ public class IActivityManagerInvocationHandler implements InvocationHandler {
             if(-1 != index){
                 Intent plugIntent = (Intent) args[index];
                 if(null !=plugIntent.getComponent() && plugServiceClassName.equals(plugIntent.getComponent().getClassName())){
+                    LogUtil.i(plugServiceClassName);
                     proxyIntent = new Intent();
                     proxyIntent.setClassName(packageName,proxyServiceClassName);
                     proxyIntent.putExtra(HookHelper.PLUG_INTENT,plugIntent);

@@ -1,18 +1,15 @@
-package test.cn.example.com.androidskill.hook.servcie;
+package test.cn.example.com.androidskill.hook.service;
 
-import android.app.ActivityManager;
 import android.app.Application;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
-import android.text.TextUtils;
 
 import androidx.annotation.Nullable;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
