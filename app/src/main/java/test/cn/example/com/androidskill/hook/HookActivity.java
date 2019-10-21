@@ -37,6 +37,7 @@ public class HookActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_3).setOnClickListener(this);
         findViewById(R.id.tv_4).setOnClickListener(this);
         findViewById(R.id.tv_5).setOnClickListener(this);
+        findViewById(R.id.tv_6).setOnClickListener(this);
 
         try {
             //将插件dex合并到DexPathList类的dexElements这个数组中
@@ -227,6 +228,16 @@ public class HookActivity extends AppCompatActivity implements View.OnClickListe
                     Class<?> plugServiceClazz = Class.forName(HookHelper.PACKAGENAME + ".hook.service.PlugService");
                     intent.setClass(this, plugServiceClazz);
                     startService(intent);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case R.id.tv_6:
+                Intent intent_2 = new Intent();
+                try {
+                    Class<?> plugServiceClazz = Class.forName(HookHelper.PACKAGENAME + ".hook.service.PlugService");
+                    intent_2.setClass(this, plugServiceClazz);
+                    stopService(intent_2);
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }

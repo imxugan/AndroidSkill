@@ -5,6 +5,7 @@ import android.content.Intent;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
+import test.cn.example.com.androidskill.hook.service.ProxyService;
 import test.cn.example.com.util.LogUtil;
 
 public class IActivityManagerInvocationHandler implements InvocationHandler {
@@ -72,6 +73,18 @@ public class IActivityManagerInvocationHandler implements InvocationHandler {
                 }
                 //这里添加一个判断，防止类名写错时，导致args中的intent这个参数是null,导致崩溃
                 args[index] = proxyIntent==null?plugIntent:proxyIntent;
+            }
+        }else if("stopService".equals(method.getName())){
+            int index = -1;
+            for (int i=0;i<args.length;i++){
+                if(args[i] instanceof Intent){
+                    index = i;
+                    break;
+                }
+            }
+            if(index != -1){
+                Intent rawIntent = (Intent) args[index];
+                return ProxyService.stopPlugService(rawIntent);
             }
         }
         return method.invoke(mActivityManager,args);

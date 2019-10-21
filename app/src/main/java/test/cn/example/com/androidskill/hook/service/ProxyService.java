@@ -11,28 +11,18 @@ import androidx.annotation.Nullable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import test.cn.example.com.androidskill.hook.HookHelper;
 import test.cn.example.com.androidskill.optimize.hotfix.FixDexUtils2;
 import test.cn.example.com.util.LogUtil;
 
 public class ProxyService extends Service {
-    private HashMap<String,Service> mServices = new HashMap<>();
+    private static HashMap<String,Service> mServices = new HashMap<>();
     @Override
     public void onCreate() {
         super.onCreate();
         LogUtil.i("代理servcie onCreate");
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                LogUtil.i("代理servcie执行定时任务");
-            }
-        };
-        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
-        scheduledExecutorService.scheduleAtFixedRate(runnable,1L,10L, TimeUnit.SECONDS);
+
     }
 
     @Override
@@ -101,5 +91,24 @@ public class ProxyService extends Service {
     public void onDestroy() {
         super.onDestroy();
         LogUtil.i("onDestroy");
+    }
+
+    public static int stopPlugService(Intent intent){
+        if(null == intent){
+            return 0;
+        }
+        if(null == intent.getComponent()){
+            return 0;
+        }
+        String className = intent.getComponent().getClassName();
+        LogUtil.i(className);
+        Service service = mServices.get(className);
+        LogUtil.i(service+"");
+        if(null == service){
+            return 0;
+        }
+        service.onDestroy();
+        mServices.remove(className);
+        return 1;
     }
 }
