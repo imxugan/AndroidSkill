@@ -1,6 +1,5 @@
 package test.cn.example.com.androidskill.hook;
 
-import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -226,20 +225,11 @@ public class HookActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent = new Intent();
                 try {
                     Class<?> plugServiceClazz = Class.forName(HookHelper.PACKAGENAME + ".hook.service.PlugService");
-                    LogUtil.i(""+plugServiceClazz);
-                    Service service = (Service) plugServiceClazz.newInstance();
-                    service.onCreate();
                     intent.setClass(this, plugServiceClazz);
                     startService(intent);
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
                 }
-
-
                 break;
         }
     }
