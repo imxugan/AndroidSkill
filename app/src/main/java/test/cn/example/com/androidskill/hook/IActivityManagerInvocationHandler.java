@@ -1,5 +1,6 @@
 package test.cn.example.com.androidskill.hook;
 
+import android.app.Service;
 import android.content.Intent;
 
 import java.lang.reflect.InvocationHandler;
@@ -86,6 +87,54 @@ public class IActivityManagerInvocationHandler implements InvocationHandler {
                 Intent rawIntent = (Intent) args[index];
                 return ProxyService.stopPlugService(rawIntent);
             }
+        }else if("bindService".equals(method.getName())){
+//            public int bindService(IApplicationThread caller, IBinder token, Intent service,
+//                    String resolvedType, IServiceConnection connection, int flags, String callingPackage,
+//            int userId) throws TransactionTooLargeException {
+//
+//            }
+
+            int index = -1;
+            for (int i = 0; i < args.length; i++) {
+                if(args[i] instanceof Intent){
+                    index = i;
+                    break;
+                }
+            }
+
+            Object  serviceConnection =  args[4];//这里取角标4，是因为AMS的bindService方法的第五个参数是IServiceConnection类型的。
+            if(null == serviceConnection){
+                throw new IllegalArgumentException("connection is null");
+            }
+            Intent rawIntent = (Intent) args[index];
+            String plugClassName = HookHelper.PACKAGENAME + ".hook.service.PlugService2";
+            String proxyClassName = HookHelper.PACKAGENAME + ".hook.service.ProxyService";
+
+            if(plugClassName.equals(rawIntent.getComponent().getClassName())){
+                Intent newIntent = new Intent();
+                newIntent.setClassName(HookHelper.PACKAGENAME, proxyClassName);
+                newIntent.putExtra(HookHelper.PLUG_INTENT,rawIntent);
+                ProxyService.mBindServices.put(serviceConnection,rawIntent);
+                args[index] = newIntent;
+            }
+        }else if("unbindService".equals(method.getName())){
+//            public boolean unbindService(IServiceConnection connection) {
+//
+//            }
+            Object connection = args[0];
+            if(null == connection){
+                return false;
+            }
+
+            Intent rawIntent = ProxyService.mBindServices.get(connection);
+            if(null == rawIntent){
+                return false;
+            }
+            boolean result = ProxyService.unBindPlugService(rawIntent);
+            if(result){
+                ProxyService.mBindServices.remove(connection);
+            }
+            return result;
         }
         return method.invoke(mActivityManager,args);
     }

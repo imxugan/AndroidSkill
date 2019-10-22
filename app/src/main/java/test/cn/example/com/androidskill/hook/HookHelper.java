@@ -16,6 +16,7 @@ import test.cn.example.com.util.LogUtil;
 
 public class HookHelper {
     public static final String PLUG_INTENT = "plug_intent";
+    public static final String PLUG_CONNECTION = "plug_connection";
     public static final String PACKAGENAME = "test.cn.example.com.androidskill";
     public static final String PLUGCLASSNAME = PACKAGENAME+".hook.PlugActivity";
     public static final String BACKUPCLASSNAME = PACKAGENAME+".hook.BackUpActivity";

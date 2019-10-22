@@ -39,4 +39,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="stop一个插件Service"/>
+
+    <Button
+        android:id="@+id/tv_7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="bind一个插件Service"/>
+
+    <Button
+        android:id="@+id/tv_8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="unBind一个插件Service"/>
 </LinearLayout>

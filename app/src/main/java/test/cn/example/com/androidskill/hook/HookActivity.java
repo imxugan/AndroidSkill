@@ -1,9 +1,12 @@
 package test.cn.example.com.androidskill.hook;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -28,6 +31,9 @@ import test.cn.example.com.androidskill.optimize.hotfix.MyConstant;
 import test.cn.example.com.util.LogUtil;
 
 public class HookActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private ServiceConnection serviceConnection;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +44,8 @@ public class HookActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_4).setOnClickListener(this);
         findViewById(R.id.tv_5).setOnClickListener(this);
         findViewById(R.id.tv_6).setOnClickListener(this);
+        findViewById(R.id.tv_7).setOnClickListener(this);
+        findViewById(R.id.tv_8).setOnClickListener(this);
 
         try {
             //将插件dex合并到DexPathList类的dexElements这个数组中
@@ -242,6 +250,41 @@ public class HookActivity extends AppCompatActivity implements View.OnClickListe
                     e.printStackTrace();
                 }
                 break;
+            case R.id.tv_7:
+                Intent intent_3 = new Intent();
+                Class<?> plugService2Clazz = null;
+                try {
+                    plugService2Clazz = Class.forName(HookHelper.PACKAGENAME + ".hook.service.PlugService2");
+                    intent_3.setClass(this,plugService2Clazz);
+                    serviceConnection = new ServiceConnection() {
+                        @Override
+                        public void onServiceConnected(ComponentName name, IBinder service) {
+                            LogUtil.i("onServiceConnected   " + name);
+                        }
+
+                        @Override
+                        public void onServiceDisconnected(ComponentName name) {
+                            LogUtil.i("onServiceDisconnected    " + name.getClassName());
+                        }
+                    };
+                    bindService(intent_3, serviceConnection,Context.BIND_AUTO_CREATE);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case R.id.tv_8:
+                if(null != serviceConnection){
+                    unbindService(serviceConnection);
+                }
+                break;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(null != serviceConnection){
+            unbindService(serviceConnection);
         }
     }
 }
