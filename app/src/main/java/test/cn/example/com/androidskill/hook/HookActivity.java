@@ -25,6 +25,7 @@ import java.lang.reflect.Field;
 import dalvik.system.DexClassLoader;
 import dalvik.system.PathClassLoader;
 import test.cn.example.com.androidskill.R;
+import test.cn.example.com.androidskill.art.chapter_nine.MyBroadcastReceiverFour;
 import test.cn.example.com.androidskill.designpattern.ProxyPatternActivity;
 import test.cn.example.com.androidskill.optimize.hotfix.FixDexUtils2;
 import test.cn.example.com.androidskill.optimize.hotfix.MyConstant;
@@ -46,6 +47,8 @@ public class HookActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_6).setOnClickListener(this);
         findViewById(R.id.tv_7).setOnClickListener(this);
         findViewById(R.id.tv_8).setOnClickListener(this);
+        findViewById(R.id.tv_9).setOnClickListener(this);
+
 
         try {
             //将插件dex合并到DexPathList类的dexElements这个数组中
@@ -276,6 +279,10 @@ public class HookActivity extends AppCompatActivity implements View.OnClickListe
                 if(null != serviceConnection){
                     unbindService(serviceConnection);
                 }
+                break;
+            case R.id.tv_9:
+                Intent receiver = new Intent("test.plugreceiver");
+                sendBroadcast(receiver);
                 break;
         }
     }

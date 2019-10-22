@@ -51,4 +51,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="unBind一个插件Service"/>
+
+    <Button
+        android:id="@+id/tv_9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="发送一个广播给插件BroadCastReceiver(前提是先start插件service)"/>
 </LinearLayout>
