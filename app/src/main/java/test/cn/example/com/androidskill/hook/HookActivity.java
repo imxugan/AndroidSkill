@@ -279,12 +279,4 @@ public class HookActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if(null != serviceConnection){
-            unbindService(serviceConnection);
-        }
-    }
 }

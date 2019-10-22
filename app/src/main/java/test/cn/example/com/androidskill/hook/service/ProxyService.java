@@ -164,9 +164,12 @@ public class ProxyService extends Service {
 
     public static boolean unBindPlugService(Intent intent){
         Service service = mServices.get(intent.getComponent().getClassName());
-        boolean result = service.onUnbind(intent);
-        service.onDestroy();
-        mServices.remove(intent.getComponent().getClassName());
+        boolean result = false;
+        if(null != service){
+            result = service.onUnbind(intent);
+            service.onDestroy();
+            mServices.remove(intent.getComponent().getClassName());
+        }
         return result;
     }
 }
