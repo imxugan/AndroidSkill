@@ -25,9 +25,7 @@ import java.lang.reflect.Field;
 import dalvik.system.DexClassLoader;
 import dalvik.system.PathClassLoader;
 import test.cn.example.com.androidskill.R;
-import test.cn.example.com.androidskill.art.chapter_nine.MyBroadcastReceiverFour;
 import test.cn.example.com.androidskill.designpattern.ProxyPatternActivity;
-import test.cn.example.com.androidskill.optimize.hotfix.FixDexUtils2;
 import test.cn.example.com.androidskill.optimize.hotfix.MyConstant;
 import test.cn.example.com.util.LogUtil;
 
@@ -142,14 +140,14 @@ public class HookActivity extends AppCompatActivity implements View.OnClickListe
                 //2.获取DexClassLoader的实例，获取
                 try {
                     DexClassLoader dexClassLoader = new DexClassLoader(f.getAbsolutePath(),optDirFile.getAbsolutePath(),"",getClassLoader());
-                    Object dexPathList = FixDexUtils2.getObject(baseDexClassLoaderClazz, "pathList",dexClassLoader);
+                    Object dexPathList = RefInvokeUtils.getObject(baseDexClassLoaderClazz, "pathList",dexClassLoader);
 
                     PathClassLoader pathClassLoader = (PathClassLoader) getClassLoader();
-                    Object pathList = FixDexUtils2.getObject(baseDexClassLoaderClazz, "pathList", pathClassLoader);
+                    Object pathList = RefInvokeUtils.getObject(baseDexClassLoaderClazz, "pathList", pathClassLoader);
 
                     Class<?> dexPathListClazz = Class.forName("dalvik.system.DexPathList");
-                    Object dexElements = FixDexUtils2.getObject(dexPathListClazz, "dexElements", dexPathList);
-                    Object pathDexElements = FixDexUtils2.getObject(dexPathListClazz, "dexElements", pathList);
+                    Object dexElements = RefInvokeUtils.getObject(dexPathListClazz, "dexElements", dexPathList);
+                    Object pathDexElements = RefInvokeUtils.getObject(dexPathListClazz, "dexElements", pathList);
 
                     int i = Array.getLength(dexElements);
                     int j = Array.getLength(pathDexElements);
@@ -163,7 +161,7 @@ public class HookActivity extends AppCompatActivity implements View.OnClickListe
                         }
                     }
                     //合并完成后，将新的elements赋值给DexPathList的成员变量dexElements
-                    Field dexElementsField = FixDexUtils2.getField(dexPathListClazz, "dexElements");
+                    Field dexElementsField = RefInvokeUtils.getField(dexPathListClazz, "dexElements");
                     dexElementsField.setAccessible(true);
                     dexElementsField.set(pathList,newElements);
 

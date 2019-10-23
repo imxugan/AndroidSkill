@@ -1,9 +1,9 @@
-package test.cn.example.com.androidskill.optimize.hotfix;
+package test.cn.example.com.androidskill.hook;
 
 import java.lang.reflect.Field;
 
-public class FixDexUtils2 {
-    private FixDexUtils2(){}
+public class RefInvokeUtils {
+    private RefInvokeUtils(){}
     public static Field getField(Class clazz,String fieldName) throws NoSuchFieldException {
         return clazz.getDeclaredField(fieldName);
     }

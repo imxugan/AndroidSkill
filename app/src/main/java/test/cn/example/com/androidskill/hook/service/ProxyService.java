@@ -4,7 +4,6 @@ import android.app.Application;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Binder;
 import android.os.IBinder;
 
@@ -15,7 +14,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 
 import test.cn.example.com.androidskill.hook.HookHelper;
-import test.cn.example.com.androidskill.optimize.hotfix.FixDexUtils2;
+import test.cn.example.com.androidskill.hook.RefInvokeUtils;
 import test.cn.example.com.util.LogUtil;
 
 public class ProxyService extends Service {
@@ -47,8 +46,8 @@ public class ProxyService extends Service {
 //                        Application application, Object activityManager)
 
                     Class<?> activityThreadClazz = Class.forName("android.app.ActivityThread");
-                    Object sCurrentActivityThread = FixDexUtils2.getObject(activityThreadClazz, "sCurrentActivityThread", null);
-                    Object mAppThread = FixDexUtils2.getObject(activityThreadClazz, "mAppThread", sCurrentActivityThread);
+                    Object sCurrentActivityThread = RefInvokeUtils.getObject(activityThreadClazz, "sCurrentActivityThread", null);
+                    Object mAppThread = RefInvokeUtils.getObject(activityThreadClazz, "mAppThread", sCurrentActivityThread);
                     Class<?> iInterfaceClazz = Class.forName("android.os.IInterface");
                     Method asBinderMethod = iInterfaceClazz.getDeclaredMethod("asBinder");
                     asBinderMethod.setAccessible(true);
@@ -99,11 +98,11 @@ public class ProxyService extends Service {
 //                        Application application, Object activityManager)
 
                 Class<?> activityThreadClazz = Class.forName("android.app.ActivityThread");
-                Object sCurrentActivityThread = FixDexUtils2.getObject(activityThreadClazz, "sCurrentActivityThread", null);
+                Object sCurrentActivityThread = RefInvokeUtils.getObject(activityThreadClazz, "sCurrentActivityThread", null);
                 Class<?> iInterfaceClazz = Class.forName("android.os.IInterface");
                 Method asBinderMethod = iInterfaceClazz.getDeclaredMethod("asBinder");
                 asBinderMethod.setAccessible(true);
-                Object mAppThread = FixDexUtils2.getObject(activityThreadClazz, "mAppThread", sCurrentActivityThread);
+                Object mAppThread = RefInvokeUtils.getObject(activityThreadClazz, "mAppThread", sCurrentActivityThread);
                 IBinder token = (IBinder) asBinderMethod.invoke(mAppThread);
                 Object iActivityManager = HookHelper.getIActivityManager();
 //                public final void attach(

@@ -1,7 +1,6 @@
 package test.cn.example.com.androidskill.hook;
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.app.Instrumentation;
 import android.content.Context;
 import android.os.Build;
@@ -11,7 +10,6 @@ import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.lang.reflect.Proxy;
 
-import test.cn.example.com.androidskill.optimize.hotfix.FixDexUtils2;
 import test.cn.example.com.util.LogUtil;
 
 public class HookHelper {
@@ -24,14 +22,14 @@ public class HookHelper {
         Object singleton = null;
         if(Build.VERSION.SDK_INT>=26){
             Class<?> activityManagerClazz = Class.forName("android.app.ActivityManager");
-            singleton = FixDexUtils2.getObject(activityManagerClazz, "IActivityManagerSingleton", null);
+            singleton = RefInvokeUtils.getObject(activityManagerClazz, "IActivityManagerSingleton", null);
         }else {
             Class<?> actitivytManagerNatvieClazz = Class.forName("android.app.ActivityManagerNative");
-            singleton = FixDexUtils2.getObject(actitivytManagerNatvieClazz,"gDefault",null);
+            singleton = RefInvokeUtils.getObject(actitivytManagerNatvieClazz,"gDefault",null);
         }
 
         Class<?> singletonClazz = Class.forName("android.util.Singleton");
-        Field mInstanceField = FixDexUtils2.getField(singletonClazz, "mInstance");
+        Field mInstanceField = RefInvokeUtils.getField(singletonClazz, "mInstance");
         mInstanceField.setAccessible(true);
         Object iActivityManager = mInstanceField.get(singleton);
 
@@ -42,12 +40,12 @@ public class HookHelper {
 
     public static void hookHandler() throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
         Class<?> activityThreadClazz = Class.forName("android.app.ActivityThread");
-        Object sCurrentActivityThread = FixDexUtils2.getObject(activityThreadClazz, "sCurrentActivityThread", null);
-        Handler mH = (Handler) FixDexUtils2.getObject(activityThreadClazz, "mH", sCurrentActivityThread);
+        Object sCurrentActivityThread = RefInvokeUtils.getObject(activityThreadClazz, "sCurrentActivityThread", null);
+        Handler mH = (Handler) RefInvokeUtils.getObject(activityThreadClazz, "mH", sCurrentActivityThread);
         //这里要传入Handler.class,如果传入mH.getClass(),则会报NoSuchFieldException异常，因为ActivityThread的mH这个变量是继承自Handler的，
         //通过getDeclaredField是无法找到mCallback这个Field的，所以要传Handler.class
-//        FixDexUtils2.setObject(mH.getClass(),"mCallback",mH,new HCallBack(mH));
-        FixDexUtils2.setObject(Handler.class,"mCallback",mH,new HCallBack(mH));
+//        RefInvokeUtils.setObject(mH.getClass(),"mCallback",mH,new HCallBack(mH));
+        RefInvokeUtils.setObject(Handler.class,"mCallback",mH,new HCallBack(mH));
 
     }
 
@@ -55,34 +53,34 @@ public class HookHelper {
         WeakReference<Context> weakReference = new WeakReference<>(context);
         Context activity = weakReference.get();
         if(activity instanceof Activity){
-            Instrumentation mInstrumentation = (Instrumentation) FixDexUtils2.getObject(Activity.class, "mInstrumentation", context);
-            FixDexUtils2.setObject(Activity.class,"mInstrumentation",context,new InstrumentationProxy(mInstrumentation));
+            Instrumentation mInstrumentation = (Instrumentation) RefInvokeUtils.getObject(Activity.class, "mInstrumentation", context);
+            RefInvokeUtils.setObject(Activity.class,"mInstrumentation",context,new InstrumentationProxy(mInstrumentation));
         }
     }
 
     public static void hookActivityThreadInstrumentation() throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
         Class<?> activityThreadClazz = Class.forName("android.app.ActivityThread");
-        Object sCurrentActivityThread = FixDexUtils2.getObject(activityThreadClazz, "sCurrentActivityThread", null);
-        Instrumentation mInstrumentation = (Instrumentation) FixDexUtils2.getObject(activityThreadClazz, "mInstrumentation", sCurrentActivityThread);
-        FixDexUtils2.setObject(activityThreadClazz,"mInstrumentation",sCurrentActivityThread,new InstrumentationProxy(mInstrumentation));
+        Object sCurrentActivityThread = RefInvokeUtils.getObject(activityThreadClazz, "sCurrentActivityThread", null);
+        Instrumentation mInstrumentation = (Instrumentation) RefInvokeUtils.getObject(activityThreadClazz, "mInstrumentation", sCurrentActivityThread);
+        RefInvokeUtils.setObject(activityThreadClazz,"mInstrumentation",sCurrentActivityThread,new InstrumentationProxy(mInstrumentation));
     }
 
     public static void hookIActivityManager() throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
         Object iActivityManagerSingleton = null;
         if(Build.VERSION.SDK_INT>=26){
             Class<?> activityManagerClazz = Class.forName("android.app.ActivityManager");
-            iActivityManagerSingleton = FixDexUtils2.getObject(activityManagerClazz, "IActivityManagerSingleton", null);
+            iActivityManagerSingleton = RefInvokeUtils.getObject(activityManagerClazz, "IActivityManagerSingleton", null);
         }else {
             Class<?> actitivytManagerNatvieClazz = Class.forName("android.app.ActivityManagerNative");
-            iActivityManagerSingleton = FixDexUtils2.getObject(actitivytManagerNatvieClazz,"gDefault",null);
+            iActivityManagerSingleton = RefInvokeUtils.getObject(actitivytManagerNatvieClazz,"gDefault",null);
         }
         LogUtil.i(""+iActivityManagerSingleton);
         if(null != iActivityManagerSingleton){
             Class<?> sigletonClazz = Class.forName("android.util.Singleton");
-            Object iActivityManager = FixDexUtils2.getObject(sigletonClazz, "mInstance", iActivityManagerSingleton);
+            Object iActivityManager = RefInvokeUtils.getObject(sigletonClazz, "mInstance", iActivityManagerSingleton);
             LogUtil.i(""+iActivityManager);
             Object proxyInstance = Proxy.newProxyInstance(iActivityManager.getClass().getClassLoader(), iActivityManager.getClass().getInterfaces(), new IActivityManagerInvocationHandler(iActivityManager));
-            FixDexUtils2.setObject(sigletonClazz,"mInstance",iActivityManagerSingleton,proxyInstance);
+            RefInvokeUtils.setObject(sigletonClazz,"mInstance",iActivityManagerSingleton,proxyInstance);
 
         }
 
@@ -92,14 +90,14 @@ public class HookHelper {
         Object iActivityManagerSingleton = null;
         if(Build.VERSION.SDK_INT>=26){
             Class<?> activityManagerClazz = Class.forName("android.app.ActivityManager");
-            iActivityManagerSingleton = FixDexUtils2.getObject(activityManagerClazz, "IActivityManagerSingleton", null);
+            iActivityManagerSingleton = RefInvokeUtils.getObject(activityManagerClazz, "IActivityManagerSingleton", null);
         }else {
             Class<?> actitivytManagerNatvieClazz = Class.forName("android.app.ActivityManagerNative");
-            iActivityManagerSingleton = FixDexUtils2.getObject(actitivytManagerNatvieClazz,"gDefault",null);
+            iActivityManagerSingleton = RefInvokeUtils.getObject(actitivytManagerNatvieClazz,"gDefault",null);
         }
         if(null != iActivityManagerSingleton){
             Class<?> sigletonClazz = Class.forName("android.util.Singleton");
-            Object iActivityManager = FixDexUtils2.getObject(sigletonClazz, "mInstance", iActivityManagerSingleton);
+            Object iActivityManager = RefInvokeUtils.getObject(sigletonClazz, "mInstance", iActivityManagerSingleton);
             return iActivityManager;
         }
         return null;

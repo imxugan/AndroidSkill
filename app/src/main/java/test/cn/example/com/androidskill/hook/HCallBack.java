@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 
-import test.cn.example.com.androidskill.optimize.hotfix.FixDexUtils2;
 import test.cn.example.com.util.LogUtil;
 
 public class HCallBack implements Handler.Callback {
@@ -23,10 +22,10 @@ public class HCallBack implements Handler.Callback {
                 Object obj = msg.obj;
                 LogUtil.e(obj+"");
                 try {
-                    Intent intent = (Intent) FixDexUtils2.getObject(obj.getClass(), "intent", obj);
+                    Intent intent = (Intent) RefInvokeUtils.getObject(obj.getClass(), "intent", obj);
                     if(BACKUP_CLASSNAME.equals(intent.getComponent().getClassName())){
                         Intent realIntent = intent.getParcelableExtra(HookHelper.PLUG_INTENT);
-//                        FixDexUtils2.setObject(obj.getClass(),"intent",obj,realIntent);
+//                        RefInvokeUtils.setObject(obj.getClass(),"intent",obj,realIntent);
                         intent.setComponent(realIntent.getComponent());
                     }
 

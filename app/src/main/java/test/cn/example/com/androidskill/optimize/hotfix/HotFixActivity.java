@@ -9,23 +9,18 @@ import android.view.View;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Array;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 
 import dalvik.system.DexClassLoader;
 import dalvik.system.PathClassLoader;
 import test.cn.example.com.androidskill.R;
+import test.cn.example.com.androidskill.hook.RefInvokeUtils;
 import test.cn.example.com.util.LogUtil;
 import test.cn.example.com.util.ToastUtils;
 
@@ -130,14 +125,14 @@ public class HotFixActivity extends AppCompatActivity implements View.OnClickLis
                 //2.获取DexClassLoader的实例，获取
                 try {
                     DexClassLoader dexClassLoader = new DexClassLoader(f.getAbsolutePath(),optDirFile.getAbsolutePath(),"",getClassLoader());
-                    Object dexPathList = FixDexUtils2.getObject(baseDexClassLoaderClazz, "pathList",dexClassLoader);
+                    Object dexPathList = RefInvokeUtils.getObject(baseDexClassLoaderClazz, "pathList",dexClassLoader);
 
                     PathClassLoader pathClassLoader = (PathClassLoader) getClassLoader();
-                    Object pathList = FixDexUtils2.getObject(baseDexClassLoaderClazz, "pathList", pathClassLoader);
+                    Object pathList = RefInvokeUtils.getObject(baseDexClassLoaderClazz, "pathList", pathClassLoader);
 
                     Class<?> dexPathListClazz = Class.forName("dalvik.system.DexPathList");
-                    Object dexElements = FixDexUtils2.getObject(dexPathListClazz, "dexElements", dexPathList);
-                    Object pathDexElements = FixDexUtils2.getObject(dexPathListClazz, "dexElements", pathList);
+                    Object dexElements = RefInvokeUtils.getObject(dexPathListClazz, "dexElements", dexPathList);
+                    Object pathDexElements = RefInvokeUtils.getObject(dexPathListClazz, "dexElements", pathList);
 
                     int i = Array.getLength(dexElements);
                     int j = Array.getLength(pathDexElements);
@@ -151,7 +146,7 @@ public class HotFixActivity extends AppCompatActivity implements View.OnClickLis
                         }
                     }
                     //合并完成后，将新的elements赋值给DexPathList的成员变量dexElements
-                    Field dexElementsField = FixDexUtils2.getField(dexPathListClazz, "dexElements");
+                    Field dexElementsField = RefInvokeUtils.getField(dexPathListClazz, "dexElements");
                     dexElementsField.setAccessible(true);
                     dexElementsField.set(pathList,newElements);
 
