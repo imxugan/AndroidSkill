@@ -22,6 +22,22 @@ android {
         }
     }
 
+    task clearJar(type:Delete){
+        delete 'build/outputs/mypluglibrary.jar'
+    }
+
+    task makeJar(type: Copy){
+        from('build/intermediates/bundles/debug/')
+        //生成的jar包的路径
+        into('build/outputs/')
+        //只关心classes.jar这样的文件
+        include('classes.jar')
+        //将classe.jar文件重命名为mypluglibrary.jar
+        rename('classes.jar','mypluglibrary.jar')
+    }
+
+    makeJar.dependsOn(clearJar,build)
+
 }
 
 dependencies {
