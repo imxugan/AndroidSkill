@@ -1,6 +1,8 @@
 package test.cn.example.com.androidskill.hook;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 
 public class RefInvokeUtils {
     private RefInvokeUtils(){}
@@ -51,6 +53,41 @@ public class RefInvokeUtils {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Object getInstance(String className,Class[] parameterTypes,Object[] initArgs){
+        try {
+            Class<?> clazz = Class.forName(className);
+            Constructor<?> constructor = clazz.getConstructor(parameterTypes);
+            Object newInstance = constructor.newInstance(initArgs);
+            return newInstance;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Object getInstance(String className){
+        try {
+            Class<?> clazz = Class.forName(className);
+            Object instance = clazz.newInstance();
+            return instance;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

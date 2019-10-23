@@ -3,13 +3,20 @@ package test.cn.example.com.androidskill.hook;
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.os.Build;
 import android.os.Handler;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.lang.reflect.Proxy;
 
+import dalvik.system.DexClassLoader;
 import test.cn.example.com.util.LogUtil;
 
 public class HookHelper {
@@ -18,6 +25,7 @@ public class HookHelper {
     public static final String PACKAGENAME = "test.cn.example.com.androidskill";
     public static final String PLUGCLASSNAME = PACKAGENAME+".hook.PlugActivity";
     public static final String BACKUPCLASSNAME = PACKAGENAME+".hook.BackUpActivity";
+
     public static void hookAMS() throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
         Object singleton = null;
         if(Build.VERSION.SDK_INT>=26){
@@ -104,6 +112,85 @@ public class HookHelper {
 
     }
 
+    public static void createPluginInstance(Context context,String apkName,String className){
+        DexClassLoader classLoader = (DexClassLoader) getClassLoader(context, apkName);
+        try {
+            //com.android.skill.bean.Person
+            Class<?> clazz = classLoader.loadClass(className);
+            Object instance = clazz.newInstance();
+            Object name = RefInvokeUtils.getObject(clazz, "name", instance);
+            LogUtil.i("插件中的Person对象的name的值是     "+name);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
 
+    }
+
+    public static ClassLoader getClassLoader(Context context,String apkName){
+        copyApk2Inner(context,apkName);
+        File odexFileDir = context.getDir("plugin_odex", Context.MODE_PRIVATE);
+        String odexFilePath =  odexFileDir.getAbsolutePath()+File.separator+apkName;
+        File odexFile = new File(odexFilePath);
+        File dexFile = context.getDir("dex", Context.MODE_PRIVATE);
+        if(dexFile.exists()){
+            dexFile.delete();
+        }
+        dexFile.mkdirs();
+        //注意DexClassLoader的第一个参数，要传dex的路径，不是dex所在的目录的路径，
+        //第二个参数，要传，将解压dex文件存放的目录路径即可
+        DexClassLoader dexClassLoader = new DexClassLoader(odexFile.getAbsolutePath(),dexFile.getAbsolutePath(),null,context.getClassLoader());
+        return dexClassLoader;
+    }
+
+    public static void copyApk2Inner(Context context,String apkName){
+        AssetManager assetManager = context.getAssets();
+        InputStream inputStream = null;
+        BufferedOutputStream bos = null;
+        try {
+            inputStream = assetManager.open(apkName);
+            File plugin_odex_dir = context.getDir("plugin_odex", Context.MODE_PRIVATE);
+            LogUtil.i("文件夹目录的路径是    "+plugin_odex_dir.getAbsolutePath());
+            String filePath = plugin_odex_dir.getAbsolutePath()+File.separator+apkName;
+            File file = new File(filePath);
+            if(file.exists()){
+                file.delete();
+            }
+            //注意，这里是要传具体的文件路径构建的File对象，不是文件所在的文件夹的路径构建的File对象
+            bos = new BufferedOutputStream(new FileOutputStream(file));
+            byte[] bytes = new byte[1024];
+            int len = 0;
+            while ((len= inputStream.read(bytes))!=-1){
+                bos.write(bytes,0,len);
+            }
+            //完成了将插件apk从assets目录复制到apk内部的odex目录下面
+            if(file.exists()){
+                LogUtil.i("文件复制成功       "+file.getAbsolutePath());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            if(null != bos){
+                try {
+                    bos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if(null != inputStream){
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
 }
