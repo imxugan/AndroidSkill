@@ -3,6 +3,8 @@ package test.cn.example.com.androidskill.hook;
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.os.Build;
 import android.os.Handler;
@@ -16,6 +18,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 import dalvik.system.DexClassLoader;
@@ -27,6 +31,8 @@ public class HookHelper {
     public static final String PACKAGENAME = "test.cn.example.com.androidskill";
     public static final String PLUGCLASSNAME = PACKAGENAME+".hook.PlugActivity";
     public static final String BACKUPCLASSNAME = PACKAGENAME+".hook.BackUpActivity";
+
+    public static final String PLUGIN_ODEX = "plugin_odex";
 
     public static void hookAMS() throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
         Object singleton = null;
@@ -114,6 +120,30 @@ public class HookHelper {
 
     }
 
+    public static String getApplicationName(File apkFile){
+        try {
+            Class<?> clazz = Class.forName("android.content.pm.PackageParser");
+            Method parsePackageMethod = clazz.getDeclaredMethod("parsePackage", new Class[]{File.class, int.class});
+            parsePackageMethod.setAccessible(true);
+            Object packageObject = parsePackageMethod.invoke(clazz.newInstance(), apkFile, PackageManager.GET_RECEIVERS);
+            ApplicationInfo applicationInfo = (ApplicationInfo) RefInvokeUtils.getObject("android.content.pm.PackageParser$Package", "applicationInfo", packageObject);
+            return applicationInfo.className;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
     public static void createPluginInstance(Context context,String apkName,String className){
         DexClassLoader classLoader = (DexClassLoader) getClassLoader(context, apkName);
         try {
@@ -155,7 +185,7 @@ public class HookHelper {
 
     public static ClassLoader getClassLoader(Context context,String apkName){
         copyApk2Inner(context,apkName);
-        File odexFileDir = context.getDir("plugin_odex", Context.MODE_PRIVATE);
+        File odexFileDir = context.getDir(PLUGIN_ODEX, Context.MODE_PRIVATE);
         String odexFilePath =  odexFileDir.getAbsolutePath()+File.separator+apkName;
         File odexFile = new File(odexFilePath);
         File dexFile = context.getDir("dex", Context.MODE_PRIVATE);
