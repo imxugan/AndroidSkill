@@ -7,6 +7,8 @@ import android.content.res.AssetManager;
 import android.os.Build;
 import android.os.Handler;
 
+import com.android.skill.mypluglibrary.IBean;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -125,6 +127,25 @@ public class HookHelper {
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void createPluginInstanceByInter(Context context,String apkName,String className){
+        DexClassLoader classLoader = (DexClassLoader) getClassLoader(context, apkName);
+        try {
+            Class<?> clazz = classLoader.loadClass(className);
+            IBean newInstance = (IBean) clazz.newInstance();
+            newInstance.setName("pony ma");
+            String name = newInstance.getName();
+            LogUtil.i(name);
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InstantiationException e) {
             e.printStackTrace();

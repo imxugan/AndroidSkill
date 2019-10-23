@@ -1,2 +1,2 @@
-include ':app', ':xywy_im_sdk', ':im_demo', ':myretrofit', ':mybus', ':login', ':plugin1', "util", ':base'
+include ':app', ':xywy_im_sdk', ':im_demo', ':myretrofit', ':mybus', ':login', ':plugin1', ':mypluglibrary', "util", ':base'
 project(':util').projectDir = new File(settingsDir, 'libs/util')

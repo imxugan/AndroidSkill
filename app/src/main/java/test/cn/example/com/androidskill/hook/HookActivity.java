@@ -48,6 +48,7 @@ public class HookActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_9).setOnClickListener(this);
         //获取在assets这个目录下的插件plugin1-debug.apk文件中的com.android.skill.bean.Person这个类的实例对象，并读取这个实例对象的name属性
         HookHelper.createPluginInstance(this,"plugin1-debug.apk","com.android.skill.bean.Person");
+        HookHelper.createPluginInstanceByInter(this,"plugin1-debug.apk","com.android.skill.bean.Person");
         try {
             //将插件dex合并到DexPathList类的dexElements这个数组中
             copyDexFileToInnerPath();

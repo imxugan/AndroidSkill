@@ -1,6 +1,8 @@
 package com.android.skill.bean;
 
-public class Person {
+import com.android.skill.mypluglibrary.IBean;
+
+public class Person implements IBean {
     private String name = "zma";
 
     public String getName() {

@@ -165,5 +165,6 @@ dependencies {
         compile project(':login')
     }
     compile 'com.alibaba:arouter-api:1.5.0'
+    compile project(path: ':mypluglibrary')
 
 }
