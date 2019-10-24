@@ -2,11 +2,15 @@ package test.cn.example.com.androidskill.hook;
 
 import android.app.Activity;
 import android.app.Instrumentation;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 
 import com.android.skill.mypluglibrary.IBean;
@@ -21,6 +25,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.HashMap;
+import java.util.List;
 
 import dalvik.system.DexClassLoader;
 import test.cn.example.com.util.LogUtil;
@@ -33,6 +39,8 @@ public class HookHelper {
     public static final String BACKUPCLASSNAME = PACKAGENAME+".hook.BackUpActivity";
 
     public static final String PLUGIN_ODEX = "plugin_odex";
+
+    public static HashMap<String,String> old2newActionsMap = new HashMap<>();
 
     public static void hookAMS() throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
         Object singleton = null;
@@ -117,6 +125,54 @@ public class HookHelper {
             return iActivityManager;
         }
         return null;
+
+    }
+
+    public static void registerPluginStaticReceivers(Context context,File apkFile){
+        try {
+            Class<?> packageParserClazz = Class.forName("android.content.pm.PackageParser");
+            Object packageParser = packageParserClazz.newInstance();
+
+            //反射下面这个方法
+//            public Package parsePackage(File packageFile, int flags) throws PackageParserException {
+//                return parsePackage(packageFile, flags, false /* useCaches */);
+//            }
+            Class[] parameterTypes = new Class[]{File.class,int.class};
+            Method parsePackageMethod = packageParserClazz.getDeclaredMethod("parsePackage",parameterTypes);
+            parsePackageMethod.setAccessible(true);
+            Object[]  args = {apkFile,PackageManager.GET_RECEIVERS};
+            Object packageObject = parsePackageMethod.invoke(packageParser, args);
+            List receivers = (List) RefInvokeUtils.getObject(packageObject.getClass(), "receivers", packageObject);
+            DexClassLoader dexClassLoader = (DexClassLoader) HookHelper.getClassLoader(context, apkFile.getName());
+            for(Object receiver:receivers){
+                Bundle metaData = (Bundle) RefInvokeUtils.getObject("android.content.pm.PackageParser$Component", "metaData", receiver);
+                String oldAction = metaData.getString("oldAction");
+                List<? extends IntentFilter> filters = (List) RefInvokeUtils.getObject("android.content.pm.PackageParser$Component", "intents", receiver);
+                for(IntentFilter intentFilter:filters){
+                    ActivityInfo activityInfo = (ActivityInfo) RefInvokeUtils.getObject(receiver.getClass(), "info", receiver);
+                    //这里创建插件广播实例时，要用DexClassLoader,否则会出现找不到class的异常
+                    BroadcastReceiver pluginReceiver = (BroadcastReceiver) dexClassLoader.loadClass(activityInfo.name).newInstance();
+                    //这里不能通过context来动态注册广播，否则会报
+                    //android.content.ReceiverCallNotAllowedException: BroadcastReceiver components are not allowed to register to receive intents
+//                    context.registerReceiver(pluginReceiver,intentFilter);
+                    context.getApplicationContext().registerReceiver(pluginReceiver,intentFilter);
+                    String pluginAction = intentFilter.getAction(0);
+                    old2newActionsMap.put(oldAction,pluginAction);
+                }
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
 
     }
 

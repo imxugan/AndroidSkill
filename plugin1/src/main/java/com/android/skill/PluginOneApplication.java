@@ -4,7 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 public class PluginOneApplication extends Application {
-    private static final String TAG = "PluginOneApplication";
+    private static final String TAG = "MY_LOG";
     @Override
     public void onCreate() {
         super.onCreate();

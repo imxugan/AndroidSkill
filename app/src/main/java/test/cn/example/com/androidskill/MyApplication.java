@@ -35,6 +35,8 @@ public class MyApplication extends Application {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
+        //需要提前将assets目录下的插件apk复制到app的内部存储路径
+        HookHelper.copyApk2Inner(this,"plugin1-debug.apk");
 //        hookActivityThreadInstrumentation();
 
         try {

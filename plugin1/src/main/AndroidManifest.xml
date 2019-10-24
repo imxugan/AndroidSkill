@@ -16,7 +16,28 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+            </intent-filter>
         </activity>
+
+        <receiver android:name="com.android.skill.PluginReceiverOne"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.skill.plugin.test.static.braocastrecevier"/>
+            </intent-filter>
+            <meta-data android:name="oldAction" android:value="com.android.skill.braocastrecevier"/>
+        </receiver>
+
+        <receiver android:name="com.android.skill.PluginReceiverTwo"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.skill.plugin.test.static.braocastrecevier2"/>
+            </intent-filter>
+            <meta-data android:name="oldAction" android:value="com.android.skill.braocastrecevier2"/>
+        </receiver>
     </application>
 
 </manifest>

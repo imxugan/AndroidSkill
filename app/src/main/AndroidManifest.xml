@@ -599,6 +599,19 @@
             </intent-filter>
         </receiver>
 
+        <receiver
+            android:name="test.cn.example.com.androidskill.hook.receiver.StubReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.skill.braocastrecevier"></action>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="com.android.skill.braocastrecevier2"></action>
+            </intent-filter>
+        </receiver>
+
         <provider
             android:authorities="test.cn.example.com.androidskill"
             android:writePermission="test.cn.example.com.androidskill.permission.WRITE_BOOK_PROVIDER"

@@ -57,4 +57,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="发送一个广播给插件BroadCastReceiver(前提是先start插件service)"/>
+
+    <Button
+        android:id="@+id/tv_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="给插件中的静态广播接收者发送广播"/>
 </LinearLayout>
