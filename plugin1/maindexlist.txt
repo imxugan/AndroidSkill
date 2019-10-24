@@ -1,0 +1,5 @@
+com/android/skill/bean/Person.class
+                                         com/android/skill/MainActivity.class
+                                         com/android/skill/PluginOneApplication.class
+                                         com/android/skill/PluginReceiverOne.class
+                                         com/android/skill/PluginReceiverTwo.class
