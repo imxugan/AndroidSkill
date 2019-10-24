@@ -10,6 +10,6 @@ public class PluginReceiverOne extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.i(TAG,"插件recevier   "+intent);
+        Log.i(TAG,"插件recevier1   "+intent.getAction());
     }
 }

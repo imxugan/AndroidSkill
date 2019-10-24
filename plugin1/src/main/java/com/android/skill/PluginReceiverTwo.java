@@ -9,6 +9,6 @@ public class PluginReceiverTwo extends BroadcastReceiver {
     private static final String TAG = "MY_LOG";
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.i(TAG,""+intent);
+        Log.i(TAG,"插件recevier2   "+intent.getAction());
     }
 }
