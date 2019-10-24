@@ -9,6 +9,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 
 import org.greenrobot.greendao.database.Database;
 
+import java.io.FileNotFoundException;
 import java.lang.reflect.Field;
 
 import test.cn.example.com.androidskill.hook.HookHelper;
@@ -82,6 +83,15 @@ public class MyApplication extends Application {
         ARouter.init(this); // 尽可能早，推荐在Application中初始化
 
         setCustomerDensity(this);
+
+        //只能放到application的onCreate方法中，不能放到attachBaseContext方法中，因为HookHelper.registerPluginStaticReceivers
+        //方法中，要用到application对象，但是在attachBaseContext方法中，这个对象还未创建。
+
+        try {
+            HookHelper.registerPluginStaticReceivers(this,"plugin1-debug.apk");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
     }
 

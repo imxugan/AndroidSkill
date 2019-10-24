@@ -17,6 +17,7 @@ import com.android.skill.mypluglibrary.IBean;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -128,7 +129,8 @@ public class HookHelper {
 
     }
 
-    public static void registerPluginStaticReceivers(Context context,File apkFile){
+
+    public static List getPluginStaticReceivers(File apkFile){
         try {
             Class<?> packageParserClazz = Class.forName("android.content.pm.PackageParser");
             Object packageParser = packageParserClazz.newInstance();
@@ -143,6 +145,32 @@ public class HookHelper {
             Object[]  args = {apkFile,PackageManager.GET_RECEIVERS};
             Object packageObject = parsePackageMethod.invoke(packageParser, args);
             List receivers = (List) RefInvokeUtils.getObject(packageObject.getClass(), "receivers", packageObject);
+            return receivers;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void registerPluginStaticReceivers(Context context,String apkFileName) throws FileNotFoundException {
+        File apkFile_dir = context.getDir(HookHelper.PLUGIN_ODEX,Context.MODE_PRIVATE);
+        String filePath = apkFile_dir.getAbsolutePath()+File.separator+apkFileName;
+        File apkFile = new File(filePath);
+        if(!apkFile.exists()){
+            throw new FileNotFoundException(apkFileName+"  not found");
+        }
+        try {
+            List receivers = getPluginStaticReceivers(apkFile);
             DexClassLoader dexClassLoader = (DexClassLoader) HookHelper.getClassLoader(context, apkFile.getName());
             for(Object receiver:receivers){
                 Bundle metaData = (Bundle) RefInvokeUtils.getObject("android.content.pm.PackageParser$Component", "metaData", receiver);
@@ -155,6 +183,9 @@ public class HookHelper {
                     //这里不能通过context来动态注册广播，否则会报
                     //android.content.ReceiverCallNotAllowedException: BroadcastReceiver components are not allowed to register to receive intents
 //                    context.registerReceiver(pluginReceiver,intentFilter);
+
+                    //下面这个方法如果在自定义的application的attachBaseContext方法中调用，会报下面这个异常
+                    //Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'android.content.Intent android.content.Context.registerReceiver(android.content.BroadcastReceiver, android.content.IntentFilter)' on a null object reference
                     context.getApplicationContext().registerReceiver(pluginReceiver,intentFilter);
                     String pluginAction = intentFilter.getAction(0);
                     old2newActionsMap.put(oldAction,pluginAction);
@@ -165,10 +196,6 @@ public class HookHelper {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
             e.printStackTrace();
         } catch (NoSuchFieldException e) {
             e.printStackTrace();

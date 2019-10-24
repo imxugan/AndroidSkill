@@ -73,7 +73,7 @@ dependencies {
 
     //只是在编译时，使用mypluglibrary.jar这个jar，打包时，不会将mypluglibrary.jar打包进apk中
     //注意是lib目录，不是libs目录，如果将mypluglibrary.jar放入libs目录下，则provided这行配置信息会失效
-//    provided files('lib/mypluglibrary.jar')
+    provided files('lib/mypluglibrary.jar')
     //这里为了演示将指定class打包到主dex,使用了compile来引入mypluglibrary这个库
-    compile project(path:':mypluglibrary')
+//    compile project(path:':mypluglibrary')
 }
