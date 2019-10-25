@@ -620,6 +620,11 @@
             android:exported="true"/>
 
         <service android:name=".hook.service.ProxyService"/>
+
+        <provider
+            android:authorities="test.cn.example.com.androidskill.stub"
+            android:name="test.cn.example.com.androidskill.hook.provider.StubContentProvider"
+            android:exported="true"/>
     </application>
 
 </manifest>

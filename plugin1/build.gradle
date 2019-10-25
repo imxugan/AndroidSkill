@@ -51,10 +51,10 @@ android {
             }
             println("$buildDir/outputs/apk/")
             println("$rootDir/app/src/main/assets/")
-            copy{
-                from("$buildDir/outputs/apk/${file.name}")
-                into("$rootDir/app/src/main/assets")
-            }
+//            copy{
+//                from("$buildDir/outputs/apk/${file.name}")
+//                into("$rootDir/app/src/main/assets")
+//            }
         }
     }
 

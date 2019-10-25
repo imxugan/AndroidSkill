@@ -26,4 +26,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="给androidskill这个app的插件中的静态广播接收者2发送广播"/>
+
+    <Button
+        android:id="@+id/tv_3"
+        android:layout_marginTop="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="从androidskill这个app的插件中的contentProvider查询数据"/>
 </LinearLayout>

@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ProviderInfo;
 import android.content.res.AssetManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,14 +23,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
+import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import dalvik.system.BaseDexClassLoader;
 import dalvik.system.DexClassLoader;
+import dalvik.system.PathClassLoader;
 import test.cn.example.com.util.LogUtil;
 
 public class HookHelper {
@@ -40,6 +46,7 @@ public class HookHelper {
     public static final String BACKUPCLASSNAME = PACKAGENAME+".hook.BackUpActivity";
 
     public static final String PLUGIN_ODEX = "plugin_odex";
+    public static final String OPT_DEX = "opt_dex";
 
     public static HashMap<String,String> old2newActionsMap = new HashMap<>();
 
@@ -129,6 +136,167 @@ public class HookHelper {
 
     }
 
+    public static void installPluginContentProviders(Context context,String apkFileName) throws FileNotFoundException {
+        File apkFile_dir = context.getDir(HookHelper.PLUGIN_ODEX,Context.MODE_PRIVATE);
+        String filePath = apkFile_dir.getAbsolutePath()+File.separator+apkFileName;
+        File apkFile = new File(filePath);
+        if(!apkFile.exists()){
+            throw new FileNotFoundException(apkFileName+"  not found");
+        }
+        File optDex_dir = context.getDir(OPT_DEX, Context.MODE_PRIVATE);
+        if(optDex_dir.exists()){
+            optDex_dir.delete();
+        }
+        optDex_dir.mkdirs();
+        addPluginDex(apkFile.getAbsolutePath(),optDex_dir.getAbsolutePath(), context.getClassLoader(),false);
+        List<ProviderInfo> providerInfoList = getPluginProviderInfoList(apkFile);
+        LogUtil.e(providerInfoList+"");
+        for(ProviderInfo providerInfo:providerInfoList){
+//                LogUtil.i(providerInfo.authority);
+//                LogUtil.i("替换前      "+providerInfo.applicationInfo.packageName);
+            //将插件ContentProvider替换成宿主的包名，否则安装无效
+
+            providerInfo.applicationInfo.packageName = context.getPackageName();
+        }
+
+        for(ProviderInfo providerInfo:providerInfoList){
+            LogUtil.i("替换后      "+providerInfo.applicationInfo.packageName);
+        }
+
+        try {
+            Class<?> activityThreadClazz = Class.forName("android.app.ActivityThread");
+            Field sCurrentActivityThreadFiled = RefInvokeUtils.getField(activityThreadClazz, "sCurrentActivityThread");
+            sCurrentActivityThreadFiled.setAccessible(true);
+            Object sCurrentActivityThread = sCurrentActivityThreadFiled.get(null);
+
+            //反射ActivityThread类的installContentProviders方法，将插件apk中的ContentProviders安装到宿主app中
+//            private void installContentProviders(
+//                    Context context, List<ProviderInfo> providers)
+
+            Class[] p = {Context.class,List.class};
+            Method installContentProvidersMethod = activityThreadClazz.getDeclaredMethod("installContentProviders", p);
+            installContentProvidersMethod.setAccessible(true);
+            //这里要将context的getClassLoader的返回值替换成DexClassLoader
+            Object[] v = {context,providerInfoList};
+            installContentProvidersMethod.invoke(sCurrentActivityThread,v);
+            LogUtil.i(providerInfoList+"");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private static void addPluginDex(String dexPath,String optDir,ClassLoader classLoader,boolean fixBug) {
+        try {
+
+//            public DexClassLoader(String dexPath, String optimizedDirectory, String librarySearchPath, ClassLoader parent) {
+//                super((String)null, (File)null, (String)null, (ClassLoader)null);
+//                throw new RuntimeException("Stub!");
+//            }
+            Class[] p = {String.class,String.class,String.class,ClassLoader.class};
+            Object[] v = {dexPath,optDir,null,classLoader};
+            Constructor<DexClassLoader> dexClassLoaderConstructor = DexClassLoader.class.getDeclaredConstructor(p);
+            DexClassLoader dexClassLoader = dexClassLoaderConstructor.newInstance(v);
+            Field pathListField = DexClassLoader.class.getSuperclass().getDeclaredField("pathList");
+            pathListField.setAccessible(true);
+            Object pluginPathList = pathListField.get(dexClassLoader);
+            //插件中的dexElements
+            Object[] pluginDexElements = (Object[]) RefInvokeUtils.getObject(pluginPathList.getClass(), "dexElements", pluginPathList);
+            PathClassLoader pathClassLoader = (PathClassLoader) classLoader;
+            Object pathList = RefInvokeUtils.getObject(pathClassLoader.getClass().getSuperclass(), "pathList", pathClassLoader);
+            Object[] dexElements = (Object[]) RefInvokeUtils.getObject(pathList.getClass(), "dexElements", pathList);
+            Class<?> componentType = dexElements.getClass().getComponentType();
+            Object newDexElements = Array.newInstance(componentType, pluginDexElements.length + dexElements.length);
+            if(!fixBug){
+                //如果不是修复bug的dex文件，则将插件dex合并到新的Dex数组的后面
+                System.arraycopy(dexElements,0,newDexElements,0,dexElements.length);
+                System.arraycopy(pluginDexElements,0,newDexElements,dexElements.length,pluginDexElements.length);
+            }else {
+                //如果不是修复bug的dex文件，则将插件dex合并到新的Dex数组的前面
+                System.arraycopy(pluginDexElements,0,newDexElements,0,pluginDexElements.length);
+                System.arraycopy(dexElements,0,newDexElements,pluginDexElements.length,dexElements.length);
+            }
+            RefInvokeUtils.setObject(pathList.getClass(),"dexElements",pathList,newDexElements);
+
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static List getPluginProviderInfoList(File apkFile){
+        List<ProviderInfo> providerInfos = new ArrayList<>(0);
+        try {
+            Class<?> packageParserClazz = Class.forName("android.content.pm.PackageParser");
+            //反射这个方法
+//            public Package parsePackage(File packageFile, int flags) throws PackageParserException {
+//                return parsePackage(packageFile, flags, false /* useCaches */);
+//            }
+            Class[] p = {File.class,int.class};
+
+            Method parsePackageMethod = packageParserClazz.getDeclaredMethod("parsePackage", p);
+            parsePackageMethod.setAccessible(true);
+            Object[] v = {apkFile,PackageManager.GET_PROVIDERS};
+            //解析插件apk
+            Object packageParser = packageParserClazz.newInstance();
+            Object packageObject = parsePackageMethod.invoke(packageParser, v);
+            //PackageParser$Package类中存放ContentProvider的集合是providers，要拿到这个字段的值，这样就拿到了插件apk中的
+            //所有ContentProvider
+            List providers = (List) RefInvokeUtils.getObject(packageObject.getClass(), "providers", packageObject);
+
+            //反射PackageParser类的generateProviderInfo，将Provider转换成ProviderInfo,
+            //第二个参数flags,直接传0,还未弄清楚
+//            public static final ProviderInfo generateProviderInfo(Provider p, int flags,
+//            PackageUserState state, int userId)
+
+
+            Class<?> packageUserStateClazz = Class.forName("android.content.pm.PackageUserState");
+            Object packageUserState = packageUserStateClazz.newInstance();
+            Class<?> userHandleClazz = Class.forName("android.os.UserHandle");
+            Field ownerField = userHandleClazz.getDeclaredField("OWNER");
+            Object userHandle = ownerField.get(null);
+            Method getCallingUserIdMethod = userHandleClazz.getDeclaredMethod("getCallingUserId");
+            Object userId = getCallingUserIdMethod.invoke(userHandle);
+            Class<?> providerClazz = Class.forName("android.content.pm.PackageParser$Provider");
+            Class[] parameterTypes = {providerClazz,int.class,packageUserStateClazz,int.class};
+            Method generateProviderInfoMethod = packageParserClazz.getDeclaredMethod("generateProviderInfo", parameterTypes);
+
+            for (Object provider:providers){
+                ProviderInfo providerInfo = (ProviderInfo) generateProviderInfoMethod.invoke(packageParser, provider, 0, packageUserState, userId);
+                LogUtil.i("替换前      "+providerInfo.applicationInfo.packageName);
+                providerInfos.add(providerInfo);
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+        return providerInfos;
+
+    }
 
     public static List getPluginStaticReceivers(File apkFile){
         try {
@@ -145,6 +313,7 @@ public class HookHelper {
             Object[]  args = {apkFile,PackageManager.GET_RECEIVERS};
             Object packageObject = parsePackageMethod.invoke(packageParser, args);
             List receivers = (List) RefInvokeUtils.getObject(packageObject.getClass(), "receivers", packageObject);
+            LogUtil.i(""+receivers);
             return receivers;
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -171,7 +340,7 @@ public class HookHelper {
         }
         try {
             List receivers = getPluginStaticReceivers(apkFile);
-            DexClassLoader dexClassLoader = (DexClassLoader) HookHelper.getClassLoader(context, apkFile.getName());
+            DexClassLoader dexClassLoader = (DexClassLoader) HookHelper.getMyClassLoader(context, apkFile.getName());
             for(Object receiver:receivers){
                 Bundle metaData = (Bundle) RefInvokeUtils.getObject("android.content.pm.PackageParser$Component", "metaData", receiver);
                 String oldAction = metaData.getString("oldAction");
@@ -228,7 +397,7 @@ public class HookHelper {
 
 
     public static void createPluginInstance(Context context,String apkName,String className){
-        DexClassLoader classLoader = (DexClassLoader) getClassLoader(context, apkName);
+        DexClassLoader classLoader = (DexClassLoader) getMyClassLoader(context, apkName);
         try {
             //com.android.skill.bean.Person
             Class<?> clazz = classLoader.loadClass(className);
@@ -248,7 +417,7 @@ public class HookHelper {
     }
 
     public static void createPluginInstanceByInter(Context context,String apkName,String className){
-        DexClassLoader classLoader = (DexClassLoader) getClassLoader(context, apkName);
+        DexClassLoader classLoader = (DexClassLoader) getMyClassLoader(context, apkName);
         try {
             Class<?> clazz = classLoader.loadClass(className);
             IBean newInstance = (IBean) clazz.newInstance();
@@ -266,19 +435,17 @@ public class HookHelper {
 
     }
 
-    public static ClassLoader getClassLoader(Context context,String apkName){
-        copyApk2Inner(context,apkName);
-        File odexFileDir = context.getDir(PLUGIN_ODEX, Context.MODE_PRIVATE);
-        String odexFilePath =  odexFileDir.getAbsolutePath()+File.separator+apkName;
-        File odexFile = new File(odexFilePath);
-        File dexFile = context.getDir("dex", Context.MODE_PRIVATE);
-        if(dexFile.exists()){
-            dexFile.delete();
+    public static ClassLoader getMyClassLoader(Context context, String apkName){
+        File apkFile_dir = context.getDir(HookHelper.PLUGIN_ODEX,Context.MODE_PRIVATE);
+        String filePath = apkFile_dir.getAbsolutePath()+File.separator+apkName;
+        File apkFile = new File(filePath);
+        if(!apkFile.exists()){
+            copyApk2Inner(context,apkName);
         }
-        dexFile.mkdirs();
+
         //注意DexClassLoader的第一个参数，要传dex的路径，不是dex所在的目录的路径，
         //第二个参数，要传，将解压dex文件存放的目录路径即可
-        DexClassLoader dexClassLoader = new DexClassLoader(odexFile.getAbsolutePath(),dexFile.getAbsolutePath(),null,context.getClassLoader());
+        DexClassLoader dexClassLoader = new DexClassLoader(apkFile.getAbsolutePath(),apkFile.getAbsolutePath(),null,context.getClassLoader());
         return dexClassLoader;
     }
 
@@ -293,7 +460,8 @@ public class HookHelper {
             String filePath = plugin_odex_dir.getAbsolutePath()+File.separator+apkName;
             File file = new File(filePath);
             if(file.exists()){
-                file.delete();
+                boolean delete = file.delete();
+                LogUtil.i("删除存在的插件apk  "+delete);
             }
             //注意，这里是要传具体的文件路径构建的File对象，不是文件所在的文件夹的路径构建的File对象
             bos = new BufferedOutputStream(new FileOutputStream(file));

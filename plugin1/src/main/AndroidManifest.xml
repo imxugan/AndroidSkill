@@ -38,6 +38,11 @@
             </intent-filter>
             <meta-data android:name="oldAction" android:value="com.android.skill.braocastrecevier2"/>
         </receiver>
+
+        <provider
+            android:authorities="com.android.skill.plugin_cp_1"
+            android:name=".PluginContentProvider"
+            android:exported="true"/>
     </application>
 
 </manifest>

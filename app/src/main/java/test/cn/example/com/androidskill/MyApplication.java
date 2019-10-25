@@ -41,6 +41,11 @@ public class MyApplication extends Application {
 //        hookActivityThreadInstrumentation();
 
         try {
+            HookHelper.installPluginContentProviders(this,"plugin1-debug.apk");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
             HookHelper.hookAMS();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -89,6 +94,8 @@ public class MyApplication extends Application {
 
         try {
             HookHelper.registerPluginStaticReceivers(this,"plugin1-debug.apk");
+
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
