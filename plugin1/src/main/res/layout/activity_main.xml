@@ -32,5 +32,7 @@
         android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="从androidskill这个app的插件中的contentProvider查询数据"/>
+        android:text="从androidskill这个app的插件中的contentProvider查询数据,
+        (注意，打包时，将生成的apk文件复制到app那个module的assets目录下，演示时，
+        要记得将本module中的PluginContentProvider相关的信息删除掉，在测试功能)"/>
 </LinearLayout>
