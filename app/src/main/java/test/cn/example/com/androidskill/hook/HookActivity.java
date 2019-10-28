@@ -4,6 +4,8 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.res.AssetManager;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
@@ -21,6 +23,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import dalvik.system.DexClassLoader;
 import dalvik.system.PathClassLoader;
@@ -28,6 +32,7 @@ import test.cn.example.com.androidskill.R;
 import test.cn.example.com.androidskill.designpattern.ProxyPatternActivity;
 import test.cn.example.com.androidskill.optimize.hotfix.MyConstant;
 import test.cn.example.com.util.LogUtil;
+import test.cn.example.com.util.ToastUtils;
 
 public class HookActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -46,6 +51,7 @@ public class HookActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_7).setOnClickListener(this);
         findViewById(R.id.tv_8).setOnClickListener(this);
         findViewById(R.id.tv_9).setOnClickListener(this);
+        findViewById(R.id.tv_10).setOnClickListener(this);
         //获取在assets这个目录下的插件plugin1-debug.apk文件中的com.android.skill.bean.Person这个类的实例对象，并读取这个实例对象的name属性
         HookHelper.createPluginInstance(this,"plugin1-debug.apk","com.android.skill.bean.Person");
         HookHelper.createPluginInstanceByInter(this,"plugin1-debug.apk","com.android.skill.bean.Person");
@@ -286,6 +292,53 @@ public class HookActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.tv_9:
                 Intent receiver = new Intent("test.plugreceiver");
                 sendBroadcast(receiver);
+                break;
+            case R.id.tv_10:
+//                /data/user/0/test.cn.example.com.androidskill/app_plugin_odex/plugin1-debug.apk
+                File dir = getDir(HookHelper.PLUGIN_ODEX,Context.MODE_PRIVATE);
+                LogUtil.i(dir.getAbsolutePath());
+                String dexPath = dir.getAbsolutePath()+File.separator+"plugin1-debug.apk";
+                try {
+                    AssetManager pluginAssetManager = AssetManager.class.newInstance();
+                    Method addAssetPathMethod = AssetManager.class.getDeclaredMethod("addAssetPath",String.class);
+                    addAssetPathMethod.setAccessible(true);
+                    addAssetPathMethod.invoke(pluginAssetManager,dexPath);
+                    //1.需要一个ClassLader,所以先构建一个ClassLoader
+//                    public DexClassLoader(String dexPath, String optimizedDirectory, String librarySearchPath, ClassLoader parent) {
+//                        super((String)null, (File)null, (String)null, (ClassLoader)null);
+//                        throw new RuntimeException("Stub!");
+//                    }
+
+
+                    File optDir = getDir("dex",Context.MODE_PRIVATE);
+                    String optimizedDirectory = optDir.getAbsolutePath();
+                    DexClassLoader dexClassLoader = new DexClassLoader(dexPath,optimizedDirectory,null,getClassLoader());
+                    Resources pluginResource = new Resources(pluginAssetManager,super.getResources().getDisplayMetrics(),super.getResources().getConfiguration());
+                    //设置插件主题
+                    Resources.Theme pluginTheme = pluginResource.newTheme();
+                    pluginTheme.setTo(super.getTheme());
+                    //获取插件中的app_name字段对应的id
+                    Class<?> stringClazz = dexClassLoader.loadClass("com.android.skill.R$string");
+                    Field appNameField = stringClazz.getField("app_name");
+                    appNameField.setAccessible(true);
+                    int appNameId = (int) appNameField.get(null);
+                    LogUtil.i("appNameId=   "+appNameId);
+                    String pluingAppName = pluginResource.getString(appNameId);
+                    ToastUtils.shortToast(this,pluingAppName);
+
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                }
                 break;
         }
     }

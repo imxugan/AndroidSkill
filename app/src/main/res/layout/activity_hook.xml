@@ -62,5 +62,6 @@
         android:id="@+id/tv_10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="给插件中的静态广播接收者发送广播"/>
+        android:text="加载插件中的资源"/>
+
 </LinearLayout>
