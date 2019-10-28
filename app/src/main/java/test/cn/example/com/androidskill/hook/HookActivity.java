@@ -37,6 +37,7 @@ import test.cn.example.com.util.ToastUtils;
 public class HookActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ServiceConnection serviceConnection;
+    private Resources pluginResource;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,6 +53,8 @@ public class HookActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_8).setOnClickListener(this);
         findViewById(R.id.tv_9).setOnClickListener(this);
         findViewById(R.id.tv_10).setOnClickListener(this);
+        findViewById(R.id.tv_11).setOnClickListener(this);
+
         //获取在assets这个目录下的插件plugin1-debug.apk文件中的com.android.skill.bean.Person这个类的实例对象，并读取这个实例对象的name属性
         HookHelper.createPluginInstance(this,"plugin1-debug.apk","com.android.skill.bean.Person");
         HookHelper.createPluginInstanceByInter(this,"plugin1-debug.apk","com.android.skill.bean.Person");
@@ -340,6 +343,42 @@ public class HookActivity extends AppCompatActivity implements View.OnClickListe
                     e.printStackTrace();
                 }
                 break;
+            case R.id.tv_11:
+                String dexPath2 = getDir(HookHelper.PLUGIN_ODEX,Context.MODE_PRIVATE)+File.separator+"plugin1-debug.apk";
+//                /data/user/0/test.cn.example.com.androidskill/app_plugin_odex/plugin1-debug.apk
+
+                LogUtil.i(dexPath2);
+                File dexDir = getDir("dex", Context.MODE_PRIVATE);
+                try {
+                    AssetManager pluginAssetManager = AssetManager.class.newInstance();
+                    Method addAssetPathMethod = AssetManager.class.getDeclaredMethod("addAssetPath", String.class);
+                    addAssetPathMethod.setAccessible(true);
+                    addAssetPathMethod.invoke(pluginAssetManager,dexPath2);
+                    pluginResource = new Resources(pluginAssetManager,super.getResources().getDisplayMetrics(),super.getResources().getConfiguration());
+                    DexClassLoader dexClassLoader = new DexClassLoader(dexPath2,dexDir.getAbsolutePath(),null,getClassLoader());
+                    Class<?> uiUtilsClazz = dexClassLoader.loadClass("com.android.skill.util.UIUtils");
+                    Method getAppNameMethod = uiUtilsClazz.getDeclaredMethod("getAppName", Context.class);
+                    //这里之所以传this，是因为this.getResource()方法的是插件pluginResource对象。
+                    String appName = (String) getAppNameMethod.invoke(null, this);
+                    ToastUtils.shortToast(this,appName);
+
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                break;
         }
+    }
+
+    @Override
+    public Resources getResources() {
+        return pluginResource==null?super.getResources():pluginResource;
     }
 }
