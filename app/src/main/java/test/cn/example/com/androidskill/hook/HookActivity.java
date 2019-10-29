@@ -55,6 +55,7 @@ public class HookActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_9).setOnClickListener(this);
         findViewById(R.id.tv_10).setOnClickListener(this);
         findViewById(R.id.tv_11).setOnClickListener(this);
+        findViewById(R.id.tv_12).setOnClickListener(this);
 
         //获取在assets这个目录下的插件plugin1-debug.apk文件中的com.android.skill.bean.Person这个类的实例对象，并读取这个实例对象的name属性
         HookHelper.createPluginInstance(this,"plugin1-debug.apk","com.android.skill.bean.Person");
@@ -99,6 +100,8 @@ public class HookActivity extends AppCompatActivity implements View.OnClickListe
 
         boolean make = BigNews.make(oldApkFilePath, newApkPath ,diffPatchFilePath);
         LogUtil.i(""+make);
+
+
     }
 
 
@@ -315,7 +318,6 @@ public class HookActivity extends AppCompatActivity implements View.OnClickListe
                 sendBroadcast(receiver);
                 break;
             case R.id.tv_10:
-//                /data/user/0/test.cn.example.com.androidskill/app_plugin_odex/plugin1-debug.apk
                 File dir = getFileStreamPath("plugin1-debug.apk");
                 LogUtil.i(dir.getAbsolutePath());
                 String dexPath = dir.getAbsolutePath();
@@ -390,6 +392,11 @@ public class HookActivity extends AppCompatActivity implements View.OnClickListe
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
+                break;
+            case R.id.tv_12:
+                //一般是静态代码块中加载，只加载一次，这里为了方便测试，未放入到静态代码块中
+                LogUtil.i("加载so   111122334455");
+                System.loadLibrary("msc");
                 break;
         }
     }
