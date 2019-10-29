@@ -45,7 +45,6 @@ public class HookHelper {
     public static final String PLUGCLASSNAME = PACKAGENAME+".hook.PlugActivity";
     public static final String BACKUPCLASSNAME = PACKAGENAME+".hook.BackUpActivity";
 
-    public static final String PLUGIN_ODEX = "plugin_odex";
     public static final String OPT_DEX = "opt_dex";
 
     public static HashMap<String,String> old2newActionsMap = new HashMap<>();
@@ -137,9 +136,7 @@ public class HookHelper {
     }
 
     public static void installPluginContentProviders(Context context,String apkFileName) throws FileNotFoundException {
-        File apkFile_dir = context.getDir(HookHelper.PLUGIN_ODEX,Context.MODE_PRIVATE);
-        String filePath = apkFile_dir.getAbsolutePath()+File.separator+apkFileName;
-        File apkFile = new File(filePath);
+        File apkFile = context.getFileStreamPath(apkFileName);
         if(!apkFile.exists()){
             throw new FileNotFoundException(apkFileName+"  not found");
         }
@@ -332,9 +329,7 @@ public class HookHelper {
     }
 
     public static void registerPluginStaticReceivers(Context context,String apkFileName) throws FileNotFoundException {
-        File apkFile_dir = context.getDir(HookHelper.PLUGIN_ODEX,Context.MODE_PRIVATE);
-        String filePath = apkFile_dir.getAbsolutePath()+File.separator+apkFileName;
-        File apkFile = new File(filePath);
+        File apkFile = context.getFileStreamPath(apkFileName);
         if(!apkFile.exists()){
             throw new FileNotFoundException(apkFileName+"  not found");
         }
@@ -436,9 +431,7 @@ public class HookHelper {
     }
 
     public static ClassLoader getMyClassLoader(Context context, String apkName){
-        File apkFile_dir = context.getDir(HookHelper.PLUGIN_ODEX,Context.MODE_PRIVATE);
-        String filePath = apkFile_dir.getAbsolutePath()+File.separator+apkName;
-        File apkFile = new File(filePath);
+        File apkFile = context.getFileStreamPath(apkName);
         if(!apkFile.exists()){
             copyApk2Inner(context,apkName);
         }
@@ -455,10 +448,7 @@ public class HookHelper {
         BufferedOutputStream bos = null;
         try {
             inputStream = assetManager.open(apkName);
-            File plugin_odex_dir = context.getDir("plugin_odex", Context.MODE_PRIVATE);
-            LogUtil.i("文件夹目录的路径是    "+plugin_odex_dir.getAbsolutePath());
-            String filePath = plugin_odex_dir.getAbsolutePath()+File.separator+apkName;
-            File file = new File(filePath);
+            File file = context.getFileStreamPath(apkName);
             if(file.exists()){
                 boolean delete = file.delete();
                 LogUtil.i("删除存在的插件apk  "+delete);

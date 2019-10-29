@@ -59,7 +59,7 @@ public class HookActivity extends AppCompatActivity implements View.OnClickListe
         //获取在assets这个目录下的插件plugin1-debug.apk文件中的com.android.skill.bean.Person这个类的实例对象，并读取这个实例对象的name属性
         HookHelper.createPluginInstance(this,"plugin1-debug.apk","com.android.skill.bean.Person");
         HookHelper.createPluginInstanceByInter(this,"plugin1-debug.apk","com.android.skill.bean.Person");
-        File odexFileDir = getDir(HookHelper.PLUGIN_ODEX, Context.MODE_PRIVATE);
+        File odexFileDir = getFileStreamPath("plugin1-debug.apk");
         String pluginApplicationName = HookHelper.getApplicationName(odexFileDir);
         LogUtil.i(pluginApplicationName);
 
@@ -82,13 +82,21 @@ public class HookActivity extends AppCompatActivity implements View.OnClickListe
 //            e.printStackTrace();
 //        }
 
-        File file = getDir(HookHelper.PLUGIN_ODEX,Context.MODE_PRIVATE);
-
-        String oldApkFilePath = file.getAbsolutePath()+File.separator+"plugin1-debug.apk";
-        String diffPatchFilePath = file.getAbsolutePath()+File.separator+"mypatch.diff";
+        File oldApkFile = getFileStreamPath("plugin1-debug.apk");
+        File patchDiffFile = getFileStreamPath("mypatch.diff");
+        File newApkFile = getFileStreamPath("new.apk");
+        if(newApkFile.exists()){
+            newApkFile.delete();
+        }
+        String oldApkFilePath = oldApkFile.getAbsolutePath();
+        String diffPatchFilePath = patchDiffFile.getAbsolutePath();
         LogUtil.i(oldApkFilePath);
         LogUtil.i(diffPatchFilePath);
-        String newApkPath = file.getAbsolutePath()+File.separator+"new.apk";
+        String newApkPath = newApkFile.getAbsolutePath();
+        if(newApkFile.exists()){
+            LogUtil.i(newApkPath);
+        }
+
         boolean make = BigNews.make(oldApkFilePath, newApkPath ,diffPatchFilePath);
         LogUtil.i(""+make);
     }
@@ -308,9 +316,9 @@ public class HookActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.tv_10:
 //                /data/user/0/test.cn.example.com.androidskill/app_plugin_odex/plugin1-debug.apk
-                File dir = getDir(HookHelper.PLUGIN_ODEX,Context.MODE_PRIVATE);
+                File dir = getFileStreamPath("plugin1-debug.apk");
                 LogUtil.i(dir.getAbsolutePath());
-                String dexPath = dir.getAbsolutePath()+File.separator+"plugin1-debug.apk";
+                String dexPath = dir.getAbsolutePath();
                 try {
                     AssetManager pluginAssetManager = AssetManager.class.newInstance();
                     Method addAssetPathMethod = AssetManager.class.getDeclaredMethod("addAssetPath",String.class);
@@ -354,8 +362,7 @@ public class HookActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case R.id.tv_11:
-                String dexPath2 = getDir(HookHelper.PLUGIN_ODEX,Context.MODE_PRIVATE)+File.separator+"plugin1-debug.apk";
-//                /data/user/0/test.cn.example.com.androidskill/app_plugin_odex/plugin1-debug.apk
+                String dexPath2 =getFileStreamPath("plugin1-debug.apk").getAbsolutePath();
 
                 LogUtil.i(dexPath2);
                 File dexDir = getDir("dex", Context.MODE_PRIVATE);
