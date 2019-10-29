@@ -28,6 +28,7 @@ import java.lang.reflect.Method;
 
 import dalvik.system.DexClassLoader;
 import dalvik.system.PathClassLoader;
+import ha.excited.BigNews;
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.androidskill.designpattern.ProxyPatternActivity;
 import test.cn.example.com.androidskill.optimize.hotfix.MyConstant;
@@ -81,6 +82,15 @@ public class HookActivity extends AppCompatActivity implements View.OnClickListe
 //            e.printStackTrace();
 //        }
 
+        File file = getDir(HookHelper.PLUGIN_ODEX,Context.MODE_PRIVATE);
+
+        String oldApkFilePath = file.getAbsolutePath()+File.separator+"plugin1-debug.apk";
+        String diffPatchFilePath = file.getAbsolutePath()+File.separator+"mypatch.diff";
+        LogUtil.i(oldApkFilePath);
+        LogUtil.i(diffPatchFilePath);
+        String newApkPath = file.getAbsolutePath()+File.separator+"new.apk";
+        boolean make = BigNews.make(oldApkFilePath, newApkPath ,diffPatchFilePath);
+        LogUtil.i(""+make);
     }
 
 

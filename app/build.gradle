@@ -167,4 +167,6 @@ dependencies {
     compile 'com.alibaba:arouter-api:1.5.0'
     compile project(path: ':mypluglibrary')
 
+    compile 'com.github.ha-excited:BigNews:0.1.2'
+
 }

@@ -38,6 +38,7 @@ public class MyApplication extends Application {
         MultiDex.install(this);
         //需要提前将assets目录下的插件apk复制到app的内部存储路径
         HookHelper.copyApk2Inner(this,"plugin1-debug.apk");
+        HookHelper.copyApk2Inner(this,"mypatch.diff");
 //        hookActivityThreadInstrumentation();
 
         try {
