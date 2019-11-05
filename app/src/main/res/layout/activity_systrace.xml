@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Systrace工具，是andriod 4.1中新增的性能数据采样和分析工具，
+        它可以帮助开发者收集Android关键子
+系统(SurfaceF!inger 、WMS 等Framework 部分关键模块、服务， View 体系系统等）的运行信息。
+Systrace 的功能包括跟踪系统的i/o 操作、内核工作队列、CPU 负载以及Android 各个子系统的
+运行状况等。对于UI 显示性能，比如动画播放不流畅、渲染卡顿等问题提供了分析数据，
+由于systrace是在系统级显示有关进程的信息，因此很难在HTML报告中的某个特定时间知道
+您的应用程序正在执行什么方法。"/>
+</LinearLayout>

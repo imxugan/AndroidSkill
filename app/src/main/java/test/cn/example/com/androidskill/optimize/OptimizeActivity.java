@@ -38,11 +38,15 @@ public class OptimizeActivity extends AppCompatActivity implements View.OnClickL
         findViewById(R.id.btn_handler_thread).setOnClickListener(this);
         findViewById(R.id.btn_intent_service).setOnClickListener(this);
         findViewById(R.id.btn_splash_activity).setOnClickListener(this);
+        findViewById(R.id.btn_draw).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+            case R.id.btn_draw:
+                startActivity(new Intent(OptimizeActivity.this,DrawOptimizeActivity.class));
+                break;
             case R.id.btn_httpResponseCache:
                 startActivity(new Intent(OptimizeActivity.this,HttpResponseCacheActivity.class));
                 break;

@@ -7,6 +7,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <Button
+            android:id="@+id/btn_draw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="绘制优化"/>
+
+        <Button
             android:id="@+id/btn_httpResponseCache"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

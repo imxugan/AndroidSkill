@@ -484,6 +484,11 @@
             <!-- </intent-filter> -->
         </activity>
 
+        <activity android:name="test.cn.example.com.androidskill.optimize.DrawOptimizeActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".optimize.SysTraceActivity" android:screenOrientation="portrait"/>
+
         <activity android:name=".hook.HookActivity" android:screenOrientation="portrait"/>
 
         <activity android:name=".hook.BackUpActivity" android:screenOrientation="portrait"/>
