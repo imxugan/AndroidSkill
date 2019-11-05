@@ -489,6 +489,8 @@
 
         <activity android:name=".optimize.SysTraceActivity" android:screenOrientation="portrait"/>
 
+        <activity android:name=".optimize.TraceActivity" android:screenOrientation="portrait"/>
+
         <activity android:name=".hook.HookActivity" android:screenOrientation="portrait"/>
 
         <activity android:name=".hook.BackUpActivity" android:screenOrientation="portrait"/>

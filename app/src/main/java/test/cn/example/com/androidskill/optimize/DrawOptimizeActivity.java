@@ -15,6 +15,7 @@ public class DrawOptimizeActivity extends AppCompatActivity implements View.OnCl
 
         setContentView(R.layout.activity_draw_optimize);
         findViewById(R.id.btn_analysis).setOnClickListener(this);
+        findViewById(R.id.btn_analysis2).setOnClickListener(this);
     }
 
 
@@ -23,6 +24,9 @@ public class DrawOptimizeActivity extends AppCompatActivity implements View.OnCl
         switch (v.getId()){
             case R.id.btn_analysis:
                 startActivity(new Intent(this,SysTraceActivity.class));
+                break;
+            case R.id.btn_analysis2:
+                startActivity(new Intent(this,TraceActivity.class));
                 break;
         }
     }

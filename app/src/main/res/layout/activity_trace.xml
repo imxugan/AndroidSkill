@@ -2,15 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <Button
-        android:id="@+id/btn_analysis"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="绘制性能分析"/>
-
-    <Button
-        android:id="@+id/btn_analysis2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="绘制性能分析2"/>
+        android:text="TraceView 本身只是一个数据分析工具，而数据的采集则需要使用 Android SDK 中的 Debug
+类或者利用 DDMS 工具"/>
 </LinearLayout>
