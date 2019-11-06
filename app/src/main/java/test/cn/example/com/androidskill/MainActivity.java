@@ -20,7 +20,7 @@ import test.cn.example.com.androidskill.designpattern.DesignPatternActivity;
 import test.cn.example.com.androidskill.hook.HookActivity;
 import test.cn.example.com.androidskill.java_about.JavaAboutActivity;
 import test.cn.example.com.androidskill.kotlin.KotlinActivity;
-import test.cn.example.com.androidskill.leak.LeakTestActivity;
+import test.cn.example.com.androidskill.leak.LeakDemoActivity;
 import test.cn.example.com.androidskill.livedatabus.LiveDataBusTestActivity;
 import test.cn.example.com.androidskill.login.view.LoginActivity;
 import test.cn.example.com.androidskill.my_eventbus.MyEventBusTestActivity;
@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 myStartActivity(UIActivity.class,false);
                 break;
             case R.id.tv_leak:
-                myStartActivity(LeakTestActivity .class,false);
+                myStartActivity(LeakDemoActivity.class,false);
                 break;
             case R.id.tv_volley:
                 myStartActivity(MyVolleyTestActivity.class,false);

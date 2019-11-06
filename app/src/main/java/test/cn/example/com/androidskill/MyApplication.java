@@ -6,6 +6,8 @@ import android.support.multidex.MultiDex;
 import android.util.DisplayMetrics;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 
 import org.greenrobot.greendao.database.Database;
 
@@ -24,6 +26,7 @@ import test.cn.example.com.util.LogUtil;
 
 public class MyApplication extends Application {
     public static MyApplication instance;
+    private RefWatcher refWatcher;
     /**
      * A flag to show how easily you can switch from standard SQLite to the encrypted SQLCipher.
      */
@@ -78,6 +81,9 @@ public class MyApplication extends Application {
         super.onCreate();
         instance = this;
         CrashHandler.getInstance().init(this);
+
+        refWatcher= setupLeakCanary();
+
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this,ENCRYPTED ? "notes-db-encrypted" : "notes-db");
         Database db = ENCRYPTED ? helper.getEncryptedWritableDb("super-secret") : helper.getWritableDb();
         daoSession = new DaoMaster(db).newSession();
@@ -101,6 +107,24 @@ public class MyApplication extends Application {
             e.printStackTrace();
         }
 
+    }
+
+    private RefWatcher setupLeakCanary() {
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+
+//            如果当前的进程是用来给LeakCanary 进行堆分析的则return，否则会执行LeakCanary的install方法。
+//            这样我们就可以使用LeakCanary了，如果检测到某个Activity 有内存泄露，LeakCanary 就会给出提示。
+
+            return RefWatcher.DISABLED;
+        }
+        return LeakCanary.install(this);
+    }
+
+    public static RefWatcher getRefWatcher(Context context) {
+        MyApplication leakApplication = (MyApplication) context.getApplicationContext();
+        return leakApplication.refWatcher;
     }
 
     public void setCustomerDensity(MyApplication myApplication) {

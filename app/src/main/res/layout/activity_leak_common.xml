@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="非静态内部类的静态变量持有外部类的实例，引发的内存泄漏,解决方案是，将sLeak这个static变量
+改成非static的"/>
+</LinearLayout>

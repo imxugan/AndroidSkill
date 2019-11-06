@@ -169,4 +169,8 @@ dependencies {
 
     compile 'com.github.ha-excited:BigNews:0.1.2'
 
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.6.1'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.1'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.1'
+
 }
