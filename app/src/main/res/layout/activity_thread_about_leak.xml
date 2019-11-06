@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="线程相关的匿名内部类或非静态内部类的实例持有外部类的引用，如果做
+耗时操作，则就可能发生内存泄漏,解决方式就是将这些线程相关的内部类定义城静态的。"/>
+</LinearLayout>

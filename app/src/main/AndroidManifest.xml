@@ -498,6 +498,8 @@
 
         <activity android:name=".leak.InnerClassLeakActivity"/>
 
+        <activity android:name=".leak.ThreadAboutLeakActivity"/>
+
         <activity android:name=".hook.HookActivity" android:screenOrientation="portrait"/>
 
         <activity android:name=".hook.BackUpActivity" android:screenOrientation="portrait"/>

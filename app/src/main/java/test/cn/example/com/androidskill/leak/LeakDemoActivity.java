@@ -15,6 +15,7 @@ public class LeakDemoActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_leak_demo);
         findViewById(R.id.btn_1).setOnClickListener(this);
         findViewById(R.id.btn_2).setOnClickListener(this);
+        findViewById(R.id.btn_3).setOnClickListener(this);
     }
 
     @Override
@@ -25,6 +26,9 @@ public class LeakDemoActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.btn_2:
                 startActivity(new Intent(LeakDemoActivity.this,LeakTestActivity.class));
+                break;
+            case R.id.btn_3:
+                startActivity(new Intent(this, ThreadAboutLeakActivity.class));
                 break;
         }
     }
