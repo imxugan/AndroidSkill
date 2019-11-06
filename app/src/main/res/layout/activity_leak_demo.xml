@@ -20,4 +20,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="多线程相关的匿名内部类或非静态内部类引起的内存泄漏"/>
+
+    <Button
+        android:id="@+id/btn_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="handler使用不当引起的内存泄漏"/>
 </LinearLayout>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="handler使用不当造成的内存泄漏，handler所在的Activity如果销毁时，
+handler发送的消息仍未被处理，由于message持有handler的引用，而handler持有外部类Activity
+的引用，这样就导致Activity即使销毁，仍然被handler，这样就造成内存泄漏,解决方案是：定义一个静态
+内部类继承自Handler,如果在这个静态内部类内部还需要使用外部类的成员，则需要使用弱引用的方式引用
+外部类的实例"/>
+</LinearLayout>
