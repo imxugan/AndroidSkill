@@ -502,6 +502,8 @@
 
         <activity android:name=".leak.HandlerLeakActivity"/>
 
+        <activity android:name=".leak.StaticViewLeakActivity"/>
+
         <activity android:name=".hook.HookActivity" android:screenOrientation="portrait"/>
 
         <activity android:name=".hook.BackUpActivity" android:screenOrientation="portrait"/>

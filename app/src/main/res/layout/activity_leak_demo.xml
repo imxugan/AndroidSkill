@@ -26,4 +26,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="handler使用不当引起的内存泄漏"/>
+
+    <Button
+        android:id="@+id/btn_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="静态View引起的内存泄漏"/>
 </LinearLayout>
