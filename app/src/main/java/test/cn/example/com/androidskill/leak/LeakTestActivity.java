@@ -22,13 +22,13 @@ public class LeakTestActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_leak);
-//        CommonUtil.getInstance(this);
+        setContentView(R.layout.activity_leak);
+        CommonUtil.getInstance(this);
 
-        ActivityManager manager = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
-        int heapSize = manager.getMemoryClass();
-        LogUtil.i(""+heapSize);//单位是MB
-        setContentView(new MyView(this));
+//        ActivityManager manager = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+//        int heapSize = manager.getMemoryClass();
+//        LogUtil.i(""+heapSize);//单位是MB
+//        setContentView(new MyView(this));
     }
 
     @Override

@@ -17,7 +17,7 @@ public class CommonUtil {
         if(null == instance){
             synchronized (CommonUtil.class){
                 if(null == instance){
-                    instance = new CommonUtil(context);
+                    instance = new CommonUtil(context.getApplicationContext());
                 }
             }
         }
