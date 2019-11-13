@@ -25,9 +25,12 @@ public class LeakTestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_leak);
         CommonUtil.getInstance(this);
 
-//        ActivityManager manager = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
-//        int heapSize = manager.getMemoryClass();
-//        LogUtil.i(""+heapSize);//单位是MB
+        ActivityManager manager = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+        int heapSize = manager.getMemoryClass();
+        LogUtil.i(""+heapSize);//单位是MB
+        //最大分配内存获取方法2
+        float maxMemory = (float) (Runtime.getRuntime().maxMemory() * 1.0/ (1024 * 1024));
+        LogUtil.i(""+maxMemory);
 //        setContentView(new MyView(this));
     }
 
