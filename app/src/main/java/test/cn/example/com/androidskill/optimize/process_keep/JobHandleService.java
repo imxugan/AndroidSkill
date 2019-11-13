@@ -100,9 +100,12 @@ public class JobHandleService extends JobService {
     private JobInfo getJobInfo() {
         JobInfo.Builder builder = new JobInfo.Builder(kJobId++,new ComponentName(this,JobHandleService.class));
         builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY);
+        //重启后是否还要继续执行，此时需要声明权限RECEIVE_BOOT_COMPLETED，
+        // 否则会报错“java.lang.IllegalArgumentException: Error: requested job be persisted without holding RECEIVE_BOOT_COMPLETED permission.”
+        // 而且RECEIVE_BOOT_COMPLETED需要在安装的时候就要声明，如果一开始没声明，而在升级时才声明，那么依然会报权限不足的错误。
         builder.setPersisted(true);
-        builder.setRequiresCharging(false);
-        builder.setRequiresDeviceIdle(false);
+        builder.setRequiresCharging(false);//是否在充电时执行
+        builder.setRequiresDeviceIdle(false);//是否在空闲时执行
         builder.setPeriodic(10);//间隔时间(周期)，实际开发中，要设置很大，否则会很耗电
         return builder.build();
     }
