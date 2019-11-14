@@ -177,6 +177,7 @@
         <activity
             android:name=".java_about.ClassLoaderTestActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".java_about.ReferenceQueueActivity"/>
         <activity
             android:name=".designpattern.SingleInstancePatternActivity"
             android:screenOrientation="portrait" />

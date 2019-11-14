@@ -27,6 +27,7 @@ public class JavaAboutActivity extends AppCompatActivity implements View.OnClick
         findViewById(R.id.propertyChangeSupport).setOnClickListener(this);
         TextView annotation = (TextView) findViewById(R.id.annotation);
         annotation.setOnClickListener(this);
+        findViewById(R.id.referenceQueue).setOnClickListener(this);
     }
 
     @Override
@@ -46,6 +47,9 @@ public class JavaAboutActivity extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.annotation:
                 myStartActivity(AnnotationActivity.class,false);
+                break;
+            case R.id.referenceQueue:
+                myStartActivity(ReferenceQueueActivity.class,false);
                 break;
         }
     }
