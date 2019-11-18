@@ -495,6 +495,8 @@
 
         <activity android:name=".optimize.TraceActivity" android:screenOrientation="portrait"/>
 
+        <activity android:name=".optimize.BitmapOptimizeActivity"/>
+
         <activity android:name=".leak.LeakDemoActivity" android:screenOrientation="portrait"/>
 
         <activity android:name=".leak.InnerClassLeakActivity"/>

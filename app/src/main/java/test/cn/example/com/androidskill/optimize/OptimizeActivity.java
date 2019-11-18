@@ -39,6 +39,7 @@ public class OptimizeActivity extends AppCompatActivity implements View.OnClickL
         findViewById(R.id.btn_intent_service).setOnClickListener(this);
         findViewById(R.id.btn_splash_activity).setOnClickListener(this);
         findViewById(R.id.btn_draw).setOnClickListener(this);
+        findViewById(R.id.btn_bitmap).setOnClickListener(this);
     }
 
     @Override
@@ -76,6 +77,9 @@ public class OptimizeActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.btn_splash_activity:
                 startActivity(new Intent(OptimizeActivity.this,SplashActivityOptimize.class));
+                break;
+            case R.id.btn_bitmap:
+                startActivity(new Intent(OptimizeActivity.this,BitmapOptimizeActivity.class));
                 break;
         }
     }
