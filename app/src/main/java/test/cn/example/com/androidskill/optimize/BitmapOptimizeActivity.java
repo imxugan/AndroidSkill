@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.view.View;
 
 import test.cn.example.com.androidskill.R;
@@ -36,6 +37,29 @@ public class BitmapOptimizeActivity extends AppCompatActivity implements View.On
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher, options);
         int byteCount = bitmap.getByteCount();
         LogUtil.i("width=   "+bitmap.getWidth()+"   height="+bitmap.getHeight()+"   byteCount="+byteCount);
+    }
+
+    private void caculateBitmapSize(){
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher,options);
+        options.inScaled = true;
+        options.inSampleSize = caculateInSampleSize(30,30);
+        options.inDensity = options.outWidth;
+        options.inTargetDensity = 30*options.inSampleSize;
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher, options);
+        LogUtil.i("width=   "+bitmap.getWidth()+"   height="+bitmap.getHeight()+"   byteCount="+bitmap.getByteCount());
+    }
+
+    private void caculateBitmapSize2(){
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher,options);
+        options.inScaled = true;
+        options.inSampleSize = caculateInSampleSize(30,30);
+        options.inDensity = DisplayMetrics.DENSITY_DEFAULT;
+        options.inTargetDensity = DisplayMetrics.DENSITY_DEFAULT;
+        LogUtil.i("options.inDensity=   "+options.inDensity);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher, options);
+        LogUtil.i("width=   "+bitmap.getWidth()+"   height="+bitmap.getHeight()+"   byteCount="+bitmap.getByteCount());
     }
 
     private int caculateInSampleSize(int reqWidth,int reqHeight){
@@ -71,6 +95,11 @@ public class BitmapOptimizeActivity extends AppCompatActivity implements View.On
                 caculateBitmapSize(caculateInSampleSize(80,80));
                 caculateBitmapSize(caculateInSampleSize(50,50));
                 caculateBitmapSize(caculateInSampleSize(30,30));
+
+                LogUtil.i("========================");
+                caculateBitmapSize();
+                LogUtil.i("========================");
+                caculateBitmapSize2();
                 break;
         }
     }
