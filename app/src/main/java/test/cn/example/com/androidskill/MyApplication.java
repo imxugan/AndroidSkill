@@ -6,6 +6,7 @@ import android.support.multidex.MultiDex;
 import android.util.DisplayMetrics;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
@@ -82,6 +83,8 @@ public class MyApplication extends Application {
         instance = this;
         CrashHandler.getInstance().init(this);
 
+        Fresco.initialize(this);
+
         refWatcher= setupLeakCanary();
 
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this,ENCRYPTED ? "notes-db-encrypted" : "notes-db");
@@ -106,6 +109,7 @@ public class MyApplication extends Application {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
 
     }
 
