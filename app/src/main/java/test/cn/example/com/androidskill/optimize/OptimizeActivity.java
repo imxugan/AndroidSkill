@@ -13,6 +13,7 @@ import test.cn.example.com.androidskill.optimize.handler_thread.IntentServiceAct
 import test.cn.example.com.androidskill.optimize.hotfix.HotFixActivity;
 import test.cn.example.com.androidskill.optimize.httpresponsecache.HttpResponseCacheActivity;
 import test.cn.example.com.androidskill.optimize.myhandler.MyHandlerTestActivity;
+import test.cn.example.com.androidskill.optimize.bitmap.BitmapOptimizeActivity;
 import test.cn.example.com.androidskill.optimize.process_keep.KeepProcessActivity;
 import test.cn.example.com.androidskill.optimize.service_keep.KeepLiveActivity;
 import test.cn.example.com.androidskill.optimize.service_keep.MyService;
@@ -79,7 +80,7 @@ public class OptimizeActivity extends AppCompatActivity implements View.OnClickL
                 startActivity(new Intent(OptimizeActivity.this,SplashActivityOptimize.class));
                 break;
             case R.id.btn_bitmap:
-                startActivity(new Intent(OptimizeActivity.this,BitmapOptimizeActivity.class));
+                startActivity(new Intent(OptimizeActivity.this, BitmapOptimizeActivity.class));
                 break;
         }
     }

@@ -496,9 +496,13 @@
 
         <activity android:name=".optimize.TraceActivity" android:screenOrientation="portrait"/>
 
-        <activity android:name=".optimize.BitmapOptimizeActivity"/>
+        <activity android:name=".optimize.bitmap.BitmapOptimizeActivity"/>
 
-        <activity android:name=".optimize.TestMyImageLoaderActivity"/>
+        <activity android:name=".optimize.bitmap.TestMyImageLoaderActivity"/>
+
+        <activity android:name=".optimize.bitmap.FrescoDemoActivity"/>
+
+        <activity android:name=".optimize.bitmap.GlideDemoActivity"/>
 
         <activity android:name=".leak.LeakDemoActivity" android:screenOrientation="portrait"/>
 

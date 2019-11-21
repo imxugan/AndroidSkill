@@ -1,8 +1,6 @@
-package test.cn.example.com.androidskill.optimize;
+package test.cn.example.com.androidskill.optimize.bitmap;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,22 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.facebook.common.executors.CallerThreadExecutor;
-import com.facebook.common.references.CloseableReference;
-import com.facebook.datasource.DataSource;
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
-import com.facebook.drawee.drawable.ProgressBarDrawable;
-import com.facebook.drawee.generic.GenericDraweeHierarchy;
-import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
-import com.facebook.drawee.view.DraweeHolder;
-import com.facebook.drawee.view.SimpleDraweeView;
-import com.facebook.imagepipeline.core.ImagePipeline;
-import com.facebook.imagepipeline.datasource.BaseBitmapDataSubscriber;
-import com.facebook.imagepipeline.image.CloseableImage;
-import com.facebook.imagepipeline.request.ImageRequest;
-import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,16 +37,6 @@ public class TestMyImageLoaderActivity extends AppCompatActivity {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
-
-        iv = findViewById(R.id.iv);
-        Uri uri = Uri.parse("http://b.hiphotos.baidu.com/zhidao/pic/item/a6efce1b9d16fdfafee0cfb5b68f8c5495ee7bd8.jpg");
-        downLoadImg(uri);
-
-        Uri uri_2 = Uri.parse("https://raw.githubusercontent.com/facebook/fresco/gh-pages/static/logo.png");
-        SimpleDraweeView draweeView =  findViewById(R.id.my_image_view);
-        draweeView.setImageURI(uri_2);
-
-
     }
 
     private void initData() {
@@ -111,41 +83,7 @@ public class TestMyImageLoaderActivity extends AppCompatActivity {
         }
     }
 
-    private void downLoadImg(Uri uri) {
-        ImageRequest imageRequest = ImageRequestBuilder.newBuilderWithSource(uri).setProgressiveRenderingEnabled(true).build();
-        ImagePipeline imagePipeline = Fresco.getImagePipeline();
-        DataSource<CloseableReference<CloseableImage>> dataSource = imagePipeline.fetchDecodedImage(imageRequest, this);
-        dataSource.subscribe(new BaseBitmapDataSubscriber() {
-            @Override
-            public void onNewResultImpl(@Nullable Bitmap bitmap) {
-                LogUtil.i(" "+bitmap);
-                //bitmap即为下载所得图片
-                iv.setImageBitmap(bitmap);
-            }
-
-            @Override
-            public void onFailureImpl(DataSource dataSource) {
-                LogUtil.i("down load  failed ");
-            }
-        }, CallerThreadExecutor.getInstance());
-
-        GenericDraweeHierarchy hierarchy = new GenericDraweeHierarchyBuilder(getResources())
-                .setFadeDuration(300)
-//                .setPlaceholderImage(defaultDrawable)
-//                .setFailureImage(defaultDrawable)
-                .setProgressBarImage(new ProgressBarDrawable())
-                .build();
-        DraweeHolder<GenericDraweeHierarchy> draweeHolder = DraweeHolder.create(hierarchy, this);
-
-        PipelineDraweeController controller = (PipelineDraweeController) Fresco.newDraweeControllerBuilder()
-                .setOldController(draweeHolder.getController())
-                .setImageRequest(imageRequest)
-                .build();
-        controller.onClick();
-    }
-
     public static class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
-
         private final Context mContext;
         private final List<String> mData;
         private final ImageLoader mImageLoader;

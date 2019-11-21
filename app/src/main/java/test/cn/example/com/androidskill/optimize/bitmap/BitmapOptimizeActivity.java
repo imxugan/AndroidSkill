@@ -1,4 +1,4 @@
-package test.cn.example.com.androidskill.optimize;
+package test.cn.example.com.androidskill.optimize.bitmap;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -20,6 +20,8 @@ public class BitmapOptimizeActivity extends AppCompatActivity implements View.On
         findViewById(R.id.btn_1).setOnClickListener(this);
         findViewById(R.id.btn_2).setOnClickListener(this);
         findViewById(R.id.btn_3).setOnClickListener(this);
+        findViewById(R.id.btn_4).setOnClickListener(this);
+        findViewById(R.id.btn_5).setOnClickListener(this);
 
 
     }
@@ -104,7 +106,13 @@ public class BitmapOptimizeActivity extends AppCompatActivity implements View.On
                 caculateBitmapSize2();
                 break;
             case R.id.btn_3:
-                startActivity(new Intent(this,TestMyImageLoaderActivity.class));
+                startActivity(new Intent(this, TestMyImageLoaderActivity.class));
+                break;
+            case R.id.btn_4:
+                startActivity(new Intent(this,FrescoDemoActivity.class));
+                break;
+            case R.id.btn_5:
+                startActivity(new Intent(this,GlideDemoActivity.class));
                 break;
         }
     }

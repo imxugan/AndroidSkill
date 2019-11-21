@@ -20,4 +20,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="自定义ImageLoader"/>
+
+    <Button
+        android:id="@+id/btn_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fresco使用"/>
+
+    <Button
+        android:id="@+id/btn_5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Glide使用"/>
 </LinearLayout>

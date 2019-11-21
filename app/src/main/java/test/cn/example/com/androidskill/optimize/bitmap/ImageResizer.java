@@ -1,4 +1,4 @@
-package test.cn.example.com.androidskill.optimize;
+package test.cn.example.com.androidskill.optimize.bitmap;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
