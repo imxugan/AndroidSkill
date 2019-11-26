@@ -12,12 +12,15 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.target.ViewTarget;
 
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.util.LogUtil;
+import test.cn.example.com.util.ToastUtils;
 
 public class GlideDemoActivity2 extends AppCompatActivity implements View.OnClickListener {
 
@@ -69,6 +72,19 @@ public class GlideDemoActivity2 extends AppCompatActivity implements View.OnClic
                 url3 = "https://up.sc.enterdesk.com/edpic/48/50/9a/48509af259f37cd8b9371c124f26f508.jpg";
                 Glide.with(this).load(url3)
                         .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                        .listener(new RequestListener<String, GlideDrawable>() {
+                            @Override
+                            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                                ToastUtils.shortToast(GlideDemoActivity2.this,"图片预加载失败");
+                                return false;//注意，这里返回false，Target的onLoadFailed()方法才能执行
+                            }
+
+                            @Override
+                            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                                ToastUtils.shortToast(GlideDemoActivity2.this,"图片预加载成功");
+                                return false;//注意，这里返回false，Target的onResourceReady方法才能执行
+                            }
+                        })
                         .preload();
                 break;
             case R.id.btn_4:
