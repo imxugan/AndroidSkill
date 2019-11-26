@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.FutureTarget;
 import com.bumptech.glide.request.Request;
@@ -50,6 +51,7 @@ public class GlideDemoActivity2 extends AppCompatActivity implements View.OnClic
         findViewById(R.id.btn_4).setOnClickListener(this);
         findViewById(R.id.btn_5).setOnClickListener(this);
         findViewById(R.id.btn_6).setOnClickListener(this);
+        findViewById(R.id.btn_7).setOnClickListener(this);
         iv = findViewById(R.id.iv);
         iv_1 = findViewById(R.id.iv_1);
         iv_2 = findViewById(R.id.iv_2);
@@ -110,6 +112,44 @@ public class GlideDemoActivity2 extends AppCompatActivity implements View.OnClic
                 String url5 = "https://www.dadijh.com/uploads/allimg/181015/5-1Q01521091D32.jpg";
                 Glide.with(this).load(url5).downloadOnly(new MyFutureTarget());
                 break;
+            case R.id.btn_7:
+                //原始地址是 https://up.sc.enterdesk.com/edpic/19/2a/90/192a907b722a2a65343e74bba9da5fde.jpg
+                //故意在地址后面加了一个token
+                String urlToken = "https://up.sc.enterdesk.com/edpic/19/2a/90/192a907b722a2a65343e74bba9da5fde.jpg?token=12456";
+                MyGlideUrl myGlideUrl = new MyGlideUrl(urlToken);
+                LogUtil.i(myGlideUrl.getCacheKey());
+                Glide.with(this).load(myGlideUrl).into(iv_3);
+                break;
+        }
+    }
+
+    class MyGlideUrl extends GlideUrl{
+
+        private final String mUrl;
+
+        public MyGlideUrl(String url) {
+            super(url);
+            mUrl = url;
+        }
+
+        @Override
+        public String getCacheKey() {
+            return handleUrl();
+        }
+
+        private String handleUrl() {
+            String tokenParam = "";
+            int tokenKeyIndex = mUrl.indexOf("?token=") >= 0 ? mUrl.indexOf("?token=") : mUrl.indexOf("&token=");
+            if (tokenKeyIndex != -1) {
+                int nextAndIndex = mUrl.indexOf("&", tokenKeyIndex + 1);
+                if (nextAndIndex != -1) {
+                    tokenParam = mUrl.substring(tokenKeyIndex + 1, nextAndIndex + 1);
+                } else {
+                    tokenParam = mUrl.substring(tokenKeyIndex);
+                }
+            }
+            LogUtil.i(tokenParam);
+            return mUrl.replace(tokenParam,"");
         }
     }
 
