@@ -1,8 +1,10 @@
 package test.cn.example.com.androidskill.optimize.bitmap;
 
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,12 +14,21 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.FutureTarget;
+import com.bumptech.glide.request.Request;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.SizeReadyCallback;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.target.ViewTarget;
 
+import java.io.File;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
+import test.cn.example.com.androidskill.MyApplication;
 import test.cn.example.com.androidskill.R;
 import test.cn.example.com.util.LogUtil;
 import test.cn.example.com.util.ToastUtils;
@@ -93,11 +104,116 @@ public class GlideDemoActivity2 extends AppCompatActivity implements View.OnClic
                         .into(iv_2);
                 break;
             case R.id.btn_5:
-
+                new Thread(new MyRunnable()).start();
                 break;
             case R.id.btn_6:
-
+                String url5 = "https://www.dadijh.com/uploads/allimg/181015/5-1Q01521091D32.jpg";
+                Glide.with(this).load(url5).downloadOnly(new MyFutureTarget());
                 break;
+        }
+    }
+
+    static class MyRunnable implements Runnable{
+        @Override
+        public void run() {
+            final String url4 = "https://up.sc.enterdesk.com/edpic/43/e3/e9/43e3e9b90e43a44150fcde59b85c0ec9.png";
+            FutureTarget<File> fileFutureTarget = Glide.with(MyApplication.getInstance()).load(url4).downloadOnly(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL);
+            File file = null;
+            try {
+                //fileFutureTarget.get()这个方法是阻塞线程的，所以要在子线程中调用
+                file = fileFutureTarget.get();
+                if(null != file){
+                    LogUtil.i(file.getAbsolutePath());
+                }
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    class MyFutureTarget implements FutureTarget<File> {
+
+        @Override
+        public void clear() {
+
+        }
+
+        @Override
+        public void onLoadStarted(Drawable placeholder) {
+
+        }
+
+        @Override
+        public void onLoadFailed(Exception e, Drawable errorDrawable) {
+
+        }
+
+        @Override
+        public void onResourceReady(File resource, GlideAnimation<? super File> glideAnimation) {
+            LogUtil.i(resource.getAbsolutePath());
+        }
+
+        @Override
+        public void onLoadCleared(Drawable placeholder) {
+
+        }
+
+        @Override
+        public void getSize(SizeReadyCallback cb) {
+            //这个方法也需要自己实现
+            cb.onSizeReady(Target.SIZE_ORIGINAL,Target.SIZE_ORIGINAL);
+        }
+
+        @Override
+        public void setRequest(Request request) {
+
+        }
+
+        @Override
+        public Request getRequest() {
+            return null;
+        }
+
+        @Override
+        public void onStart() {
+
+        }
+
+        @Override
+        public void onStop() {
+
+        }
+
+        @Override
+        public void onDestroy() {
+
+        }
+
+        @Override
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            return false;
+        }
+
+        @Override
+        public boolean isCancelled() {
+            return false;
+        }
+
+        @Override
+        public boolean isDone() {
+            return false;
+        }
+
+        @Override
+        public File get() throws ExecutionException, InterruptedException {
+            return null;
+        }
+
+        @Override
+        public File get(long timeout, @NonNull TimeUnit unit) throws ExecutionException, InterruptedException, TimeoutException {
+            return null;
         }
     }
 

@@ -31,13 +31,13 @@
         android:id="@+id/btn_5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="指定显示一张静态图片(图片是动图)"/>
+        android:text="downloadOnly(int width, int height)方法使用"/>
 
     <Button
         android:id="@+id/btn_6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="指定显示图片的大小"/>
+        android:text="downloadOnly(Y target)方法使用"/>
     <ImageView
         android:id="@+id/iv"
         android:layout_width="match_parent"
