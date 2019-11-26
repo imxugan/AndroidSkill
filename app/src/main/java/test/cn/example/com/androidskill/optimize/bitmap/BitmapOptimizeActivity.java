@@ -22,6 +22,7 @@ public class BitmapOptimizeActivity extends AppCompatActivity implements View.On
         findViewById(R.id.btn_3).setOnClickListener(this);
         findViewById(R.id.btn_4).setOnClickListener(this);
         findViewById(R.id.btn_5).setOnClickListener(this);
+        findViewById(R.id.btn_6).setOnClickListener(this);
 
 
     }
@@ -113,6 +114,9 @@ public class BitmapOptimizeActivity extends AppCompatActivity implements View.On
                 break;
             case R.id.btn_5:
                 startActivity(new Intent(this,GlideDemoActivity.class));
+                break;
+            case R.id.btn_6:
+                startActivity(new Intent(this,GlideDemoActivity2.class));
                 break;
         }
     }

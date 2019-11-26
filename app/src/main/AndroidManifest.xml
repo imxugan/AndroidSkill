@@ -504,6 +504,8 @@
 
         <activity android:name=".optimize.bitmap.GlideDemoActivity"/>
 
+        <activity android:name=".optimize.bitmap.GlideDemoActivity2"/>
+
         <activity android:name=".leak.LeakDemoActivity" android:screenOrientation="portrait"/>
 
         <activity android:name=".leak.InnerClassLeakActivity"/>
