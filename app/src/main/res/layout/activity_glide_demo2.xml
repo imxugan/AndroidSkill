@@ -19,13 +19,13 @@
         android:id="@+id/btn_3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="指定显示一张gif图片(图片是静图)"/>
+        android:text="preLoad()方法的使用"/>
 
     <Button
         android:id="@+id/btn_4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="指定显示一张静态图片(图片是静图)"/>
+        android:text="显示preLoad()方法缓存的图片,，注意在点击按钮时，等几秒钟"/>
 
     <Button
         android:id="@+id/btn_5"

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -22,6 +23,7 @@ public class GlideDemoActivity2 extends AppCompatActivity implements View.OnClic
 
     private ImageView iv,iv_1,iv_2,iv_3,iv_4,iv_5;
     private Button btn_2;
+    private String url3;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,10 +66,15 @@ public class GlideDemoActivity2 extends AppCompatActivity implements View.OnClic
                         .into(new MyViewTarget(btn_2));
                 break;
             case R.id.btn_3:
-
+                url3 = "https://up.sc.enterdesk.com/edpic/48/50/9a/48509af259f37cd8b9371c124f26f508.jpg";
+                Glide.with(this).load(url3)
+                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                        .preload();
                 break;
             case R.id.btn_4:
-
+                Glide.with(this).load(url3)
+                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                        .into(iv_2);
                 break;
             case R.id.btn_5:
 
