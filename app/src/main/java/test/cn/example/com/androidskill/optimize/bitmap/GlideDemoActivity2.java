@@ -1,6 +1,12 @@
 package test.cn.example.com.androidskill.optimize.bitmap;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.RectF;
+import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,7 +19,9 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.FutureTarget;
 import com.bumptech.glide.request.Request;
@@ -39,6 +47,7 @@ public class GlideDemoActivity2 extends AppCompatActivity implements View.OnClic
     private ImageView iv,iv_1,iv_2,iv_3,iv_4,iv_5;
     private Button btn_2;
     private String url3;
+    private String cropUrl;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,6 +61,8 @@ public class GlideDemoActivity2 extends AppCompatActivity implements View.OnClic
         findViewById(R.id.btn_5).setOnClickListener(this);
         findViewById(R.id.btn_6).setOnClickListener(this);
         findViewById(R.id.btn_7).setOnClickListener(this);
+        findViewById(R.id.btn_8).setOnClickListener(this);
+        findViewById(R.id.btn_9).setOnClickListener(this);
         iv = findViewById(R.id.iv);
         iv_1 = findViewById(R.id.iv_1);
         iv_2 = findViewById(R.id.iv_2);
@@ -120,6 +131,78 @@ public class GlideDemoActivity2 extends AppCompatActivity implements View.OnClic
                 LogUtil.i(myGlideUrl.getCacheKey());
                 Glide.with(this).load(myGlideUrl).into(iv_3);
                 break;
+            case R.id.btn_8:
+                LogUtil.i("iv.getScaleType()=   "+iv.getScaleType());
+                cropUrl = "https://up.sc.enterdesk.com/edpic/ad/52/78/ad5278b2b0f1b4c83c786e82165631ce.jpg";
+//                cropUrl = "https://www.baidu.com/img/bd_logo1.png";
+                Glide.with(this).load(cropUrl)
+                        .skipMemoryCache(true)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .into(iv);
+                break;
+            case R.id.btn_9:
+                Glide.with(this).load(cropUrl)
+                        .skipMemoryCache(true)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .listener(new RequestListener<String, GlideDrawable>() {
+                            @Override
+                            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                                LogUtil.i("图片加载失败  "+((e!=null)?e.getMessage():""));
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                                LogUtil.i("图片加载成功");
+                                return false;
+                            }
+                        })
+                        .transform(new RoundCornerCrop(this,100,0))
+                        .into(iv);
+                break;
+        }
+    }
+
+    class RoundCornerCrop extends BitmapTransformation {
+        private int radius;
+        private int margin;
+
+        public RoundCornerCrop(Context context) {
+            super(context);
+        }
+
+        public RoundCornerCrop(Context context,int radius,int margin){
+            this(context);
+            this.radius = radius;
+            this.margin = margin;
+        }
+
+        @Override
+        protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
+            LogUtil.i(""+toTransform);
+            int width = toTransform.getWidth();
+            int height = toTransform.getHeight();
+            Bitmap bitmap = pool.get(width,height,Bitmap.Config.ARGB_8888);
+            if(null == bitmap){
+                bitmap = Bitmap.createBitmap(width,height,Bitmap.Config.ARGB_8888);
+            }
+            LogUtil.i(""+bitmap);
+            bitmap.setHasAlpha(true);
+            bitmap.setDensity(toTransform.getDensity());
+            Canvas canvas = new Canvas(bitmap);
+            Paint paint  = new Paint();
+            paint.setAntiAlias(true);
+            paint.setShader(new BitmapShader(toTransform, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP));
+            float right = width - margin;
+            float bottom = height - margin;
+            canvas.drawRoundRect(new RectF(margin,margin,right,bottom),radius,radius,paint);
+
+            return bitmap;
+        }
+
+        @Override
+        public String getId() {
+            return "test.cn.example.com.androidskill.optimize.bitmap.GlideDemoActivity2.RoundCornerCrop";
         }
     }
 
