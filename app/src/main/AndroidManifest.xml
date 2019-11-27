@@ -506,6 +506,11 @@
 
         <activity android:name=".optimize.bitmap.GlideDemoActivity2"/>
 
+        <activity android:name=".optimize.bitmap.GlideDemoActivity3"/>
+
+        <meta-data android:name="test.cn.example.com.androidskill.optimize.bitmap.MyGlideModule"
+            android:value="GlideModule"/>
+
         <activity android:name=".leak.LeakDemoActivity" android:screenOrientation="portrait"/>
 
         <activity android:name=".leak.InnerClassLeakActivity"/>
