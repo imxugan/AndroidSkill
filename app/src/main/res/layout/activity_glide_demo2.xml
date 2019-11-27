@@ -7,66 +7,100 @@
         android:id="@+id/btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/sp12"
         android:text="自定义Target继承自SimpleTarget"/>
 
     <Button
         android:id="@+id/btn_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/sp12"
         android:text="自定义Target继承自ViewTarget"/>
 
     <Button
         android:id="@+id/btn_3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/sp12"
         android:text="preLoad()方法的使用"/>
 
     <Button
         android:id="@+id/btn_4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/sp12"
         android:text="显示preLoad()方法缓存的图片,，注意在点击按钮时，等几秒钟"/>
 
     <Button
         android:id="@+id/btn_5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/sp12"
         android:text="downloadOnly(int width, int height)方法使用"/>
 
     <Button
         android:id="@+id/btn_6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/sp12"
         android:text="downloadOnly(Y target)方法使用"/>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
     <Button
         android:id="@+id/btn_7"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/sp10"
         android:text="自定义GlideUrl"/>
+
+    <Button
+        android:id="@+id/btn_8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp10"
+        android:text="默认裁剪fitCenter()"/>
+
+    <Button
+        android:id="@+id/btn_9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp10"
+        android:text="centerCrop()"/>
+</LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <Button
-            android:id="@+id/btn_8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="默认裁剪"/>
 
         <Button
-            android:id="@+id/btn_9"
+            android:id="@+id/btn_10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp10"
-            android:text="自定义图片裁剪"/>
+            android:textSize="@dimen/sp10"
+            android:text="自定义图片裁剪(rondcorner)"/>
+
+        <Button
+            android:id="@+id/btn_11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp10"
+            android:textSize="@dimen/sp10"
+            android:text="自定义图片裁剪(circle)"/>
     </LinearLayout>
 
+<LinearLayout
+    android:id="@+id/ll_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
-    <ImageView
-        android:id="@+id/iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+</LinearLayout>
+
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="100dp"

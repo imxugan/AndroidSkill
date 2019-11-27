@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Shader;
@@ -16,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -46,13 +48,17 @@ public class GlideDemoActivity2 extends AppCompatActivity implements View.OnClic
 
     private ImageView iv,iv_1,iv_2,iv_3,iv_4,iv_5;
     private Button btn_2;
-    private String url3;
-    private String cropUrl;
+    private String url3 = "https://up.sc.enterdesk.com/edpic/48/50/9a/48509af259f37cd8b9371c124f26f508.jpg";
+    private String cropUrl = "https://up.sc.enterdesk.com/edpic/ad/52/78/ad5278b2b0f1b4c83c786e82165631ce.jpg";
+    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT);
+    private LinearLayout ll_root;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_glide_demo2);
+        ll_root = findViewById(R.id.ll_root);
         findViewById(R.id.btn).setOnClickListener(this);
         btn_2 = findViewById(R.id.btn_2);
         btn_2.setOnClickListener(this);
@@ -63,6 +69,8 @@ public class GlideDemoActivity2 extends AppCompatActivity implements View.OnClic
         findViewById(R.id.btn_7).setOnClickListener(this);
         findViewById(R.id.btn_8).setOnClickListener(this);
         findViewById(R.id.btn_9).setOnClickListener(this);
+        findViewById(R.id.btn_10).setOnClickListener(this);
+        findViewById(R.id.btn_11).setOnClickListener(this);
         iv = findViewById(R.id.iv);
         iv_1 = findViewById(R.id.iv_1);
         iv_2 = findViewById(R.id.iv_2);
@@ -76,6 +84,7 @@ public class GlideDemoActivity2 extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn:
+                reset();
                 LogUtil.i(""+this);
                 String url = "https://up.sc.enterdesk.com/edpic/22/07/6a/22076abeaf3109f12194502ea001fa58.jpg";
                 Glide.with(this)
@@ -93,7 +102,6 @@ public class GlideDemoActivity2 extends AppCompatActivity implements View.OnClic
                         .into(new MyViewTarget(btn_2));
                 break;
             case R.id.btn_3:
-                url3 = "https://up.sc.enterdesk.com/edpic/48/50/9a/48509af259f37cd8b9371c124f26f508.jpg";
                 Glide.with(this).load(url3)
                         .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                         .listener(new RequestListener<String, GlideDrawable>() {
@@ -132,15 +140,25 @@ public class GlideDemoActivity2 extends AppCompatActivity implements View.OnClic
                 Glide.with(this).load(myGlideUrl).into(iv_3);
                 break;
             case R.id.btn_8:
+                reset();
                 LogUtil.i("iv.getScaleType()=   "+iv.getScaleType());
-                cropUrl = "https://up.sc.enterdesk.com/edpic/ad/52/78/ad5278b2b0f1b4c83c786e82165631ce.jpg";
-//                cropUrl = "https://www.baidu.com/img/bd_logo1.png";
                 Glide.with(this).load(cropUrl)
                         .skipMemoryCache(true)
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .fitCenter()
                         .into(iv);
                 break;
             case R.id.btn_9:
+                reset();
+                LogUtil.i("iv.getScaleType()=   "+iv.getScaleType());
+                Glide.with(this).load(cropUrl)
+                        .skipMemoryCache(true)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .centerCrop()
+                        .into(iv);
+                break;
+            case R.id.btn_10:
+                reset();
                 Glide.with(this).load(cropUrl)
                         .skipMemoryCache(true)
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -158,8 +176,87 @@ public class GlideDemoActivity2 extends AppCompatActivity implements View.OnClic
                             }
                         })
                         .transform(new RoundCornerCrop(this,100,0))
+//                        .bitmapTransform(new CircleCrop(this))
                         .into(iv);
                 break;
+            case R.id.btn_11:
+                reset();
+                Glide.with(this).load(cropUrl)
+                        .skipMemoryCache(true)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .listener(new RequestListener<String, GlideDrawable>() {
+                            @Override
+                            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                                LogUtil.i("图片加载失败  "+((e!=null)?e.getMessage():""));
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                                LogUtil.i("图片加载成功");
+                                return false;
+                            }
+                        })
+                        .bitmapTransform(new CircleCrop(this))
+                        .into(iv);
+                break;
+        }
+    }
+
+    private void reset() {
+        ll_root.removeView(iv);
+        iv = new ImageView(this);
+        iv.setLayoutParams(layoutParams);
+        ll_root.addView(iv);
+    }
+
+    public class CircleCrop extends BitmapTransformation {
+
+        public CircleCrop(Context context) {
+            super(context);
+        }
+
+        public CircleCrop(BitmapPool bitmapPool) {
+            super(bitmapPool);
+        }
+
+        @Override
+        public String getId() {
+            return "test.cn.example.com.androidskill.optimize.bitmap.GlideDemoActivity2.CircleCrop";
+        }
+
+        @Override
+        protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
+            int diameter = Math.min(toTransform.getWidth(), toTransform.getHeight());
+
+            final Bitmap toReuse = pool.get(outWidth, outHeight, Bitmap.Config.ARGB_8888);
+            final Bitmap result;
+            if (toReuse != null) {
+                result = toReuse;
+            } else {
+                result = Bitmap.createBitmap(diameter, diameter, Bitmap.Config.ARGB_8888);
+            }
+
+            int dx = (toTransform.getWidth() - diameter) / 2;
+            int dy = (toTransform.getHeight() - diameter) / 2;
+            Canvas canvas = new Canvas(result);
+            Paint paint = new Paint();
+            BitmapShader shader = new BitmapShader(toTransform, BitmapShader.TileMode.CLAMP,
+                    BitmapShader.TileMode.CLAMP);
+            if (dx != 0 || dy != 0) {
+                Matrix matrix = new Matrix();
+                matrix.setTranslate(-dx, -dy);
+                shader.setLocalMatrix(matrix);
+            }
+            paint.setShader(shader);
+            paint.setAntiAlias(true);
+            float radius = diameter / 2f;
+            canvas.drawCircle(radius, radius, radius, paint);
+
+            if (toReuse != null && !pool.put(toReuse)) {
+                toReuse.recycle();
+            }
+            return result;
         }
     }
 
