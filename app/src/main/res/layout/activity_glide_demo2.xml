@@ -3,47 +3,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <Button
-        android:id="@+id/btn"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/sp12"
-        android:text="自定义Target继承自SimpleTarget"/>
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp12"
+            android:text="自定义Target继承自SimpleTarget"/>
 
-    <Button
-        android:id="@+id/btn_2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/sp12"
-        android:text="自定义Target继承自ViewTarget"/>
+        <Button
+            android:id="@+id/btn_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp12"
+            android:text="自定义Target继承自ViewTarget"/>
 
-    <Button
-        android:id="@+id/btn_3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/sp12"
-        android:text="preLoad()方法的使用"/>
+        <Button
+            android:id="@+id/btn_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp12"
+            android:text="preLoad()方法的使用"/>
 
-    <Button
-        android:id="@+id/btn_4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/sp12"
-        android:text="显示preLoad()方法缓存的图片,，注意在点击按钮时，等几秒钟"/>
+        <Button
+            android:id="@+id/btn_4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp12"
+            android:text="显示preLoad()方法缓存的图片,，注意在点击按钮时，等几秒钟"/>
 
-    <Button
-        android:id="@+id/btn_5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/sp12"
-        android:text="downloadOnly(int width, int height)方法使用"/>
+        <Button
+            android:id="@+id/btn_5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp12"
+            android:text="downloadOnly(int width, int height)方法使用"/>
 
-    <Button
-        android:id="@+id/btn_6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/sp12"
-        android:text="downloadOnly(Y target)方法使用"/>
+        <Button
+            android:id="@+id/btn_6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp12"
+            android:text="downloadOnly(Y target)方法使用"/>
+    </LinearLayout>
+
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
