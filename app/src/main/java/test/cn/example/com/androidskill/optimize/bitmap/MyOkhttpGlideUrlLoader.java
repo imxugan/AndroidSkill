@@ -35,7 +35,9 @@ public class MyOkhttpGlideUrlLoader implements ModelLoader<GlideUrl, InputStream
 
         private synchronized  OkHttpClient getOkHttpClient(){
             if(null == mClient){
-                mClient = new OkHttpClient();
+                OkHttpClient.Builder builder = new OkHttpClient.Builder();
+                builder.addInterceptor(new MyProgressInterceptor());
+                mClient = builder.build();
             }
             return mClient;
         }

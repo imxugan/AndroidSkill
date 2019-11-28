@@ -1,5 +1,7 @@
 package test.cn.example.com.androidskill.optimize.bitmap;
 
+import android.app.ProgressDialog;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +14,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.bumptech.glide.request.target.Target;
 
 import test.cn.example.com.androidskill.R;
@@ -22,7 +26,6 @@ public class GlideDemoActivity3 extends AppCompatActivity implements View.OnClic
 
     private ImageView iv;
     private Button btn_2;
-    private String url3 = "https://up.sc.enterdesk.com/edpic/48/50/9a/48509af259f37cd8b9371c124f26f508.jpg";
     LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
             LinearLayout.LayoutParams.WRAP_CONTENT);
     private LinearLayout ll_root;
@@ -80,22 +83,49 @@ public class GlideDemoActivity3 extends AppCompatActivity implements View.OnClic
                         .into(iv);
                 break;
             case R.id.btn_3:
+                reset();
+                final ProgressDialog progressDialog = new ProgressDialog(this);
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+
+//                String url3 = "https://up.sc.enterdesk.com/edpic/80/59/8e/80598e308a20df77cfcb70163cfd977a.jpg";
+                final String url3 = "https://up.sc.enterdesk.com/edpic/fb/6a/4c/fb6a4c2e7c044a22d785a18a01b8b6d1.jpg";
+                MyProgressInterceptor.addListener(url3, new MyProgressListener() {
+                    @Override
+                    public void onProgress(int progress) {
+                        progressDialog.setProgress(progress);
+                    }
+                });
                 Glide.with(this).load(url3)
-                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                        .skipMemoryCache(true)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .listener(new RequestListener<String, GlideDrawable>() {
                             @Override
                             public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                                ToastUtils.shortToast(GlideDemoActivity3.this,"图片预加载失败");
+                                ToastUtils.shortToast(GlideDemoActivity3.this,"图片加载失败");
                                 return false;//注意，这里返回false，Target的onLoadFailed()方法才能执行
                             }
 
                             @Override
                             public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                                ToastUtils.shortToast(GlideDemoActivity3.this,"图片预加载成功");
+                                ToastUtils.shortToast(GlideDemoActivity3.this,"图片加载成功");
                                 return false;//注意，这里返回false，Target的onResourceReady方法才能执行
                             }
                         })
-                        .preload();
+                        .into(new GlideDrawableImageViewTarget(iv){
+                            @Override
+                            public void onLoadStarted(Drawable placeholder) {
+                                super.onLoadStarted(placeholder);
+                                progressDialog.show();
+                            }
+
+                            @Override
+                            public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> animation) {
+                                super.onResourceReady(resource, animation);
+                                progressDialog.dismiss();
+                                MyProgressInterceptor.removeListener(url3);
+
+                            }
+                        });
                 break;
             case R.id.btn_4:
 
