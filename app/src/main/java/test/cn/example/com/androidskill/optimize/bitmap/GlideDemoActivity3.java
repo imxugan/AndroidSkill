@@ -1,6 +1,5 @@
 package test.cn.example.com.androidskill.optimize.bitmap;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -10,11 +9,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.engine.cache.ExternalCacheDiskCacheFactory;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.module.GlideModule;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
@@ -62,7 +58,26 @@ public class GlideDemoActivity3 extends AppCompatActivity implements View.OnClic
                         .into(iv);
                 break;
             case R.id.btn_2:
+                reset();
+                String url2 = "https://up.sc.enterdesk.com/edpic/36/70/be/3670be204147632115a7f272ff190aa6.jpg";
+                Glide.with(this).load(url2)
+                        .listener(new RequestListener<String, GlideDrawable>() {
+                            @Override
+                            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                                LogUtil.i(""+((e!=null)?e.getMessage():""));
+                                LogUtil.i("model=   "+model);
+                                return false;
+                            }
 
+                            @Override
+                            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                                LogUtil.i(model);
+                                return false;
+                            }
+                        })
+                        .skipMemoryCache(true)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .into(iv);
                 break;
             case R.id.btn_3:
                 Glide.with(this).load(url3)
