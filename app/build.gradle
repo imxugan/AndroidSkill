@@ -30,6 +30,16 @@ android {
 
         //兼容低版本vvectorDrawable
         vectorDrawables.useSupportLibrary = true
+
+        //只保留指定和默认的资源(如果只是国内应用)
+        //resConfigs('zh-rCN','ko')
+        resConfigs "zh"
+
+        //只保留armeabi-v7a cpu架构的so文件
+        ndk {
+            //abiFilters "armeabi", "armeabi-v7a"
+            abiFilters 'armeabi-v7a'
+        }
     }
 
     //greendao配置
